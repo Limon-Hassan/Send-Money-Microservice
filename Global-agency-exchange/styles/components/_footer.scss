@@ -1,0 +1,400 @@
+/* Footer Area Style
+============================================*/
+.footer-single-widget {
+    max-width: 235px;
+    
+    .logo-wrap {
+        margin-bottom: 20px;
+    }
+    p {
+        max-width: 312px;
+    }
+    h3 {
+        font-size: 20px;
+        font-weight: 600;
+        border-bottom: 1px dashed rgba(170, 170, 170, 0.5);
+        padding-bottom: 11px;
+        margin-bottom: 20px;
+    }
+    .contact-list {
+        li {
+            margin-bottom: 20px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+            a {
+                color: $secondary;
+                &:hover {
+                    color: $primary;
+                }
+            }
+        }
+    }
+    .import-link {
+        li {
+            margin-bottom: 12px;
+            &:last-child {
+                margin-bottom: 0;
+            }
+            a {
+                i {
+                    margin-right: -15px;
+                    transition: $transition;
+                    opacity: 0;
+                    font-size: 18px;
+                }
+                &:hover {
+                    i {
+                        margin-right: 0;
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+    }
+}
+.subscribe-content {
+    padding: 40px 50px;
+    border-radius: 16px;
+    p {
+        color: $secondary;
+    }
+
+    .subscribe-form {
+        .btn {
+            margin: 5px;
+            padding-top: 9px;
+            padding-bottom: 9px;
+        }
+    }
+    .social-list {
+        gap: 5px;
+
+        li {
+            a {
+                width: 35px;
+                height: 35px;
+                line-height: 35px;
+                border-radius: 100px;
+                background-color: $white;
+                display: inline-block;
+                text-align: center;
+                text-decoration: none;
+                color: #1F1F1F;
+
+                &:hover {
+                    background-color: $secondary;
+                    color: $white;
+                }
+            }
+        }
+    }
+}
+.copyright-content {
+    margin-top: 30px;
+    span {
+        color: $secondary;
+        font-size: 16px;
+        font-weight: 600; 
+    }
+    a {
+        color: $primary;
+        font-size: 16px;
+        font-weight: 600;
+        text-decoration: none;
+    }
+}
+.footer-info-wrap {
+    border-radius: 16px;
+    border: 0.5px solid rgba(255, 255, 255, 0.20);
+    background: #1F1F1F;
+    padding: 43px 50px;
+
+    span {
+        color: #aaaaaa;
+    }
+    a {
+        word-break: break-all;
+    }
+    &.style-two {
+        a {
+            color: #C5DF01 !important;
+        }
+        p {
+           color: #C5DF01 !important; 
+        }
+    }
+}
+.footer-single-widget-two {
+    p {
+        max-width: 425px;
+        color: $white;
+        font-size: 24px;
+    }
+    h3 {
+        color: #818181;
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 30px;
+    }
+    span {
+        color: $white;
+        display: block;
+        margin-bottom: 25px;
+    }
+    .import-link {
+        li {
+            margin-bottom: 10px;
+
+            a {
+                color: $white;
+                text-decoration: none;
+
+                &:hover {
+                    color: $primary;
+                }
+            }
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+    .form-control {
+        border: 0.5px solid rgba(255, 255, 255, 0.20);
+        background: #303030;
+        border-radius: 16px;
+        color: $white !important;
+        padding: 8px 15px;
+        color: $secondary;
+
+        &::placeholder {
+            color: #818181;
+        }
+    }
+    .btn {
+        padding: 0;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        border-radius: 100px;
+        background-color: $secondary;
+        border-color: $secondary;
+        color: $primary;
+    }
+    .style-two {
+        .btn {
+            color: #C5DF01 !important;
+        }
+    }
+}
+.copyright-wrap {
+    border-top: 1px solid #575757;
+    padding-top: 30px;
+    padding-bottom: 30px;
+
+    .social-list {
+        gap: 5px;
+
+        li {
+            a {
+                width: 35px;
+                height: 35px;
+                line-height: 35px;
+                border-radius: 100px;
+                background-color: #303030;
+                display: inline-block;
+                text-align: center;
+                text-decoration: none;
+                color: $white;
+
+                &:hover {
+                    background-color: $primary;
+                }
+            }
+        }
+    }
+    .copyright-content {
+        color: #aaaaaa; 
+
+        span {
+            color: $white;
+        }
+        &.style-three {
+            span {
+               color: $white;
+            } 
+            a {
+                color: #C5DF01;
+            }
+        }
+    }
+}
+
+/* Max width 767px */
+@media only screen and (max-width: 767px) {
+    .footer-single-widget {
+        .import-link {
+            li {
+                margin-bottom: 5px;
+            }
+        }
+    }
+    .subscribe-content {
+        padding: 20px;
+
+        .social-list li a {
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+        }
+    }
+    .footer-single-widget-two {
+        p {
+            font-size: 18px;
+        }
+        h3 {
+            margin-bottom: 15px;
+        }
+    }
+    .footer-info-wrap {
+        padding: 25px;
+    }
+}
+
+/* Min width 768px to Max width 992px */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .footer-single-widget {
+        .import-link {
+            li {
+                margin-bottom: 6px;
+            }
+        }
+    }
+    .subscribe-content {
+        padding: 40px 30px;
+
+        .social-list li a {
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+        }
+    }
+    .footer-info-wrap {
+        padding: 20px;
+    }
+    .footer-single-widget-two {
+        p {
+            font-size: 20px;
+        }
+    }
+    .sending-money-worldwide-content {
+        &.p-100 {
+            padding: 50px !important;
+        }
+    }
+}
+
+/* Min width 992px to Max width 1199px */
+@media only screen and (min-width: 992px) and (max-width: 1199px)  {
+    .subscribe-content {
+        padding: 40px 30px;
+
+        .social-list li a {
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+        }
+    }
+    .footer-info-wrap {
+        padding: 20px;
+    }
+}
+
+/* Min width 1200px to Max width 1399px */
+@media only screen and (min-width: 1200px) and (max-width: 1399px) {
+
+}
+
+/* Min width 1400px to Max width 1799px */
+@media only screen and (min-width: 1400px) and (max-width: 1799px) {
+
+}
+
+@media only screen and (max-width: 1199px) {
+
+}
+
+@media (min-width: 1399px) {
+    .footer-single-widget-two {
+        &.mw-311 {
+            max-width: 311px;
+            margin-left: auto;
+        }
+    }
+}
+
+/* RTL Area Style
+============================================*/
+.rtl {
+   
+    .worldwide-img {
+        right: auto;
+        left: 80px;
+        transform: scaleX(-1);
+    }
+    .sending-money-worldwide-content {
+        .contact-btn {
+            right: auto;
+            left: 0;
+        }
+    }
+    
+}
+
+/* Dark Mode Area Style
+============================================ */
+.expa-dark {
+    .footer-single-widget {
+        .logo-wrap {
+            .d-block {
+                display: none !important;
+            }
+            .d-none {
+                display: block !important;
+            }
+        }
+        p {
+            color: $white;
+        }
+        h3 {
+            color: $white;
+        }
+        .contact-list {
+            li {
+                a {
+                    color: $white;
+                }
+            }
+        }
+        .import-link {
+            li {
+                a {
+                    color: $white;
+                }
+            }
+        }
+    }
+    .copyright-content {
+        span {
+            color: $white;
+        }
+    }
+    .sending-money-worldwide-area {
+        &.style-two {
+            &::before {
+                background-color: $dark;
+            }
+        }
+    }
+}

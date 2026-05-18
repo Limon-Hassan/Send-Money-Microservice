@@ -1,0 +1,132 @@
+/* Send Money Area Style
+============================================*/
+.transfer-summary {
+    padding: 30px;
+    border-radius: 16px;
+
+    h3 {
+        color: #303030;
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+    .transfer-summary-list  {
+        li {
+            margin-bottom: 9px;
+
+            &:last-child {
+                margin-bottom: 0;
+                border-top: 1px solid #D9D9D9;
+                padding-top: 15px;
+                margin-top: 15px;
+            }
+        }
+    }
+    .status-list {
+        margin-top: 35px;
+        margin-bottom: 20px;
+        li {
+            margin-bottom: 6px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+            i {
+                color: $secondary;
+            }
+        }
+    }
+    p {
+        border-radius: 10px;
+        background: #FEF3CD;
+        color: #856404;
+        font-size: 14px;
+        padding: 20px;
+    }
+}
+
+/* Max width 767px */
+@media only screen and (max-width: 767px) {
+    .transfer-summary {
+        padding: 25px;
+
+        h3 {
+            font-size: 20px;
+        }
+    }
+}
+
+/* Min width 768px to Max width 992px */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+
+}
+
+/* Min width 992px to Max width 1199px */
+@media only screen and (min-width: 992px) and (max-width: 1199px)  {
+    .transfer-summary {
+        padding: 20px;
+    }
+}
+
+/* Min width 1200px to Max width 1399px */
+@media only screen and (min-width: 1200px) and (max-width: 1399px) {
+
+}
+
+/* Min width 1400px to Max width 1799px */
+@media only screen and (min-width: 1400px) and (max-width: 1799px) {
+
+}
+
+@media only screen and (max-width: 1199px) {
+
+}
+
+@media (min-width: 1399px) {
+    .transfer-summary {
+        max-width: 535px;
+        margin-left: auto;
+    }
+}
+
+/* RTL Area Style
+============================================*/
+.rtl {
+   
+    @media (min-width: 1399px) {
+        .transfer-summary {
+            margin-left: 0;
+            margin-right: auto;
+        }
+    }
+    
+}
+
+/* Dark Mode Area Style
+============================================ */
+.expa-dark {
+    .transfer-summary {
+        h3 {
+            color: $white;
+        }
+        .transfer-summary-list  {
+            li {
+                border-color: $dark-card-bg;
+            }
+        }
+        p {
+            background-color: $dark-card-bg;
+            color: $white;
+        }
+    }
+    .frequently-bg {
+        filter: brightness(0.1);
+    }
+    .transfer-summary {
+        .status-list {
+            li i {
+                color: $white;
+            }
+        }
+    }
+}

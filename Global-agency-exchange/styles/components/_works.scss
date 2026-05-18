@@ -1,0 +1,243 @@
+/* Works Area Style
+============================================*/
+.works-single-item {
+    background-color: #F7F7F7;
+    padding: 30px;
+    border-radius: 15px;
+    position: relative;
+    transition: $transition;
+
+    .count {
+        width: 65px;
+        height: 65px;
+        line-height: 65px;
+        text-align: center;
+        border-radius: 50%;
+        background-color: #F7F7F7;
+        color: $secondary;
+        display: inline-block;
+        margin-bottom: 20px;
+        font-size: 24px;
+        font-weight: 600;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    .icon {
+        margin-bottom: 44px;
+        text-align: right;
+    }
+    h3 {
+        font-weight: 600;
+        font-size: 24px;
+        margin-bottom: 14px;
+    }
+    &:hover {
+        transform: translateY(-5px);
+    }
+}
+.global-reach-wrap {
+    border-radius: 16px;
+    padding: 30px;
+
+    .global-content-wrap {
+        border-radius: 16px;
+        border: 1px solid #FFF;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.10) 66.44%);
+        backdrop-filter: blur(16px);
+        padding: 50px;
+    }
+}
+.global-reach-single-item {
+    max-width: 312px;
+    position: relative;
+    z-index: 1;
+
+    h3 {
+        font-size: 24px;
+        font-weight: 600;
+        color: $white;
+    }
+    p {
+        color: $white;
+    }
+}
+.how-expa-works-single-item {
+    background-color: #262626;
+    padding: 30px;
+    position: relative;
+    z-index: 1;
+    height: 100%;
+
+    .step {
+        border-radius: 50px;
+        border: 1px solid rgba(247, 247, 247, 0.20);
+        padding: 1px 15px;
+        color: $white;
+        font-size: 18px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 30px;
+    }
+    h3 {
+        color: $white;
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 15px;
+        margin-top: 111px;
+    }
+    p {
+        color: #aaaaaa;
+    }
+}
+
+/* Max width 767px */
+@media only screen and (max-width: 767px) {
+    .works-single-item {
+        padding: 25px;
+
+        h3 {
+            font-size: 20px;
+        }
+    }
+    .global-reach-wrap {
+        padding: 15px;
+
+        .global-content-wrap {
+            padding: 20px;
+        }
+    }
+    .global-reach-single-item {
+        h3 {
+            font-size: 18px;
+        }
+    }
+    .how-expa-works-single-item {
+        padding: 25px;
+
+        h3 {
+            margin-top: 50px;
+            font-size: 20px;
+        }
+        .step {
+            margin: 25px;
+        }
+    }
+}
+
+/* Min width 768px to Max width 992px */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .works-single-item {
+        padding: 30px;
+
+        h3 {
+            font-size: 22px;
+        }
+    }
+    .global-reach-wrap {
+        padding: 15px;
+        
+        .global-content-wrap {
+            padding: 20px;
+        }
+    }
+    .global-reach-single-item {
+        h3 {
+            font-size: 18px;
+        }
+    }
+}
+
+/* Min width 992px to Max width 1199px */
+@media only screen and (min-width: 992px) and (max-width: 1199px)  {
+    .works-single-item {
+        padding: 25px;
+
+        h3 {
+            font-size: 20px;
+        }
+    }
+    .global-reach-wrap {
+        padding: 15px;
+        
+        .global-content-wrap {
+            padding: 20px;
+        }
+    }
+    .global-reach-single-item {
+        h3 {
+            font-size: 18px;
+        }
+    }
+}
+
+/* Min width 1200px to Max width 1399px */
+@media only screen and (min-width: 1200px) and (max-width: 1399px) {
+
+    .how-expa-works-single-item {
+        padding: 30px 20px;
+
+        h3 {
+            margin-top: 50px;
+            font-size: 20px;
+        }
+    }
+
+}
+
+@media (min-width: 1399px) {
+    .global-reach-single-item {
+        max-width: 312px;
+        position: relative;
+        z-index: 1;
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: -125px;
+            width: 2px;
+            height: 100%;
+            border-right: 1px dashed rgba(255, 255, 255, 0.10);
+        }
+    }
+    .global-reach-wrap {
+        padding-top: 460px;
+    }
+}
+
+/* RTL Area Style
+============================================*/
+.rtl {
+   
+    .works-single-item {
+        .icon {
+            text-align: left;
+        }
+        .count {
+            left: auto;
+            right: 0;
+        }
+    }
+    .how-expa-works-single-item {
+        .step {
+            right: auto;
+            left: 0;
+        }   
+    }
+    
+}
+
+/* Dark Mode Area Style
+============================================ */
+.expa-dark {
+    .works-single-item {
+        background-color: $dark-card-bg; 
+
+        .count {
+            background-color: $dark-card-bg;
+            color: $white;
+        }    
+    }
+}

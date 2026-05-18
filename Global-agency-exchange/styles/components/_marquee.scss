@@ -1,0 +1,124 @@
+/* Marquee Area Style
+============================================*/
+.marquee-wrapper {
+    overflow: hidden;
+	.marquee {
+		display:  inline-block;
+		white-space: nowrap;
+		position: relative;
+		transform: translate3d(0%, 0, 0);
+		animation-name: marquee;
+		animation-timing-function: linear;
+		animation-iteration-count: infinite;
+        animation-duration: 57s;
+
+        &.speed-300 {
+            animation-duration: 200s;
+        }
+	}
+	&:hover {
+		.marquee {
+			animation-play-state: paused !important;
+		}
+	}
+    &.style-two {
+        direction: rtl;
+        .monogram {
+            color: $secondary;
+        }
+        .marquee {
+            animation: auto-scroll-two 200s linear infinite;
+        }
+    }
+    &.py-4 {
+        border-top: 1px solid $border-color;
+        border-bottom: 1px solid $border-color;
+    }
+}
+@keyframes marquee {
+	0% {
+		transform: translate3d(0%, 0, 0);
+	}
+	100% {
+		transform: translate3d(-100%, 0, 0);
+	}
+}
+.monogram {
+    color: $secondary;
+    font-size: 96px;
+    font-weight: 700;
+    line-height: 100%;
+    letter-spacing: -1.92px;
+
+    img {
+        position: relative;
+        top: -5px;
+        right: -5px;
+        margin: 0 50px;
+    }
+}
+@keyframes auto-scroll-two {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(860px * 5));
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .monogram {
+        font-size: 70px;
+    }
+}
+.replaces {
+    max-width: 100px;
+}
+
+
+
+/* RTL Area Style
+============================================*/
+.rtl {
+   
+    .marquee-wrapper {
+        .marquee {
+            animation-name: marquee-rtl;
+        }
+
+        &.style-two {
+            direction: ltr;
+            .marquee {
+                animation-name: auto-scroll-two-ltr;
+            }
+        }
+    }
+    @keyframes marquee-rtl {
+        0% {
+            transform: translate3d(0%, 0, 0);
+        }
+        100% {
+            transform: translate3d(100%, 0, 0);
+        }
+    }
+    
+    @keyframes auto-scroll-two-ltr {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(calc(-860px * 5));
+        }
+    }
+    
+}
+
+/* Dark Mode Area Style
+============================================ */
+.expa-dark {
+    .monogram {
+        -webkit-text-stroke-color: #fff;
+        color: $white;
+    }
+    
+}

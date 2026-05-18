@@ -1,0 +1,321 @@
+/* Apps Area Style
+============================================*/
+.apps-content {
+    h3 {
+        text-align: center;
+        font-size: 96px;
+        font-weight: 600;
+        letter-spacing: -1.92px;
+        text-transform: uppercase;
+        background: linear-gradient(180deg, #9BED68 15.62%, rgba(19, 48, 0, 0.00) 85.42%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: -55px;
+    }
+    h2 {
+        color: $white;
+        font-size: 117px;
+        font-weight: 700;
+        line-height: 100%;
+        text-transform: uppercase;
+    }
+    p {
+        font-size: 18px;
+        max-width: 872px;
+        margin: auto;
+        margin-bottom: 40px;
+        color: #C3CBCA;
+    }
+}
+.mw-1075 {
+    max-width: 1075px;
+    margin: auto;
+    margin-top: 35px;
+    i {
+        color: $primary;
+    }
+    span {
+        color: $white;
+    }
+}
+.mobile-app-content {
+    max-width: 648px;
+    margin-left: auto;
+
+    p {
+        margin-bottom: 18px;
+    }
+    ul {
+        li {
+            margin-bottom: 10px;
+            i {
+                color: $primary;
+            }
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+    .mobile-app-btn {
+        margin-top: 45px;
+    }
+}
+.mobile-app-wrap {
+    border-radius: 16px;
+}
+.mobile-app-content-bottom {
+    padding: 50px;
+    .gap-50 {
+        gap: 50px;
+    }
+    .counter-single-item2 {
+        width: 252px;
+        margin-bottom: 40px;
+        padding-bottom: 40px;
+        border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+
+        h2 {
+            color: $white;
+            font-size: 48px;
+            font-weight: 600;
+            margin-bottom: 0;
+        }
+        span {
+            color: #aaaaaa;
+        }
+        &:last-child {
+            border: none;
+            padding: 0;
+            margin: 0;
+        }
+    }
+    .user-img {
+
+        img {
+            border: 2px solid $white;
+            width: 52px;
+        }
+        .img {
+            margin: 0 -8px;
+        }
+    }
+    span {
+        color: #aaaaaa;
+    }
+    h3 {
+        color: $white;
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 6px;
+    }
+    p {
+        color: #aaaaaa;
+        max-width: 300px;
+    }
+}
+.expa-mobile-app-shape {
+    width: 250px;
+    height: 500px;
+    transform: rotate(-63.346deg);
+    flex-shrink: 0;
+    border-radius: 100%;
+    background: #9BED68;
+    position: absolute;
+    top: 250px;
+    left: 400px;
+    filter: blur(200px);
+}
+.apps-area-three {
+    background-color: #F7F7F7;
+}
+.apps-content-three {
+    max-width: 548px;
+    margin-left: auto;
+
+    p {
+        max-width: 425px;
+    }
+    .apps-content-inner {
+        max-width: 436px;
+        margin-left: auto;
+    }
+    h3 {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+    .apps-info {
+        margin-bottom: 15px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+    .mt-45 {
+        margin-top: 45px;
+    }
+}
+
+/* Max width 767px */
+@media only screen and (max-width: 767px) {
+    .apps-content {
+        h3 {
+            font-size: 30px;
+            margin-bottom: 0;
+        }
+        h2 {
+            font-size: 35px;
+        }
+        p {
+            font-size: 14px;
+        }
+    }
+    .mobile-app-content-bottom {
+        padding: 25px;
+        .gap-50 {
+            gap: 20px;
+        }
+        .counter-single-item2 {
+            width: 100%;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+
+            h2 {
+                font-size: 35px;
+            }
+        }
+        h3 {
+            font-size: 20px;
+        }
+    }
+    .apps-content-three {
+        max-width: 100%;
+
+        .apps-content-inner {
+            max-width: 100%;
+        }
+        p {
+            max-width: 100%;
+        }
+        h3 {
+            font-size: 18px;
+        }
+    }
+}
+
+/* Min width 768px to Max width 992px */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .apps-content {
+        h3 {
+            font-size: 35px;
+            margin-bottom: 0;
+        }
+        h2 {
+            font-size: 40px;
+        }
+        p {
+            font-size: 15px;
+        }
+    }
+    .mobile-app-content {
+        max-width: 100%;
+    }
+    .apps-content-three {
+        max-width: 100%;
+
+        .apps-content-inner {
+            max-width: 100%;
+        }
+        p {
+            max-width: 100%;
+        }
+        h3 {
+            font-size: 22px;
+        }
+    }
+}
+
+/* Min width 992px to Max width 1199px */
+@media only screen and (min-width: 992px) and (max-width: 1199px)  {
+    .apps-content {
+        h3 {
+            font-size: 50px;
+            margin-bottom: 0;
+        }
+        h2 {
+            font-size: 60px;
+        }
+        p {
+            font-size: 15px;
+        }
+    }
+    .mobile-app-img {
+        max-width: 350px;
+    }
+    .mobile-app-content-bottom {
+        .counter-single-item2 {
+            max-width: 190px;
+        }
+    }
+}
+
+/* Min width 1200px to Max width 1399px */
+@media only screen and (min-width: 1200px) and (max-width: 1399px) {
+    .mobile-app-img {
+        max-width: 450px;
+    }
+}
+
+/* Min width 1400px to Max width 1799px */
+@media only screen and (min-width: 1400px) and (max-width: 1799px) {
+
+}
+
+@media only screen and (max-width: 1199px) {
+
+}
+
+@media only screen and (max-width: 992px) {
+    .apps-area-three {
+        background-image: unset !important;
+    }
+}
+
+
+@media (min-width: 1399px) {
+
+}
+
+/* RTL Area Style
+============================================*/
+.rtl {
+   
+    .mobile-app-img {
+        left: auto;
+        right: 0;
+        transform: scaleX(-1);
+    }
+    .mobile-app-content {
+        margin-left: 0;
+        margin-right: auto;
+    }
+    .expa-mobile-app-shape {
+        left: auto;
+        right: 400px
+    }
+    .apps-content-three {
+        .apps-content-inner {
+            margin-right: auto; 
+        }
+    }
+    
+}
+
+/* Dark Mode Area Style
+============================================ */
+.expa-dark {
+    .apps-area-three {
+        background-color: $dark-border-color;
+    }
+}

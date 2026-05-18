@@ -1,0 +1,42 @@
+{
+  "name": "notification-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/main",
+    "start:dev": "ts-node src/main.ts",
+    "start:watch": "tsc -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@nestjs-modules/mailer": "^2.3.4",
+    "@nestjs/bull": "^11.0.4",
+    "@nestjs/common": "^11.1.19",
+    "@nestjs/config": "^4.0.4",
+    "@nestjs/core": "^11.1.19",
+    "@nestjs/platform-express": "^11.1.19",
+    "bullmq": "^5.76.4",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.15.1",
+    "dotenv": "^17.4.2",
+    "handlebars": "^4.7.9",
+    "ioredis": "^5.10.1",
+    "nodemailer": "^8.0.7",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.2",
+    "twilio": "^6.0.0"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^11.0.21",
+    "@types/node": "^25.6.0",
+    "@types/nodemailer": "^8.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.3"
+  }
+}

@@ -1,0 +1,22 @@
+/* Preloader Area Style
+============================================*/
+#preloader {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999999;
+    position: fixed;
+    background-color: #fcfefc;
+
+    .preloader {
+        transform: translate(-50%, -50%);
+        position: absolute;
+        left: 50%;
+        top: 50%;
+
+        img {
+            width: 200px;
+        }
+    }
+}

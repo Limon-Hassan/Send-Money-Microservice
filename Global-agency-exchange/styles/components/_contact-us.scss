@@ -1,0 +1,150 @@
+/* Contact Us Area Style
+============================================*/
+.contact-us-info {
+    h3 {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+    a {
+        color: $secondary;
+        margin-bottom: 5px;
+        display: block;
+
+        &:hover {
+            color: $primary;
+        }
+    }
+    span {
+        color: $secondary;
+        margin-bottom: 5px;
+    }
+}
+.contact-us-form {
+    background-color: #F7F7F7;
+    padding: 50px;
+    border-radius: 16px;
+
+    .currency-input {
+        margin-bottom: 10px;
+
+        .form-control {
+            background-color: $white;
+            border-color: $white;
+
+            &.form-select {
+                padding-top: 28px;
+            }
+        }
+    }
+    h3 {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+}
+
+/* Max width 767px */
+@media only screen and (max-width: 767px) {
+    .contact-us-info {
+        h3 {
+            font-size: 18px;
+        }
+    }
+    .contact-us-form {
+        padding: 20px;
+
+        h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+    }
+}
+
+/* Min width 768px to Max width 992px */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .contact-us-info {
+        h3 {
+            font-size: 22px;
+        }
+    }
+}
+
+/* Min width 992px to Max width 1199px */
+@media only screen and (min-width: 992px) and (max-width: 1199px)  {
+    .contact-us-form {
+        padding: 50px 25px;
+    }
+}
+
+/* Min width 1200px to Max width 1399px */
+@media only screen and (min-width: 1200px) and (max-width: 1399px) {
+
+}
+
+/* Min width 1400px to Max width 1799px */
+@media only screen and (min-width: 1400px) and (max-width: 1799px) {
+
+}
+
+@media only screen and (max-width: 1199px) {
+
+}
+
+@media (min-width: 1399px) {
+    .contact-us-info {
+        max-width: 535px;
+    }
+    .contact-us-form {
+        &.mw-648 {
+            max-width: 648px;
+            margin-left: auto;
+        }
+    }
+}
+
+/* RTL Area Style
+============================================*/
+.rtl {
+   
+    
+    
+}
+
+/* Dark Mode Area Style
+============================================ */
+.expa-dark {
+    .contact-us-info {
+        span {
+            color: $white;
+        }
+        a {
+            color: $white;
+        }
+    }
+    .contact-us-form {
+        background-color: $dark-card-bg;
+
+        .currency-input {
+            .form-control {
+                background-color: $dark-border-color !important;
+                border-color: $dark-border-color !important;
+                color: $white;
+
+                &::placeholder {
+                    color: $white;
+                }
+                &.form-select {
+                    color: $white;
+                }
+            }
+            .label {
+                color: $white;
+            }
+        }
+        .btn {
+            background-color: $white;
+            color: $secondary;
+        }
+    }
+}

@@ -1,0 +1,126 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Session {
+  id String @id @default(uuid())
+
+  userId String
+
+  deviceId String?
+
+  tokenHash String
+
+   fingerprint String
+
+  refreshExpiresAt DateTime
+
+  revoked Boolean @default(false)
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+
+  device Device? @relation(fields: [deviceId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([deviceId])
+
+  @@map("sessions")
+}
+
+model Device {
+  id String @id @default(uuid())
+
+  userId String
+
+  fingerprint String
+
+  deviceName String?
+
+  browser String?
+
+  os String?
+
+  country     String?  
+
+  city        String? 
+
+  ipAddress String?
+
+  userAgent String?
+
+  trusted Boolean @default(false)
+
+  lastSeenAt DateTime @default(now())
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+
+  sessions Session[]
+
+  @@unique([userId, fingerprint])
+
+  @@index([userId])
+
+  @@map("devices")
+}
+
+model OTP {
+  id String @id @default(uuid())
+
+  userId String
+
+  codeHash String
+
+  type String
+
+  expiresAt DateTime
+
+  verified Boolean @default(false)
+
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+
+  @@map("otps")
+}
+
+model AuditLog {
+  id String @id @default(uuid())
+
+  userId String?
+
+  action String
+
+  ipAddress String?
+
+  userAgent String?
+
+  metadata Json?
+
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+
+  @@map("audit_logs")
+}
+
+model KycVerification {
+  id          String    @id @default(uuid())
+  userId      String    @unique
+  applicantId String    @unique
+  status      String    @default("pending")
+  reviewResult String?
+  verifiedAt  DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("kyc_verifications")
+}

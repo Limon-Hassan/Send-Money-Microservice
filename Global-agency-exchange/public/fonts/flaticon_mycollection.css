@@ -1,0 +1,155 @@
+/*!
+*    ______ _       _   _
+*    |  ____| |     | | (_)
+*    | |__  | | __ _| |_ _  ___ ___  _ __
+*    |  __| | |/ _` | __| |/ __/ _ \| '_ \
+*    | |    | | (_| | |_| | (_| (_) | | | |
+*    |_|    |_|\__,_|\__|_|\___\___/|_| |_|
+*
+*         https://www.flaticon.com
+*/
+
+@font-face {
+    font-family: "flaticon_mycollection";
+    src: url("../fonts/flaticon_mycollection.woff2?22295430eae3131e011a6aacd96b49fb") format("woff2"),
+url("../fonts/flaticon_mycollection.woff?22295430eae3131e011a6aacd96b49fb") format("woff"),
+url("../fonts/flaticon_mycollection.eot?22295430eae3131e011a6aacd96b49fb#iefix") format("embedded-opentype"),
+url("../fonts/flaticon_mycollection.ttf?22295430eae3131e011a6aacd96b49fb") format("truetype"),
+url("../fonts/flaticon_mycollection.svg?22295430eae3131e011a6aacd96b49fb#flaticon_mycollection") format("svg")
+}
+
+i[class^="flaticon-"]:before, i[class*=" flaticon-"]:before {
+    font-family: flaticon_mycollection !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.flaticon-review:before {
+    content: "\f101";
+}
+.flaticon-secure-payment:before {
+    content: "\f102";
+}
+.flaticon-map-location:before {
+    content: "\f103";
+}
+.flaticon-satisfaction:before {
+    content: "\f104";
+}
+.flaticon-adventure:before {
+    content: "\f105";
+}
+.flaticon-review-1:before {
+    content: "\f106";
+}
+.flaticon-customer-service:before {
+    content: "\f107";
+}
+.flaticon-competency:before {
+    content: "\f108";
+}
+.flaticon-first-aid-kit:before {
+    content: "\f109";
+}
+.flaticon-get-ready:before {
+    content: "\f10a";
+}
+.flaticon-online-reservation:before {
+    content: "\f10b";
+}
+.flaticon-money:before {
+    content: "\f10c";
+}
+.flaticon-first-aid-kit-1:before {
+    content: "\f10d";
+}
+.flaticon-doller:before {
+    content: "\f10e";
+}
+.flaticon-response-rate:before {
+    content: "\f10f";
+}
+.flaticon-social-impact:before {
+    content: "\f110";
+}
+.flaticon-entrepreneurial:before {
+    content: "\f111";
+}
+.flaticon-sustainability:before {
+    content: "\f112";
+}
+.flaticon-professional:before {
+    content: "\f113";
+}
+.flaticon-access-control:before {
+    content: "\f114";
+}
+.flaticon-next:before {
+    content: "\f115";
+}
+.flaticon-linkedin:before {
+    content: "\f116";
+}
+.flaticon-email:before {
+    content: "\f117";
+}
+.flaticon-instagram:before {
+    content: "\f118";
+}
+.flaticon-facebook:before {
+    content: "\f119";
+}
+.flaticon-instagram-1:before {
+    content: "\f11a";
+}
+.flaticon-clock:before {
+    content: "\f11b";
+}
+.flaticon-destination:before {
+    content: "\f11c";
+}
+.flaticon-24-hours-support:before {
+    content: "\f11d";
+}
+.flaticon-calendar:before {
+    content: "\f11e";
+}
+.flaticon-search:before {
+    content: "\f11f";
+}
+.flaticon-straight-quotes:before {
+    content: "\f120";
+}
+.flaticon-pin:before {
+    content: "\f121";
+}
+.flaticon-main-menu:before {
+    content: "\f122";
+}
+.flaticon-customize:before {
+    content: "\f123";
+}
+.flaticon-twitter:before {
+    content: "\f124";
+}
+.flaticon-pending:before {
+    content: "\f125";
+}
+.flaticon-locked-card:before {
+    content: "\f126";
+}
+.flaticon-verify:before {
+    content: "\f127";
+}
+.flaticon-search-1:before {
+    content: "\f128";
+}
+.flaticon-verified-user:before {
+    content: "\f129";
+}
+

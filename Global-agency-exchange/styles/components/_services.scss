@@ -1,0 +1,399 @@
+/* Services Area Style
+============================================*/
+.services-single-item {
+    padding: 50px;
+    padding-bottom: 80px;
+    border-radius: 16px 16px 100px 16px;
+    background-color: #092600;
+    border: 1xp solid #9BED68;
+    position: relative;
+    transition: $transition;
+    border: 1px solid transparent;
+
+    img {
+        border-radius: 16px;
+    }
+    h3 {
+        color: $white;
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 14px;
+        margin-top: 22px;
+    }
+    p {
+        color: #C3CBCA;
+        font-size: 16px;
+        font-weight: 400;
+    }
+    .info-list {
+        margin-top: 40px;
+
+        li {
+            margin-bottom: 16px;
+            &:last-child {
+                margin-bottom: 0;
+            }
+            i {
+                color: $primary;
+            }
+            span {
+                color: #C3CBCA;
+            }
+        }
+    }
+    .icon {
+        width: 90px;
+        height: 90px;
+        line-height: 90px;
+        text-align: center;
+        display: inline-block;
+        background-color: #092600;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        border-radius: 100px;
+        font-size: 24px;
+        color: $primary;
+        transition: $transition;
+    }
+    .services-shape {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+    }
+    &:hover {
+        transform: translateY(-5px);
+        .icon {
+            background-color: #9BED68;
+            color: $secondary;
+        }
+    }
+    &.bg-secondary {
+        .services-shape {
+            bottom: -3px;
+            right: -3px;
+        }
+    }
+}
+.services-area {
+    position: relative;
+    z-index: 1;
+
+    &::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 270px;
+        background-color: $white;
+        z-index: -1;
+    }
+}
+.exchange-title {
+    color: $white;
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: -0.48px;
+    text-align: center;
+    display: block;
+    margin-bottom: 25px;
+
+    span {
+        color: $primary;
+    }
+}
+.table-info {
+    background-color: $white;
+    padding: 34px 50px;
+    border-radius: 16px 16px 0 0;
+}
+.exchange-table {
+    .table {
+        width: 1296px;
+        thead {
+            tr {
+                th {
+                    font-size: 16px;
+                    font-weight: 600;
+                    color: $white;
+                    border: none;
+                    padding: 23px 50px;
+                    background-color: $secondary;
+                }
+            }
+        }
+        tbody {
+            tr {
+                td {
+                    padding: 16px 50px;
+                    border: 0;
+                    color: $body-color;
+                    h3 {
+                        color: $secondary;
+                        font-size: 20px;
+                        font-weight: 600;
+                        line-height: 150%;
+                        margin-bottom: 0;
+                    }
+                    span {
+                        color: $body-color;
+                    }
+                    .btn {
+                        padding: 9px 30px;
+                    }
+                }
+            }
+        }
+    }
+    .table-striped > tbody > tr:nth-of-type(odd) > * {
+        background-color: #F9F9F9 !important;
+        --bs-table-bg-type: none !important;
+    }
+}
+.table-bottom {
+    height: 50px;
+    background-color: $white;
+    border-radius: 0 0 16px 16px;
+}
+.services-shape3 {
+    bottom: 270px !important;
+}
+.table-border {
+    border: 1px solid #E6E6E6;
+    margin: 0 -1px;
+    border-radius: 17px;
+}
+.live-exchange-rates {
+
+    .exchange-table {
+        .table {
+            thead {
+                tr {
+                    th {
+                        &:first-child {
+                            border-top-left-radius: 16px;
+                        }
+                        &:last-child {
+                            border-top-right-radius: 16px;
+                        }
+                    }
+                }
+            }
+            tbody {
+                tr {
+                    td {
+                        padding-top: 28px;
+                        padding-bottom: 28px;
+                    }
+                    &:last-child {
+                        td {
+                            &:first-child {
+                                border-bottom-left-radius: 16px;
+                            }
+                            &:last-child {
+                                border-bottom-right-radius: 16px;
+                            }
+                        }
+                    }
+                }
+            }
+            
+        }
+    }
+}
+
+/* Max width 767px */
+@media only screen and (max-width: 767px) {
+    .services-single-item {
+        padding: 20px;
+
+        h3 {
+            font-size: 20px;
+        }
+        .info-list {
+            margin-top: 20px;
+        }
+        .icon {
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            font-size: 20px;
+            border-radius: 16px;
+        }
+    }
+    .table-info {
+        padding: 20px;
+    }
+    .exchange-table {
+        .table {
+            tbody {
+                tr {
+                    td {
+                        padding: 20px;
+
+                        h3 {
+                            font-size: 16px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* Min width 768px to Max width 992px */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .services-single-item {
+        padding: 30px;
+
+        h3 {
+            font-size: 22px;
+        }
+        .info-list {
+            margin-top: 25px;
+        }
+        .icon {
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            font-size: 20px;
+            border-radius: 16px;
+        }
+    }
+    .table-info {
+        padding: 20px 30px;
+    }
+    .exchange-table {
+        .table {
+            tbody {
+                tr {
+                    td {
+                        padding: 20px 30px;
+
+                        h3 {
+                            font-size: 16px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* Min width 992px to Max width 1199px */
+@media only screen and (min-width: 992px) and (max-width: 1199px)  {
+    .services-single-item {
+        padding: 20px;
+
+        h3 {
+            font-size: 20px;
+        }
+        .info-list {
+            margin-top: 20px;
+        }
+        .icon {
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            font-size: 20px;
+            border-radius: 16px;
+        }
+    }
+}
+
+/* Min width 1200px to Max width 1399px */
+@media only screen and (min-width: 1200px) and (max-width: 1399px) {
+
+}
+
+/* Min width 1400px to Max width 1799px */
+@media only screen and (min-width: 1400px) and (max-width: 1799px) {
+
+}
+
+@media only screen and (max-width: 1199px) {
+
+}
+
+@media (min-width: 1399px) {
+
+}
+
+/* RTL Area Style
+============================================*/
+.rtl {
+   
+    .services-single-item {
+        border-radius: 16px 16px 16px 100px;
+        .icon {
+            right: auto;
+            left: 0;
+        }
+        .services-shape {
+            right: auto;
+            left: 0;
+            transform: scaleX(-1);
+        }
+        &.bg-secondary {
+            .services-shape {
+                right: auto;
+                left: -3px;
+            }
+        }
+    }
+    
+}
+
+/* Dark Mode Area Style
+============================================ */
+.expa-dark {
+    .exchange-table {
+        .table-striped > tbody > tr:nth-of-type(odd) > * {
+            background-color: $dark-body-bg !important;
+        }
+        .table > :not(caption) > * > * {
+            background-color: $dark-card-bg !important;
+        }
+    }
+    .table-border {
+        border-color: $dark-border-color;
+    }
+    .table-info {
+        background-color: $dark-border-color;
+
+        button {
+            color: $white !important;
+        }
+    }
+    .table-bottom {
+        background-color: $dark-border-color;
+    }
+    .exchange-table {
+        .table {
+            tbody {
+                tr {
+                    td {
+                        h3 {
+                            color: $white;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .services-area {
+        &::before {
+            background-color: $dark-body-bg;
+        }
+    }
+    .services-single-item {
+        &.bg-secondary {
+            .services-shape {
+                filter: brightness(000);
+            }
+        }
+    }
+    
+    
+}

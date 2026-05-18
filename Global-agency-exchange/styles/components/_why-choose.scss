@@ -1,0 +1,331 @@
+/* Why Choose Area Style
+============================================*/
+.why-choose-img {
+    img {
+        border-radius: 16px;
+    }
+}
+.why-choose-content {
+    .description {
+        margin-top: -10px;
+        max-width: 312px;
+    }
+}
+.why-choose-single-item {
+    background-color: #133000;
+    padding: 30px;
+    border-radius: 20px;
+
+    img {
+        margin-bottom: 20px;
+    }
+
+    h3 {
+        color: $white;
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 14px;
+    }
+    p {
+        color: #C3CBCA;
+    }
+    &.bg-primary {
+        p {
+            color: #818181;
+        }
+        h3 {
+            color: $secondary;
+        }
+    }
+    &.bg-f7f7f7 {
+        background-color: #f7f7f7;
+
+        h3 {
+            color: $secondary;
+        }
+        p {
+            color: #818181;
+        }
+    }
+}
+.security-wrap {
+    padding: 150px;
+    border-radius: 16px;
+}
+.why-choose-single-item2 {
+    background-color: $secondary;
+    overflow: hidden;
+    border-radius: 16px;
+
+    .why-choose-content2 {
+        padding: 20px 30px;
+
+        h3 {
+            color: $white;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 13px;
+        }
+        p {
+            color: #aaaaaa;
+        }
+    }
+    &.bg-primary {
+        p {
+            color: $body-color;
+        }
+    }
+    &.bg-f7f7f7 {
+        background-color: #f7f7f7;
+    }
+}
+.why-choose-single-item3 {
+    background-color: #F7F7F7;
+    padding: 40px 50px;
+    border-radius: 16px;
+    position: relative;
+
+    h3 {
+        color: #303030;
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+    ul {
+        li {
+            margin-bottom: 8px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+    &.bg-secondary {
+        p {
+            color: #aaaaaa;
+        }
+        ul {
+            li {
+                color: #aaaaaa;
+            }
+        }
+        .mw-260 {
+            max-width: 260px;
+        }
+        .mw-320 {
+            max-width: 320px;
+        }
+        .why-choose5 {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 350px;
+        }
+    }
+}
+.why-choose-three-single-item {
+    .why-choose-contents {
+        padding: 50px;
+        padding-top: 338px !important;
+
+        h3 {
+            color: #303030;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 14px;
+        }
+        &.style-two {
+            padding: 50px;
+            padding-top: 50px !important;
+            padding-bottom: 338px !important;
+        }
+    }
+}
+
+
+/* Max width 767px */
+@media only screen and (max-width: 767px) {
+    .why-choose-content {
+        .description {
+            margin-top: 0;
+            max-width: 100%;
+        }
+    }
+    .why-choose-single-item {
+        padding: 20px;
+
+        h3 {
+            font-size: 20px;
+        }
+    }
+    .why-choose-single-item3 {
+        padding: 25px;
+
+        h3 {
+            font-size: 20px;
+        }
+    }
+    .why-choose-single-item2 .why-choose-content2 h3 {
+        font-size: 20px;
+    }
+    .why-choose-three-single-item {
+        .why-choose-contents {
+            padding: 25px;
+
+            h3 {
+                font-size: 20px;
+            }
+            &.style-two {
+                padding: 25px;
+                padding-top: 25px !important;
+                
+            }
+        }
+    }
+}
+
+/* Min width 768px to Max width 992px */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .why-choose-single-item3 {
+        padding: 30px;
+
+        h3 {
+            font-size: 22px;
+        }
+    }
+    .why-choose-single-item2 .why-choose-content2 h3 {
+        font-size: 22px;
+    }
+    .why-choose-three-single-item {
+        .why-choose-contents {
+            padding: 25px;
+
+            h3 {
+                font-size: 22px;
+            }
+            &.style-two {
+                padding: 25px;
+                padding-top: 25px !important;
+                
+            }
+        }
+    }
+    .why-choose-content {
+        .description {
+            max-width: 100%;
+            margin-top: 10px;
+        }
+    }
+}
+
+/* Min width 992px to Max width 1199px */
+@media only screen and (min-width: 992px) and (max-width: 1199px)  {
+
+    .why-choose-three-single-item {
+        .why-choose-contents {
+            padding: 25px;
+
+            &.style-two {
+                padding: 25px;
+                padding-top: 25px !important;
+
+            }
+        }
+    }
+
+}
+
+/* Min width 1200px to Max width 1399px */
+@media only screen and (min-width: 1200px) and (max-width: 1399px) {
+
+    .why-choose-single-item {
+        padding: 20px;
+
+        h3 {
+            font-size: 20px;
+        }
+    }
+    
+
+}
+
+/* Min width 1400px to Max width 1799px */
+@media only screen and (min-width: 1400px) and (max-width: 1799px) {
+
+}
+
+@media only screen and (max-width: 1199px) {
+
+}
+
+@media (min-width: 1399px) {
+
+    .why-choose-wrap {
+        margin-left: -200px;
+        max-width: 985px;
+    }
+    .why-choose-img {
+        margin-right: -25px;
+    }
+    .why-choose-content {
+        margin-left: 135px;
+        max-width: 650px;
+    }
+
+}
+
+/* RTL Area Style
+============================================*/
+.rtl {
+   
+    @media (min-width: 1399px) {
+
+        .why-choose-wrap {
+            margin-left: 0;
+            margin-right: -200px;
+        }
+        .why-choose-img {
+            margin-right: 0;
+            margin-left: -25px;
+        }
+        .why-choose-content {
+            margin-left: 0;
+            margin-right: 135px;
+        }
+
+    }
+    .why-choose-single-item3.bg-secondary .why-choose5 {
+        left: 0;
+        right: auto;
+    }
+    
+}
+
+/* Dark Mode Area Style
+============================================ */
+.expa-dark {
+    .why-choose-single-item {
+
+        &.bg-f7f7f7 {
+            background-color: $dark-card-bg;
+
+            h3 {
+                color: $white;
+            }
+        }
+
+    }
+    .why-choose-single-item3 {
+        background-color: $dark-card-bg;
+
+        h3 {
+            color: $white;
+        }
+        
+    }
+    .why-choose-single-item2 {
+        &.bg-f7f7f7 {
+            background-color: $dark-card-bg;
+        }
+    }
+}

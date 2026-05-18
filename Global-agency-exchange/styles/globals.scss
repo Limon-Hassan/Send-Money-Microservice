@@ -1,0 +1,96 @@
+/**
+@File: Expa Template Styles
+
+* This file contains the styling for the actual template, this
+is the file you need to edit to change the look of the template.
+
+This files table contents are outlined below>>>>>
+
+*******************************************
+**/
+
+ 
+// Required
+@import "../node_modules/bootstrap/scss/functions";
+
+// Default variable overrides
+@import "./variables";
+
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/variables-dark";
+@import "../node_modules/bootstrap/scss/mixins";
+
+// Create your own map
+$custom-colors: (
+    "gray": $gray,
+    "any-bg": $any-bg,
+);
+
+$font-sizes: (
+    1: $h1-font-size, 
+    2: $h2-font-size,
+    3: $h3-font-size,
+    4: $h4-font-size,
+    5: $h5-font-size,
+    6: $h6-font-size,
+);
+
+// Required Utilities Parts
+$utilities: (
+    "font-size": (
+        rfs: true,
+        property: font-size,
+        class: fs,
+        values: $font-sizes
+    ),
+    
+);
+
+// Merge the maps
+$theme-colors: map-merge($theme-colors, $custom-colors);
+
+// Required
+@import "../node_modules/bootstrap/scss/maps";
+@import "../node_modules/bootstrap/scss/root";
+
+// Optional Bootstrap components here
+//@import "../../node_modules/bootstrap/scss/reboot";
+@import "../node_modules/bootstrap/scss/type";
+
+// Required
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+// Components
+@import "./components/global";
+@import "./components/preloader";
+@import "./components/backtoptop";
+@import "./components/pagination";
+@import "./components/header";
+@import "./components/navbar";
+@import "./components/banner";
+@import "./components/marquee";
+@import "./components/works";
+@import "./components/about-us";
+@import "./components/services";
+@import "./components/why-choose";
+@import "./components/security";
+@import "./components/customers";
+@import "./components/blog";
+@import "./components/apps";
+@import "./components/footer";
+@import "./components/sending-money";
+@import "./components/who-we-are";
+@import "./components/frequently";
+@import "./components/pricing-plan";
+@import "./components/solutions";
+@import "./components/how-people";
+@import "./components/team";
+@import "./components/contact-us";
+@import "./components/privacy-terms";
+@import "./components/my-account";
+@import "./components/personal-international";
+@import "./components/common-use-cases";
+@import "./components/why-choose-business";
+@import "./components/send-money";
+@import "./components/careers";
+@import "./components/dynamic-currency-converter";

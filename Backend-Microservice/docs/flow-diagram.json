@@ -1,0 +1,324 @@
+{
+  "system": "User Management System",
+  "version": "1.0.0",
+  "flows": [
+    {
+      "name": "Registration Flow",
+      "description": "New user registration with OTP verification",
+      "steps": [
+        {
+          "step": 1,
+          "actor": "User",
+          "action": "Submit registration form",
+          "input": {
+            "fullName": "string (min 2 chars)",
+            "email": "valid email format",
+            "phone": "optional, international format (+880...)",
+            "password": "string (min 8 chars)",
+            "currency": "string (BDT, USD etc.)"
+          },
+          "endpoint": "POST /user/register"
+        },
+        {
+          "step": 2,
+          "actor": "API Gateway",
+          "action": "Receive request and forward to User Service",
+          "from": "port 3000",
+          "to": "port 3001"
+        },
+        {
+          "step": 3,
+          "actor": "User Service",
+          "action": "Check if email already exists",
+          "database": "PostgreSQL",
+          "if_exists": "Return error: Email already exists",
+          "if_not_exists": "Continue to next step"
+        },
+        {
+          "step": 4,
+          "actor": "User Service",
+          "action": "Hash password",
+          "tool": "bcrypt",
+          "rounds": 10
+        },
+        {
+          "step": 5,
+          "actor": "User Service",
+          "action": "Save user to database",
+          "database": "PostgreSQL",
+          "data": {
+            "fullName": "string",
+            "email": "string",
+            "phone": "string or null",
+            "password": "hashed string",
+            "currency": "string",
+            "isVerified": false
+          }
+        },
+        {
+          "step": 6,
+          "actor": "User Service",
+          "action": "Return OTP channel options to user",
+          "response": {
+            "message": "Registration successful. Please select OTP channel.",
+            "userId": "uuid",
+            "otpChannels": {
+              "email": "user email",
+              "phone": "user phone or null"
+            }
+          }
+        },
+        {
+          "step": 7,
+          "actor": "User",
+          "action": "Select OTP channel",
+          "input": {
+            "userId": "uuid",
+            "channel": "email or phone"
+          },
+          "endpoint": "POST /user/send-otp"
+        },
+        {
+          "step": 8,
+          "actor": "User Service",
+          "action": "Generate 6 digit OTP",
+          "tool": "crypto.randomInt",
+          "example": "847293"
+        },
+        {
+          "step": 9,
+          "actor": "User Service",
+          "action": "Store OTP in Redis",
+          "storage": "Redis",
+          "key": "otp:userId",
+          "ttl": "300 seconds (5 minutes)"
+        },
+        {
+          "step": 10,
+          "actor": "User Service",
+          "action": "Add OTP job to BullMQ queue",
+          "queue": "otp-queue",
+          "job": "send-otp",
+          "data": {
+            "userId": "uuid",
+            "email": "if channel is email",
+            "phone": "if channel is phone",
+            "otp": "6 digit code"
+          }
+        },
+        {
+          "step": 11,
+          "actor": "Notification Service",
+          "action": "Pick up job from queue and send OTP",
+          "if_email": "Send via Gmail SMTP (Nodemailer)",
+          "if_phone": "Send via Twilio SMS"
+        },
+        {
+          "step": 12,
+          "actor": "User",
+          "action": "Submit OTP",
+          "input": {
+            "userId": "uuid",
+            "otp": "6 digit code"
+          },
+          "endpoint": "POST /user/verify-otp"
+        },
+        {
+          "step": 13,
+          "actor": "User Service",
+          "action": "Verify OTP from Redis",
+          "if_expired": "Return error: OTP expired or not found",
+          "if_invalid": "Return error: Invalid OTP",
+          "if_valid": "Continue to next step"
+        },
+        {
+          "step": 14,
+          "actor": "User Service",
+          "action": "Delete OTP from Redis and mark user as verified",
+          "database": "PostgreSQL",
+          "update": {
+            "isVerified": true
+          }
+        },
+        {
+          "step": 15,
+          "actor": "System",
+          "action": "Return success response",
+          "response": {
+            "message": "OTP verified successfully",
+            "redirect": "/login"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Login Flow",
+      "description": "User login with device detection and OTP for new devices",
+      "steps": [
+        {
+          "step": 1,
+          "actor": "User",
+          "action": "Submit login form",
+          "input": {
+            "emailOrPhone": "email or phone number",
+            "password": "string (min 8 chars)"
+          },
+          "endpoint": "POST /auth/login"
+        },
+        {
+          "step": 2,
+          "actor": "API Gateway",
+          "action": "Receive request, extract device info, forward to Auth Service",
+          "device_info": {
+            "ip": "client IP address",
+            "userAgent": "browser or app info"
+          },
+          "from": "port 3000",
+          "to": "port 3002"
+        },
+        {
+          "step": 3,
+          "actor": "Auth Service",
+          "action": "Call User Service to get user data",
+          "endpoint": "GET /user/internal?emailOrPhone=...",
+          "from": "port 3002",
+          "to": "port 3001"
+        },
+        {
+          "step": 4,
+          "actor": "Auth Service",
+          "action": "Verify password",
+          "tool": "bcrypt.compare",
+          "if_invalid": "Return error: Invalid password",
+          "if_not_verified": "Return error: User not verified"
+        },
+        {
+          "step": 5,
+          "actor": "Auth Service",
+          "action": "Create device fingerprint",
+          "tool": "SHA256(IP + UserAgent)",
+          "example": "a1b2c3d4e5f6g7h8"
+        },
+        {
+          "step": 6,
+          "actor": "Auth Service",
+          "action": "Check device fingerprint in Redis",
+          "storage": "Redis",
+          "key": "device:userId:fingerprint"
+        },
+        {
+          "step": 7,
+          "actor": "System",
+          "action": "Device check result",
+          "if_new_device": {
+            "description": "New device or new IP detected",
+            "steps": [
+              "Generate 6 digit OTP",
+              "Store OTP in Redis (TTL 5 min)",
+              "Add job to BullMQ queue",
+              "Notification Service sends OTP",
+              "Return requiresOtp: true"
+            ]
+          },
+          "if_known_device": {
+            "description": "Same device and same IP",
+            "steps": ["Skip OTP", "Generate tokens directly"]
+          }
+        },
+        {
+          "step": 8,
+          "actor": "User",
+          "action": "Submit OTP (only for new device)",
+          "input": {
+            "userId": "uuid",
+            "otp": "6 digit code"
+          },
+          "endpoint": "POST /auth/verify-otp"
+        },
+        {
+          "step": 9,
+          "actor": "Auth Service",
+          "action": "Verify OTP and save device to Redis",
+          "storage": "Redis",
+          "key": "device:userId:fingerprint",
+          "ttl": "2592000 seconds (30 days)"
+        },
+        {
+          "step": 10,
+          "actor": "Auth Service",
+          "action": "Generate JWT tokens",
+          "tokens": {
+            "accessToken": {
+              "expires": "15 minutes",
+              "storage": "HTTP-only cookie"
+            },
+            "refreshToken": {
+              "expires": "7 days",
+              "storage": "Redis"
+            }
+          }
+        },
+        {
+          "step": 11,
+          "actor": "API Gateway",
+          "action": "Set tokens in HTTP-only cookies",
+          "cookies": {
+            "accessToken": "HTTP-only, 15 min",
+            "refreshToken": "HTTP-only, 7 days"
+          }
+        },
+        {
+          "step": 12,
+          "actor": "System",
+          "action": "Return success response",
+          "response": {
+            "message": "Login successful",
+            "redirect": "/dashboard"
+          }
+        }
+      ]
+    },
+    {
+      "name": "OTP Resend Flow",
+      "description": "Resend OTP when previous OTP expired",
+      "steps": [
+        {
+          "step": 1,
+          "actor": "User",
+          "action": "Request OTP resend",
+          "input": {
+            "userId": "uuid"
+          },
+          "endpoint": "POST /user/resend-otp"
+        },
+        {
+          "step": 2,
+          "actor": "User Service",
+          "action": "Check user exists and not already verified",
+          "if_not_found": "Return error: User not found",
+          "if_verified": "Return error: User already verified"
+        },
+        {
+          "step": 3,
+          "actor": "User Service",
+          "action": "Delete old OTP from Redis",
+          "storage": "Redis",
+          "key": "otp:userId"
+        },
+        {
+          "step": 4,
+          "actor": "System",
+          "action": "Return channel options again",
+          "response": {
+            "message": "Please select OTP channel again",
+            "userId": "uuid",
+            "otpChannels": {
+              "email": "user email",
+              "phone": "user phone or null"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

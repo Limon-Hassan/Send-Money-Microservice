@@ -1,0 +1,126 @@
+/* Careers Area Style
+============================================*/
+.build-your-career-inner {
+    .btn {
+        margin-top: 35px;
+    }
+    .build-your-career-list {
+        margin-top: 25px;
+
+        li {
+            margin-bottom: 10px;
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+.current-openings-table {
+    .table {
+        width: 1296px;
+        tbody {
+            tr {
+                td {
+                    .mw-312 {
+                        max-width: 312px;
+                    }
+                    h3 {
+                        font-size: 24px;
+                        font-weight: 600;
+                    }
+                    p {
+                        color: #aaaaaa;
+                    }
+                    span {
+                        color: #aaaaaa;
+                    }
+                }
+            }
+        }
+    }
+}
+.build-your-career-item {
+    h3 {
+        font-size: 20px;
+        font-weight: 600;
+        letter-spacing: -0.4px;
+    }
+    .count {
+        width: 50px;
+        height: 50px;
+        display: inline-block;
+    }
+}
+
+/* Max width 767px */
+@media only screen and (max-width: 767px) {
+    .current-openings-table .table tbody tr td h3 {
+        font-size: 18px;
+    }
+}
+
+/* Min width 768px to Max width 992px */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .current-openings-table .table tbody tr td h3 {
+        font-size: 20px;
+    }
+}
+
+/* Min width 992px to Max width 1199px */
+@media only screen and (min-width: 992px) and (max-width: 1199px)  {
+    .current-openings-table .table tbody tr td h3 {
+        font-size: 22px;
+    }
+}
+
+/* Min width 1200px to Max width 1399px */
+@media only screen and (min-width: 1200px) and (max-width: 1399px) {
+
+}
+
+/* Min width 1400px to Max width 1799px */
+@media only screen and (min-width: 1400px) and (max-width: 1799px) {
+
+}
+
+@media only screen and (max-width: 1199px) {
+
+}
+
+@media (min-width: 1399px) {
+
+    .build-your-career-inner {
+        max-width: 425px;
+        margin-left: auto;
+    }
+    .build-your-career-content {
+        max-width: 535px;
+        margin-left: auto;
+    }
+
+}
+
+/* RTL Area Style
+============================================*/
+.rtl {
+   
+    @media (min-width: 1399px) {
+
+        .build-your-career-inner {
+            margin-left: 0;
+            margin-right: auto;
+        }
+        .build-your-career-content {
+            margin-left: 0;
+            margin-right: auto;
+        }
+        
+    }
+    
+}
+
+/* Dark Mode Area Style
+============================================ */
+.expa-dark {
+
+}

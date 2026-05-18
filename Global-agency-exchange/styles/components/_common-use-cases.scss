@@ -1,0 +1,93 @@
+/* Common Use Cases Area Style
+============================================*/
+.common-use-single-item {
+    background-color: #F7F7F7;
+    border-radius: 16px;
+    overflow: hidden;
+
+    .flex-grow-1 {
+        padding: 40px 50px;
+    }
+    h3 {
+        font-weight: 600;
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+    img {
+        border-radius: 16px;
+    }
+}
+
+/* Max width 767px */
+@media only screen and (max-width: 767px) {
+    .common-use-single-item {
+        .flex-grow-1 {
+            padding: 20px;
+        }
+        h3 {
+            font-size: 20px;
+        }
+    }
+}
+
+/* Min width 768px to Max width 992px */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .common-use-single-item {
+        .flex-grow-1 {
+            padding: 30px;
+        }
+        h3 {
+            font-size: 22px;
+        }
+    }
+}
+
+/* Min width 992px to Max width 1199px */
+@media only screen and (min-width: 992px) and (max-width: 1199px)  {
+    .common-use-single-item {
+        .flex-grow-1 {
+            padding: 20px;
+        }
+        h3 {
+            font-size: 20px;
+        }
+    }
+}
+
+/* Min width 1200px to Max width 1399px */
+@media only screen and (min-width: 1200px) and (max-width: 1399px) {
+    .common-use-single-item {
+        .flex-grow-1 {
+            padding: 30px;
+        }
+    }
+}
+
+/* Min width 1400px to Max width 1799px */
+@media only screen and (min-width: 1400px) and (max-width: 1799px) {
+
+}
+
+@media only screen and (max-width: 1199px) {
+
+}
+
+@media (min-width: 1399px) {
+
+}
+
+/* RTL Area Style
+============================================*/
+.rtl {
+   
+    
+    
+}
+
+/* Dark Mode Area Style
+============================================ */
+.expa-dark {
+    .common-use-single-item {
+        background-color: $dark-card-bg;
+    }
+}

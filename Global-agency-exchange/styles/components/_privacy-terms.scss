@@ -1,0 +1,116 @@
+/* Blank Area Style
+============================================*/
+.privacy-terms-content {
+    .updated {
+        border-bottom: 1px solid #D4D4D4;
+        padding-bottom: 11px;
+        margin-bottom: 22px;
+    }
+    .pl-112 {
+        margin-bottom: 40px;
+    }
+    h3 {
+        color: #303030;
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+    h4 {
+        font-size: 16px;
+        font-weight: 600;
+    }
+    h5 {
+        font-size: 16px;
+        font-weight: 600;
+    }
+    ul  {
+        li {
+            margin-bottom: 10px;
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+/* Max width 767px */
+@media only screen and (max-width: 767px) {
+    .privacy-terms-content {
+        h3 {
+            font-size: 20px;
+        }
+        .pl-112 {
+            margin-bottom: 30px;
+        }
+    }
+}
+
+/* Min width 768px to Max width 992px */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .privacy-terms-content {
+        h3 {
+            font-size: 22px;
+        }
+        .pl-112 {
+            margin-bottom: 30px;
+        }
+    }
+}
+
+/* Min width 992px to Max width 1199px */
+@media only screen and (min-width: 992px) and (max-width: 1199px)  {
+
+}
+
+/* Min width 1200px to Max width 1399px */
+@media only screen and (min-width: 1200px) and (max-width: 1399px) {
+
+}
+
+/* Min width 1400px to Max width 1799px */
+@media only screen and (min-width: 1400px) and (max-width: 1799px) {
+
+}
+
+@media only screen and (max-width: 1199px) {
+
+}
+
+@media (min-width: 1399px) {
+    .privacy-terms-content {
+        .pl-112 {
+            padding-left: 112px;
+        }
+    }
+}
+
+/* RTL Area Style
+============================================*/
+.rtl {
+   
+    @media (min-width: 1399px) {
+        .privacy-terms-content {
+            .pl-112 {
+                padding-left: 0;
+                padding-right: 112px;
+            }
+            ul {
+                padding-right: 50px;
+            }
+        }
+    }
+    
+}
+
+/* Dark Mode Area Style
+============================================ */
+.expa-dark {
+    .privacy-terms-content {
+        h3 {
+            color: $white;
+        }
+        .updated {
+            border-bottom: 1px solid #3E3E3E;
+        }
+    }
+}

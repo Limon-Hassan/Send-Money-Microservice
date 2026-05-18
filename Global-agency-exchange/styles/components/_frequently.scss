@@ -1,0 +1,198 @@
+/* Frequently Area Style
+============================================*/
+.frequently-single-item {
+    h3 {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 3px;
+    }
+    span {
+        font-size: 14px;
+    }
+}
+.faq-img {
+    img {
+        border-radius: 16px;
+    }
+}
+
+.faq-wrapper {
+    &.accordion {
+        .accordion-item {
+            padding: 0;
+            margin-bottom: 22px;
+            border-radius: 16px;
+            margin-bottom: 0;
+            background-color: #F7F7F7;
+            border-radius: 10px;
+            padding: 0;
+            border: none !important;
+            margin-bottom: 10px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+            .accordion-header {
+                .accordion-button {
+                    color: $secondary;
+                    font-size: 18px;
+                    font-weight: 600;
+                    line-height: normal;
+                    padding: 27px 30px;
+                    background-color: transparent;
+
+                    &:focus {
+                        box-shadow: none;
+                    }
+                    &::after {
+                        background-image: url(/images/plus.svg);
+                        background-size: auto;
+                        width: 30px;
+                        height: 30px;
+                    }
+                    &:not(.collapsed) {
+                        box-shadow: none;
+                        &::after {
+                            background-image: url(/images/minus.svg);
+                        }
+                    }
+                }
+            }
+            .accordion-body {
+                padding: 18px 30px;
+                padding-top: 0;
+
+                p {
+                    span {
+                        color: $secondary;
+                    }
+                }
+            }
+        }
+    }
+}
+.faq-content {
+    max-width: 760px;
+    margin-left: auto;
+}
+
+/* Max width 767px */
+@media only screen and (max-width: 767px) {
+    .faq-wrapper {
+        &.accordion {
+            .accordion-item {
+                .accordion-header {
+                    .accordion-button {
+                        font-size: 15px;
+                        padding: 12px 20px;
+                    }
+                }
+                .accordion-body {
+                    padding: 12px 20px;
+                    padding-top: 0;
+                }
+            }
+        }
+    }
+}
+
+/* Min width 768px to Max width 992px */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+
+}
+
+/* Min width 992px to Max width 1199px */
+@media only screen and (min-width: 992px) and (max-width: 1199px)  {
+    .faq-wrapper {
+        &.accordion {
+            .accordion-item {
+                .accordion-header {
+                    .accordion-button {
+                        font-size: 18px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* Min width 1200px to Max width 1399px */
+@media only screen and (min-width: 1200px) and (max-width: 1399px) {
+
+}
+
+/* Min width 1400px to Max width 1799px */
+@media only screen and (min-width: 1400px) and (max-width: 1799px) {
+
+}
+
+@media only screen and (max-width: 1199px) {
+
+}
+
+@media (min-width: 1399px) {
+    .faq-wrapper {
+        &.accordion {
+            .accordion-item {
+                .accordion-body {
+                    padding-right: 70px;
+                }
+            }
+        }
+    }
+}   
+
+/* RTL Area Style
+============================================*/
+.rtl {
+   
+    .accordion-button {
+        &::after {
+            margin-left: 0;
+            margin-right: auto;
+        }
+    }
+    @media (min-width: 1399px) {
+    .faq-wrapper {
+        &.accordion {
+            .accordion-item {
+                    .accordion-body {
+                        padding-right: 30px;
+                        padding-left: 70px;
+                    }
+                }
+            }
+        }
+    }  
+    
+}
+
+/* Dark Mode Area Style
+============================================ */
+.expa-dark {
+    .faq-wrapper {
+        &.accordion {
+            .accordion-item {
+                background-color: $dark-body-bg;
+                border-color: $dark-border-color !important;
+                .accordion-header {
+                    .accordion-button {
+                        background-color: $dark-card-bg !important;
+                        border-color: $dark-body-bg;
+                    }
+                }
+                .accordion-body {
+                    border-color: $dark-border-color;
+                    background-color: $dark-card-bg !important;
+                    p {
+                        color: $white;
+
+                        span {
+                            color: $white;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
