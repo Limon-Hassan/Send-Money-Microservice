@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+export const runtime = 'edge';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -6,7 +7,7 @@ export async function GET(request: Request) {
   try {
     const res = await fetch(
       `https://v6.exchangerate-api.com/v6/${process.env.EXCHANGE_RATE_API_KEY}/latest/${base}`,
-      { next: { revalidate: 3600 } },
+      { cache: 'no-store' },
     );
 
     if (!res.ok) throw new Error('API fetch failed');
