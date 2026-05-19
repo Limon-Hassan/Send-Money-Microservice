@@ -2,14 +2,14 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../../utils/prisma.service';
 import { LoginDto } from './dto/login.dto';
-import { generateOtp } from '../../../../shared/utils/generateOtp';
-import { redisKeys } from '../../../../shared/constants/redisKeys';
-import { parseDevice } from '../../../../shared/utils/device.util';
+import { generateOtp } from '../../shared/utils/generateOtp';
+import { redisKeys } from '../../shared/constants/redisKeys';
+import { parseDevice } from '../../shared/utils/device.util';
 import {
   hashDevice,
   hashRefreshToken,
-} from '../../../../shared/utils/hash.util';
-import { LoginResult } from '../../../../shared/interfaces/auth.interface';
+} from '../../shared/utils/hash.util';
+import { LoginResult } from '../../shared/interfaces/auth.interface';
 import * as bcrypt from 'bcrypt';
 import Redis from 'ioredis';
 import { InjectQueue } from '@nestjs/bull';
