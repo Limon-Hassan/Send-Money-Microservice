@@ -10,7 +10,7 @@ type Channel = 'email' | 'phone';
 type Step = 'channel' | 'otp';
 type Status = 'idle' | 'loading' | 'error' | 'success';
 
-const OtpForm = () => {
+const page = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const email = searchParams.get('email') || '';
@@ -39,10 +39,12 @@ const OtpForm = () => {
     setChannelError('');
     try {
       const res = await api.sendOtp({ userId, channel });
+      console.log('res otp channel', res);
       if (
         res.message?.includes('failed') ||
         res.message?.includes('not found')
       ) {
+        console.log('res otp channel error', res);
         setChannelError(res.message);
         setChannelLoading(null);
         return;
@@ -61,6 +63,8 @@ const OtpForm = () => {
     setOtpError('');
     try {
       const res = await api.verifyOtp({ userId, otp: otpValue });
+      console.log('res otp submit', res);
+
       if (
         res.message?.includes('failed') ||
         res.message?.includes('Invalid') ||
@@ -72,8 +76,10 @@ const OtpForm = () => {
         setTimeout(() => inputs.current[0]?.focus(), 100);
         return;
       }
-      setStatus('success');
-      setTimeout(() => router.push('/login'), 1200);
+      if (res.ok) {
+        setStatus('success');
+        setTimeout(() => router.push('/login'), 1200);
+      }
     } catch {
       setStatus('error');
       setOtpError('Something went wrong. Please try again.');
@@ -326,7 +332,7 @@ const OtpForm = () => {
         <div className="my-account-form">
           <div className="text-center mb-5">
             <div className="mb-3" style={{ fontSize: '44px' }}>
-              {selectedChannel === 'email' ? '📧' : '💬'}
+              {selectedChannel === 'email' ? <MdEmail /> : <MdOutlineTextsms />}
             </div>
             <h3 className="mb-2">Enter your code</h3>
             <p className="text-muted" style={{ fontSize: '15px' }}>
@@ -342,7 +348,6 @@ const OtpForm = () => {
             </p>
           </div>
 
-          {/* OTP Boxes */}
           <div className="d-flex justify-content-center gap-2 mb-3">
             {otp.map((digit, i) => (
               <input
@@ -383,7 +388,6 @@ const OtpForm = () => {
             ))}
           </div>
 
-          {/* Status */}
           <div className="text-center mb-4" style={{ minHeight: '28px' }}>
             {status === 'loading' && (
               <div className="d-flex align-items-center justify-content-center gap-2 text-muted">
@@ -429,18 +433,75 @@ const OtpForm = () => {
                 setOtpError('');
                 setChannelError('');
               }}
-              className="btn btn-link p-0 text-muted text-decoration-none"
-              style={{ fontSize: '13px' }}
+              className="border-0 d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill fw-semibold transition-all"
+              style={{
+                fontSize: '13px',
+                backgroundColor: '#9bed68',
+                color: '#1a1a1a',
+                boxShadow: '0 4px 12px rgba(155, 237, 104, 0.35)',
+                transition: 'all 0.3s ease',
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow =
+                  '0 6px 16px rgba(155, 237, 104, 0.45)';
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow =
+                  '0 4px 12px rgba(155, 237, 104, 0.35)';
+              }}
             >
-              ← Change method
+              <span style={{ fontSize: '15px' }}>←</span>
+              Change method
             </button>
             <button
               onClick={handleResend}
               disabled={
                 resendLoading || status === 'loading' || status === 'success'
               }
-              className="btn btn-link p-0 text-decoration-none"
-              style={{ fontSize: '13px', color: '#333', fontWeight: '500' }}
+              className="border-0 d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill fw-semibold"
+              style={{
+                fontSize: '13px',
+                backgroundColor:
+                  resendLoading || status === 'loading' || status === 'success'
+                    ? '#d8f5c3'
+                    : '#9bed68',
+                color: '#1a1a1a',
+                boxShadow:
+                  resendLoading || status === 'loading' || status === 'success'
+                    ? 'none'
+                    : '0 4px 12px rgba(155, 237, 104, 0.35)',
+                transition: 'all 0.3s ease',
+                cursor:
+                  resendLoading || status === 'loading' || status === 'success'
+                    ? 'not-allowed'
+                    : 'pointer',
+                opacity:
+                  resendLoading || status === 'loading' || status === 'success'
+                    ? 0.7
+                    : 1,
+              }}
+              onMouseEnter={e => {
+                if (
+                  !(
+                    resendLoading ||
+                    status === 'loading' ||
+                    status === 'success'
+                  )
+                ) {
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow =
+                    '0 6px 16px rgba(155, 237, 104, 0.45)';
+                }
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow =
+                  resendLoading || status === 'loading' || status === 'success'
+                    ? 'none'
+                    : '0 4px 12px rgba(155, 237, 104, 0.35)';
+              }}
             >
               {resendLoading ? 'Sending...' : 'Resend code'}
             </button>
@@ -451,4 +512,4 @@ const OtpForm = () => {
   );
 };
 
-export default OtpForm;
+export default page;

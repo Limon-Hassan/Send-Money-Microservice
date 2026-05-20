@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { api } from '@/lib/api';
+import { TbWorld } from 'react-icons/tb';
 
 const COUNTRIES = [
   { name: 'Bangladesh', flag: '🇧🇩', currency: 'BDT', code: '+880' },
@@ -133,12 +134,12 @@ const RegisterForm = () => {
         password: formData.password,
         currency: formData.currency,
       });
-      console.log("res", res)
 
-      if (res.error || res.statusCode >= 400) {
+      if (!res.userId) {
         setError(res.message || 'Registration failed');
         return;
       }
+
       router.push(
         `/verify-otp?email=${encodeURIComponent(formData.email)}&userId=${res.userId}`,
       );
@@ -226,7 +227,11 @@ const RegisterForm = () => {
                     }}
                   >
                     <span style={{ fontSize: '20px' }}>
-                      {selectedPhoneCountry ? selectedPhoneCountry.flag : '🌐'}
+                      {selectedPhoneCountry ? (
+                        selectedPhoneCountry.flag
+                      ) : (
+                        <TbWorld />
+                      )}
                     </span>
                     <span style={{ color: '#444' }}>
                       {selectedPhoneCountry ? selectedPhoneCountry.code : '+?'}

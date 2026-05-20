@@ -19,25 +19,6 @@ import { AuthGuard } from '@nestjs/passport';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  // @Post('login')
-  // async login(
-  //   @Body() dto: LoginDto,
-  //   @Req() req: Request,
-  //   @Res({ passthrough: true }) res: Response,
-  // ) {
-  //   const result = await this.authService.login(dto, {
-  //     ip: req.ip,
-  //     ua: req.headers['user-agent'] || '',
-  //   });
-  //   if (result.requiresOtp) {
-  //     return result;
-  //   }
-
-  //   this.setCookies(res, result.accessToken, result.refreshToken);
-
-  //   return { message: result.message };
-  // }
-
   @Post('login')
   async login(
     @Body() dto: LoginDto,
@@ -58,24 +39,6 @@ export class AuthController {
     };
   }
 
-  // @Post('verify-otp')
-  // async verifyOtp(
-  //   @Body() dto: OtpVerifyDto,
-  //   @Req() req: Request,
-  //   @Res({ passthrough: true }) res: Response,
-  // ) {
-  //   const result = await this.authService.verifyLoginOtp(dto.userId, dto.otp, {
-  //     ip: req.ip,
-  //     ua: req.headers['user-agent'] || '',
-  //   });
-
-  //   if (result.success === false) {
-  //     return { message: result.message };
-  //   }
-
-  //   this.setCookies(res, result.accessToken!, result.refreshToken!);
-  //   return { message: 'Login successful' };
-  // }
 
   @Post('verify-otp')
   async verifyOtp(

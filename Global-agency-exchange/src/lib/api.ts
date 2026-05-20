@@ -26,7 +26,7 @@ export const api = {
   },
 
   verifyOtp: async (data: { userId: string; otp: string }) => {
-    const res = await fetch(`${API_URL}/user/validate-otp`, {
+    const res = await fetch(`${API_URL}/user/verify-otp`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
@@ -44,9 +44,21 @@ export const api = {
   },
 
   login: async (data: { email: string; password: string }) => {
+    let dataToSend = { emailOrPhone: data.email, password: data.password };
     const res = await fetch(`${API_URL}/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify(dataToSend),
+    });
+    return res.json();
+  },
+
+  verifyLoginOtp: async (data: { userId: string; otp: string }) => {
+    const res = await fetch(`${API_URL}/auth/verify-otp`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify(data),
     });
     return res.json();
