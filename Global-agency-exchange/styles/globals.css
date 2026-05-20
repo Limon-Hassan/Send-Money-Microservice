@@ -20724,6 +20724,18 @@ Page-navigation Area Style
 .expa-dark .currency-converter .result {
   background-color: #1e1e1e;
 }
+
+.phone-dropdown {
+  position: 'absolute';
+  top: '10px';
+  left: 0;
+  width: '260px';
+  background: '#fff';
+  border: '1px solid #dee2e6';
+  border-radius: '10px';
+  box-shadow: '0 8px 24px rgba(0,0,0,0.1)';
+  z-index: 9999;
+}
 .expa-dark .currency-converter .conversion-result {
   color: white;
 } /*# sourceMappingURL=globals.css.map */
