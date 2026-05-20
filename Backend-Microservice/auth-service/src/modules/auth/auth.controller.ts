@@ -81,7 +81,8 @@ export class AuthController {
 
     this.setCookies(res, result.accessToken!, result.refreshToken!);
 
-    res.redirect('http://localhost:3000/dashboard');
+    res.redirect(process.env.FRONTEND_URL || 'http://localhost:3000');
+
   }
 
   private setCookies(res: Response, accessToken: string, refreshToken: string) {

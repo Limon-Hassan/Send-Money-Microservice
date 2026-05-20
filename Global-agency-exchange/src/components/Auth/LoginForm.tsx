@@ -25,7 +25,6 @@ const LoginForm = () => {
 
     try {
       const res = await api.login(formData);
-      console.log('Login response:', res);
       if (res.requiresOtp) {
         router.push(`/verify-otp?email=${encodeURIComponent(formData.email)}`);
         return;
@@ -40,7 +39,7 @@ const LoginForm = () => {
         localStorage.setItem('accessToken', res.accessToken);
       }
 
-      // router.push('/dashboard');
+      router.push('/');
     } catch {
       setError('Something went wrong. Please try again.');
     } finally {
