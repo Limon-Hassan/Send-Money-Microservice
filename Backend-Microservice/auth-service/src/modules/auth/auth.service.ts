@@ -323,65 +323,7 @@ export class AuthService {
     return this.generateTokens(payload.sub, fingerprint);
   }
 
-  // async googleLogin(
-  //   googleUser: {
-  //     email: string;
-  //     fullName: string;
-  //     googleId: string;
-  //     avatar: string | null;
-  //   },
-  //   device: { ip: string; ua: string },
-  // ): Promise<LoginResult> {
-  //   const response = await fetch(
-  //     `${process.env.USER_SERVICE_API_URL}/user/internal?emailOrPhone=${googleUser.email}`,
-  //   );
-
-  //   let user: any;
-
-  //   if (!response.ok) {
-  //     const registerRes = await fetch(
-  //       `${process.env.USER_SERVICE_API_URL}/user/google-register`,
-  //       {
-  //         method: 'POST',
-  //         headers: { 'Content-Type': 'application/json' },
-  //         body: JSON.stringify({
-  //           email: googleUser.email,
-  //           fullName: googleUser.fullName,
-  //           googleId: googleUser.googleId,
-  //           avatar: googleUser.avatar,
-  //           currency: 'BDT',
-  //         }),
-  //       },
-  //     );
-
-  //     if (!registerRes.ok) {
-  //       throw new Error('Google registration failed');
-  //     }
-  //     const registered = await registerRes.json();
-  //     user = registered.data ?? registered;
-  //   } else {
-  //     const payload = await response.json();
-  //     user = payload.data ?? payload;
-  //   }
-
-  //   const fingerprint = hashDevice({ ip: device.ip, ua: device.ua });
-
-  //   await this.redis.setex(
-  //     redisKeys.device(user.id, fingerprint),
-  //     30 * 24 * 60 * 60,
-  //     '1',
-  //   );
-  //   await this.prisma.auditLog.create({
-  //     data: {
-  //       userId: user.id,
-  //       action: 'GOOGLE_LOGIN',
-  //       ip: device.ip,
-  //       userAgent: device.ua,
-  //     },
-  //   });
-
-  //   return this.generateTokens(user.id, fingerprint);
-  // }
+ 
 
   async googleLogin(
     googleUser: {

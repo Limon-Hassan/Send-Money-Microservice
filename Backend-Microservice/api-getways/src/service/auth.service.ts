@@ -40,6 +40,10 @@ export class GatewayAuthService {
     return data;
   }
 
+  async googleLogin() {
+    return `${this.config.get('AUTH_SERVICE_URL')}/auth/google`;
+  }
+
   async refresh(cookies: string) {
     const { data } = await firstValueFrom(
       this.http.post(
