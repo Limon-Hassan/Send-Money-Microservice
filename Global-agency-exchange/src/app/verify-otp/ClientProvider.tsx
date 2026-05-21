@@ -76,10 +76,8 @@ const page = () => {
         setTimeout(() => inputs.current[0]?.focus(), 100);
         return;
       }
-      if (res.ok) {
-        setStatus('success');
-        setTimeout(() => router.push('/login'), 1200);
-      }
+      setStatus('success');
+      setTimeout(() => router.push('/login'), 1200);
     } catch {
       setStatus('error');
       setOtpError('Something went wrong. Please try again.');
