@@ -63,4 +63,20 @@ export const api = {
     });
     return res.json();
   },
+
+  kycInit: async () => {
+    const res = await fetch(`${API_URL}/kyc/init`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+    });
+    return res.json();
+  },
+
+  kycStatus: async () => {
+    const res = await fetch(`${API_URL}/kyc/status`, {
+      credentials: 'include',
+    });
+    return res.json();
+  },
 };

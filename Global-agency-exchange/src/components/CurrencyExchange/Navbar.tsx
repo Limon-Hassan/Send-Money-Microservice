@@ -101,7 +101,7 @@ function Navbar() {
       >
         <div className="container mw-1680">
           <Link className="navbar-brand" href="/">
-            <Image src="/images/logo.svg" alt="logo" width={127} height={50} />
+           SendMoney
           </Link>
 
           <div className="collapse navbar-collapse">

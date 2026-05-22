@@ -33,6 +33,8 @@ export class KycService {
         this.secretKey,
       );
 
+      console.log('SUMSUB RESPONSE:', JSON.stringify(applicant)); 
+
       applicantId = applicant.id;
 
       await this.prisma.kycVerification.create({

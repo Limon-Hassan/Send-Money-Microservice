@@ -40,6 +40,20 @@ export class AuthController {
     return { message: result.message };
   }
 
+  @Get('google')
+  google(@Res() res: Response) {
+    return res.redirect(`${process.env.AUTH_SERVICE_URL}/auth/google`);
+  }
+
+  @Get('google/callback')
+  googleCallback(@Req() req: Request, @Res() res: Response) {
+    const query = req.url.split('?')[1];
+
+    return res.redirect(
+      `${process.env.AUTH_SERVICE_URL}/auth/google/callback?${query}`,
+    );
+  }
+
   @Post('verify-otp')
   async verifyOtp(
     @Body() dto: any,
@@ -50,7 +64,6 @@ export class AuthController {
       ip: req.ip,
       ua: req.headers['user-agent'] || '',
     });
-
 
     const isProduction = process.env.NODE_ENV === 'production';
 
@@ -83,19 +96,18 @@ export class AuthController {
     res.cookie('accessToken', result.accessToken, {
       httpOnly: true,
       secure: isProduction,
-      sameSite: isProduction ? 'none' : 'lax', 
-      domain: isProduction ? '.thesendmoney.com' : 'localhost', 
+      sameSite: isProduction ? 'none' : 'lax',
+      domain: isProduction ? '.thesendmoney.com' : 'localhost',
       maxAge: 15 * 60 * 1000,
     });
 
     res.cookie('refreshToken', result.refreshToken, {
       httpOnly: true,
       secure: isProduction,
-      sameSite: isProduction ? 'none' : 'lax', 
-      domain: isProduction ? '.thesendmoney.com' : 'localhost', 
+      sameSite: isProduction ? 'none' : 'lax',
+      domain: isProduction ? '.thesendmoney.com' : 'localhost',
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
-
 
     return { message: result.message };
   }

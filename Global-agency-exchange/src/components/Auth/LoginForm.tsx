@@ -39,7 +39,7 @@ const LoginForm = () => {
         localStorage.setItem('accessToken', res.accessToken);
       }
 
-      router.push('/');
+      router.push('/kyc');
     } catch {
       setError('Something went wrong. Please try again.');
     } finally {

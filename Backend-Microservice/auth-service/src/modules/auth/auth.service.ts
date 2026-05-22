@@ -57,86 +57,7 @@ export class AuthService {
     return user;
   }
 
-  // async login(
-  //   dto: LoginDto,
-  //   device: { ip: string; ua: string },
-  // ): Promise<LoginResult> {
-  //   const user = await this.validateUser(dto.emailOrPhone, dto.password);
-
-  //   const fingerprint = hashDevice({ ip: device.ip, ua: device.ua });
-  //   const deviceKey = redisKeys.device(user.id, fingerprint);
-  //   const knownDevice = await this.redis.get(deviceKey);
-
-  //   const parsed = parseDevice(device.ip, device.ua);
-
-  //   await this.prisma.device.upsert({
-  //     where: {
-  //       userId_fingerprint: { userId: user.id, fingerprint },
-  //     },
-  //     update: {
-  //       lastSeenAt: new Date(),
-  //       ipAddress: device.ip,
-  //       userAgent: device.ua,
-  //       browser: parsed.browser,
-  //       os: parsed.os,
-  //       deviceName: parsed.deviceName,
-  //       country: parsed.country,
-  //       city: parsed.city,
-  //     },
-  //     create: {
-  //       userId: user.id,
-  //       fingerprint,
-  //       ipAddress: device.ip,
-  //       userAgent: device.ua,
-  //       browser: parsed.browser,
-  //       os: parsed.os,
-  //       deviceName: parsed.deviceName,
-  //       country: parsed.country,
-  //       city: parsed.city,
-  //     },
-  //   });
-
-  //   await this.prisma.auditLog.create({
-  //     data: {
-  //       userId: user.id,
-  //       action: 'LOGIN_ATTEMPT',
-  //       ipAddress: device.ip,
-  //       userAgent: device.ua,
-  //       metadata: {
-  //         browser: parsed.browser,
-  //         os: parsed.os,
-  //         country: parsed.country,
-  //         city: parsed.city,
-  //       },
-  //     },
-  //   });
-
-  //   if (!knownDevice) {
-  //     const otp = generateOtp();
-  //     await this.redis.setex(redisKeys.otp(user.id), 300, otp);
-
-  //     await this.otpQueue.add('send-otp', {
-  //       userId: user.id,
-  //       email: user.email,
-  //       phone: null,
-  //       otp,
-  //       deviceInfo: {
-  //         browser: parsed.browser,
-  //         os: parsed.os,
-  //         country: parsed.country,
-  //         city: parsed.city,
-  //       },
-  //     });
-
-  //     return {
-  //       requiresOtp: true,
-  //       userId: user.id,
-  //       message: 'New device detected. OTP sent.',
-  //     };
-  //   }
-
-  //   return this.generateTokens(user.id, fingerprint);
-  // }
+ 
 
   async login(
     dto: LoginDto,
@@ -322,8 +243,6 @@ export class AuthService {
 
     return this.generateTokens(payload.sub, fingerprint);
   }
-
- 
 
   async googleLogin(
     googleUser: {

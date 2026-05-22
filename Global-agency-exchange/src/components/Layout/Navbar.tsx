@@ -107,9 +107,9 @@ function Navbar() {
         id="navbar"
       >
         <div className="container mw-1680">
-          <Link className="navbar-brand" href="/">
-            <Image src="/images/logo.svg" alt="logo" width={127} height={50} />
-          </Link>
+          <a className="navbar-brand" href="/">
+            SendMoney
+          </a>
 
           <div className="collapse navbar-collapse">
             <MenuItems items={menusData} pathname={pathname} />
