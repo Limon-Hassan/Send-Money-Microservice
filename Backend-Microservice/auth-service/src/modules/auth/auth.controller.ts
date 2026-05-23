@@ -14,10 +14,13 @@ import { OtpVerifyDto } from './dto/otp-verify.dto';
 import { Request, Response } from 'express';
 import { Get, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { KycService } from '../kyc/kyc.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService
+    , private readonly KycService: KycService
+  ) {}
 
   @Post('login')
   async login(
@@ -80,8 +83,12 @@ export class AuthController {
     });
 
     this.setCookies(res, result.accessToken!, result.refreshToken!);
-
-    res.redirect(process.env.FRONTEND_URL || 'http://localhost:3000');
+      const kyc = await this.KycService.getStatus(result.userId!);
+    if (kyc.status === 'verified') {
+       res.redirect(`${process.env.FRONTEND_URL || 'http://localhost:3000'}/`);
+    } else {
+     res.redirect(`${process.env.FRONTEND_URL}/kyc`);
+    }
 
   }
 

@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { api } from '@/lib/api';
+import { tokenHelper } from '@/lib/tokenHelper';
 
 const LoginForm = () => {
   const router = useRouter();
@@ -34,12 +35,15 @@ const LoginForm = () => {
         setError(res.message || 'Login failed');
         return;
       }
-
       if (res.accessToken) {
-        localStorage.setItem('accessToken', res.accessToken);
+        tokenHelper.set(res.accessToken);
       }
-
-      router.push('/kyc');
+      const kycRes = await api.kycStatus();
+      if (kycRes.status === 'verified') {
+        router.push('/');
+      } else {
+        router.push('/kyc');
+      }
     } catch {
       setError('Something went wrong. Please try again.');
     } finally {

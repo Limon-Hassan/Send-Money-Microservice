@@ -5,10 +5,7 @@ import { LoginDto } from './dto/login.dto';
 import { generateOtp } from '../../shared/utils/generateOtp';
 import { redisKeys } from '../../shared/constants/redisKeys';
 import { parseDevice } from '../../shared/utils/device.util';
-import {
-  hashDevice,
-  hashRefreshToken,
-} from '../../shared/utils/hash.util';
+import { hashDevice, hashRefreshToken } from '../../shared/utils/hash.util';
 import { LoginResult } from '../../shared/interfaces/auth.interface';
 import * as bcrypt from 'bcrypt';
 import Redis from 'ioredis';
@@ -56,8 +53,6 @@ export class AuthService {
 
     return user;
   }
-
- 
 
   async login(
     dto: LoginDto,
@@ -214,7 +209,7 @@ export class AuthService {
       },
     });
 
-    return { message: 'Login successful', accessToken, refreshToken };
+    return { message: 'Login successful', accessToken, refreshToken, userId };
   }
 
   async refreshTokens(

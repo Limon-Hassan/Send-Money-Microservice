@@ -27,14 +27,19 @@ export class AuthController {
     });
 
     if (result.requiresOtp) return result;
+    const isProduction = process.env.NODE_ENV === 'production';
     res.cookie('accessToken', result.accessToken, {
       httpOnly: true,
-      secure: false,
+      secure: isProduction,
+      sameSite: isProduction ? 'none' : 'lax',
+      domain: isProduction ? '.thesendmoney.com' : 'localhost',
       maxAge: 15 * 60 * 1000,
     });
     res.cookie('refreshToken', result.refreshToken, {
       httpOnly: true,
-      secure: false,
+      secure: isProduction,
+      sameSite: isProduction ? 'none' : 'lax',
+      domain: isProduction ? '.thesendmoney.com' : 'localhost',
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
     return { message: result.message };
@@ -109,7 +114,10 @@ export class AuthController {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    return { message: result.message };
+    return {
+      message: result.message,
+      accessToken: result.accessToken,
+    };
   }
 
   @Post('logout')
