@@ -13,5 +13,6 @@ import { JwtModule } from '@nestjs/jwt';
   ],
   controllers: [KycController],
   providers: [KycService],
+  exports: [KycService], 
 })
 export class KycModule {}
