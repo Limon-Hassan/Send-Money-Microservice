@@ -18,8 +18,9 @@ import { GoogleStrategy } from '../../strategies/google.strategy';
     BullModule.registerQueue({
       name: 'otp-queue',
     }),
+    KycModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy, GoogleStrategy, KycModule],
+  providers: [AuthService, JwtStrategy, GoogleStrategy],
 })
 export class AuthModule {}
