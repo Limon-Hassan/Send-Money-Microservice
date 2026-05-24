@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import React, { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
-import Image from "next/image";
-import MobileMenuModal from "@/components/Layout/MobileMenuModal";
-import { menusData } from "@/components/Layout/MenusData";
+import React, { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+import Image from 'next/image';
+import MobileMenuModal from '@/components/Layout/MobileMenuModal';
+import { menusData } from '@/components/Layout/MenusData';
 
 type MenuItem = {
   title: string;
@@ -21,7 +21,7 @@ interface MenuItemsProps {
 
 function MenuItems({ items, pathname, level = 0 }: MenuItemsProps) {
   return (
-    <ul className={level === 0 ? "navbar-nav m-auto" : "dropdown-menu"}>
+    <ul className={level === 0 ? 'navbar-nav m-auto' : 'dropdown-menu'}>
       {items.map((item, index) => {
         const isActive = item.href === pathname;
 
@@ -29,14 +29,14 @@ function MenuItems({ items, pathname, level = 0 }: MenuItemsProps) {
           return (
             <li
               key={index}
-              className={level === 0 ? "nav-item dropdown" : undefined}
+              className={level === 0 ? 'nav-item dropdown' : undefined}
             >
               <Link
                 className={`${
-                  level === 0 ? "nav-link" : "dropdown-item"
+                  level === 0 ? 'nav-link' : 'dropdown-item'
                 } dropdown-toggle`}
                 href="#"
-                onClick={(e) => e.preventDefault()}
+                onClick={e => e.preventDefault()}
               >
                 {item.title}
               </Link>
@@ -49,11 +49,11 @@ function MenuItems({ items, pathname, level = 0 }: MenuItemsProps) {
           );
         } else {
           return (
-            <li key={index} className={level === 0 ? "nav-item" : undefined}>
+            <li key={index} className={level === 0 ? 'nav-item' : undefined}>
               <Link
-                href={item.href ?? "#"}
-                className={`${level === 0 ? "nav-link" : "dropdown-item"} ${
-                  isActive ? "active" : ""
+                href={item.href ?? '#'}
+                className={`${level === 0 ? 'nav-link' : 'dropdown-item'} ${
+                  isActive ? 'active' : ''
                 }`}
               >
                 {item.title}
@@ -78,9 +78,9 @@ function Navbar() {
 
     handleScroll();
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
@@ -95,13 +95,13 @@ function Navbar() {
     <>
       <nav
         className={`navbar navbar-expand-lg fixed-top top-0 bg-transparent ${
-          isSticky ? "sticky" : ""
+          isSticky ? 'sticky' : ''
         }`}
         id="navbar"
       >
         <div className="container mw-1680">
           <Link className="navbar-brand" href="/">
-           SendMoney
+            <Image src="/images/Logo.png" width={180} height={60} alt="logo" />
           </Link>
 
           <div className="collapse navbar-collapse">

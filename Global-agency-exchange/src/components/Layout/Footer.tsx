@@ -1,61 +1,61 @@
-import React from "react";
-import Image from "next/image";
-import Link from "next/link";
-import NewsletterForm from "./NewsletterForm"; 
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import NewsletterForm from './NewsletterForm';
 
 const Footer = () => {
   // Dynamic footer data
   const footerData = {
     stats: {
-      transferFees: "0.99",
-      countries: "100+",
-      customerRating: "4.9/5",
+      transferFees: '0.99',
+      countries: '100+',
+      customerRating: '4.9/5',
     },
     contact: {
-      phone: "+44 (0506) 258 7485",
-      email: "information@expa.com",
-      address: "123 Financial Street, London, EC2A 4AB, United Kingdom",
+      phone: '+44 (0506) 258 7485',
+      email: 'information@expa.com',
+      address: '123 Financial Street, London, EC2A 4AB, United Kingdom',
     },
     companyLinks: [
-      { label: "About Us", href: "/about-us" },
-      { label: "Exchange Rate", href: "/exchange-rate" },
-      { label: "Blog & News", href: "/blog" },
-      { label: "Careers", href: "/careers" },
-      { label: "Contact Us", href: "/contact-us" },
+      { label: 'About Us', href: '/about-us' },
+      { label: 'Exchange Rate', href: '/exchange-rate' },
+      { label: 'Blog & News', href: '/blog' },
+      { label: 'Careers', href: '/careers' },
+      { label: 'Contact Us', href: '/contact-us' },
     ],
     exploreLinks: [
-      { label: "FAQ's", href: "/faqs" },
-      { label: "Help", href: "/faqs" },
-      { label: "Download App", href: "/services" },
-      { label: "Privacy Policy", href: "/privacy-policy" },
-      { label: "Terms & Conditions", href: "/terms-conditions" },
+      { label: "FAQ's", href: '/faqs' },
+      { label: 'Help', href: '/faqs' },
+      { label: 'Download App', href: '/services' },
+      { label: 'Privacy Policy', href: '/privacy-policy' },
+      { label: 'Terms & Conditions', href: '/terms-conditions' },
     ],
     socialLinks: [
       {
-        platform: "Facebook",
-        url: "https://www.facebook.com/",
-        icon: "ri-facebook-fill",
+        platform: 'Facebook',
+        url: 'https://www.facebook.com/',
+        icon: 'ri-facebook-fill',
       },
       {
-        platform: "Twitter",
-        url: "https://www.twitter.com/",
-        icon: "ri-twitter-x-line",
+        platform: 'Twitter',
+        url: 'https://www.twitter.com/',
+        icon: 'ri-twitter-x-line',
       },
       {
-        platform: "LinkedIn",
-        url: "https://www.linkedin.com/",
-        icon: "ri-linkedin-fill",
+        platform: 'LinkedIn',
+        url: 'https://www.linkedin.com/',
+        icon: 'ri-linkedin-fill',
       },
       {
-        platform: "Instagram",
-        url: "https://www.instagram.com/",
-        icon: "ri-instagram-line",
+        platform: 'Instagram',
+        url: 'https://www.instagram.com/',
+        icon: 'ri-instagram-line',
       },
     ],
     copyright: {
-      company: "Expa",
-      author: "EnvyTheme",
-      authorUrl: "https://envytheme.com/",
+      company: 'Expa',
+      author: 'EnvyTheme',
+      authorUrl: 'https://envytheme.com/',
     },
   };
 
@@ -115,10 +115,10 @@ const Footer = () => {
                 <div className="col-lg-3 col-sm-6">
                   <Link href="/" className="footer-logo">
                     <Image
-                      src="/images/logo.svg"
+                      src="/images/Logo.png"
+                      width={180}
+                      height={60}
                       alt="logo"
-                      width={127}
-                      height={50}
                     />
                   </Link>
                 </div>
@@ -209,7 +209,7 @@ const Footer = () => {
                 <div className="col-lg-6">
                   <p className="copyright-content m-0 text-center text-lg-start">
                     Copyright @ <span>{footerData.copyright.company}</span>. All
-                    Rights Reserved by{" "}
+                    Rights Reserved by{' '}
                     <a
                       href={footerData.copyright.authorUrl}
                       target="_blank"
