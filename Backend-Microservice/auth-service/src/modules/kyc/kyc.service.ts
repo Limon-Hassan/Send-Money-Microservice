@@ -25,7 +25,7 @@ export class KycService {
     if (existing) {
       applicantId = existing.applicantId;
     } else {
-      const applicant = await sumsubRequest(
+      let applicant = await sumsubRequest(
         'POST',
         '/resources/applicants?levelName=basic-kyc-level',
         { externalUserId: userId },
@@ -33,7 +33,18 @@ export class KycService {
         this.secretKey,
       );
 
-      console.log('SUMSUB RESPONSE:', JSON.stringify(applicant)); 
+      console.log('SUMSUB RESPONSE:', JSON.stringify(applicant));
+
+      if (!applicant.id) {
+        applicant = await sumsubRequest(
+          'GET',
+          `/resources/applicants/-;externalUserId=${userId}`,
+          null,
+          this.appToken,
+          this.secretKey,
+        );
+        console.log('SUMSUB EXISTING APPLICANT:', JSON.stringify(applicant));
+      }
 
       applicantId = applicant.id;
 
