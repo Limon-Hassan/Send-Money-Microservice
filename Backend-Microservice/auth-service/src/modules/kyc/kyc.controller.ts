@@ -18,16 +18,15 @@ export class KycController {
   ) {}
 
   private getUserId(req: Request): string {
-    const token = req.cookies['accessToken'];
+    const token = req.cookies['accessToken'] || req.cookies['refreshToken'];
     if (!token) throw new UnauthorizedException('No access token');
 
     try {
-      const payload = this.jwt.verify(token, {
-        secret: process.env.JWT_SECRET,
-      }) as { sub: string };
+      const payload = this.jwt.decode(token) as { sub: string };
+      if (!payload?.sub) throw new Error();
       return payload.sub;
     } catch {
-      throw new UnauthorizedException('Invalid access token');
+      throw new UnauthorizedException('Invalid token');
     }
   }
 
