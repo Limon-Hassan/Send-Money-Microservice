@@ -49,6 +49,18 @@ export class GatewayKycService {
     return data;
   }
 
+  async handleWebhook(signature: string, body: any) {
+    const { data } = await firstValueFrom(
+      this.http.post(`${this.getAuthUrl()}/kyc/webhook`, body, {
+        headers: {
+          'x-payload-digest': signature,
+          'Content-Type': 'application/json',
+        },
+      }),
+    );
+    return data;
+  }
+
   private extractToken(cookies: string, name: string): string | null {
     const match = cookies.match(new RegExp(`(?:^|;\\s*)${name}=([^;]+)`));
     return match ? match[1] : null;
