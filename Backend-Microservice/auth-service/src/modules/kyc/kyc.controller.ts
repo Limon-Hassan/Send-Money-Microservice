@@ -18,6 +18,15 @@ export class KycController {
   ) {}
 
   private getUserId(req: Request): string {
+    const authHeader = req.headers['authorization'];
+    if (authHeader?.startsWith('Bearer ')) {
+      const token = authHeader.slice(7);
+      try {
+        const payload = this.jwt.decode(token) as { sub: string };
+        if (payload?.sub) return payload.sub;
+      } catch {}
+    }
+
     const token = req.cookies['accessToken'] || req.cookies['refreshToken'];
     if (!token) throw new UnauthorizedException('No access token');
 

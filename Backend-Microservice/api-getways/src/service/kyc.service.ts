@@ -16,13 +16,16 @@ export class GatewayKycService {
   }
 
   async initKyc(cookies: string) {
+    const accessToken = this.extractToken(cookies, 'accessToken');
+
     const { data } = await firstValueFrom(
       this.http.post(
         `${this.getAuthUrl()}/kyc/init`,
         {},
         {
           headers: {
-            cookie: cookies, 
+            cookie: cookies,
+            ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
           },
           httpAgent: new http.Agent(),
         },
@@ -32,10 +35,13 @@ export class GatewayKycService {
   }
 
   async getStatus(cookies: string) {
+    const accessToken = this.extractToken(cookies, 'accessToken');
+
     const { data } = await firstValueFrom(
       this.http.get(`${this.getAuthUrl()}/kyc/status`, {
         headers: {
-          cookie: cookies, 
+          cookie: cookies,
+          ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
         },
         httpAgent: new http.Agent(),
       }),
@@ -43,10 +49,8 @@ export class GatewayKycService {
     return data;
   }
 
-  async handleWebhook(body: any) {
-    const { data } = await firstValueFrom(
-      this.http.post(`${this.getAuthUrl()}/kyc/webhook`, body),
-    );
-    return data;
+  private extractToken(cookies: string, name: string): string | null {
+    const match = cookies.match(new RegExp(`(?:^|;\\s*)${name}=([^;]+)`));
+    return match ? match[1] : null;
   }
 }
