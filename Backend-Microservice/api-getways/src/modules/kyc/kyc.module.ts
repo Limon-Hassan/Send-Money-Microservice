@@ -4,7 +4,11 @@ import { KycController } from './kyc.controller';
 import { GatewayKycService } from '../../service/kyc.service';
 
 @Module({
-  imports: [HttpModule],
+  imports: [
+    HttpModule.register({
+      withCredentials: true,
+    }),
+  ],
   controllers: [KycController],
   providers: [GatewayKycService],
 })

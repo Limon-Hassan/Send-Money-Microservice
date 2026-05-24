@@ -4,7 +4,11 @@ import { AuthController } from './auth.controller';
 import { GatewayAuthService } from '../../service/auth.service';
 
 @Module({
-  imports: [HttpModule],
+  imports: [
+    HttpModule.register({
+      withCredentials: true,
+    }),
+  ],
   controllers: [AuthController],
   providers: [GatewayAuthService],
 })
