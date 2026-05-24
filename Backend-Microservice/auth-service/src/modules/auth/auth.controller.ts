@@ -23,6 +23,34 @@ export class AuthController {
     private readonly KycService: KycService,
   ) {}
 
+  private setCookies(res: Response, accessToken: string, refreshToken: string) {
+    const isProduction = process.env.NODE_ENV === 'production';
+    res.cookie('accessToken', accessToken, {
+      httpOnly: true,
+      secure: isProduction,
+      sameSite: isProduction ? 'none' : 'lax',
+      domain: isProduction ? '.thesendmoney.com' : 'localhost',
+      maxAge: 15 * 60 * 1000,
+    });
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      secure: isProduction,
+      sameSite: isProduction ? 'none' : 'lax',
+      domain: isProduction ? '.thesendmoney.com' : 'localhost',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+  }
+
+  private clearCookies(res: Response) {
+    const isProduction = process.env.NODE_ENV === 'production';
+    res.clearCookie('accessToken', {
+      domain: isProduction ? '.thesendmoney.com' : 'localhost',
+    });
+    res.clearCookie('refreshToken', {
+      domain: isProduction ? '.thesendmoney.com' : 'localhost',
+    });
+  }
+
   @Post('login')
   async login(
     @Body() dto: LoginDto,
@@ -67,9 +95,7 @@ export class AuthController {
 
   @Get('google')
   @UseGuards(AuthGuard('google'))
-  async googleAuth() {
-    // Guard redirect Google
-  }
+  async googleAuth() {}
 
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
@@ -91,47 +117,20 @@ export class AuthController {
     }
   }
 
-  private setCookies(res: Response, accessToken: string, refreshToken: string) {
-    const isProduction = process.env.NODE_ENV === 'production';
-    res.cookie('accessToken', accessToken, {
-      httpOnly: true,
-      secure: isProduction,
-      sameSite: isProduction ? 'none' : 'lax',
-      domain: isProduction ? '.thesendmoney.com' : 'localhost',
-      maxAge: 15 * 60 * 1000,
-    });
-    res.cookie('refreshToken', refreshToken, {
-      httpOnly: true,
-      secure: isProduction,
-      sameSite: isProduction ? 'none' : 'lax',
-      domain: isProduction ? '.thesendmoney.com' : 'localhost',
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
-  }
-
-  private clearCookies(res: Response) {
-    res.clearCookie('accessToken');
-    res.clearCookie('refreshToken');
-  }
-
   @Post('refresh')
   async refresh(
     @Req() req: Request,
     @Res({ passthrough: true }) res: Response,
   ) {
     const token = req.cookies['refreshToken'];
-    if (!token) {
-      throw new UnauthorizedException('No refresh token found');
-    }
+    if (!token) throw new UnauthorizedException('No refresh token found');
 
     const result = await this.authService.refreshTokens(token, {
       ip: req.ip,
       ua: req.headers['user-agent'] || '',
     });
 
-    if ('status' in result) {
-      throw new UnauthorizedException(result.message);
-    }
+    if ('status' in result) throw new UnauthorizedException(result.message);
 
     this.setCookies(res, result.accessToken!, result.refreshToken!);
     return { message: 'Token refreshed' };
@@ -140,18 +139,15 @@ export class AuthController {
   @Post('logout')
   async logout(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
     const refreshToken = req.cookies['refreshToken'];
-    if (!refreshToken) {
+    if (!refreshToken)
       throw new UnauthorizedException('No refresh token found');
-    }
 
     await this.authService.logout(refreshToken, {
       ip: req.ip,
       ua: req.headers['user-agent'] || '',
     });
 
-    res.clearCookie('accessToken');
-    res.clearCookie('refreshToken');
-
+    this.clearCookies(res);
     return { message: 'Logged out successfully' };
   }
 
@@ -161,29 +157,24 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
   ) {
     const refreshToken = req.cookies['refreshToken'];
-    if (!refreshToken) {
+    if (!refreshToken)
       throw new UnauthorizedException('No refresh token found');
-    }
 
     const payload = this.authService.decodeToken(refreshToken);
-
     await this.authService.logoutAll(payload.sub, {
       ip: req.ip,
       ua: req.headers['user-agent'] || '',
     });
 
-    res.clearCookie('accessToken');
-    res.clearCookie('refreshToken');
-
+    this.clearCookies(res);
     return { message: 'Logged out from all devices' };
   }
 
   @Get('sessions')
   async getSessions(@Req() req: Request) {
     const refreshToken = req.cookies['refreshToken'];
-    if (!refreshToken) {
+    if (!refreshToken)
       throw new UnauthorizedException('No refresh token found');
-    }
 
     const payload = this.authService.decodeToken(refreshToken);
     return this.authService.getSessions(payload.sub);
@@ -195,9 +186,8 @@ export class AuthController {
     @Req() req: Request,
   ) {
     const refreshToken = req.cookies['refreshToken'];
-    if (!refreshToken) {
+    if (!refreshToken)
       throw new UnauthorizedException('No refresh token found');
-    }
 
     const payload = this.authService.decodeToken(refreshToken);
     return this.authService.revokeSession(payload.sub, sessionId);
