@@ -19,7 +19,7 @@ export class GatewayAuthService {
         },
       }),
     );
-    console.log('AUTH SERVICE RESPONSE:', JSON.stringify(data)); // ← যোগ করো
+    console.log('AUTH SERVICE RESPONSE:', JSON.stringify(data));
     return data;
   }
 
@@ -36,7 +36,7 @@ export class GatewayAuthService {
         },
       ),
     );
-    console.log('VERIFY OTP RESPONSE:', JSON.stringify(data)); // ← যোগ করো
+    console.log('VERIFY OTP RESPONSE:', JSON.stringify(data));
     return data;
   }
 
@@ -49,7 +49,7 @@ export class GatewayAuthService {
       this.http.post(
         `${this.config.get('AUTH_SERVICE_URL')}/auth/refresh`,
         {},
-        { headers: { Cookie: cookies } },
+        { headers: { cookie: cookies } },
       ),
     );
     return data;
@@ -60,7 +60,7 @@ export class GatewayAuthService {
       this.http.post(
         `${this.config.get('AUTH_SERVICE_URL')}/auth/logout`,
         {},
-        { headers: { Cookie: cookies } },
+        { headers: { cookie: cookies } },
       ),
     );
     return data;
@@ -71,7 +71,7 @@ export class GatewayAuthService {
       this.http.post(
         `${this.config.get('AUTH_SERVICE_URL')}/auth/logout-all`,
         {},
-        { headers: { Cookie: cookies } },
+        { headers: { cookie: cookies } },
       ),
     );
     return data;
@@ -80,7 +80,7 @@ export class GatewayAuthService {
   async getSessions(cookies: string) {
     const { data } = await firstValueFrom(
       this.http.get(`${this.config.get('AUTH_SERVICE_URL')}/auth/sessions`, {
-        headers: { Cookie: cookies },
+        headers: { cookie: cookies },
       }),
     );
     return data;
@@ -90,7 +90,7 @@ export class GatewayAuthService {
     const { data } = await firstValueFrom(
       this.http.delete(
         `${this.config.get('AUTH_SERVICE_URL')}/auth/sessions/${sessionId}`,
-        { headers: { Cookie: cookies } },
+        { headers: { cookie: cookies } },
       ),
     );
     return data;

@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { firstValueFrom } from 'rxjs';
+import { HttpService } from '@nestjs/axios';
+import * as http from 'http';
 
 @Injectable()
 export class GatewayKycService {
@@ -10,12 +11,21 @@ export class GatewayKycService {
     private config: ConfigService,
   ) {}
 
+  private getAuthUrl() {
+    return this.config.get('AUTH_SERVICE_URL');
+  }
+
   async initKyc(cookies: string) {
     const { data } = await firstValueFrom(
       this.http.post(
-        `${this.config.get('AUTH_SERVICE_URL')}/kyc/init`,
+        `${this.getAuthUrl()}/kyc/init`,
         {},
-        { headers: { Cookie: cookies } },
+        {
+          headers: {
+            cookie: cookies, 
+          },
+          httpAgent: new http.Agent(),
+        },
       ),
     );
     return data;
@@ -23,8 +33,11 @@ export class GatewayKycService {
 
   async getStatus(cookies: string) {
     const { data } = await firstValueFrom(
-      this.http.get(`${this.config.get('AUTH_SERVICE_URL')}/kyc/status`, {
-        headers: { Cookie: cookies },
+      this.http.get(`${this.getAuthUrl()}/kyc/status`, {
+        headers: {
+          cookie: cookies, 
+        },
+        httpAgent: new http.Agent(),
       }),
     );
     return data;
@@ -32,10 +45,7 @@ export class GatewayKycService {
 
   async handleWebhook(body: any) {
     const { data } = await firstValueFrom(
-      this.http.post(
-        `${this.config.get('AUTH_SERVICE_URL')}/kyc/webhook`,
-        body,
-      ),
+      this.http.post(`${this.getAuthUrl()}/kyc/webhook`, body),
     );
     return data;
   }
