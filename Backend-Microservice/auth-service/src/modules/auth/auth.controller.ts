@@ -18,8 +18,9 @@ import { KycService } from '../kyc/kyc.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService
-    , private readonly KycService: KycService
+  constructor(
+    private readonly authService: AuthService,
+    private readonly KycService: KycService,
   ) {}
 
   @Post('login')
@@ -41,7 +42,6 @@ export class AuthController {
       refreshToken: result.refreshToken,
     };
   }
-
 
   @Post('verify-otp')
   async verifyOtp(
@@ -83,29 +83,28 @@ export class AuthController {
     });
 
     this.setCookies(res, result.accessToken!, result.refreshToken!);
-      const kyc = await this.KycService.getStatus(result.userId!);
+    const kyc = await this.KycService.getStatus(result.userId!);
     if (kyc.status === 'verified') {
-       res.redirect(`${process.env.FRONTEND_URL || 'http://localhost:3000'}/`);
+      res.redirect(`${process.env.FRONTEND_URL || 'http://localhost:3000'}/`);
     } else {
-     res.redirect(`${process.env.FRONTEND_URL}/kyc`);
+      res.redirect(`${process.env.FRONTEND_URL}/kyc`);
     }
-
   }
 
   private setCookies(res: Response, accessToken: string, refreshToken: string) {
     const isProduction = process.env.NODE_ENV === 'production';
-
     res.cookie('accessToken', accessToken, {
       httpOnly: true,
       secure: isProduction,
-      sameSite: isProduction ? 'strict' : 'lax',
+      sameSite: isProduction ? 'none' : 'lax',
+      domain: isProduction ? '.thesendmoney.com' : 'localhost',
       maxAge: 15 * 60 * 1000,
     });
-
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       secure: isProduction,
-      sameSite: isProduction ? 'strict' : 'lax',
+      sameSite: isProduction ? 'none' : 'lax',
+      domain: isProduction ? '.thesendmoney.com' : 'localhost',
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
   }
