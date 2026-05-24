@@ -51,6 +51,7 @@ export const api = {
       credentials: 'include',
       body: JSON.stringify(dataToSend),
     });
+    console.log('Login Response:', res);
     return res.json();
   },
 
@@ -70,6 +71,7 @@ export const api = {
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
     });
+    console.log('KYC Init Response:', res);
     return res.json();
   },
 
@@ -77,6 +79,7 @@ export const api = {
     const res = await fetch(`${API_URL}/kyc/status`, {
       credentials: 'include',
     });
+    console.log('KYC Status Response:', res);
     return res.json();
   },
 };
