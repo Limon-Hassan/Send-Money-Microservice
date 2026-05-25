@@ -10,7 +10,7 @@ import { redisKeys } from '../../shared/constants/redisKeys';
 import { OtpValidationDto } from './dto/otp.dto';
 import { ResendOTPDto } from './dto/resendOTP.dto';
 import { SendOtpDto } from './dto/send-otp.dto';
-import { validatePhoneNumber } from 'user-service/src/shared/utils/phone.validator';
+import { validatePhoneNumber } from '../../shared/utils/phone.validator';
 
 @Injectable()
 export class UserService {
