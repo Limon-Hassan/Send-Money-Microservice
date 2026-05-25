@@ -40,7 +40,7 @@ export class NotificationService {
         </div>
       `,
     });
-    console.log(`Email sent to ${email}`);
+    // console.log(`Email sent to ${email}`);
   }
 
   async sendOtpSms(phone: string, otp: string) {
@@ -49,15 +49,11 @@ export class NotificationService {
       formattedPhone = `+88${phone}`;
     }
 
-    console.log('Sending SMS to:', formattedPhone);
-    console.log('From:', this.configService.get('TWILIO_FROM'));
-    console.log('SID:', this.configService.get('TWILIO_ACCOUNT_SID'));
-
     await this.twilioClient.messages.create({
       body: `Your OTP is: ${otp}. Expires in 5 minutes.`,
       from: this.configService.get('TWILIO_FROM'),
       to: formattedPhone,
     });
-    console.log(`SMS sent to ${formattedPhone}`);
+    // console.log(`SMS sent to ${formattedPhone}`);
   }
 }
