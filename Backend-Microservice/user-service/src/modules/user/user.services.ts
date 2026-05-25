@@ -10,6 +10,7 @@ import { redisKeys } from '../../shared/constants/redisKeys';
 import { OtpValidationDto } from './dto/otp.dto';
 import { ResendOTPDto } from './dto/resendOTP.dto';
 import { SendOtpDto } from './dto/send-otp.dto';
+import { validatePhoneNumber } from 'user-service/src/shared/utils/phone.validator';
 
 @Injectable()
 export class UserService {
@@ -27,6 +28,16 @@ export class UserService {
 
   async register(dto: RegisterDto) {
     try {
+      let formattedPhone: string | null = null;
+
+      if (dto.phone) {
+        const phoneResult = validatePhoneNumber(dto.phone, dto.dialCode);
+        if (!phoneResult.isValid) {
+          throw new Error(phoneResult.errorMessage);
+        }
+        formattedPhone = phoneResult.formatted;
+      }
+
       const existing = await this.prisma.user.findUnique({
         where: { email: dto.email },
       });
@@ -41,7 +52,7 @@ export class UserService {
         data: {
           fullName: dto.fullName,
           email: dto.email,
-          phone: dto.phone,
+          phone: formattedPhone,
           password: hashedPassword,
           currency: dto.currency,
         },
@@ -165,7 +176,7 @@ export class UserService {
     try {
       const user = await this.prisma.user.findFirst({
         where: {
-          OR: [{ email: emailOrPhone }, { phone: emailOrPhone }],
+          OR: [{ email: emailOrPhone }, { phone: { contains: emailOrPhone } }],
         },
       });
 
@@ -204,14 +215,90 @@ export class UserService {
       data: {
         fullName: dto.fullName,
         email: dto.email,
-        password: '', 
+        password: '',
         currency: dto.currency,
         googleId: dto.googleId,
         avatar: dto.avatar,
-        isVerified: true, 
+        isVerified: true,
       },
     });
 
     return { data: user };
+  }
+
+  
+
+  async findUserByEmail(email: string) {
+    const user = await this.prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (!user) {
+      return {
+        found: false,
+        maskedEmail: null,
+        userId: null,
+      };
+    }
+
+    return {
+      found: true,
+      maskedEmail: this.maskEmail(user.email), 
+      userId: user.id,
+      email: user.email,
+    };
+  }
+
+  async resetPassword(userId: string, newPassword: string) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: { password: hashedPassword },
+    });
+
+    return { message: 'Password reset successful.' };
+  }
+
+  async changePassword(
+    userId: string,
+    currentPassword: string,
+    newPassword: string,
+  ) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!isMatch) {
+      throw new Error('Current password is incorrect');
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: { password: hashedPassword },
+    });
+
+    return { message: 'Password changed successfully.' };
+  }
+
+  private maskEmail(email: string): string {
+    const [local, domain] = email.split('@');
+    const visible = local.slice(0, 2); 
+    return `${visible}******@${domain}`;
   }
 }

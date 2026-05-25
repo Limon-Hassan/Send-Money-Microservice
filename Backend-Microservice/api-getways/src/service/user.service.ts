@@ -59,4 +59,47 @@ export class GatewayUserService {
     );
     return data;
   }
+
+  
+
+  async forgotPassword(dto: any) {
+    const { data } = await firstValueFrom(
+      this.http.post(
+        `${this.config.get('AUTH_SERVICE_URL')}/auth/forgot-password`,
+        dto,
+      ),
+    );
+    return data;
+  }
+
+  async forgotPasswordVerifyOtp(dto: any) {
+    const { data } = await firstValueFrom(
+      this.http.post(
+        `${this.config.get('AUTH_SERVICE_URL')}/auth/forgot-password/verify-otp`,
+        dto,
+      ),
+    );
+    return data;
+  }
+
+  async forgotPasswordReset(dto: any) {
+    const { data } = await firstValueFrom(
+      this.http.post(
+        `${this.config.get('AUTH_SERVICE_URL')}/auth/forgot-password/reset`,
+        dto,
+      ),
+    );
+    return data;
+  }
+
+  async changePassword(dto: any, cookies: string) {
+    const { data } = await firstValueFrom(
+      this.http.post(
+        `${this.config.get('AUTH_SERVICE_URL')}/auth/change-password`,
+        dto,
+        { headers: { cookie: cookies } }, 
+      ),
+    );
+    return data;
+  }
 }

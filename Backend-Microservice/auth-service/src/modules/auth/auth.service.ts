@@ -443,4 +443,94 @@ export class AuthService {
 
     return { message: 'Session revoked' };
   }
+
+
+  async forgotPasswordRequest(email: string) {
+    const res = await fetch(
+      `${process.env.USER_SERVICE_API_URL}/user/internal/find-by-email`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      },
+    );
+
+    const data = await res.json();
+
+    if (!data.found) {
+      return {
+        message: 'If this email exists, an OTP will be sent.',
+        maskedEmail: null,
+        userId: null,
+      };
+    }
+
+    const otp = generateOtp();
+    await this.redis.setex(redisKeys.otp(data.userId), 300, otp); 
+
+    await this.otpQueue.add('send-otp', {
+      userId: data.userId,
+      email: data.email,
+      phone: null,
+      otp,
+    });
+
+    return {
+      message: 'OTP sent to your email.',
+      maskedEmail: data.maskedEmail, 
+      userId: data.userId,
+    };
+  }
+
+  async forgotPasswordVerifyOtp(userId: string, otp: string) {
+    const savedOtp = await this.redis.get(redisKeys.otp(userId));
+
+    if (!savedOtp || savedOtp !== otp) {
+      throw new UnauthorizedException('Invalid or expired OTP.');
+    }
+
+    await this.redis.del(redisKeys.otp(userId));
+
+    const resetToken = generateOtp() + generateOtp(); 
+    await this.redis.setex(
+      `reset_token:${userId}`,
+      600, 
+      resetToken,
+    );
+
+    return {
+      message: 'OTP verified. You can now reset your password.',
+      userId,
+      resetToken,
+    };
+  }
+
+  async forgotPasswordReset(
+    userId: string,
+    resetToken: string,
+    newPassword: string,
+  ) {
+    const savedToken = await this.redis.get(`reset_token:${userId}`);
+
+    if (!savedToken || savedToken !== resetToken) {
+      throw new UnauthorizedException('Invalid or expired reset token.');
+    }
+
+    const res = await fetch(
+      `${process.env.USER_SERVICE_API_URL}/user/internal/reset-password`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId, newPassword }),
+      },
+    );
+
+    if (!res.ok) {
+      throw new Error('Password reset failed.');
+    }
+
+    await this.redis.del(`reset_token:${userId}`);
+
+    return { message: 'Password reset successful. Please login.' };
+  }
 }

@@ -12,6 +12,10 @@ export class RegisterDto {
   @IsString()
   phone?: string;
 
+  @IsOptional()
+  @IsString()
+  dialCode?: string;
+
   @IsString()
   @MinLength(8)
   password: string;

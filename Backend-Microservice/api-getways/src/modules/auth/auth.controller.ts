@@ -118,4 +118,24 @@ export class AuthController {
   ) {
     return this.authService.revokeSession(sessionId, req.headers.cookie || '');
   }
+
+  @Post('forgot-password')
+  async forgotPassword(@Body() dto: any) {
+    return this.authService.forgotPassword(dto);
+  }
+
+  @Post('forgot-password/verify-otp')
+  async forgotPasswordVerifyOtp(@Body() dto: any) {
+    return this.authService.forgotPasswordVerifyOtp(dto);
+  }
+
+  @Post('forgot-password/reset')
+  async forgotPasswordReset(@Body() dto: any) {
+    return this.authService.forgotPasswordReset(dto);
+  }
+
+  @Post('change-password')
+  async changePassword(@Body() dto: any, @Req() req: Request) {
+    return this.authService.changePassword(dto, req.headers.cookie || '');
+  }
 }

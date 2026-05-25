@@ -33,8 +33,6 @@ export class KycService {
         this.secretKey,
       );
 
-      console.log('SUMSUB RESPONSE:', JSON.stringify(applicant));
-
       if (!applicant.id) {
         const res = await sumsubRequest(
           'GET',
@@ -43,7 +41,6 @@ export class KycService {
           this.appToken,
           this.secretKey,
         );
-        console.log('SUMSUB EXISTING APPLICANT:', JSON.stringify(res));
         applicant = res?.list?.items?.[0] ?? res;
       }
 

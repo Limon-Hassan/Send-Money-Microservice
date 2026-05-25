@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Query } from '@nestjs/common';
+import { Controller, Post, Body, Get, Query, Req } from '@nestjs/common';
 import { UserService } from './user.services';
 import { RegisterDto } from './dto/register.dto';
 import { OtpValidationDto } from './dto/otp.dto';
@@ -37,5 +37,27 @@ export class UserController {
   @Post('google-register')
   async googleRegister(@Body() body: any) {
     return this.userService.googleRegister(body);
+  }
+
+  @Post('internal/find-by-email')
+  async findByEmail(@Body() body: { email: string }) {
+    return this.userService.findUserByEmail(body.email);
+  }
+
+  @Post('internal/reset-password')
+  async resetPassword(@Body() body: { userId: string; newPassword: string }) {
+    return this.userService.resetPassword(body.userId, body.newPassword);
+  }
+
+  @Post('change-password')
+  async changePassword(
+    @Body() body: { currentPassword: string; newPassword: string },
+    @Req() req,
+  ) {
+    return this.userService.changePassword(
+      req.user.id,
+      body.currentPassword,
+      body.newPassword,
+    );
   }
 }

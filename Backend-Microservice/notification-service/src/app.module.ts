@@ -13,9 +13,6 @@ import { OtpProcessor } from './queue/otp.processor';
         redis: {
           host: configService.get('REDIS_HOST'),
           port: +configService.get('REDIS_PORT', 6379),
-          password: configService.get('REDIS_PASSWORD'),
-          username: configService.get('REDIS_USERNAME') || 'default',
-          tls: {},
         },
       }),
       inject: [ConfigService],

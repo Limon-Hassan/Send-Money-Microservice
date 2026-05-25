@@ -192,4 +192,26 @@ export class AuthController {
     const payload = this.authService.decodeToken(refreshToken);
     return this.authService.revokeSession(payload.sub, sessionId);
   }
+
+
+  @Post('forgot-password')
+  async forgotPassword(@Body() body: { email: string }) {
+    return this.authService.forgotPasswordRequest(body.email);
+  }
+
+  @Post('forgot-password/verify-otp')
+  async verifyForgotOtp(@Body() body: { userId: string; otp: string }) {
+    return this.authService.forgotPasswordVerifyOtp(body.userId, body.otp);
+  }
+
+  @Post('forgot-password/reset')
+  async resetPassword(
+    @Body() body: { userId: string; resetToken: string; newPassword: string },
+  ) {
+    return this.authService.forgotPasswordReset(
+      body.userId,
+      body.resetToken,
+      body.newPassword,
+    );
+  }
 }

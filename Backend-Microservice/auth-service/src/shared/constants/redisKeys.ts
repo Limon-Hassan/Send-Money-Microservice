@@ -3,5 +3,5 @@ export const redisKeys = {
   session: (userId: string) => `session:${userId}`,
   device: (userId: string, fingerprint: string) =>
     `device:${userId}:${fingerprint}`,
+  resetToken: (userId: string) => `reset_token:${userId}`,
 };
-
