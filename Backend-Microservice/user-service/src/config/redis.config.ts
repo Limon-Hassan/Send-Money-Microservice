@@ -3,9 +3,6 @@ import Redis from 'ioredis';
 export const redisConfig = {
   host: process.env.REDIS_HOST,
   port: +(process.env.REDIS_PORT || 6379),
-  password: process.env.REDIS_PASSWORD,
-  username: process.env.REDIS_USERNAME || 'default',
-  tls: {},
 };
 
 export const createRedisClient = () => {
