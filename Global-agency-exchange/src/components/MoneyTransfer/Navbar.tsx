@@ -153,9 +153,6 @@
 
 
 
-
-
-
 'use client';
 import React, { useEffect, useState, useRef } from 'react';
 import { usePathname } from 'next/navigation';
@@ -164,6 +161,9 @@ import Image from 'next/image';
 import MobileMenuModal from '@/components/Layout/MobileMenuModal';
 import { menusData } from '@/components/Layout/MenusData';
 import { api } from '@/lib/api';
+import { FaCircleUser, FaPowerOff } from 'react-icons/fa6';
+import { RxDashboard } from 'react-icons/rx';
+import { IoSettings } from 'react-icons/io5';
 
 type MenuItem = {
   title: string;
@@ -230,7 +230,6 @@ function UserAvatar({ user, onLogout }: { user: User; onLogout: () => void }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Outside click হলে dropdown বন্ধ করো
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (
@@ -245,7 +244,6 @@ function UserAvatar({ user, onLogout }: { user: User; onLogout: () => void }) {
   }, []);
 
   const displayName = user.fullName || user.name || user.email || 'User';
-  // নাম থেকে initials বের করো (avatar image না থাকলে)
   const initials = displayName
     .split(' ')
     .map((n: string) => n[0])
@@ -277,136 +275,163 @@ function UserAvatar({ user, onLogout }: { user: User; onLogout: () => void }) {
         <div className="user-dropdown">
           <div className="dropdown-user-info">
             <span className="dropdown-username">{displayName}</span>
-            <span className="user-email-text">{user.email}</span>
           </div>
-
           <div className="dropdown-divider" />
-
-          <Link
-            href="/#"
-            className="dropdown-link"
-            onClick={() => setDropdownOpen(false)}
-          >
-            <i className="ri-user-line" />
-            Profile
-          </Link>
-          <Link
-            href="/#"
-            className="dropdown-link"
-            onClick={() => setDropdownOpen(false)}
-          >
-            <i className="ri-dashboard-line" />
-            Dashboard
-          </Link>
-          <Link
-            href="/#"
-            className="dropdown-link"
-            onClick={() => setDropdownOpen(false)}
-          >
-            <i className="ri-settings-3-line" />
-            Settings
-          </Link>
-
-          <div className="dropdown-divider" />
-
-          <button className="dropdown-link dropdown-logout">
-            <i className="ri-logout-box-r-line" />
-            Log Out
-          </button>
+          <div className="d-flex flex-column mb-3">
+            <Link
+              href="/profile"
+              className="dropdown-link"
+              onClick={() => setDropdownOpen(false)}
+            >
+              <FaCircleUser />
+              Profile
+            </Link>
+            <Link
+              href="/dashboard"
+              className="dropdown-link"
+              onClick={() => setDropdownOpen(false)}
+            >
+              <RxDashboard />
+              Dashboard
+            </Link>
+            <Link
+              href="/settings"
+              className="dropdown-link"
+              onClick={() => setDropdownOpen(false)}
+            >
+              <IoSettings />
+              Settings
+            </Link>
+            <div className="dropdown-divider" />
+            <button
+              className="dropdown-link dropdown-logout d-flex align-items-center gap-2"
+              onClick={onLogout}
+            >
+              <FaPowerOff />
+              Log Out
+            </button>
+          </div>
         </div>
       )}
 
       <style jsx>{`
         .user-avatar-wrapper {
           position: relative;
+          z-index: 9999;
         }
 
         .avatar-btn {
           width: 38px;
           height: 38px;
           border-radius: 50%;
-          border: 2px solid #e2e8f0;
+          border: 2px solid rgba(255, 255, 255, 0.4);
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
           cursor: pointer;
           display: flex;
           align-items: center;
           justify-content: center;
+          padding: 0;
           overflow: hidden;
-          transition: all 0.2s ease;
-          background-color: #f7fafc;
+          transition:
+            border-color 0.2s,
+            box-shadow 0.2s;
         }
 
         .avatar-btn:hover {
-          box-shadow: 0 0 0 4px rgba(66, 153, 225, 0.15);
+          border-color: rgba(255, 255, 255, 0.8);
+          box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+        }
+
+        .avatar-img {
+          border-radius: 50%;
+          object-fit: cover;
+        }
+
+        .avatar-initials {
+          color: #fff;
+          font-size: 14px;
+          font-weight: 600;
+          letter-spacing: 0.5px;
+          line-height: 1;
         }
 
         .user-dropdown {
           position: absolute;
-          top: calc(100% + 12px);
+          top: calc(100% + 10px);
           right: 0;
-          width: 240px;
+          min-width: 200px;
           background: #ffffff;
-          border-radius: 10px;
+          border-radius: 12px;
           box-shadow:
-            0 10px 25px -5px rgba(0, 0, 0, 0.1),
-            0 8px 10px -6px rgba(0, 0, 0, 0.1);
-          padding: 12px 0;
+            0 10px 40px rgba(0, 0, 0, 0.15),
+            0 2px 8px rgba(0, 0, 0, 0.08);
+          padding: 8px 0;
           z-index: 9999;
-          border: 1px solid #e2e8f0;
-          animation: dropdownFadeIn 0.2s ease-out;
+          animation: dropdownFadeIn 0.18s ease;
+        }
+
+        @keyframes dropdownFadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(-6px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
 
         .dropdown-user-info {
-          padding: 0 16px 12px 16px;
+          padding: 12px 16px 10px;
         }
 
         .dropdown-username {
           font-size: 14px;
-          font-weight: 600;
-          color: #2d3748;
+          font-weight: 700;
+          color: #1a1a2e;
           display: block;
-          margin-bottom: 2px;
-        }
-
-        .user-email-text {
-          font-size: 12px;
-          color: #718096;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 168px;
         }
 
         .dropdown-divider {
           height: 1px;
-          background: #edf2f7;
-          margin: 8px 0;
+          background: #f0f0f0;
+          margin: 4px 0;
         }
 
         .dropdown-link {
           display: flex;
           align-items: center;
-          gap: 12px;
+          gap: 10px;
           padding: 10px 16px;
           font-size: 14px;
-          color: #4a5568;
+          color: #444;
           text-decoration: none;
           background: none;
           border: none;
           width: 100%;
           text-align: left;
           cursor: pointer;
-          transition: background 0.2s;
+          transition:
+            background 0.15s,
+            color 0.15s;
         }
 
         .dropdown-link:hover {
-          background: #f7fafc;
-          color: #2b6cb0;
+          background: #f5f5ff;
+          color: #667eea;
         }
 
         .dropdown-link i {
-          font-size: 18px;
-          color: #a0aec0;
+          font-size: 16px;
+          opacity: 0.8;
         }
 
         .dropdown-logout {
           color: #e53e3e;
-          font-weight: 500;
         }
 
         .dropdown-logout:hover {
@@ -474,19 +499,16 @@ function Navbar() {
             <MenuItems items={menusData} pathname={pathname} />
           </div>
           <div className="others-options d-flex align-items-center">
-            {/* Auth loading এর সময় কিছু দেখাবে না, flicker এড়াতে */}
             {!authLoading && (
               <>
                 {user ? (
-                  // Logged in হলে — avatar + dropdown
-                  <div className="d-flex align-items-center gap-3">
+                  <div className="d-flex align-items-center gap-3 z-1">
                     <Link href="/faqs" className="info-link">
                       Help
                     </Link>
                     <UserAvatar user={user} onLogout={handleLogout} />
                   </div>
                 ) : (
-                  // Logged out হলে — login/register links
                   <div className="d-flex align-items-center info">
                     <Link href="/faqs">Help</Link>
                     <Link href="/login">Log In</Link>
@@ -525,5 +547,6 @@ function Navbar() {
 }
 
 export default Navbar;
+
 
 
