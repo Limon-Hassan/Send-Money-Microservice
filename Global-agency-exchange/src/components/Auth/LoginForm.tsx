@@ -30,7 +30,7 @@ const LoginForm = () => {
         router.push(`/verify-otp?email=${encodeURIComponent(formData.email)}`);
         return;
       }
-
+      console.log('Login Response:', res);
       if (res.statusCode >= 400 || res.error) {
         setError(res.message || 'Login failed');
         return;

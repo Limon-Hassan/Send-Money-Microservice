@@ -124,16 +124,16 @@ const RegisterForm = () => {
     setLoading(true);
     setError('');
 
-    const fullPhone = `${selectedPhoneCountry.code}${formData.phoneNumber}`;
-
     try {
       const res = await api.register({
         fullName: formData.fullName,
         email: formData.email,
-        phone: fullPhone,
+        phone: formData.phoneNumber,
+        dialCode: selectedPhoneCountry.code,
         password: formData.password,
         currency: formData.currency,
       });
+      console.log('Registration Response:', res);
 
       if (!res.userId) {
         setError(res.message || 'Registration failed');

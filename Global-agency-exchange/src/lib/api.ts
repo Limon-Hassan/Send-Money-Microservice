@@ -5,6 +5,7 @@ export const api = {
     fullName: string;
     email: string;
     phone: string;
+    dialCode: string;
     password: string;
     currency: string;
   }) => {
@@ -80,6 +81,58 @@ export const api = {
       credentials: 'include',
     });
     console.log('KYC Status Response:', res);
+    return res.json();
+  },
+
+  forgotPasswordRequest: async (data: { email: string }) => {
+    const res = await fetch(`${API_URL}/auth/forgot-password`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    return res.json();
+  },
+
+  forgotPasswordVerifyOtp: async (data: { userId: string; otp: string }) => {
+    const res = await fetch(`${API_URL}/auth/forgot-password/verify-otp`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    return res.json();
+  },
+
+  forgotPasswordReset: async (data: {
+    userId: string;
+    resetToken: string;
+    newPassword: string;
+  }) => {
+    const res = await fetch(`${API_URL}/auth/forgot-password/reset`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    return res.json();
+  },
+
+  changePassword: async (data: {
+    currentPassword: string;
+    newPassword: string;
+  }) => {
+    const res = await fetch(`${API_URL}/auth/change-password`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify(data),
+    });
+    return res.json();
+  },
+
+  getMe: async () => {
+    const res = await fetch(`${API_URL}/auth/me`, {
+      credentials: 'include',
+    });
+    console.log('Get Me Response:', res);
     return res.json();
   },
 };

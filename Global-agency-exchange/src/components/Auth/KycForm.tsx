@@ -57,11 +57,10 @@ const KycForm = () => {
   };
 
   const handleMessage = (type: string, payload: any) => {
-    console.log('Sumsub event:', type, payload);
     if (type === 'idCheck.onApplicantStatusChanged') {
       if (payload?.reviewResult?.reviewAnswer === 'GREEN') {
         setStep('done');
-        setTimeout(() => router.push('/dashboard'), 2000);
+        setTimeout(() => router.push('/'), 2000);
       } else if (payload?.reviewResult?.reviewAnswer === 'RED') {
         setStep('rejected');
       }
@@ -74,7 +73,6 @@ const KycForm = () => {
     setStep('start');
   };
 
-  // Loading
   if (step === 'loading') {
     return (
       <div className="my-account-area ptb-120">
@@ -88,7 +86,6 @@ const KycForm = () => {
     );
   }
 
-  // Already verified
   if (step === 'done') {
     return (
       <div className="my-account-area ptb-120">
@@ -113,7 +110,6 @@ const KycForm = () => {
     );
   }
 
-  // Rejected
   if (step === 'rejected') {
     return (
       <div className="my-account-area ptb-120">
@@ -135,7 +131,6 @@ const KycForm = () => {
     );
   }
 
-  // SDK active
   if (step === 'sdk') {
     return (
       <div className="my-account-area ptb-120">
@@ -172,7 +167,6 @@ const KycForm = () => {
     );
   }
 
-  // Start screen
   return (
     <div className="my-account-area ptb-120">
       <div className="container">
