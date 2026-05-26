@@ -151,7 +151,8 @@ import { menusData } from '@/components/Layout/MenusData';
 import { api } from '@/lib/api';
 import { FaCircleUser, FaPowerOff } from 'react-icons/fa6';
 import { RxDashboard } from 'react-icons/rx';
-import { IoHelpCircleOutline, IoSettings } from 'react-icons/io5';
+import { IoSettings } from 'react-icons/io5';
+import NavUserAvatar from '../NavUserAvatar';
 
 type MenuItem = {
   title: string;
@@ -214,194 +215,282 @@ function MenuItems({ items, pathname, level = 0 }: MenuItemsProps) {
   );
 }
 
-function UserAvatar({ user, onLogout }: { user: User; onLogout: () => void }) {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+// function UserAvatar({ user, onLogout }: { user: User; onLogout: () => void }) {
+//   const [dropdownOpen, setDropdownOpen] = useState(false);
+//   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(e.target as Node)
-      ) {
-        setDropdownOpen(false);
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+//   useEffect(() => {
+//     function handleClickOutside(e: MouseEvent) {
+//       if (
+//         dropdownRef.current &&
+//         !dropdownRef.current.contains(e.target as Node)
+//       ) {
+//         setDropdownOpen(false);
+//       }
+//     }
+//     document.addEventListener('mousedown', handleClickOutside);
+//     return () => document.removeEventListener('mousedown', handleClickOutside);
+//   }, []);
 
-  const displayName = user.fullName || user.name || user.email || 'User';
-  const initials = displayName
-    .split(' ')
-    .map((n: string) => n[0])
-    .slice(0, 2)
-    .join('')
-    .toUpperCase();
+//   const displayName = user.fullName || user.name || user.email || 'User';
+//   const initials = displayName
+//     .split(' ')
+//     .map((n: string) => n[0])
+//     .slice(0, 2)
+//     .join('')
+//     .toUpperCase();
 
-  return (
-    <div className="user-avatar-wrapper" ref={dropdownRef}>
-      <button
-        className="avatar-btn"
-        onClick={() => setDropdownOpen(prev => !prev)}
-        aria-label="User menu"
-      >
-        {user.avatar ? (
-          <Image
-            src={user.avatar}
-            alt={displayName}
-            width={50}
-            height={50}
-            className="avatar-img"
-          />
-        ) : (
-          <span className="avatar-initials">{initials}</span>
-        )}
-      </button>
+//   return (
+//     <div className="user-avatar-wrapper" ref={dropdownRef}>
+//       <button
+//         className="avatar-btn"
+//         onClick={() => setDropdownOpen(prev => !prev)}
+//         aria-label="User menu"
+//       >
+//         {user.avatar ? (
+//           <Image
+//             src={user.avatar}
+//             alt={displayName}
+//             width={38}
+//             height={38}
+//             className="avatar-img"
+//           />
+//         ) : (
+//           <span className="avatar-initials">{initials}</span>
+//         )}
+//       </button>
 
-      {dropdownOpen && (
-        <div className="user-dropdown">
-          <div className="dropdown-links">
-            <Link
-              href="/profile"
-              className="dropdown-link"
-              onClick={() => setDropdownOpen(false)}
-            >
-              <FaCircleUser />
-              My Profile
-            </Link>
+//       {dropdownOpen && (
+//         <div className="user-dropdown">
+//           <div className="dropdown-user-info">
+//             <span className="dropdown-username">{displayName}</span>
+//           </div>
+//           <div className="dropdown-divider" />
+//           <div className="d-flex flex-column mb-3">
+//             <Link
+//               href="/profile"
+//               className="dropdown-link"
+//               onClick={() => setDropdownOpen(false)}
+//             >
+//               <FaCircleUser />
+//               Profile
+//             </Link>
+//             <Link
+//               href="/dashboard"
+//               className="dropdown-link"
+//               onClick={() => setDropdownOpen(false)}
+//             >
+//               <RxDashboard />
+//               Dashboard
+//             </Link>
+//             <Link
+//               href="/settings"
+//               className="dropdown-link"
+//               onClick={() => setDropdownOpen(false)}
+//             >
+//               <IoSettings />
+//               Settings
+//             </Link>
+//             <div className="dropdown-divider" />
+//             <button
+//               className="dropdown-link dropdown-logout d-flex align-items-center gap-2"
+//               onClick={onLogout}
+//             >
+//               <FaPowerOff />
+//               Log Out
+//             </button>
+//           </div>
+//         </div>
+//       )}
 
-            <Link
-              href="/dashboard"
-              className="dropdown-link"
-              onClick={() => setDropdownOpen(false)}
-            >
-              <RxDashboard />
-              Dashboard
-            </Link>
+//       <style jsx>{`
+//         .user-avatar-wrapper {
+//           position: relative;
+//           z-index: 9999;
+//         }
 
-            <Link
-              href="/settings"
-              className="dropdown-link"
-              onClick={() => setDropdownOpen(false)}
-            >
-              <IoSettings />
-              Settings
-            </Link>
+//         .avatar-btn {
+//           width: 42px;
+//           height: 42px;
+//           border-radius: 50%;
+//           border: 2px solid rgba(255, 255, 255, 0.15);
+//           background: linear-gradient(135deg, #00c853 0%, #009688 100%);
+//           cursor: pointer;
+//           display: flex;
+//           align-items: center;
+//           justify-content: center;
+//           padding: 0;
+//           overflow: hidden;
+//           transition: all 0.25s ease;
+//         }
 
-            <Link
-              href="/support"
-              className="dropdown-link"
-              onClick={() => setDropdownOpen(false)}
-            >
-              <IoHelpCircleOutline />
-              Help Center
-            </Link>
+//         .avatar-btn:hover {
+//           transform: translateY(-1px);
+//           box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+//         }
 
-            <div className="dropdown-divider" />
+//         .avatar-img {
+//           border-radius: 50%;
+//           object-fit: cover;
+//         }
 
-            <button
-              className="dropdown-link dropdown-logout"
-              onClick={onLogout}
-            >
-              <FaPowerOff />
-              Log Out
-            </button>
-          </div>
-        </div>
-      )}
+//         .avatar-initials {
+//           color: #fff;
+//           font-size: 14px;
+//           font-weight: 700;
+//           letter-spacing: 0.5px;
+//           line-height: 1;
+//         }
 
-      <style jsx>{`
-        .user-dropdown {
-          position: absolute;
-          top: calc(100% + 14px);
-          right: 0;
-          width: 240px;
-          background: #ffffff;
-          border-radius: 16px;
-          border: 1px solid #eef2f7;
-          box-shadow:
-            0 20px 50px rgba(15, 23, 42, 0.12),
-            0 2px 8px rgba(15, 23, 42, 0.06);
-          z-index: 99999;
-          overflow: hidden;
-          animation: dropdownFade 0.22s ease;
-        }
+//         .user-dropdown {
+//           position: absolute;
+//           top: calc(100% + 18px);
+//           right: 0;
+//           width: 255px;
+//           background: #ffffff;
+//           border-radius: 16px;
+//           border: 1px solid #edf0f7;
+//           box-shadow:
+//             0 20px 50px rgba(15, 23, 42, 0.12),
+//             0 2px 8px rgba(15, 23, 42, 0.06);
+//           z-index: 99999;
+//           overflow: hidden;
+//           animation: dropdownFade 0.22s ease;
+//         }
 
-        .user-dropdown::before {
-          content: '';
-          position: absolute;
-          top: -7px;
-          right: 20px;
-          width: 14px;
-          height: 14px;
-          background: #fff;
-          border-left: 1px solid #eef2f7;
-          border-top: 1px solid #eef2f7;
-          transform: rotate(45deg);
-        }
+//         /* top arrow */
+//         .user-dropdown::before {
+//           content: '';
+//           position: absolute;
+//           top: -7px;
+//           right: 22px;
+//           width: 14px;
+//           height: 14px;
+//           background: #fff;
+//           border-left: 1px solid #edf0f7;
+//           border-top: 1px solid #edf0f7;
+//           transform: rotate(45deg);
+//         }
 
-        @keyframes dropdownFade {
-          from {
-            opacity: 0;
-            transform: translateY(-8px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
+//         @keyframes dropdownFade {
+//           from {
+//             opacity: 0;
+//             transform: translateY(-8px);
+//           }
+//           to {
+//             opacity: 1;
+//             transform: translateY(0);
+//           }
+//         }
 
-        .dropdown-links {
-          padding: 10px;
-        }
+//         .dropdown-user-info {
+//           display: flex;
+//           align-items: center;
+//           gap: 12px;
+//           padding: 18px 18px 14px;
+//         }
 
-        .dropdown-link {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          width: 100%;
-          text-decoration: none;
-          border: none;
-          background: transparent;
-          padding: 13px 14px;
-          border-radius: 12px;
-          color: #334155;
-          font-size: 15px;
-          font-weight: 600;
-          transition: all 0.18s ease;
-          cursor: pointer;
-        }
+//         .dropdown-avatar {
+//           width: 42px;
+//           height: 42px;
+//           border-radius: 50%;
+//           overflow: hidden;
+//           background: #f4f7fb;
+//           display: flex;
+//           align-items: center;
+//           justify-content: center;
+//           flex-shrink: 0;
+//         }
 
-        .dropdown-link:hover {
-          background: #f8fafc;
-          color: #00a76f;
-          transform: translateX(2px);
-        }
+//         .dropdown-avatar img {
+//           width: 100%;
+//           height: 100%;
+//           object-fit: cover;
+//         }
 
-        .dropdown-link svg {
-          font-size: 18px;
-          opacity: 0.8;
-        }
+//         .dropdown-avatar span {
+//           font-size: 15px;
+//           font-weight: 700;
+//           color: #111827;
+//         }
 
-        .dropdown-divider {
-          height: 1px;
-          background: #eef2f7;
-          margin: 6px 0;
-        }
+//         .dropdown-user-text {
+//           display: flex;
+//           flex-direction: column;
+//           overflow: hidden;
+//         }
 
-        .dropdown-logout {
-          color: #ef4444;
-        }
+//         .dropdown-username {
+//           font-size: 15px;
+//           font-weight: 700;
+//           color: #1f2937;
+//           line-height: 1.2;
+//           white-space: nowrap;
+//           overflow: hidden;
+//           text-overflow: ellipsis;
+//         }
 
-        .dropdown-logout:hover {
-          background: #fff5f5;
-          color: #dc2626;
-        }
-      `}</style>
-    </div>
-  );
-}
+//         .dropdown-email {
+//           font-size: 12px;
+//           color: #94a3b8;
+//           margin-top: 2px;
+//           white-space: nowrap;
+//           overflow: hidden;
+//           text-overflow: ellipsis;
+//         }
+
+//         .dropdown-divider {
+//           height: 1px;
+//           background: #eef2f7;
+//           margin: 2px 0;
+//         }
+
+//         .dropdown-links {
+//           padding: 8px;
+//         }
+
+//         .dropdown-link {
+//           display: flex;
+//           align-items: center;
+//           gap: 12px;
+//           width: 100%;
+//           border: none;
+//           background: transparent;
+//           text-decoration: none;
+//           padding: 12px 14px;
+//           border-radius: 12px;
+//           color: #334155;
+//           font-size: 15px;
+//           font-weight: 600;
+//           transition: all 0.18s ease;
+//           cursor: pointer;
+//         }
+
+//         .dropdown-link:hover {
+//           background: #f8fafc;
+//           color: #00a76f;
+//           transform: translateX(2px);
+//         }
+
+//         .dropdown-link svg {
+//           font-size: 18px;
+//           opacity: 0.7;
+//         }
+
+//         .dropdown-logout {
+//           color: #ef4444;
+//         }
+
+//         .dropdown-logout:hover {
+//           background: #fff5f5;
+//           color: #dc2626;
+//         }
+//       `}</style>
+
+      
+//     </div>
+//   );
+// }
 
 function Navbar() {
   const pathname = usePathname();
@@ -466,7 +555,7 @@ function Navbar() {
                     <Link href="/faqs" className="info-link">
                       Help
                     </Link>
-                    <UserAvatar user={user} onLogout={handleLogout} />
+                    <NavUserAvatar user={user} onLogout={handleLogout} />
                   </div>
                 ) : (
                   <div className="d-flex align-items-center info">

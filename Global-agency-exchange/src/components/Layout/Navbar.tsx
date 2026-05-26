@@ -6,9 +6,7 @@ import Image from 'next/image';
 import MobileMenuModal from '@/components/Layout/MobileMenuModal';
 import { menusData } from '@/components/Layout/MenusData';
 import { api } from '@/lib/api';
-import { FaCircleUser, FaPowerOff } from 'react-icons/fa6';
-import { RxDashboard } from 'react-icons/rx';
-import { IoHelpCircleOutline, IoSettings } from 'react-icons/io5';
+import NavUserAvatar from '../NavUserAvatar';
 
 type MenuItem = {
   title: string;
@@ -71,194 +69,194 @@ function MenuItems({ items, pathname, level = 0 }: MenuItemsProps) {
   );
 }
 
-function UserAvatar({ user, onLogout }: { user: User; onLogout: () => void }) {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+// function UserAvatar({ user, onLogout }: { user: User; onLogout: () => void }) {
+//   const [dropdownOpen, setDropdownOpen] = useState(false);
+//   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(e.target as Node)
-      ) {
-        setDropdownOpen(false);
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+//   useEffect(() => {
+//     function handleClickOutside(e: MouseEvent) {
+//       if (
+//         dropdownRef.current &&
+//         !dropdownRef.current.contains(e.target as Node)
+//       ) {
+//         setDropdownOpen(false);
+//       }
+//     }
+//     document.addEventListener('mousedown', handleClickOutside);
+//     return () => document.removeEventListener('mousedown', handleClickOutside);
+//   }, []);
 
-  const displayName = user.fullName || user.name || user.email || 'User';
-  const initials = displayName
-    .split(' ')
-    .map((n: string) => n[0])
-    .slice(0, 2)
-    .join('')
-    .toUpperCase();
+//   const displayName = user.fullName || user.name || user.email || 'User';
+//   const initials = displayName
+//     .split(' ')
+//     .map((n: string) => n[0])
+//     .slice(0, 2)
+//     .join('')
+//     .toUpperCase();
 
-  return (
-    <div className="user-avatar-wrapper" ref={dropdownRef}>
-      <button
-        className="avatar-btn"
-        onClick={() => setDropdownOpen(prev => !prev)}
-        aria-label="User menu"
-      >
-        {user.avatar ? (
-          <Image
-            src={user.avatar}
-            alt={displayName}
-            width={50}
-            height={50}
-            className="avatar-img"
-          />
-        ) : (
-          <span className="avatar-initials">{initials}</span>
-        )}
-      </button>
+//   return (
+//     <div className="user-avatar-wrapper" ref={dropdownRef}>
+//       <button
+//         className="avatar-btn"
+//         onClick={() => setDropdownOpen(prev => !prev)}
+//         aria-label="User menu"
+//       >
+//         {user.avatar ? (
+//           <Image
+//             src={user.avatar}
+//             alt={displayName}
+//             width={50}
+//             height={50}
+//             className="avatar-img"
+//           />
+//         ) : (
+//           <span className="avatar-initials">{initials}</span>
+//         )}
+//       </button>
 
-      {dropdownOpen && (
-        <div className="user-dropdown">
-          <div className="dropdown-links">
-            <Link
-              href="/profile"
-              className="dropdown-link"
-              onClick={() => setDropdownOpen(false)}
-            >
-              <FaCircleUser />
-              My Profile
-            </Link>
+//       {dropdownOpen && (
+//         <div className="user-dropdown">
+//           <div className="dropdown-links">
+//             <Link
+//               href="/profile"
+//               className="dropdown-link"
+//               onClick={() => setDropdownOpen(false)}
+//             >
+//               <FaCircleUser />
+//               My Profile
+//             </Link>
 
-            <Link
-              href="/dashboard"
-              className="dropdown-link"
-              onClick={() => setDropdownOpen(false)}
-            >
-              <RxDashboard />
-              Dashboard
-            </Link>
+//             <Link
+//               href="/dashboard"
+//               className="dropdown-link"
+//               onClick={() => setDropdownOpen(false)}
+//             >
+//               <RxDashboard />
+//               Dashboard
+//             </Link>
 
-            <Link
-              href="/settings"
-              className="dropdown-link"
-              onClick={() => setDropdownOpen(false)}
-            >
-              <IoSettings />
-              Settings
-            </Link>
+//             <Link
+//               href="/settings"
+//               className="dropdown-link"
+//               onClick={() => setDropdownOpen(false)}
+//             >
+//               <IoSettings />
+//               Settings
+//             </Link>
 
-            <Link
-              href="/support"
-              className="dropdown-link"
-              onClick={() => setDropdownOpen(false)}
-            >
-              <IoHelpCircleOutline />
-              Help Center
-            </Link>
+//             <Link
+//               href="/support"
+//               className="dropdown-link"
+//               onClick={() => setDropdownOpen(false)}
+//             >
+//               <IoHelpCircleOutline />
+//               Help Center
+//             </Link>
 
-            <div className="dropdown-divider" />
+//             <div className="dropdown-divider" />
 
-            <button
-              className="dropdown-link dropdown-logout"
-              onClick={onLogout}
-            >
-              <FaPowerOff />
-              Log Out
-            </button>
-          </div>
-        </div>
-      )}
+//             <button
+//               className="dropdown-link dropdown-logout"
+//               onClick={onLogout}
+//             >
+//               <FaPowerOff />
+//               Log Out
+//             </button>
+//           </div>
+//         </div>
+//       )}
 
-      <style jsx>{`
-        .user-dropdown {
-          position: absolute;
-          top: calc(100% + 14px);
-          right: 0;
-          width: 240px;
-          background: #ffffff;
-          border-radius: 16px;
-          border: 1px solid #eef2f7;
-          box-shadow:
-            0 20px 50px rgba(15, 23, 42, 0.12),
-            0 2px 8px rgba(15, 23, 42, 0.06);
-          z-index: 99999;
-          overflow: hidden;
-          animation: dropdownFade 0.22s ease;
-        }
+//       <style jsx>{`
+//         .user-dropdown {
+//           position: absolute;
+//           top: calc(100% + 14px);
+//           right: 0;
+//           width: 240px;
+//           background: #ffffff;
+//           border-radius: 16px;
+//           border: 1px solid #eef2f7;
+//           box-shadow:
+//             0 20px 50px rgba(15, 23, 42, 0.12),
+//             0 2px 8px rgba(15, 23, 42, 0.06);
+//           z-index: 99999;
+//           overflow: hidden;
+//           animation: dropdownFade 0.22s ease;
+//         }
 
-        .user-dropdown::before {
-          content: '';
-          position: absolute;
-          top: -7px;
-          right: 20px;
-          width: 14px;
-          height: 14px;
-          background: #fff;
-          border-left: 1px solid #eef2f7;
-          border-top: 1px solid #eef2f7;
-          transform: rotate(45deg);
-        }
+//         .user-dropdown::before {
+//           content: '';
+//           position: absolute;
+//           top: -7px;
+//           right: 20px;
+//           width: 14px;
+//           height: 14px;
+//           background: #fff;
+//           border-left: 1px solid #eef2f7;
+//           border-top: 1px solid #eef2f7;
+//           transform: rotate(45deg);
+//         }
 
-        @keyframes dropdownFade {
-          from {
-            opacity: 0;
-            transform: translateY(-8px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
+//         @keyframes dropdownFade {
+//           from {
+//             opacity: 0;
+//             transform: translateY(-8px);
+//           }
+//           to {
+//             opacity: 1;
+//             transform: translateY(0);
+//           }
+//         }
 
-        .dropdown-links {
-          padding: 10px;
-        }
+//         .dropdown-links {
+//           padding: 10px;
+//         }
 
-        .dropdown-link {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          width: 100%;
-          text-decoration: none;
-          border: none;
-          background: transparent;
-          padding: 13px 14px;
-          border-radius: 12px;
-          color: #334155;
-          font-size: 15px;
-          font-weight: 600;
-          transition: all 0.18s ease;
-          cursor: pointer;
-        }
+//         .dropdown-link {
+//           display: flex;
+//           align-items: center;
+//           gap: 12px;
+//           width: 100%;
+//           text-decoration: none;
+//           border: none;
+//           background: transparent;
+//           padding: 13px 14px;
+//           border-radius: 12px;
+//           color: #334155;
+//           font-size: 15px;
+//           font-weight: 600;
+//           transition: all 0.18s ease;
+//           cursor: pointer;
+//         }
 
-        .dropdown-link:hover {
-          background: #f8fafc;
-          color: #00a76f;
-          transform: translateX(2px);
-        }
+//         .dropdown-link:hover {
+//           background: #f8fafc;
+//           color: #00a76f;
+//           transform: translateX(2px);
+//         }
 
-        .dropdown-link svg {
-          font-size: 18px;
-          opacity: 0.8;
-        }
+//         .dropdown-link svg {
+//           font-size: 18px;
+//           opacity: 0.8;
+//         }
 
-        .dropdown-divider {
-          height: 1px;
-          background: #eef2f7;
-          margin: 6px 0;
-        }
+//         .dropdown-divider {
+//           height: 1px;
+//           background: #eef2f7;
+//           margin: 6px 0;
+//         }
 
-        .dropdown-logout {
-          color: #ef4444;
-        }
+//         .dropdown-logout {
+//           color: #ef4444;
+//         }
 
-        .dropdown-logout:hover {
-          background: #fff5f5;
-          color: #dc2626;
-        }
-      `}</style>
-    </div>
-  );
-}
+//         .dropdown-logout:hover {
+//           background: #fff5f5;
+//           color: #dc2626;
+//         }
+//       `}</style>
+//     </div>
+//   );
+// }
 
 function Navbar() {
   const pathname = usePathname();
@@ -323,7 +321,7 @@ function Navbar() {
                     <Link href="/faqs" className="info-link">
                       Help
                     </Link>
-                    <UserAvatar user={user} onLogout={handleLogout} />
+                    <NavUserAvatar user={user} onLogout={handleLogout} />
                   </div>
                 ) : (
                   <div className="d-flex align-items-center info">
