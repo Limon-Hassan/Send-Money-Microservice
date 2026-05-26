@@ -24,7 +24,7 @@ const COUNTRY_PHONE_RULES: CountryPhoneRule[] = [
     name: 'Bangladesh',
     minDigits: 10,
     maxDigits: 10,
-    pattern: /^\+880[13-9]\d{8}$/,
+    pattern: /^\+880[1][3-9]\d{8}$/,
   },
   {
     countryCode: '+91',
@@ -665,7 +665,7 @@ const COUNTRY_PHONE_RULES: CountryPhoneRule[] = [
 
 function sanitizeNumber(phone: string): string {
   return phone.replace(/[\s\-().]/g, '');
-} 
+}
 function normalizeToE164(phone: string, defaultDialCode?: string): string {
   let cleaned = sanitizeNumber(phone);
 
@@ -683,7 +683,8 @@ function normalizeToE164(phone: string, defaultDialCode?: string): string {
 
   // Case 3 – local number + dropdown dialCode
   if (defaultDialCode) {
-    const dialCode = defaultDialCode.replace(/^\+/, ''); // e.g. "880"
+    const dialCode = defaultDialCode.replace(/^\+/, '');
+    console.log('DEBUG normalize:', { cleaned, dialCode });
 
     // 3a – user accidentally typed the dial code again as digits
     //      e.g. cleaned = "8801887604100", dialCode = "880"
@@ -696,12 +697,11 @@ function normalizeToE164(phone: string, defaultDialCode?: string): string {
       cleaned = cleaned.slice(1);
     }
 
+    console.log('DEBUG result:', '+' + dialCode + cleaned);
     return '+' + dialCode + cleaned;
   }
-
   return cleaned;
 }
-
 
 export function validatePhoneNumber(
   phone: string,
@@ -750,7 +750,7 @@ export function validatePhoneNumber(
 
   return {
     isValid: true,
-    formatted: normalized, 
+    formatted: normalized,
     countryCode: rule.countryCode,
     errorMessage: null,
   };
