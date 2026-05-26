@@ -1,3 +1,5 @@
+import { tokenHelper } from "./tokenHelper";
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://54.242.116.83';
 
 export const api = {
@@ -129,9 +131,20 @@ export const api = {
   },
 
   getMe: async () => {
+    const token = tokenHelper.get(); // localStorage থেকে accessToken নাও
+
+    if (!token) {
+      throw new Error('No access token found');
+    }
+
     const res = await fetch(`${API_URL}/auth/me`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
       credentials: 'include',
     });
+
     return res.json();
   },
 };
