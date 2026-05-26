@@ -7,7 +7,6 @@ export const menusData = [
     title: 'Services',
     dropdown: [
       { title: 'Services', href: '/services/' },
-      { title: 'Services Details', href: '/services/details/' },
       { title: 'Pricing', href: '/pricing/' },
       { title: 'Personal', href: '/personal/' },
       { title: 'Business', href: '/business/' },
