@@ -444,25 +444,12 @@ export class AuthService {
     return { message: 'Session revoked' };
   }
 
-  async getMe(cookies: string) {
-    const tokenMatch = cookies.match(/accessToken=([^;]+)/);
-    if (!tokenMatch) {
-      throw new UnauthorizedException('Not authenticated');
-    }
-
-    let payload: any;
-    try {
-      payload = this.jwt.verify(tokenMatch[1], {
-        secret: process.env.JWT_SECRET,
-      });
-    } catch {
-      throw new UnauthorizedException('Invalid or expired token');
-    }
-
+  async getMe(user: { userId: string }) {
     const res = await fetch(
-      `${process.env.USER_SERVICE_API_URL}/user/profile?userId=${payload.sub}`,
+      `${process.env.USER_SERVICE_API_URL}/user/profile?userId=${user.userId}`,
     );
 
+    console.log('GET ME RESPONSE:', res);
     return res.json();
   }
 

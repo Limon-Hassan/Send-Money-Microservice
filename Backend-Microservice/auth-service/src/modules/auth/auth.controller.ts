@@ -7,6 +7,7 @@ import {
   UnauthorizedException,
   Param,
   Delete,
+  Injectable,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
@@ -16,6 +17,8 @@ import { Get, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { KycService } from '../kyc/kyc.service';
 
+@Injectable()
+export class JwtAuthGuard extends AuthGuard('jwt') {}
 @Controller('auth')
 export class AuthController {
   constructor(
@@ -193,10 +196,14 @@ export class AuthController {
     return this.authService.revokeSession(payload.sub, sessionId);
   }
 
+  
+  @UseGuards(JwtAuthGuard)
   @Get('me')
-  async getMe(@Req() req: Request) {
-    return this.authService.getMe(req.headers.cookie || '');
+  async getMe(@Req() req: any) {
+    return this.authService.getMe(req.user);
   }
+
+
 
   @Post('forgot-password')
   async forgotPassword(@Body() body: { email: string }) {
