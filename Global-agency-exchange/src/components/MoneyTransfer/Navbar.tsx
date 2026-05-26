@@ -277,10 +277,13 @@ function UserAvatar({ user, onLogout }: { user: User; onLogout: () => void }) {
         <div className="user-dropdown">
           <div className="dropdown-user-info">
             <span className="dropdown-username">{displayName}</span>
+            <span className="user-email-text">{user.email}</span>
           </div>
+
           <div className="dropdown-divider" />
+
           <Link
-            href="/profile"
+            href="/#"
             className="dropdown-link"
             onClick={() => setDropdownOpen(false)}
           >
@@ -288,7 +291,7 @@ function UserAvatar({ user, onLogout }: { user: User; onLogout: () => void }) {
             Profile
           </Link>
           <Link
-            href="/dashboard"
+            href="/#"
             className="dropdown-link"
             onClick={() => setDropdownOpen(false)}
           >
@@ -296,15 +299,17 @@ function UserAvatar({ user, onLogout }: { user: User; onLogout: () => void }) {
             Dashboard
           </Link>
           <Link
-            href="/settings"
+            href="/#"
             className="dropdown-link"
             onClick={() => setDropdownOpen(false)}
           >
             <i className="ri-settings-3-line" />
             Settings
           </Link>
+
           <div className="dropdown-divider" />
-          <button className="dropdown-link dropdown-logout" onClick={onLogout}>
+
+          <button className="dropdown-link dropdown-logout">
             <i className="ri-logout-box-r-line" />
             Log Out
           </button>
@@ -320,114 +325,88 @@ function UserAvatar({ user, onLogout }: { user: User; onLogout: () => void }) {
           width: 38px;
           height: 38px;
           border-radius: 50%;
-          border: 2px solid rgba(255, 255, 255, 0.4);
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          border: 2px solid #e2e8f0;
           cursor: pointer;
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 0;
           overflow: hidden;
-          transition:
-            border-color 0.2s,
-            box-shadow 0.2s;
+          transition: all 0.2s ease;
+          background-color: #f7fafc;
         }
 
         .avatar-btn:hover {
-          border-color: rgba(255, 255, 255, 0.8);
-          box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
-        }
-
-        .avatar-img {
-          border-radius: 50%;
-          object-fit: cover;
-        }
-
-        .avatar-initials {
-          color: #fff;
-          font-size: 14px;
-          font-weight: 600;
-          letter-spacing: 0.5px;
-          line-height: 1;
+          box-shadow: 0 0 0 4px rgba(66, 153, 225, 0.15);
         }
 
         .user-dropdown {
           position: absolute;
-          top: calc(100% + 10px);
+          top: calc(100% + 12px);
           right: 0;
-          min-width: 200px;
+          width: 240px;
           background: #ffffff;
-          border-radius: 12px;
+          border-radius: 10px;
           box-shadow:
-            0 10px 40px rgba(0, 0, 0, 0.15),
-            0 2px 8px rgba(0, 0, 0, 0.08);
-          padding: 8px 0;
+            0 10px 25px -5px rgba(0, 0, 0, 0.1),
+            0 8px 10px -6px rgba(0, 0, 0, 0.1);
+          padding: 12px 0;
           z-index: 9999;
-          animation: dropdownFadeIn 0.18s ease;
-        }
-
-        @keyframes dropdownFadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(-6px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          border: 1px solid #e2e8f0;
+          animation: dropdownFadeIn 0.2s ease-out;
         }
 
         .dropdown-user-info {
-          padding: 12px 16px 10px;
+          padding: 0 16px 12px 16px;
         }
 
         .dropdown-username {
           font-size: 14px;
-          font-weight: 700;
-          color: #1a1a2e;
+          font-weight: 600;
+          color: #2d3748;
           display: block;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          max-width: 168px;
+          margin-bottom: 2px;
+        }
+
+        .user-email-text {
+          font-size: 12px;
+          color: #718096;
         }
 
         .dropdown-divider {
           height: 1px;
-          background: #f0f0f0;
-          margin: 4px 0;
+          background: #edf2f7;
+          margin: 8px 0;
         }
 
         .dropdown-link {
           display: flex;
           align-items: center;
-          gap: 10px;
+          gap: 12px;
           padding: 10px 16px;
           font-size: 14px;
-          color: #444;
+          color: #4a5568;
           text-decoration: none;
           background: none;
           border: none;
           width: 100%;
           text-align: left;
           cursor: pointer;
-          transition:
-            background 0.15s,
-            color 0.15s;
+          transition: background 0.2s;
         }
 
         .dropdown-link:hover {
-          background: #f5f5ff;
-          color: #667eea;
+          background: #f7fafc;
+          color: #2b6cb0;
         }
 
         .dropdown-link i {
-          font-size: 16px;
-          opacity: 0.8;
+          font-size: 18px;
+          color: #a0aec0;
         }
 
         .dropdown-logout {
           color: #e53e3e;
+          font-weight: 500;
         }
 
         .dropdown-logout:hover {
@@ -546,4 +525,5 @@ function Navbar() {
 }
 
 export default Navbar;
+
 
