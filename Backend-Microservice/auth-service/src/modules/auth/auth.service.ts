@@ -444,6 +444,27 @@ export class AuthService {
     return { message: 'Session revoked' };
   }
 
+  async getMe(cookies: string) {
+    const tokenMatch = cookies.match(/accessToken=([^;]+)/);
+    if (!tokenMatch) {
+      throw new UnauthorizedException('Not authenticated');
+    }
+
+    let payload: any;
+    try {
+      payload = this.jwt.verify(tokenMatch[1], {
+        secret: process.env.JWT_SECRET,
+      });
+    } catch {
+      throw new UnauthorizedException('Invalid or expired token');
+    }
+
+    const res = await fetch(
+      `${process.env.USER_SERVICE_API_URL}/user/profile?userId=${payload.sub}`,
+    );
+
+    return res.json();
+  }
 
   async forgotPasswordRequest(email: string) {
     const res = await fetch(
@@ -466,7 +487,7 @@ export class AuthService {
     }
 
     const otp = generateOtp();
-    await this.redis.setex(redisKeys.otp(data.userId), 300, otp); 
+    await this.redis.setex(redisKeys.otp(data.userId), 300, otp);
 
     await this.otpQueue.add('send-otp', {
       userId: data.userId,
@@ -477,7 +498,7 @@ export class AuthService {
 
     return {
       message: 'OTP sent to your email.',
-      maskedEmail: data.maskedEmail, 
+      maskedEmail: data.maskedEmail,
       userId: data.userId,
     };
   }
@@ -491,12 +512,8 @@ export class AuthService {
 
     await this.redis.del(redisKeys.otp(userId));
 
-    const resetToken = generateOtp() + generateOtp(); 
-    await this.redis.setex(
-      `reset_token:${userId}`,
-      600, 
-      resetToken,
-    );
+    const resetToken = generateOtp() + generateOtp();
+    await this.redis.setex(`reset_token:${userId}`, 600, resetToken);
 
     return {
       message: 'OTP verified. You can now reset your password.',

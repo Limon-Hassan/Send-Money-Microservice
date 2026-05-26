@@ -39,6 +39,11 @@ export class UserController {
     return this.userService.googleRegister(body);
   }
 
+  @Get('profile')
+  async getProfile(@Query('userId') userId: string) {
+    return this.userService.getProfile(userId);
+  }
+
   @Post('internal/find-by-email')
   async findByEmail(@Body() body: { email: string }) {
     return this.userService.findUserByEmail(body.email);

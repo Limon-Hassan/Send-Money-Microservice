@@ -11,6 +11,7 @@ import { OtpValidationDto } from './dto/otp.dto';
 import { ResendOTPDto } from './dto/resendOTP.dto';
 import { SendOtpDto } from './dto/send-otp.dto';
 import { validatePhoneNumber } from '../../shared/utils/phone.validator';
+import { validateEmail } from '../../shared/utils/email.validator';
 
 @Injectable()
 export class UserService {
@@ -38,8 +39,13 @@ export class UserService {
         formattedPhone = phoneResult.formatted;
       }
 
+      const emailResult = validateEmail(dto.email);
+      if (!emailResult.isValid) {
+        throw new Error(emailResult.errorMessage);
+      }
+
       const existing = await this.prisma.user.findUnique({
-        where: { email: dto.email },
+        where: { email: emailResult.formatted },
       });
 
       if (existing) {
@@ -51,7 +57,7 @@ export class UserService {
       const user = await this.prisma.user.create({
         data: {
           fullName: dto.fullName,
-          email: dto.email,
+          email: emailResult.formatted,
           phone: formattedPhone,
           password: hashedPassword,
           currency: dto.currency,
@@ -226,8 +232,6 @@ export class UserService {
     return { data: user };
   }
 
-  
-
   async findUserByEmail(email: string) {
     const user = await this.prisma.user.findUnique({
       where: { email },
@@ -243,10 +247,27 @@ export class UserService {
 
     return {
       found: true,
-      maskedEmail: this.maskEmail(user.email), 
+      maskedEmail: this.maskEmail(user.email),
       userId: user.id,
       email: user.email,
     };
+  }
+
+  async getProfile(userId: string) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        fullName: true,
+        email: true,
+        avatar: true,
+      },
+    });
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    return user;
   }
 
   async resetPassword(userId: string, newPassword: string) {
@@ -298,7 +319,7 @@ export class UserService {
 
   private maskEmail(email: string): string {
     const [local, domain] = email.split('@');
-    const visible = local.slice(0, 2); 
+    const visible = local.slice(0, 2);
     return `${visible}******@${domain}`;
   }
 }

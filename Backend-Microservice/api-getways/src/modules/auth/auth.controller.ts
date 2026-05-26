@@ -119,6 +119,11 @@ export class AuthController {
     return this.authService.revokeSession(sessionId, req.headers.cookie || '');
   }
 
+  @Get('me')
+  async getMe(@Req() req: Request) {
+    return this.authService.getMe(req.headers.cookie || '');
+  }
+
   @Post('forgot-password')
   async forgotPassword(@Body() dto: any) {
     return this.authService.forgotPassword(dto);

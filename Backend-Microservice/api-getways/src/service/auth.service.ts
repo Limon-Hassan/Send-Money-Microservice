@@ -19,7 +19,6 @@ export class GatewayAuthService {
         },
       }),
     );
-    console.log('AUTH SERVICE RESPONSE:', JSON.stringify(data));
     return data;
   }
 
@@ -36,7 +35,6 @@ export class GatewayAuthService {
         },
       ),
     );
-    console.log('VERIFY OTP RESPONSE:', JSON.stringify(data));
     return data;
   }
 
@@ -51,6 +49,15 @@ export class GatewayAuthService {
         {},
         { headers: { cookie: cookies } },
       ),
+    );
+    return data;
+  }
+
+  async getMe(cookies: string) {
+    const { data } = await firstValueFrom(
+      this.http.get(`${this.config.get('AUTH_SERVICE_URL')}/auth/me`, {
+        headers: { cookie: cookies },
+      }),
     );
     return data;
   }

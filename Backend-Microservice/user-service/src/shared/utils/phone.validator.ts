@@ -684,10 +684,7 @@ function normalizeToE164(phone: string, defaultDialCode?: string): string {
   // Case 3 – local number + dropdown dialCode
   if (defaultDialCode) {
     const dialCode = defaultDialCode.replace(/^\+/, '');
-    console.log('DEBUG normalize:', { cleaned, dialCode });
 
-    // 3a – user accidentally typed the dial code again as digits
-    //      e.g. cleaned = "8801887604100", dialCode = "880"
     if (cleaned.startsWith(dialCode)) {
       cleaned = cleaned.slice(dialCode.length);
     }
@@ -697,7 +694,6 @@ function normalizeToE164(phone: string, defaultDialCode?: string): string {
       cleaned = cleaned.slice(1);
     }
 
-    console.log('DEBUG result:', '+' + dialCode + cleaned);
     return '+' + dialCode + cleaned;
   }
   return cleaned;
