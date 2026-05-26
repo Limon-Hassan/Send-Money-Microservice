@@ -4,7 +4,6 @@ import "../../styles/flaticon.css";
 import "swiper/css";
 import "swiper/css/bundle";
 
-// Globals Styles
 import "../../styles/globals.css";
 
 import type { Metadata } from "next";

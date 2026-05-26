@@ -132,7 +132,6 @@ export const api = {
     const res = await fetch(`${API_URL}/auth/me`, {
       credentials: 'include',
     });
-    console.log('Get Me Response:', res);
     return res.json();
   },
 };
