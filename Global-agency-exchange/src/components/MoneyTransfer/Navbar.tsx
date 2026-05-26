@@ -152,7 +152,6 @@
 
 
 
-
 'use client';
 import React, { useEffect, useState, useRef } from 'react';
 import { usePathname } from 'next/navigation';
@@ -163,7 +162,7 @@ import { menusData } from '@/components/Layout/MenusData';
 import { api } from '@/lib/api';
 import { FaCircleUser, FaPowerOff } from 'react-icons/fa6';
 import { RxDashboard } from 'react-icons/rx';
-import { IoSettings } from 'react-icons/io5';
+import { IoHelpCircleOutline, IoSettings } from 'react-icons/io5';
 
 type MenuItem = {
   title: string;
@@ -262,8 +261,8 @@ function UserAvatar({ user, onLogout }: { user: User; onLogout: () => void }) {
           <Image
             src={user.avatar}
             alt={displayName}
-            width={38}
-            height={38}
+            width={50}
+            height={50}
             className="avatar-img"
           />
         ) : (
@@ -273,19 +272,16 @@ function UserAvatar({ user, onLogout }: { user: User; onLogout: () => void }) {
 
       {dropdownOpen && (
         <div className="user-dropdown">
-          <div className="dropdown-user-info">
-            <span className="dropdown-username">{displayName}</span>
-          </div>
-          <div className="dropdown-divider" />
-          <div className="d-flex flex-column mb-3">
+          <div className="dropdown-links">
             <Link
               href="/profile"
               className="dropdown-link"
               onClick={() => setDropdownOpen(false)}
             >
               <FaCircleUser />
-              Profile
+              My Profile
             </Link>
+
             <Link
               href="/dashboard"
               className="dropdown-link"
@@ -294,6 +290,7 @@ function UserAvatar({ user, onLogout }: { user: User; onLogout: () => void }) {
               <RxDashboard />
               Dashboard
             </Link>
+
             <Link
               href="/settings"
               className="dropdown-link"
@@ -302,9 +299,20 @@ function UserAvatar({ user, onLogout }: { user: User; onLogout: () => void }) {
               <IoSettings />
               Settings
             </Link>
+
+            <Link
+              href="/support"
+              className="dropdown-link"
+              onClick={() => setDropdownOpen(false)}
+            >
+              <IoHelpCircleOutline />
+              Help Center
+            </Link>
+
             <div className="dropdown-divider" />
+
             <button
-              className="dropdown-link dropdown-logout d-flex align-items-center gap-2"
+              className="dropdown-link dropdown-logout"
               onClick={onLogout}
             >
               <FaPowerOff />
@@ -315,65 +323,39 @@ function UserAvatar({ user, onLogout }: { user: User; onLogout: () => void }) {
       )}
 
       <style jsx>{`
-        .user-avatar-wrapper {
-          position: relative;
-          z-index: 9999;
-        }
-
-        .avatar-btn {
-          width: 38px;
-          height: 38px;
-          border-radius: 50%;
-          border: 2px solid rgba(255, 255, 255, 0.4);
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 0;
-          overflow: hidden;
-          transition:
-            border-color 0.2s,
-            box-shadow 0.2s;
-        }
-
-        .avatar-btn:hover {
-          border-color: rgba(255, 255, 255, 0.8);
-          box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
-        }
-
-        .avatar-img {
-          border-radius: 50%;
-          object-fit: cover;
-        }
-
-        .avatar-initials {
-          color: #fff;
-          font-size: 14px;
-          font-weight: 600;
-          letter-spacing: 0.5px;
-          line-height: 1;
-        }
-
         .user-dropdown {
           position: absolute;
-          top: calc(100% + 10px);
+          top: calc(100% + 14px);
           right: 0;
-          min-width: 200px;
+          width: 240px;
           background: #ffffff;
-          border-radius: 12px;
+          border-radius: 16px;
+          border: 1px solid #eef2f7;
           box-shadow:
-            0 10px 40px rgba(0, 0, 0, 0.15),
-            0 2px 8px rgba(0, 0, 0, 0.08);
-          padding: 8px 0;
-          z-index: 9999;
-          animation: dropdownFadeIn 0.18s ease;
+            0 20px 50px rgba(15, 23, 42, 0.12),
+            0 2px 8px rgba(15, 23, 42, 0.06);
+          z-index: 99999;
+          overflow: hidden;
+          animation: dropdownFade 0.22s ease;
         }
 
-        @keyframes dropdownFadeIn {
+        .user-dropdown::before {
+          content: '';
+          position: absolute;
+          top: -7px;
+          right: 20px;
+          width: 14px;
+          height: 14px;
+          background: #fff;
+          border-left: 1px solid #eef2f7;
+          border-top: 1px solid #eef2f7;
+          transform: rotate(45deg);
+        }
+
+        @keyframes dropdownFade {
           from {
             opacity: 0;
-            transform: translateY(-6px);
+            transform: translateY(-8px);
           }
           to {
             opacity: 1;
@@ -381,62 +363,51 @@ function UserAvatar({ user, onLogout }: { user: User; onLogout: () => void }) {
           }
         }
 
-        .dropdown-user-info {
-          padding: 12px 16px 10px;
-        }
-
-        .dropdown-username {
-          font-size: 14px;
-          font-weight: 700;
-          color: #1a1a2e;
-          display: block;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          max-width: 168px;
-        }
-
-        .dropdown-divider {
-          height: 1px;
-          background: #f0f0f0;
-          margin: 4px 0;
+        .dropdown-links {
+          padding: 10px;
         }
 
         .dropdown-link {
           display: flex;
           align-items: center;
-          gap: 10px;
-          padding: 10px 16px;
-          font-size: 14px;
-          color: #444;
-          text-decoration: none;
-          background: none;
-          border: none;
+          gap: 12px;
           width: 100%;
-          text-align: left;
+          text-decoration: none;
+          border: none;
+          background: transparent;
+          padding: 13px 14px;
+          border-radius: 12px;
+          color: #334155;
+          font-size: 15px;
+          font-weight: 600;
+          transition: all 0.18s ease;
           cursor: pointer;
-          transition:
-            background 0.15s,
-            color 0.15s;
         }
 
         .dropdown-link:hover {
-          background: #f5f5ff;
-          color: #667eea;
+          background: #f8fafc;
+          color: #00a76f;
+          transform: translateX(2px);
         }
 
-        .dropdown-link i {
-          font-size: 16px;
+        .dropdown-link svg {
+          font-size: 18px;
           opacity: 0.8;
         }
 
+        .dropdown-divider {
+          height: 1px;
+          background: #eef2f7;
+          margin: 6px 0;
+        }
+
         .dropdown-logout {
-          color: #e53e3e;
+          color: #ef4444;
         }
 
         .dropdown-logout:hover {
           background: #fff5f5;
-          color: #c53030;
+          color: #dc2626;
         }
       `}</style>
     </div>

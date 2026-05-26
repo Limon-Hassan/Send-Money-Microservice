@@ -239,7 +239,13 @@ const CurrencyConverter = () => {
           </p>
         </div>
 
-        <button type="button" className="btn w-100 btn-primary">
+        <button
+          onClick={() => {
+            window.location.href = '/login';
+          }}
+          type="button"
+          className="btn w-100 btn-primary"
+        >
           Send Money
         </button>
       </form>
