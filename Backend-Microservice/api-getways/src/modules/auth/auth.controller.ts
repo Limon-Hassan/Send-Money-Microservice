@@ -157,7 +157,8 @@ export class AuthController {
 
   @Get('me')
   async getMe(@Req() req: Request) {
-    return this.authService.getMe(req.headers.cookie || '');
+    const authHeader = req.headers['authorization'] || '';
+    return this.authService.getMe(req.headers.cookie || '', authHeader);
   }
 
   @Post('forgot-password')

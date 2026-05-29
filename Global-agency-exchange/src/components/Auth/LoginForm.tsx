@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { api } from '@/lib/api';
-import { tokenHelper } from '@/lib/tokenHelper';
 
 const LoginForm = () => {
   const router = useRouter();
@@ -27,18 +26,25 @@ const LoginForm = () => {
     try {
       const res = await api.login(formData);
       if (res.requiresOtp) {
-        router.push(`/verify-otp?email=${encodeURIComponent(formData.email)}`);
+        setError(res.message || 'Login failed');
+        setLoading(false);
+        setTimeout(
+          () =>
+            router.push(
+              `/auth-otpVerify?userId=${res.userId}&email=${encodeURIComponent(formData.email)}`,
+            ),
+          1500,
+        );
         return;
       }
-      console.log('Login Response:', res);
       if (res.statusCode >= 400 || res.error) {
         setError(res.message || 'Login failed');
+        setLoading(false);
         return;
       }
-      if (res.accessToken) {
-        tokenHelper.set(res.accessToken);
-      }
+
       const kycRes = await api.kycStatus();
+      console.log('KYC Status:', kycRes);
       if (kycRes.status === 'verified') {
         router.push('/');
       } else {

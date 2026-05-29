@@ -134,7 +134,7 @@ export class AuthService {
       return {
         requiresOtp: true,
         userId: user.id,
-        message: 'New device detected. OTP sent.',
+        message: 'New device detected. OTP sent to your email.',
       };
     }
 
@@ -448,9 +448,12 @@ export class AuthService {
     const res = await fetch(
       `${process.env.USER_SERVICE_API_URL}/user/profile?userId=${user.userId}`,
     );
-
-    console.log('GET ME RESPONSE:', res);
-    return res.json();
+    if (!res.ok) {
+      throw new UnauthorizedException('User not found');
+    }
+    const data = await res.json();
+    console.log('getMe response:', data);
+    return data;
   }
 
   async forgotPasswordRequest(email: string) {

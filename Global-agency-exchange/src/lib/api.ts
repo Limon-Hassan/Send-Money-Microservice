@@ -131,20 +131,9 @@ export const api = {
   },
 
   getMe: async () => {
-    const token = tokenHelper.get(); // localStorage থেকে accessToken নাও
-
-    if (!token) {
-      throw new Error('No access token found');
-    }
-
     const res = await fetch(`${API_URL}/auth/me`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
       credentials: 'include',
     });
-
     return res.json();
   },
 };

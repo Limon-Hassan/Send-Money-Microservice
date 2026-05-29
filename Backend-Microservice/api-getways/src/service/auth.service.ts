@@ -53,13 +53,25 @@ export class GatewayAuthService {
     return data;
   }
 
-  async getMe(cookies: string) {
+  async getMe(cookies: string, authHeader?: string) {
+    const headers: Record<string, string> = {};
+
+    if (cookies) {
+      headers['cookie'] = cookies;
+    }
+
+    if (authHeader) {
+      headers['Authorization'] = authHeader;
+    }
+
     const { data } = await firstValueFrom(
       this.http.get(`${this.config.get('AUTH_SERVICE_URL')}/auth/me`, {
-        headers: { cookie: cookies },
+        headers,
       }),
     );
+    console.log('getMe response:', data);
     return data;
+
   }
 
   async logout(cookies: string) {

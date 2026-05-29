@@ -44,7 +44,6 @@ const page = () => {
         res.message?.includes('failed') ||
         res.message?.includes('not found')
       ) {
-        console.log('res otp channel error', res);
         setChannelError(res.message);
         setChannelLoading(null);
         return;
@@ -63,7 +62,6 @@ const page = () => {
     setOtpError('');
     try {
       const res = await api.verifyOtp({ userId, otp: otpValue });
-      console.log('res otp submit', res);
 
       if (
         res.message?.includes('failed') ||
@@ -77,7 +75,19 @@ const page = () => {
         return;
       }
       setStatus('success');
-      setTimeout(() => router.push('/login'), 1200);
+      setTimeout(async () => {
+        try {
+          const kycRes = await api.kycStatus();
+          if (kycRes.status === 'verified') {
+            router.push('/');
+          } else {
+            router.push('/kyc');
+          }
+        } catch {
+          router.push('/login');
+        }
+      }, 1200);
+
     } catch {
       setStatus('error');
       setOtpError('Something went wrong. Please try again.');

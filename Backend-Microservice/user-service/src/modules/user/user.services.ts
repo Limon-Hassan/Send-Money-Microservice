@@ -262,7 +262,7 @@ export class UserService {
         avatar: true,
       },
     });
-
+    console.log('user from getProfile: ', user);
     if (!user) {
       throw new Error('User not found');
     }

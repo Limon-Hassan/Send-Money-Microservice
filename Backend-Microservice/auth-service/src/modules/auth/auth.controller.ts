@@ -196,14 +196,11 @@ export class AuthController {
     return this.authService.revokeSession(payload.sub, sessionId);
   }
 
-  
   @UseGuards(JwtAuthGuard)
   @Get('me')
   async getMe(@Req() req: any) {
     return this.authService.getMe(req.user);
   }
-
-
 
   @Post('forgot-password')
   async forgotPassword(@Body() body: { email: string }) {

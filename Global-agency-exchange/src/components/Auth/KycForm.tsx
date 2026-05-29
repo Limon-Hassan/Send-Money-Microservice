@@ -28,6 +28,7 @@ const KycForm = () => {
 
       if (s === 'verified') {
         setStep('done');
+        router.push('/');
       } else if (s === 'rejected') {
         setStep('rejected');
       } else {
@@ -100,7 +101,7 @@ const KycForm = () => {
             </p>
             <button
               className="btn btn-secondary"
-              onClick={() => router.push('/dashboard')}
+              onClick={() => router.push('/')}
             >
               Go to Dashboard
             </button>
@@ -190,7 +191,6 @@ const KycForm = () => {
             </div>
           )}
 
-          {/* What you need */}
           <div className="d-flex flex-column gap-2 mb-4 text-start">
             {[
               { icon: '📄', text: 'Valid passport or national ID' },
