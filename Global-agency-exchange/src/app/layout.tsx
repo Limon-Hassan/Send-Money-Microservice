@@ -1,25 +1,38 @@
-import "bootstrap/dist/css/bootstrap.min.css";
-import "remixicon/fonts/remixicon.css";
-import "../../styles/flaticon.css";
-import "swiper/css";
-import "swiper/css/bundle";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'remixicon/fonts/remixicon.css';
+import '../../styles/flaticon.css';
+import 'swiper/css';
+import 'swiper/css/bundle';
+import '../styles/globals.css';
 
-import "../../styles/globals.css";
-
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import GoTop from "@/components/Layout/GoTop";
-import Settings from "@/components/Layout/Settings";
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import GoTop from '@/components/Layout/GoTop';
+import Settings from '@/components/Layout/Settings';
 
 const interSans = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
+  variable: '--font-inter',
+  subsets: ['latin'],
 });
 
 export const metadata: Metadata = {
-  title: "Expa - React Nextjs Currency Exchange & Money Transfer Template",
+  title: 'The Send Money | Fast & Secure Money Transfer',
   description:
-    "Expa is a modern React and Next.js template designed for currency exchange and money transfer websites. It offers a clean design, fast performance, and all the essential features to build secure and professional fintech platforms.",
+    'Send money worldwide with fast, secure, and low-cost international money transfer services. Trusted global payments and currency exchange.',
+
+  keywords:
+    'send money, international money transfer, fast money transfer, secure money transfer, low-cost money transfer, global payments, currency exchange, remittance services, online money transfer',
+
+  authors: [{ name: 'The Send Money Team', url: 'https://thesendmoney.com' }],
+  openGraph: {
+    title: 'The Send Money | International Money Transfer',
+    description:
+      'Send money worldwide with fast, secure, and low-cost international money transfer services. Trusted global payments and currency exchange.',
+    url: 'https://thesendmoney.com',
+    siteName: 'The Send Money',
+    locale: 'en_US',
+    type: 'website',
+  },
 };
 
 export default function RootLayout({
