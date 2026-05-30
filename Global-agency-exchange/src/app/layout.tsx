@@ -3,7 +3,8 @@ import 'remixicon/fonts/remixicon.css';
 import '../../styles/flaticon.css';
 import 'swiper/css';
 import 'swiper/css/bundle';
-import '../styles/globals.css';
+
+import '../../styles/globals.css';
 
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
