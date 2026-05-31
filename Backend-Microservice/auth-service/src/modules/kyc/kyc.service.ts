@@ -108,7 +108,7 @@ export class KycService {
     if (!kyc) {
       return { status: 'not_started' };
     }
-
+    console.log('KYC Status for user', userId, kyc);
     return kyc;
   }
 }
