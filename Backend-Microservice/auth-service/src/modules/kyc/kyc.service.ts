@@ -15,6 +15,10 @@ export class KycService {
     return process.env.SUMSUB_SECRET_KEY!;
   }
 
+  private get webhookSecret() {
+    return process.env.SUMSUB_WEBHOOK_SECRET!;
+  }
+
   async initKyc(userId: string) {
     const existing = await this.prisma.kycVerification.findUnique({
       where: { userId },
@@ -70,16 +74,22 @@ export class KycService {
   }
 
   async handleWebhook(payload: any, signature: string, rawBody: string) {
-    const expectedSig = createHmac('sha256', this.secretKey)
+    const expectedSig = createHmac('sha256', this.webhookSecret)
       .update(rawBody)
       .digest('hex');
+
+    console.log('=== WEBHOOK DEBUG ===');
+    console.log('Received signature:', signature);
+    console.log('Expected signature:', expectedSig);
+    console.log('Webhook secret (first 5):', this.webhookSecret?.slice(0, 5));
+    console.log('Raw body (first 100):', rawBody?.slice(0, 100));
+    console.log('====================');
 
     if (expectedSig !== signature) {
       throw new Error('Invalid webhook signature');
     }
 
     const { applicantId, reviewResult, type } = payload;
-
     if (type !== 'applicantReviewed') return;
 
     const reviewAnswer = reviewResult?.reviewAnswer;
