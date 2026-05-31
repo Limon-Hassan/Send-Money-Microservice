@@ -49,9 +49,9 @@ export class GatewayKycService {
     return data;
   }
 
-  async handleWebhook(signature: string, body: any) {
+  async handleWebhook(signature: string, rawBody: string) {
     const { data } = await firstValueFrom(
-      this.http.post(`${this.getAuthUrl()}/kyc/webhook`, body, {
+      this.http.post(`${this.getAuthUrl()}/kyc/webhook`, rawBody, {
         headers: {
           'x-payload-digest': signature,
           'Content-Type': 'application/json',

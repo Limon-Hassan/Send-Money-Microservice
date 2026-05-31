@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Req, Body, Headers } from '@nestjs/common';
+import { Controller, Post, Get, Req, Body, Headers, RawBodyRequest } from '@nestjs/common';
 import { GatewayKycService } from '../../service/kyc.service';
 import { Request } from 'express';
 
@@ -13,10 +13,11 @@ export class KycController {
 
   @Post('webhook')
   async webhook(
-    @Body() body: any,
+    @Req() req: RawBodyRequest<Request>,
     @Headers('x-payload-digest') signature: string,
   ) {
-    return this.kycService.handleWebhook(signature, body);
+    const rawBody = req.rawBody?.toString('utf8') ?? '';
+    return this.kycService.handleWebhook(signature, rawBody);
   }
 
   @Get('status')
