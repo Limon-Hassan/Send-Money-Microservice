@@ -76,18 +76,8 @@ const page = () => {
       }
       setStatus('success');
       setTimeout(async () => {
-        try {
-          const kycRes = await api.kycStatus();
-          if (kycRes.status === 'verified') {
-            router.push('/');
-          } else {
-            router.push('/kyc');
-          }
-        } catch {
-          router.push('/login');
-        }
+        window.location.href = '/login';
       }, 1200);
-
     } catch {
       setStatus('error');
       setOtpError('Something went wrong. Please try again.');
