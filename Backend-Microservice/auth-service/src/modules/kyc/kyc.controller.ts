@@ -9,6 +9,8 @@ import {
 import { KycService } from './kyc.service';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
+import { RawBodyRequest } from '@nestjs/common';
+
 
 @Controller('kyc')
 export class KycController {
@@ -47,12 +49,14 @@ export class KycController {
 
   @Post('webhook')
   async webhook(
-    @Req() req: Request,
+    @Req() req: RawBodyRequest<Request>,
     @Headers('x-payload-digest') signature: string,
   ) {
-    const rawBody = JSON.stringify(req.body);
-    return this.kycService.handleWebhook(req.body, signature, rawBody);
-  }
+    const rawBody = req.rawBody?.toString('utf8') ?? '';
+    const payload = JSON.parse(rawBody);
+
+    return this.kycService.handleWebhook(payload, signature, rawBody);
+  }                                                                                     
 
   @Get('status')
   async status(@Req() req: Request) {

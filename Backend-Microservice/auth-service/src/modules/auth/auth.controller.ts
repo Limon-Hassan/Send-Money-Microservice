@@ -66,6 +66,7 @@ export class AuthController {
     });
 
     if (result.requiresOtp) return result;
+    this.setCookies(res, result.accessToken!, result.refreshToken!);
 
     return {
       message: result.message,
@@ -88,6 +89,7 @@ export class AuthController {
     if (result.success === false) {
       return { message: result.message };
     }
+    this.setCookies(res, result.accessToken!, result.refreshToken!);
 
     return {
       message: 'Login successful',
