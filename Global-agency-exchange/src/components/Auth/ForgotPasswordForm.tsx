@@ -31,7 +31,6 @@ const ForgotPasswordForm = () => {
 
     try {
       const res = await api.forgotPasswordRequest({ email });
-      console.log('Forgot Password Request Response:', res);
       if (!res.userId) {
         setError(res.message || 'Something went wrong.');
         return;
@@ -54,9 +53,6 @@ const ForgotPasswordForm = () => {
 
     try {
       const res = await api.forgotPasswordVerifyOtp({ userId, otp });
-
-      console.log('Forgot Password Verify OTP Response:', res);
-
       if (!res.resetToken) {
         setError(res.message || 'Invalid OTP.');
         return;
@@ -93,7 +89,6 @@ const ForgotPasswordForm = () => {
         resetToken,
         newPassword,
       });
-      console.log('Password Reset Response:', res);
 
       setSuccess(res.message || 'Password reset successful!');
 

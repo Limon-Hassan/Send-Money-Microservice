@@ -47,7 +47,6 @@ export default function NavUserAvatar({ user, onLogout }: NavUserAvatarProps) {
   return (
     <>
       <div ref={wrapperRef} style={{ position: 'relative', zIndex: 9999 }}>
-        {/* Avatar Button */}
         <button
           onClick={() => setOpen(prev => !prev)}
           aria-label="User menu"
@@ -57,8 +56,8 @@ export default function NavUserAvatar({ user, onLogout }: NavUserAvatarProps) {
             <Image
               src={user.avatar}
               alt={displayName}
-              width={42}
-              height={42}
+              width={62}
+              height={62}
               className="avatar-img"
             />
           ) : (
@@ -66,20 +65,17 @@ export default function NavUserAvatar({ user, onLogout }: NavUserAvatarProps) {
           )}
         </button>
 
-        {/* Dropdown */}
         <div className={`ua-dropdown ${open ? 'ua-dropdown--open' : ''}`}>
-          {/* Arrow */}
           <div className="ua-arrow" />
 
-          {/* User info */}
           <div className="ua-user-info">
             <div className="ua-avatar-sm">
               {user.avatar ? (
                 <Image
                   src={user.avatar}
                   alt={displayName}
-                  width={38}
-                  height={38}
+                  width={62}
+                  height={62}
                   className="ua-avatar-img"
                 />
               ) : (
@@ -94,7 +90,6 @@ export default function NavUserAvatar({ user, onLogout }: NavUserAvatarProps) {
 
           <div className="ua-divider" />
 
-          {/* Menu items */}
           <div className="ua-menu">
             <Link
               href="/profile"
@@ -137,8 +132,8 @@ export default function NavUserAvatar({ user, onLogout }: NavUserAvatarProps) {
             <button
               className="ua-item ua-logout"
               onClick={() => {
-                setOpen(false);
                 onLogout();
+                setOpen(false);
               }}
             >
               <FaPowerOff className="ua-icon" />

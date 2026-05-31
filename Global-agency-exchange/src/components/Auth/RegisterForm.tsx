@@ -133,7 +133,6 @@ const RegisterForm = () => {
         password: formData.password,
         currency: formData.currency,
       });
-      console.log('Registration Response:', res);
 
       if (!res.userId) {
         setError(res.message || 'Registration failed');

@@ -1,4 +1,4 @@
-import { tokenHelper } from "./tokenHelper";
+import { tokenHelper } from './tokenHelper';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://54.242.116.83';
 
@@ -55,6 +55,15 @@ export const api = {
       body: JSON.stringify(dataToSend),
     });
     console.log('Login Response:', res);
+    return res.json();
+  },
+
+  logout: async () => {
+    const res = await fetch(`${API_URL}/auth/logout`, {
+      method: 'POST',
+      credentials: 'include',
+    });
+    tokenHelper.clear(); 
     return res.json();
   },
 

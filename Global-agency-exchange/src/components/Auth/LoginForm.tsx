@@ -44,7 +44,6 @@ const LoginForm = () => {
       }
 
       const kycRes = await api.kycStatus();
-      console.log('KYC Status:', kycRes);
       if (kycRes.status === 'verified') {
         router.push('/');
       } else {
