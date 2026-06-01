@@ -1,0 +1,204 @@
+@import "tailwindcss";
+
+:root {
+  --font-inter: 'DM Sans', sans-serif;
+  --font-syne: 'Syne', sans-serif;
+  --brand-dark: #0a2012;
+  --brand-darker: #061509;
+  --accent: #7ffe4a;
+  --sidebar-width: 260px;
+  --sidebar-collapsed: 72px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-inter);
+  background: #f5f7f5;
+  color: #1a1a1a;
+}
+
+/* Sidebar transition */
+.sidebar-transition {
+  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Page content fade animations */
+@keyframes pageFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pageFadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes staggerIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-enter {
+  animation: pageFadeUp 0.4s ease forwards;
+}
+
+.stagger-1 { animation: staggerIn 0.4s ease 0.05s both; }
+.stagger-2 { animation: staggerIn 0.4s ease 0.1s both; }
+.stagger-3 { animation: staggerIn 0.4s ease 0.15s both; }
+.stagger-4 { animation: staggerIn 0.4s ease 0.2s both; }
+.stagger-5 { animation: staggerIn 0.4s ease 0.25s both; }
+.stagger-6 { animation: staggerIn 0.4s ease 0.3s both; }
+
+/* Sidebar nav item hover */
+.nav-item {
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background: var(--accent);
+  border-radius: 0 3px 3px 0;
+  opacity: 0;
+  transform: scaleY(0.5);
+  transition: all 0.25s ease;
+}
+
+.nav-item:hover::before,
+.nav-item.active::before {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+.nav-item:hover {
+  background: rgba(127, 254, 74, 0.08);
+  padding-left: 4px;
+}
+
+.nav-item.active {
+  background: rgba(127, 254, 74, 0.12);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* Card hover effect */
+.card-hover {
+  transition: all 0.25s ease;
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+/* Button ripple */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(10, 32, 18, 0.4);
+}
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Status badges */
+.badge-completed {
+  background: #dcfce7;
+  color: #15803d;
+}
+.badge-pending {
+  background: #fef9c3;
+  color: #a16207;
+}
+.badge-failed {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* Input focus */
+.input-field {
+  transition: all 0.2s ease;
+  border: 1.5px solid #e5e7eb;
+}
+.input-field:focus {
+  border-color: #166534;
+  box-shadow: 0 0 0 3px rgba(22, 101, 52, 0.1);
+  outline: none;
+}
+
+/* Overlay backdrop */
+.backdrop {
+  backdrop-filter: blur(4px);
+  background: rgba(0,0,0,0.4);
+}
+
+/* Mobile sidebar overlay */
+@media (max-width: 768px) {
+  .mobile-sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 40;
+    animation: pageFadeUp 0.3s ease;
+  }
+}
+
+/* Progress step */
+.step-done { background: #166534; color: white; }
+.step-active { background: #0a2012; color: #7ffe4a; }
+.step-pending { background: #e5e7eb; color: #6b7280; }
+
+/* Confetti animation */
+@keyframes confettiFall {
+  0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(60px) rotate(360deg); opacity: 0; }
+}
+
+.confetti-piece {
+  animation: confettiFall 1.2s ease-out forwards;
+}
+
