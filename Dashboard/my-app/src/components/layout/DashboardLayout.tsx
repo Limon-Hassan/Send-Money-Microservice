@@ -1,16 +1,16 @@
 "use client";
 
 import React, { useState } from "react";
-import Sidebar from "@/components/layout/Sidebar";
-import Header from "@/components/layout/Header";
-import DashboardPage from "@/components/dashboard/DashboardPage";
-import SendMoneyPage from "@/components/dashboard/SendMoneyPage";
-import MyProfilePage from "@/components/dashboard/MyProfilePage";
-import KYCPage from "@/components/dashboard/KYCPage";
-import SettingsPage from "@/components/dashboard/SettingsPage";
-import PaymentMethodsPage from "@/components/dashboard/PaymentMethodsPage";
-import TransactionsPage from "@/components/dashboard/TransactionsPage";
-import LogoutPage from "@/components/dashboard/LogoutPage";
+import Sidebar from "@/src/components/layout/Sidebar";
+import Header from '@/src/components/layout/Header';
+import DashboardPage from '@/src/components/dashboard/DashboardPage';
+import SendMoneyPage from '@/src/components/dashboard/SendMoneyPage';
+import MyProfilePage from '@/src/components/dashboard/MyProfilePage';
+import KYCPage from '@/src/components/dashboard/KYCPage';
+import SettingsPage from '@/src/components/dashboard/SettingsPage';
+import PaymentMethodsPage from '@/src/components/dashboard/PaymentMethodsPage';
+import TransactionsPage from '@/src/components/dashboard/TransactionsPage';
+import LogoutPage from '@/src/components/dashboard/LogoutPage';
 import { NavItem } from "@/types";
 
 const pageTitles: Record<NavItem, string> = {
