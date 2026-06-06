@@ -18,11 +18,20 @@ export interface Transaction {
   time: string;
 }
 
-export interface PaymentMethod {
-  type: "credit-card" | "bank" | "wallet";
+export interface PaymentMethodItem {
   label: string;
-  count: string;
-  last4?: string;
+  expires: string;
+  primary: boolean;
+  icon?: string;
+}
+
+export interface PaymentMethod {
+  type: 'card' | 'bank' | 'wallet';
+  label: string;
+  detail: string;
+  icon?: string;
+  color: 'blue' | 'green' | 'purple';
+  cards: PaymentMethodItem[];
 }
 
 export interface UserProfile {

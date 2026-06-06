@@ -13,7 +13,6 @@ export async function GET(request: Request) {
     if (!res.ok) throw new Error('API fetch failed');
 
     const data = await res.json();
-    console.log('Fetched rates:', data);
     return NextResponse.json({
       base: data.base_code,
       lastUpdated: data.time_last_update_utc,

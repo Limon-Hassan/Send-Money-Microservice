@@ -11,60 +11,17 @@ import {
   Star,
 } from 'lucide-react';
 
+import { mockPaymentMethods } from '@/src/lib/data';
+
 export default function PaymentMethodsPage() {
   const [showAdd, setShowAdd] = useState(false);
   const [addType, setAddType] = useState<'card' | 'bank' | 'wallet'>('card');
 
-  const methods: Array<{
-    type: 'card' | 'bank' | 'wallet';
-    icon: typeof CreditCard;
-    label: string;
-    detail: string;
-    color: 'blue' | 'green' | 'purple';
-    cards: Array<{ label: string; expires: string; primary: boolean }>;
-  }> = [
-    {
-      type: 'card',
-      icon: CreditCard,
-      label: 'Credit / Debit Card',
-      detail: '2 Cards Added',
-      color: 'blue',
-      cards: [
-        { label: 'Visa •••• 4242', expires: '12/27', primary: true },
-        { label: 'Mastercard •••• 8888', expires: '08/26', primary: false },
-      ],
-    },
-    {
-      type: 'bank',
-      icon: Building2,
-      label: 'Bank Account',
-      detail: '3 Accounts Added',
-      color: 'green',
-      cards: [
-        {
-          label: 'Dutch-Bangla Bank •••• 1234',
-          expires: 'Checking',
-          primary: true,
-        },
-        { label: 'BRAC Bank •••• 5678', expires: 'Savings', primary: false },
-        { label: 'Islami Bank •••• 9012', expires: 'Current', primary: false },
-      ],
-    },
-    {
-      type: 'wallet',
-      icon: Wallet,
-      label: 'Wallet',
-      detail: '$450.00 Balance',
-      color: 'purple',
-      cards: [
-        {
-          label: 'TheSendMoney Wallet',
-          expires: '$450.00 available',
-          primary: true,
-        },
-      ],
-    },
-  ];
+  const iconMap = {
+    card: CreditCard,
+    bank: Building2,
+    wallet: Wallet,
+  };
 
   const colorMap = {
     blue: {
@@ -108,7 +65,8 @@ export default function PaymentMethodsPage() {
         </div>
 
         <div className="space-y-4">
-          {methods.map((method, mi) => {
+          {mockPaymentMethods.map((method, mi) => {
+            const Icon = iconMap[method.type];
             const colors = colorMap[method.color];
             return (
               <div
@@ -120,7 +78,15 @@ export default function PaymentMethodsPage() {
                     <div
                       className={`w-10 h-10 rounded-xl ${colors.bg} flex items-center justify-center`}
                     >
-                      <method.icon size={18} className={colors.text} />
+                      {method.icon ? (
+                        <img
+                          src={method.icon}
+                          alt={method.label}
+                          className="w-full h-full object-contain"
+                        />
+                      ) : (
+                        <Icon size={18} className={colors.text} />
+                      )}
                     </div>
                     <div>
                       <p className="font-semibold text-gray-800 text-sm">
@@ -139,7 +105,17 @@ export default function PaymentMethodsPage() {
                       className="flex items-center justify-between px-5 py-3 hover:bg-gray-50/50 transition"
                     >
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-5 rounded bg-gradient-to-r from-gray-700 to-gray-900 opacity-80" />
+                        <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center">
+                          {card.icon ? (
+                            <img
+                              src={card.icon}
+                              alt={card.label}
+                              className="w-full h-full object-contain"
+                            />
+                          ) : (
+                            <CreditCard size={16} className="text-blue-500" />
+                          )}
+                        </div>
                         <div>
                           <p className="text-sm font-medium text-gray-700">
                             {card.label}
@@ -175,7 +151,6 @@ export default function PaymentMethodsPage() {
         </div>
       </div>
 
-      {/* Add payment method modal */}
       {showAdd && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center backdrop"
