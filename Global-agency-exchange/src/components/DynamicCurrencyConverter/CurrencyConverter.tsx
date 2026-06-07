@@ -76,88 +76,26 @@ const CurrencyConverter = () => {
     fromCurrency,
     toCurrency,
     amount,
-    convertedAmount,
+    recipientAmount,
     exchangeRate,
+    handleSendAmountChange,
+    handleRecipientAmountChange,
     lastUpdated,
     loading,
     setFromCurrency,
     setToCurrency,
-    setAmount,
     swapCurrencies,
   } = useCurrencyConverter();
 
   const [receiveMethod, setReceiveMethod] = React.useState(receiveMethods[0]);
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setAmount(e.target.value);
+    handleSendAmountChange(e.target.value);
   };
   return (
     <>
       <div className="ptb-120">
         <div className="container">
-          {/* <div className="currency-converter">
-            <h1>Currency Converter</h1>
-
-            <div className="mb-4">
-              <label htmlFor="amount" className="label">
-                Amount
-              </label>
-              <input
-                type="number"
-                id="amount"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                min="0"
-                step="0.01"
-                className="form-control"
-              />
-            </div>
-
-            <CurrencySelect
-              value={fromCurrency}
-              onChange={setFromCurrency}
-              isOpen={isFromOpen}
-              setIsOpen={setIsFromOpen}
-              label="From Currency"
-              dropdownRef={fromDropdownRef}
-            />
-
-            <div className="swap-button">
-              <button onClick={swapCurrencies} type="button">
-                ⇅
-              </button>
-            </div>
-
-            <CurrencySelect
-              value={toCurrency}
-              onChange={setToCurrency}
-              isOpen={isToOpen}
-              setIsOpen={setIsToOpen}
-              label="To Currency"
-              dropdownRef={toDropdownRef}
-            />
-
-            <div className="result">
-              <div className="conversion-result">
-                {amount} {fromCurrency} = {convertedAmount} {toCurrency}
-              </div>
-              <div className="exchange-rate">
-                1 {fromCurrency} = {exchangeRate} {toCurrency}
-              </div>
-            </div>
-
-            <div className="last-updated">
-              Last updated: {lastUpdated || "Just now"}
-            </div>
-
-            <button
-              className="convert btn w-100"
-              type="button"
-              onClick={convertCurrency}
-            >
-              Convert Currency ↩
-            </button>
-          </div> */}
           <form className="currency-converter-form style-two m-auto">
             <div className="d-flex justify-content-between align-items-center mb-4">
               <h3 className="mb-0">Currency Converter</h3>
@@ -187,10 +125,7 @@ const CurrencyConverter = () => {
                 <Form.Control
                   type="number"
                   value={amount}
-                  onChange={handleAmountChange}
-                  className="flex-grow-1"
-                  min="0"
-                  step="0.01"
+                  onChange={e => handleSendAmountChange(e.target.value)}
                 />
 
                 <Dropdown className="country-dropdown">
@@ -241,10 +176,9 @@ const CurrencyConverter = () => {
               <label className="label z-1">Recipient gets</label>
               <div className="d-flex align-items-center gap-2">
                 <Form.Control
-                  type="text"
-                  value={loading ? 'Loading...' : convertedAmount}
-                  readOnly
-                  className="flex-grow-1 bg-light"
+                  type="number"
+                  value={recipientAmount}
+                  onChange={e => handleRecipientAmountChange(e.target.value)}
                 />
 
                 <Dropdown className="country-dropdown">
@@ -302,7 +236,7 @@ const CurrencyConverter = () => {
 
             <div className="currency-input bg-white text-center p-3 rounded mb-3">
               <h3 className="text-secondary">
-                {loading ? '...' : convertedAmount}
+                {loading ? '...' : recipientAmount || '0.00'}
               </h3>
               <p>
                 No transfer fees! Exchange rate: 1 {fromCurrency.code} ={' '}

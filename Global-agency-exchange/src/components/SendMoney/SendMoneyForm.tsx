@@ -12,7 +12,6 @@ import {
   Stack,
 } from "react-bootstrap";
 
-// Define types
 type CurrencyCode = "USD" | "EUR" | "GBP";
 type Country =
   | "Germany"

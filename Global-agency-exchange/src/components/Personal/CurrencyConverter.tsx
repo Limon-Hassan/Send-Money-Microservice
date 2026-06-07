@@ -1,8 +1,7 @@
 'use client';
 
-import React, { useState, useEffect, useCallback, forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 import { Dropdown, Form } from 'react-bootstrap';
-import Image from 'next/image';
 import useCurrencyConverter from '@/hooks/useCurrencyConverter';
 
 interface Currency {
@@ -77,335 +76,178 @@ const CurrencyConverter = () => {
     fromCurrency,
     toCurrency,
     amount,
-    convertedAmount,
+    recipientAmount,
     exchangeRate,
+    handleSendAmountChange,
+    handleRecipientAmountChange,
     lastUpdated,
     loading,
     setFromCurrency,
     setToCurrency,
-    setAmount,
     swapCurrencies,
   } = useCurrencyConverter();
 
   const [receiveMethod, setReceiveMethod] = React.useState(receiveMethods[0]);
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setAmount(e.target.value);
+    handleSendAmountChange(e.target.value);
   };
-
   return (
     <>
-      <div className="currency-calculator-area pb-120">
+      <div className="ptb-120">
         <div className="container">
-          <div className="row g-4">
-            <div className="col-lg-7">
-              <div className="currency-calculator-img h-100">
-                <Image
-                  src="/images/currency-calculator-img.jpg"
-                  className="ukiyo h-100 rounded-4"
-                  alt="currency-calculator-img"
-                  width={1518}
-                  height={996}
+          <form className="currency-converter-form style-two m-auto">
+            <div className="d-flex justify-content-between align-items-center mb-4">
+              <h3 className="mb-0">Currency Converter</h3>
+              <span className="text-white">
+                <div className="position-relative d-inline-flex ping-wrapper">
+                  <span className="ping-animation"></span>
+                  <span className="ping-dot"></span>
+                </div>
+                <span className="text-primary fs-18 fw-semibold ms-2 me-2">
+                  Live
+                </span>
+                Rates
+                {lastUpdated && (
+                  <small
+                    className="d-block"
+                    style={{ fontSize: '14px', color: '#fff' }}
+                  >
+                    Updated: {new Date(lastUpdated).toLocaleDateString()}
+                  </small>
+                )}
+              </span>
+            </div>
+
+            <div className="currency-input position-relative mb-3">
+              <label className="label z-1">Your send</label>
+              <div className="position-relative">
+                <Form.Control
+                  type="number"
+                  value={amount}
+                  onChange={e => handleSendAmountChange(e.target.value)}
                 />
+
+                <Dropdown className="country-dropdown">
+                  <Dropdown.Toggle
+                    as={CurrencyToggle}
+                    currency={fromCurrency}
+                  />
+
+                  <Dropdown.Menu
+                    className="w-100"
+                    style={{ maxHeight: '260px', overflowY: 'auto' }}
+                  >
+                    {currencies.map(currency => (
+                      <Dropdown.Item
+                        key={currency.code}
+                        onClick={() => setFromCurrency(currency)}
+                        className="d-flex align-items-center gap-2"
+                      >
+                        <img
+                          src={currency.flag}
+                          alt={currency.code}
+                          style={{
+                            width: '24px',
+                            height: '24px',
+                            borderRadius: '50%',
+                          }}
+                        />
+                        <span>{currency.code}</span>
+                        <span className="text-muted small">
+                          — {currency.name}
+                        </span>
+                      </Dropdown.Item>
+                    ))}
+                  </Dropdown.Menu>
+                </Dropdown>
+              </div>
+
+              <button
+                type="button"
+                className="btn rounded-pill converter-btn"
+                onClick={swapCurrencies}
+              >
+                <i className="ri-arrow-left-right-line"></i>
+              </button>
+            </div>
+
+            <div className="currency-input position-relative mb-3">
+              <label className="label z-1">Recipient gets</label>
+              <div className="d-flex align-items-center gap-2">
+                <Form.Control
+                  type="number"
+                  value={recipientAmount}
+                  onChange={e => handleRecipientAmountChange(e.target.value)}
+                />
+
+                <Dropdown className="country-dropdown">
+                  <Dropdown.Toggle as={CurrencyToggle} currency={toCurrency} />
+
+                  <Dropdown.Menu
+                    className="w-100"
+                    style={{ maxHeight: '260px', overflowY: 'auto' }}
+                  >
+                    {currencies.map(currency => (
+                      <Dropdown.Item
+                        key={currency.code}
+                        onClick={() => setToCurrency(currency)}
+                        className="d-flex align-items-center gap-2"
+                      >
+                        <img
+                          src={currency.flag}
+                          alt={currency.code}
+                          style={{
+                            width: '24px',
+                            height: '24px',
+                            borderRadius: '50%',
+                          }}
+                        />
+                        <span>{currency.code}</span>
+                        <span className="text-muted small">
+                          — {currency.name}
+                        </span>
+                      </Dropdown.Item>
+                    ))}
+                  </Dropdown.Menu>
+                </Dropdown>
               </div>
             </div>
-            <div className="col-lg-5">
-              {/* <form className="currency-converter-form style-two bg-primary">
-                <div className="d-flex justify-content-between align-items-center mb-4">
-                  <h3 className="mb-0 text-secondary">Currency Converter</h3>
-                </div>
 
-              
-                <div className="currency-input position-relative mb-3">
-                  <label className="label z-1">Your send</label>
-                  <div className="position-relative">
-                    <Form.Control
-                      type="number"
-                      value={formData.sendAmount}
-                      onChange={handleAmountChange}
-                      className="flex-grow-1"
-                      min="0"
-                      step="0.01"
-                    />
+            <div className="currency-input position-relative mb-3">
+              <label className="label z-1">Receive method</label>
 
-                    <Dropdown className="country-dropdown">
-                      <Dropdown.Toggle
-                        as={CurrencyToggle}
-                        currency={formData.fromCurrency}
-                      >
-                        {formData.sendAmount}
-                      </Dropdown.Toggle>
+              <Dropdown className="form-control">
+                <Dropdown.Toggle as={MethodToggle} method={receiveMethod} />
 
-                      <Dropdown.Menu className="w-100">
-                        {currencies.map((currency) => (
-                          <Dropdown.Item
-                            key={currency.code}
-                            onClick={() =>
-                              handleCurrencySelect(currency, "fromCurrency")
-                            }
-                            className="d-flex align-items-center justify-content-between"
-                          >
-                            <span className="d-flex align-items-center gap-2">
-                              <Image
-                                src={currency.flag}
-                                alt={currency.code}
-                                width={20}
-                                height={15}
-                                style={{ objectFit: "cover" }}
-                              />
-                              {currency.code} - {currency.name}
-                            </span>
-                          </Dropdown.Item>
-                        ))}
-                      </Dropdown.Menu>
-                    </Dropdown>
-                  </div>
-
-                  <button
-                    type="button"
-                    className="btn rounded-pill converter-btn"
-                    onClick={handleSwapCurrencies}
-                  >
-                    <i className="ri-arrow-left-right-line"></i>
-                  </button>
-                </div>
-
-                <div className="currency-input position-relative mb-3">
-                  <label className="label z-1">Recipient gets</label>
-                  <div className="d-flex align-items-center gap-2">
-                    <Form.Control
-                      type="text"
-                      value={formData.convertedAmount}
-                      readOnly
-                      className="flex-grow-1 bg-light"
-                    />
-
-                    <Dropdown className="country-dropdown">
-                      <Dropdown.Toggle
-                        as={CurrencyToggle}
-                        currency={formData.toCurrency}
-                      >
-                        {formData.convertedAmount}
-                      </Dropdown.Toggle>
-
-                      <Dropdown.Menu className="w-100">
-                        {currencies.map((currency) => (
-                          <Dropdown.Item
-                            key={currency.code}
-                            onClick={() =>
-                              handleCurrencySelect(currency, "toCurrency")
-                            }
-                            className="d-flex align-items-center justify-content-between"
-                          >
-                            <span className="d-flex align-items-center gap-2">
-                              <Image
-                                src={currency.flag}
-                                alt={currency.code}
-                                width={20}
-                                height={15}
-                                style={{ objectFit: "cover" }}
-                              />
-                              {currency.code} - {currency.name}
-                            </span>
-                          </Dropdown.Item>
-                        ))}
-                      </Dropdown.Menu>
-                    </Dropdown>
-                  </div>
-                </div>
-
-                <div className="currency-input position-relative mb-3">
-                  <label className="label z-1">Receive method</label>
-
-                  <Dropdown className="form-control">
-                    <Dropdown.Toggle
-                      as={MethodToggle}
-                      method={formData.receiveMethod}
-                    />
-
-                    <Dropdown.Menu className="w-100">
-                      {receiveMethods.map((method) => (
-                        <Dropdown.Item
-                          key={method}
-                          onClick={() => handleReceiveMethodSelect(method)}
-                          className="d-flex align-items-center justify-content-between"
-                        >
-                          <span>{method}</span>
-                        </Dropdown.Item>
-                      ))}
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </div>
-
-                <div className="currency-input bg-white text-center mb-0">
-                  <h3 className="text-secondary">{formData.convertedAmount}</h3>
-                  <p>
-                    {formData.sendAmount} {formData.fromCurrency.code} ={" "}
-                    {formData.exchangeRate} {formData.toCurrency.code}
-                  </p>
-                </div>
-              </form> */}
-              <form className="currency-converter-form style-two">
-                <div className="d-flex justify-content-between align-items-center mb-4">
-                  <h3 className="mb-0">Currency Converter</h3>
-                  <span className="text-white">
-                    <div className="position-relative d-inline-flex ping-wrapper">
-                      <span className="ping-animation"></span>
-                      <span className="ping-dot"></span>
-                    </div>
-                    <span className="text-primary fs-18 fw-semibold ms-2 me-2">
-                      Live
-                    </span>
-                    Rates
-                    {lastUpdated && (
-                      <small
-                        className="d-block"
-                        style={{ fontSize: '14px', color: '#fff' }}
-                      >
-                        Updated: {new Date(lastUpdated).toLocaleDateString()}
-                      </small>
-                    )}
-                  </span>
-                </div>
-
-                <div className="currency-input position-relative mb-3">
-                  <label className="label z-1">Your send</label>
-                  <div className="position-relative">
-                    <Form.Control
-                      type="number"
-                      value={amount}
-                      onChange={handleAmountChange}
-                      className="flex-grow-1"
-                      min="0"
-                      step="0.01"
-                    />
-
-                    <Dropdown className="country-dropdown">
-                      <Dropdown.Toggle
-                        as={CurrencyToggle}
-                        currency={fromCurrency}
-                      />
-
-                      <Dropdown.Menu
-                        className="w-100"
-                        style={{ maxHeight: '260px', overflowY: 'auto' }}
-                      >
-                        {currencies.map(currency => (
-                          <Dropdown.Item
-                            key={currency.code}
-                            onClick={() => setFromCurrency(currency)}
-                            className="d-flex align-items-center gap-2"
-                          >
-                            <img
-                              src={currency.flag}
-                              alt={currency.code}
-                              style={{
-                                width: '24px',
-                                height: '24px',
-                                borderRadius: '50%',
-                              }}
-                            />
-                            <span>{currency.code}</span>
-                            <span className="text-muted small">
-                              — {currency.name}
-                            </span>
-                          </Dropdown.Item>
-                        ))}
-                      </Dropdown.Menu>
-                    </Dropdown>
-                  </div>
-
-                  <button
-                    type="button"
-                    className="btn rounded-pill converter-btn"
-                    onClick={swapCurrencies}
-                  >
-                    <i className="ri-arrow-left-right-line"></i>
-                  </button>
-                </div>
-
-                <div className="currency-input position-relative mb-3">
-                  <label className="label z-1">Recipient gets</label>
-                  <div className="d-flex align-items-center gap-2">
-                    <Form.Control
-                      type="text"
-                      value={loading ? 'Loading...' : convertedAmount}
-                      readOnly
-                      className="flex-grow-1 bg-light"
-                    />
-
-                    <Dropdown className="country-dropdown">
-                      <Dropdown.Toggle
-                        as={CurrencyToggle}
-                        currency={toCurrency}
-                      />
-
-                      <Dropdown.Menu
-                        className="w-100"
-                        style={{ maxHeight: '260px', overflowY: 'auto' }}
-                      >
-                        {currencies.map(currency => (
-                          <Dropdown.Item
-                            key={currency.code}
-                            onClick={() => setToCurrency(currency)}
-                            className="d-flex align-items-center gap-2"
-                          >
-                            <img
-                              src={currency.flag}
-                              alt={currency.code}
-                              style={{
-                                width: '24px',
-                                height: '24px',
-                                borderRadius: '50%',
-                              }}
-                            />
-                            <span>{currency.code}</span>
-                            <span className="text-muted small">
-                              — {currency.name}
-                            </span>
-                          </Dropdown.Item>
-                        ))}
-                      </Dropdown.Menu>
-                    </Dropdown>
-                  </div>
-                </div>
-
-                <div className="currency-input position-relative mb-3">
-                  <label className="label z-1">Receive method</label>
-
-                  <Dropdown className="form-control">
-                    <Dropdown.Toggle as={MethodToggle} method={receiveMethod} />
-
-                    <Dropdown.Menu className="w-100">
-                      {receiveMethods.map(method => (
-                        <Dropdown.Item
-                          key={method}
-                          onClick={() => setReceiveMethod(method)}
-                          className="d-flex align-items-center justify-content-between "
-                        >
-                          <span>{method}</span>
-                        </Dropdown.Item>
-                      ))}
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </div>
-
-                <div className="currency-input bg-white text-center p-3 rounded mb-3">
-                  <h3 className="text-secondary">
-                    {loading ? '...' : convertedAmount}
-                  </h3>
-                  <p>
-                    No transfer fees! Exchange rate: 1 {fromCurrency.code} ={' '}
-                    {exchangeRate} {toCurrency.code}
-                  </p>
-                </div>
-
-                <button type="button" className="btn w-100 btn-primary">
-                  Send Money
-                </button>
-              </form>
+                <Dropdown.Menu className="w-100">
+                  {receiveMethods.map(method => (
+                    <Dropdown.Item
+                      key={method}
+                      onClick={() => setReceiveMethod(method)}
+                      className="d-flex align-items-center justify-content-between "
+                    >
+                      <span>{method}</span>
+                    </Dropdown.Item>
+                  ))}
+                </Dropdown.Menu>
+              </Dropdown>
             </div>
-          </div>
+
+            <div className="currency-input bg-white text-center p-3 rounded mb-3">
+              <h3 className="text-secondary">
+                {loading ? '...' : recipientAmount || '0.00'}
+              </h3>
+              <p>
+                No transfer fees! Exchange rate: 1 {fromCurrency.code} ={' '}
+                {exchangeRate} {toCurrency.code}
+              </p>
+            </div>
+
+            <button type="button" className="btn w-100 btn-primary">
+              Send Money
+            </button>
+          </form>
         </div>
       </div>
     </>
