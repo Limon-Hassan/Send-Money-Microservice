@@ -76,20 +76,21 @@ const CurrencyConverter = () => {
     fromCurrency,
     toCurrency,
     amount,
-    convertedAmount,
+    recipientAmount,
     exchangeRate,
+    handleSendAmountChange,
+    handleRecipientAmountChange,
     lastUpdated,
     loading,
     setFromCurrency,
     setToCurrency,
-    setAmount,
     swapCurrencies,
   } = useCurrencyConverter();
 
   const [receiveMethod, setReceiveMethod] = React.useState(receiveMethods[0]);
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setAmount(e.target.value);
+    handleSendAmountChange(e.target.value);
   };
 
   return (
@@ -123,10 +124,7 @@ const CurrencyConverter = () => {
             <Form.Control
               type="number"
               value={amount}
-              onChange={handleAmountChange}
-              className="flex-grow-1"
-              min="0"
-              step="0.01"
+              onChange={e => handleSendAmountChange(e.target.value)}
             />
 
             <Dropdown className="country-dropdown">
@@ -172,10 +170,9 @@ const CurrencyConverter = () => {
           <label className="label z-1">Recipient gets</label>
           <div className="d-flex align-items-center gap-2">
             <Form.Control
-              type="text"
-              value={loading ? 'Loading...' : convertedAmount}
-              readOnly
-              className="flex-grow-1 bg-light"
+              type="number"
+              value={recipientAmount}
+              onChange={e => handleRecipientAmountChange(e.target.value)}
             />
 
             <Dropdown className="country-dropdown">
@@ -231,7 +228,7 @@ const CurrencyConverter = () => {
 
         <div className="currency-input bg-white text-center p-3 rounded mb-3">
           <h3 className="text-secondary">
-            {loading ? '...' : convertedAmount}
+            {loading ? '...' : recipientAmount || '0.00'}
           </h3>
           <p>
             No transfer fees! Exchange rate: 1 {fromCurrency.code} ={' '}

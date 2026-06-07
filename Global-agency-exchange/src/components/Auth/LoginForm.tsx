@@ -45,7 +45,7 @@ const LoginForm = () => {
 
       const kycRes = await api.kycStatus();
       if (kycRes.status === 'verified') {
-        router.push('/');
+        router.push('https://dashboard.thesendmoney.com');
       } else {
         router.push('/kyc');
       }

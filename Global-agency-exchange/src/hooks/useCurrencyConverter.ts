@@ -7,6 +7,9 @@ interface Rates {
 
 export const useCurrencyConverter = () => {
   const [rates, setRates] = useState<Rates>({});
+  const [recipientAmount, setRecipientAmount] = useState('');
+  const [lastEdited, setLastEdited] = useState<'send' | 'receive'>('send');
+
   const [fromCurrency, setFromCurrency] = useState<Currency>(
     CURRENCIES.find(c => c.code === 'USD')!,
   );
@@ -36,7 +39,26 @@ export const useCurrencyConverter = () => {
   }, [fromCurrency.code]);
 
   const exchangeRate = rates[toCurrency.code] || 0;
-  const convertedAmount = (parseFloat(amount || '0') * exchangeRate).toFixed(2);
+
+  useEffect(() => {
+    if (!exchangeRate) return;
+
+    if (lastEdited === 'send') {
+      setRecipientAmount((parseFloat(amount || '0') * exchangeRate).toFixed(2));
+    } else {
+      setAmount((parseFloat(recipientAmount || '0') / exchangeRate).toFixed(2));
+    }
+  }, [amount, recipientAmount, exchangeRate, lastEdited]);
+
+  const handleSendAmountChange = (value: string) => {
+    setLastEdited('send');
+    setAmount(value);
+  };
+
+  const handleRecipientAmountChange = (value: string) => {
+    setLastEdited('receive');
+    setRecipientAmount(value);
+  };
 
   const swapCurrencies = () => {
     setFromCurrency(toCurrency);
@@ -44,18 +66,24 @@ export const useCurrencyConverter = () => {
   };
 
   return {
-    currencies: CURRENCIES, 
+    currencies: CURRENCIES,
     rates,
     fromCurrency,
     toCurrency,
+
     amount,
-    convertedAmount,
+    recipientAmount,
+
     exchangeRate,
     lastUpdated,
     loading,
+
     setFromCurrency,
     setToCurrency,
-    setAmount,
+
+    handleSendAmountChange,
+    handleRecipientAmountChange,
+
     swapCurrencies,
   };
 };
