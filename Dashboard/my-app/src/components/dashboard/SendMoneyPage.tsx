@@ -3342,33 +3342,34 @@ function DeliveryMethodSection({
   deliveryMethod,
   setDeliveryMethod,
   onComplete,
-  bankName, // ← যোগ করো
-  setBankName, // ← যোগ করো
-  accountHolder, // ← যোগ করো
-  setAccountHolder, // ← যোগ করো
-  accountNumber, // ← যোগ করো
-  setAccountNumber, // ← যোগ করো
-  ibanRouting, // ← যোগ করো
-  setIbanRouting, // ← যোগ করো
-  swiftCode, // ← যোগ করো
-  setSwiftCode, // ← যোগ করো
+  bankName, 
+  setBankName, 
+  accountHolder, 
+  setAccountHolder,
+  accountNumber, 
+  setAccountNumber, 
+  ibanRouting, 
+  setIbanRouting, 
+  swiftCode, 
+  setSwiftCode, 
 }: {
   deliveryMethod: DeliveryMethod;
   setDeliveryMethod: (m: DeliveryMethod) => void;
   onComplete: () => void;
-  bankName: string; // ← যোগ করো
-  setBankName: (v: string) => void; // ← যোগ করো
-  accountHolder: string; // ← যোগ করো
-  setAccountHolder: (v: string) => void; // ← যোগ করো
-  accountNumber: string; // ← যোগ করো
-  setAccountNumber: (v: string) => void; // ← যোগ করো
-  ibanRouting: string; // ← যোগ করো
-  setIbanRouting: (v: string) => void; // ← যোগ করো
-  swiftCode: string; // ← যোগ করো
-  setSwiftCode: (v: string) => void; // ← যোগ করো
+  bankName: string; 
+  setBankName: (v: string) => void;
+  accountHolder: string;
+  setAccountHolder: (v: string) => void;
+  accountNumber: string; 
+  setAccountNumber: (v: string) => void;
+  ibanRouting: string; 
+  setIbanRouting: (v: string) => void;
+  swiftCode: string; 
+  setSwiftCode: (v: string) => void;
 }) {
   const [bankCountry, setBankCountry] = useState('Bangladesh');
   const [bankDocs, setBankDocs] = useState<UploadedDoc[]>([]);
+  const [bankDocType, setBankDocType] = useState('');
 
   const [walletCountry, setWalletCountry] = useState('Bangladesh');
   const [walletProvider, setWalletProvider] = useState('');
@@ -3526,7 +3527,7 @@ function DeliveryMethodSection({
         ))}
       </div>
 
-      {/* Bank */}
+     
       {deliveryMethod === 'bank' && (
         <div className="border border-gray-200 rounded-xl p-4 space-y-3 bg-gray-50/50">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -3590,8 +3591,8 @@ function DeliveryMethodSection({
                   className="absolute left-3 top-3 text-gray-400"
                 />
                 <input
-                  value={iban}
-                  onChange={e => setIban(e.target.value)}
+                  value={ibanRouting}
+                  onChange={e => setIbanRouting(e.target.value)}
                   className={`${inputCls} pl-8`}
                 />
               </div>
@@ -3606,8 +3607,8 @@ function DeliveryMethodSection({
                   className="absolute left-3 top-3 text-gray-400"
                 />
                 <input
-                  value={swift}
-                  onChange={e => setSwift(e.target.value)}
+                  value={swiftCode}
+                  onChange={e => setSwiftCode(e.target.value)}
                   className={`${inputCls} pl-8`}
                 />
               </div>
@@ -3629,7 +3630,7 @@ function DeliveryMethodSection({
         </div>
       )}
 
-      {/* Wallet */}
+     
       {deliveryMethod === 'wallet' && (
         <div className="border border-gray-200 rounded-xl p-4 space-y-3 bg-gray-50/50">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -3709,7 +3710,7 @@ function DeliveryMethodSection({
         </div>
       )}
 
-      {/* Cash */}
+     
       {deliveryMethod === 'cash' && (
         <div className="border border-gray-200 rounded-xl p-4 space-y-3 bg-gray-50/50">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -4115,11 +4116,9 @@ function FinalReviewPage({
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-6">
           <div className="lg:col-span-3 space-y-4">
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 sm:p-6">
-              {/* ── Top: Sender + Recipient left, Transfer Details right ── */}
+             
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 mb-6">
-                {/* Left column — Sender + Recipient + Receiving */}
                 <div className="space-y-6">
-                  {/* Sender Details */}
                   <div>
                     <p className="text-sm font-bold text-gray-800 mb-3">
                       Sender Details
@@ -4139,7 +4138,6 @@ function FinalReviewPage({
                     </div>
                   </div>
 
-                  {/* Recipient Details — expanded */}
                   <div>
                     <p className="text-sm font-bold text-gray-800 mb-3">
                       Recipient Details
@@ -4221,7 +4219,6 @@ function FinalReviewPage({
                     </div>
                   </div>
 
-                  {/* Receiving Details — expanded */}
                   <div>
                     <p className="text-sm font-bold text-gray-800 mb-3">
                       Receiving Details
@@ -4296,7 +4293,7 @@ function FinalReviewPage({
                           SWIFT Code :
                         </span>
                         <span className="text-xs font-semibold text-gray-800 break-all">
-                          {accountNumber || '1234567890123'}
+                          {swiftCode || '1234567890123'}
                         </span>
                       </div>
                       {ibanRouting && (
