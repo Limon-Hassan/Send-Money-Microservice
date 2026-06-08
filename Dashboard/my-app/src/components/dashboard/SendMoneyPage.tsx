@@ -2901,11 +2901,14 @@ import {
 import { CURRENCIES } from '@/src/lib/country_api_data';
 import FlagImg from '../others/FlagImg';
 import CurrencyDropDown from '../others/CurrencyDropDown';
-import { banksByCountry, mockPaymentMethods, wallets } from '@/src/lib/data';
+import {
+  banksByCountry,
+  mockPaymentMethods,
+  wallets,
+  districtsByCountry,
+} from '@/src/lib/data';
 import BankDropdown from '../others/BankDropdown';
 import WalletDropdown from '@/src/components/others/WalletDropdown';
-
-// ─── UTILS ────────────────────────────────────────────────────────────────────
 
 function formatCurrency(amount: number) {
   return new Intl.NumberFormat('en-US', {
@@ -2914,8 +2917,6 @@ function formatCurrency(amount: number) {
   }).format(amount);
 }
 
-// ─── TYPES ────────────────────────────────────────────────────────────────────
-
 type Step = 1 | 2 | 3 | 4 | 5 | 6;
 type DeliveryMethod = 'bank' | 'wallet' | 'cash' | null;
 
@@ -2923,8 +2924,6 @@ interface UploadedDoc {
   file: File;
   preview: string;
 }
-
-// ─── DOCUMENT UPLOAD ──────────────────────────────────────────────────────────
 
 const DOC_TYPES = [
   { value: 'passport', label: 'Passport' },
@@ -3072,8 +3071,6 @@ function DocumentUpload({
   );
 }
 
-// ─── COUNTRY SELECT ────────────────────────────────────────────────────────────
-
 function CountrySelect({
   value,
   onChange,
@@ -3170,8 +3167,6 @@ function CountrySelect({
   );
 }
 
-// ─── STEP BAR ─────────────────────────────────────────────────────────────────
-
 const STEPS = [
   { n: 1, label: 'Amount' },
   { n: 2, label: 'Recipient' },
@@ -3213,8 +3208,6 @@ function StepBar({ current }: { current: Step }) {
     </div>
   );
 }
-
-// ─── TRANSFER SUMMARY ─────────────────────────────────────────────────────────
 
 interface SummaryProps {
   fromAmount: string;
@@ -3345,24 +3338,36 @@ function TransferSummary({
   );
 }
 
-// ─── DELIVERY METHOD SECTION ──────────────────────────────────────────────────
-
 function DeliveryMethodSection({
   deliveryMethod,
   setDeliveryMethod,
   onComplete,
+  bankName, // ← যোগ করো
+  setBankName, // ← যোগ করো
+  accountHolder, // ← যোগ করো
+  setAccountHolder, // ← যোগ করো
+  accountNumber, // ← যোগ করো
+  setAccountNumber, // ← যোগ করো
+  ibanRouting, // ← যোগ করো
+  setIbanRouting, // ← যোগ করো
+  swiftCode, // ← যোগ করো
+  setSwiftCode, // ← যোগ করো
 }: {
   deliveryMethod: DeliveryMethod;
   setDeliveryMethod: (m: DeliveryMethod) => void;
   onComplete: () => void;
+  bankName: string; // ← যোগ করো
+  setBankName: (v: string) => void; // ← যোগ করো
+  accountHolder: string; // ← যোগ করো
+  setAccountHolder: (v: string) => void; // ← যোগ করো
+  accountNumber: string; // ← যোগ করো
+  setAccountNumber: (v: string) => void; // ← যোগ করো
+  ibanRouting: string; // ← যোগ করো
+  setIbanRouting: (v: string) => void; // ← যোগ করো
+  swiftCode: string; // ← যোগ করো
+  setSwiftCode: (v: string) => void; // ← যোগ করো
 }) {
   const [bankCountry, setBankCountry] = useState('Bangladesh');
-  const [bankName, setBankName] = useState('');
-  const [accountHolder, setAccountHolder] = useState('');
-  const [accountNumber, setAccountNumber] = useState('');
-  const [iban, setIban] = useState('');
-  const [swift, setSwift] = useState('');
-  const [bankDocType, setBankDocType] = useState('');
   const [bankDocs, setBankDocs] = useState<UploadedDoc[]>([]);
 
   const [walletCountry, setWalletCountry] = useState('Bangladesh');
@@ -3378,7 +3383,12 @@ function DeliveryMethodSection({
   const [cashDocType, setCashDocType] = useState('');
   const [cashDocs, setCashDocs] = useState<UploadedDoc[]>([]);
 
+  const [cashDistrict, setCashDistrict] = useState('');
+
   const [completed, setCompleted] = useState(false);
+
+  const availableDistricts =
+    districtsByCountry[cashCountry as keyof typeof districtsByCountry] || [];
 
   const availableBanks =
     banksByCountry[bankCountry as keyof typeof banksByCountry] || [];
@@ -3402,7 +3412,7 @@ function DeliveryMethodSection({
       done = true;
     if (
       deliveryMethod === 'cash' &&
-      pickupLocation &&
+      cashDistrict &&
       cashRecipient &&
       cashMobile &&
       cashAddress
@@ -3420,13 +3430,17 @@ function DeliveryMethodSection({
     walletProvider,
     walletMobile,
     walletHolder,
-    pickupLocation,
+    cashDistrict,
     cashRecipient,
     cashMobile,
     cashAddress,
     completed,
     onComplete,
   ]);
+
+  useEffect(() => {
+    setCashDistrict('');
+  }, [cashCountry]);
 
   const cardBase =
     'flex-1 border-2 rounded-xl p-3 sm:p-4 cursor-pointer transition-all min-w-0';
@@ -3709,27 +3723,20 @@ function DeliveryMethodSection({
               <label className="text-xs text-gray-500 mb-1 block">
                 Pickup Location <span className="text-red-400">*</span>
               </label>
-              <div className="relative">
-                <MapPin
-                  size={14}
-                  className="absolute left-3 top-3 text-gray-400"
-                />
-                <select
-                  value={pickupLocation}
-                  onChange={e => setPickupLocation(e.target.value)}
-                  className={`${inputCls} pl-8`}
-                >
-                  <option value="">Select pickup location</option>
-                  {[
-                    'Western Union',
-                    'MoneyGram',
-                    'Local Agent',
-                    'Post Office',
-                  ].map(l => (
-                    <option key={l}>{l}</option>
-                  ))}
-                </select>
-              </div>
+
+              <select
+                value={cashDistrict}
+                onChange={e => setCashDistrict(e.target.value)}
+                className={inputCls}
+              >
+                <option value="">Select district</option>
+
+                {availableDistricts.map(district => (
+                  <option key={district} value={district}>
+                    {district}
+                  </option>
+                ))}
+              </select>
             </div>
             <div>
               <label className="text-xs text-gray-500 mb-1 block">
@@ -3794,8 +3801,6 @@ function DeliveryMethodSection({
     </div>
   );
 }
-
-// ─── PAYMENT METHOD SECTION ───────────────────────────────────────────────────
 
 function PaymentMethodSection({
   paymentMethod,
@@ -4050,8 +4055,13 @@ function FinalReviewPage({
   recipientMobile,
   recipientEmail,
   recipientCountry,
-  deliveryMethod,
-  paymentMethod,
+  recipientDocType,
+  bankName,
+  accountName,
+  accountNumber,
+  ibanRouting,
+  swiftCode,
+  receivingDocType,
   loadingRate,
   onConfirm,
   onBack,
@@ -4067,6 +4077,13 @@ function FinalReviewPage({
   recipientMobile: string;
   recipientEmail: string;
   recipientCountry: string;
+  recipientDocType: string;
+  bankName: string;
+  accountName: string;
+  accountNumber: string;
+  ibanRouting: string;
+  swiftCode: string;
+  receivingDocType: string;
   deliveryMethod: DeliveryMethod;
   paymentMethod: string;
   loadingRate: boolean;
@@ -4080,7 +4097,6 @@ function FinalReviewPage({
   return (
     <div className="p-3 sm:p-4 lg:p-6 bg-gray-50 min-h-screen">
       <div className="w-full mx-auto">
-        {/* Back button */}
         <button
           onClick={onBack}
           className="flex items-center gap-1.5 text-sm text-gray-600 hover:text-green-700 font-medium mb-5 transition"
@@ -4089,7 +4105,6 @@ function FinalReviewPage({
           Back
         </button>
 
-        {/* Page title */}
         <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1">
           Review &amp; Confirm
         </h2>
@@ -4098,11 +4113,11 @@ function FinalReviewPage({
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-6">
-          {/* ── Left: details card ── */}
           <div className="lg:col-span-3 space-y-4">
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 sm:p-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
-                {/* Left column */}
+              {/* ── Top: Sender + Recipient left, Transfer Details right ── */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 mb-6">
+                {/* Left column — Sender + Recipient + Receiving */}
                 <div className="space-y-6">
                   {/* Sender Details */}
                   <div>
@@ -4124,12 +4139,12 @@ function FinalReviewPage({
                     </div>
                   </div>
 
-                  {/* Recipient Details */}
+                  {/* Recipient Details — expanded */}
                   <div>
                     <p className="text-sm font-bold text-gray-800 mb-3">
                       Recipient Details
                     </p>
-                    <div className="flex items-center gap-3 mb-2.5">
+                    <div className="flex items-center gap-3 mb-3">
                       <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center shrink-0">
                         <User size={18} className="text-white" />
                       </div>
@@ -4142,56 +4157,191 @@ function FinalReviewPage({
                         </p>
                       </div>
                     </div>
-                    {rcCountry && (
-                      <div className="flex items-center gap-2">
-                        <FlagImg
-                          flag={rcCountry.flag}
-                          code={rcCountry.code}
-                          size={22}
+                    <div className="space-y-2">
+                      <div className="flex items-start gap-2.5">
+                        <Phone
+                          size={13}
+                          className="text-gray-400 shrink-0 mt-0.5"
                         />
-                        <span className="text-sm text-gray-700">
-                          {recipientCountry}
+                        <span className="text-xs text-gray-500 w-24 shrink-0">
+                          Mobile
+                        </span>
+                        <span className="text-xs font-medium text-gray-800 break-all">
+                          {recipientMobile || '—'}
                         </span>
                       </div>
-                    )}
+                      <div className="flex items-start gap-2.5">
+                        <Mail
+                          size={13}
+                          className="text-gray-400 shrink-0 mt-0.5"
+                        />
+                        <span className="text-xs text-gray-500 w-24 shrink-0">
+                          Email
+                        </span>
+                        <span className="text-xs font-medium text-gray-800 break-all">
+                          {recipientEmail || '—'}
+                        </span>
+                      </div>
+                      {rcCountry && (
+                        <div className="flex items-start gap-2.5">
+                          <MapPin
+                            size={13}
+                            className="text-gray-400 shrink-0 mt-0.5"
+                          />
+                          <span className="text-xs text-gray-500 w-24 shrink-0">
+                            Country
+                          </span>
+                          <div className="flex items-center gap-1.5">
+                            <FlagImg
+                              flag={rcCountry.flag}
+                              code={rcCountry.code}
+                              size={16}
+                            />
+                            <span className="text-xs font-medium text-gray-800">
+                              {recipientCountry}
+                            </span>
+                          </div>
+                        </div>
+                      )}
+                      {recipientDocType && (
+                        <div className="flex items-start gap-2.5">
+                          <Shield
+                            size={13}
+                            className="text-gray-400 shrink-0 mt-0.5"
+                          />
+                          <span className="text-xs text-gray-500 w-24 shrink-0">
+                            Document
+                          </span>
+                          <span className="text-xs font-medium text-gray-800">
+                            {DOC_TYPES.find(d => d.value === recipientDocType)
+                              ?.label || recipientDocType}
+                          </span>
+                        </div>
+                      )}
+                    </div>
                   </div>
 
-                  {/* Receiving Details */}
+                  {/* Receiving Details — expanded */}
                   <div>
                     <p className="text-sm font-bold text-gray-800 mb-3">
                       Receiving Details
                     </p>
-                    <div className="space-y-2.5">
-                      <div className="flex items-center gap-2.5">
+                    <div className="space-y-2">
+                      <div className="flex items-start gap-2.5">
                         <Landmark
-                          size={15}
-                          className="text-gray-400 shrink-0"
+                          size={13}
+                          className="text-gray-400 shrink-0 mt-0.5"
                         />
-                        <span className="text-sm text-gray-500 w-32">
-                          Bank Name
+                        <span className="text-xs text-gray-500 w-24 shrink-0">
+                          Bank Name :
                         </span>
-                        <span className="text-sm font-semibold text-gray-800">
-                          Brac Bank PLC
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2.5">
-                        <Hash size={15} className="text-gray-400 shrink-0" />
-                        <span className="text-sm text-gray-500 w-32">
-                          Account Number
-                        </span>
-                        <span className="text-sm font-semibold text-gray-800">
-                          1234567890123
+                        <span className="text-xs font-semibold text-gray-800">
+                          {bankName || 'Brac Bank PLC'}
                         </span>
                       </div>
-                      <div className="flex items-center gap-2.5">
-                        <User size={15} className="text-gray-400 shrink-0" />
-                        <span className="text-sm text-gray-500 w-32">
-                          Account Holder Name
+                      <div className="flex items-start gap-2.5">
+                        <User
+                          size={13}
+                          className="text-gray-400 shrink-0 mt-0.5"
+                        />
+                        <span className="text-xs text-gray-500 w-24 shrink-0">
+                          Account Name :
                         </span>
-                        <span className="text-sm font-semibold text-gray-800">
-                          {recipientName || 'Ahmed Khan'}
+                        <span className="text-xs font-semibold text-gray-800">
+                          {accountName || recipientName || 'Ahmed Khan'}
                         </span>
                       </div>
+                      <div className="flex items-start gap-2.5">
+                        <Hash
+                          size={13}
+                          className="text-gray-400 shrink-0 mt-0.5"
+                        />
+                        <span className="text-xs text-gray-500 w-24 shrink-0">
+                          Account Number:
+                        </span>
+                        <span className="text-xs font-semibold text-gray-800 break-all">
+                          {accountNumber || '1234567890123'}
+                        </span>
+                      </div>
+                      <div className="flex items-start gap-2.5">
+                        <Hash
+                          size={13}
+                          className="text-gray-400 shrink-0 mt-0.5"
+                        />
+                        <span className="text-xs text-gray-500 w-24 shrink-0">
+                         Branch Name:
+                        </span>
+                        <span className="text-xs font-semibold text-gray-800 break-all">
+                          {ibanRouting || 'Uttara Branch'}
+                        </span>
+                      </div>
+                      <div className="flex items-start gap-2.5">
+                        <Hash
+                          size={13}
+                          className="text-gray-400 shrink-0 mt-0.5"
+                        />
+                        <span className="text-xs text-gray-500 w-24 shrink-0">
+                          IBAN / Routing :
+                        </span>
+                        <span className="text-xs font-semibold text-gray-800 break-all">
+                          {ibanRouting || '1234567890123'}
+                        </span>
+                      </div>
+                      <div className="flex items-start gap-2.5">
+                        <Hash
+                          size={13}
+                          className="text-gray-400 shrink-0 mt-0.5"
+                        />
+                        <span className="text-xs text-gray-500 w-24 shrink-0">
+                          SWIFT Code :
+                        </span>
+                        <span className="text-xs font-semibold text-gray-800 break-all">
+                          {accountNumber || '1234567890123'}
+                        </span>
+                      </div>
+                      {ibanRouting && (
+                        <div className="flex items-start gap-2.5">
+                          <Hash
+                            size={13}
+                            className="text-gray-400 shrink-0 mt-0.5"
+                          />
+                          <span className="text-xs text-gray-500 w-24 shrink-0">
+                            IBAN / Routing
+                          </span>
+                          <span className="text-xs font-semibold text-gray-800 break-all">
+                            {ibanRouting}
+                          </span>
+                        </div>
+                      )}
+                      {swiftCode && (
+                        <div className="flex items-start gap-2.5">
+                          <Hash
+                            size={13}
+                            className="text-gray-400 shrink-0 mt-0.5"
+                          />
+                          <span className="text-xs text-gray-500 w-24 shrink-0">
+                            SWIFT Code
+                          </span>
+                          <span className="text-xs font-semibold text-gray-800">
+                            {swiftCode}
+                          </span>
+                        </div>
+                      )}
+                      {receivingDocType && (
+                        <div className="flex items-start gap-2.5">
+                          <Shield
+                            size={13}
+                            className="text-gray-400 shrink-0 mt-0.5"
+                          />
+                          <span className="text-xs text-gray-500 w-24 shrink-0">
+                            Document
+                          </span>
+                          <span className="text-xs font-semibold text-gray-800">
+                            {DOC_TYPES.find(d => d.value === receivingDocType)
+                              ?.label || receivingDocType}
+                          </span>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -4206,10 +4356,10 @@ function FinalReviewPage({
                       <div className="w-7 h-7 rounded-full bg-green-100 flex items-center justify-center shrink-0">
                         <ArrowUpRight size={14} className="text-green-600" />
                       </div>
-                      <span className="text-sm text-gray-500 flex-1">
+                      <span className="text-sm text-gray-500 flex-1 min-w-0">
                         You send
                       </span>
-                      <span className="text-sm font-semibold text-gray-800">
+                      <span className="text-sm font-semibold text-gray-800 text-right">
                         ${formatCurrency(parseFloat(fromAmount || '0'))}{' '}
                         {fromCurrency}
                       </span>
@@ -4218,10 +4368,10 @@ function FinalReviewPage({
                       <div className="w-7 h-7 rounded-full bg-green-100 flex items-center justify-center shrink-0">
                         <ArrowDownLeft size={14} className="text-green-600" />
                       </div>
-                      <span className="text-sm text-gray-500 flex-1">
+                      <span className="text-sm text-gray-500 flex-1 min-w-0">
                         Recipient gets
                       </span>
-                      <span className="text-sm font-semibold text-gray-800">
+                      <span className="text-sm font-semibold text-gray-800 text-right">
                         {toAmount} {toCurrency}
                       </span>
                     </div>
@@ -4229,10 +4379,10 @@ function FinalReviewPage({
                       <div className="w-7 h-7 rounded-full bg-blue-100 flex items-center justify-center shrink-0">
                         <ArrowLeftRight size={14} className="text-blue-600" />
                       </div>
-                      <span className="text-sm text-gray-500 flex-1">
+                      <span className="text-sm text-gray-500 flex-1 min-w-0">
                         Exchange rate
                       </span>
-                      <span className="text-sm font-semibold text-gray-800">
+                      <span className="text-xs font-semibold text-gray-800 text-right">
                         1 {fromCurrency} = {rate.toFixed(4)} {toCurrency}
                       </span>
                     </div>
@@ -4240,10 +4390,10 @@ function FinalReviewPage({
                       <div className="w-7 h-7 rounded-full bg-yellow-100 flex items-center justify-center shrink-0">
                         <Tag size={14} className="text-yellow-600" />
                       </div>
-                      <span className="text-sm text-gray-500 flex-1">
+                      <span className="text-sm text-gray-500 flex-1 min-w-0">
                         Transfer fee
                       </span>
-                      <span className="text-sm font-semibold text-gray-800">
+                      <span className="text-sm font-semibold text-gray-800 text-right">
                         ${fee.toFixed(2)} USD
                       </span>
                     </div>
@@ -4251,10 +4401,10 @@ function FinalReviewPage({
                       <div className="w-7 h-7 rounded-full bg-purple-100 flex items-center justify-center shrink-0">
                         <Clock size={14} className="text-purple-600" />
                       </div>
-                      <span className="text-sm text-gray-500 flex-1">
+                      <span className="text-sm text-gray-500 flex-1 min-w-0">
                         Delivery time
                       </span>
-                      <span className="text-sm font-semibold text-gray-800">
+                      <span className="text-sm font-semibold text-gray-800 text-right">
                         1–2 business days
                       </span>
                     </div>
@@ -4279,7 +4429,7 @@ function FinalReviewPage({
               </p>
             </div>
 
-            {/* Confirm & Pay button — blue like screenshot 3 */}
+            {/* Confirm & Pay */}
             <button
               onClick={onConfirm}
               className="w-full bg-blue-600 text-white py-4 rounded-xl font-bold flex items-center justify-center gap-3 hover:bg-blue-700 active:bg-blue-800 transition text-base shadow-lg"
@@ -4289,10 +4439,10 @@ function FinalReviewPage({
               <ChevronRight size={18} />
             </button>
 
-            {/* Security badges — with descriptions like screenshot 3 */}
-            <div className="flex items-center justify-around py-4 px-4 bg-white rounded-2xl border border-gray-100 shadow-sm">
+            {/* Security badges */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 py-4 px-4 bg-white rounded-2xl border border-gray-100 shadow-sm">
               <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-full bg-blue-50 flex items-center justify-center">
+                <div className="w-9 h-9 rounded-full bg-blue-50 flex items-center justify-center shrink-0">
                   <Shield size={18} className="text-blue-600" />
                 </div>
                 <div>
@@ -4305,7 +4455,7 @@ function FinalReviewPage({
                 </div>
               </div>
               <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-lg bg-green-600 flex items-center justify-center">
+                <div className="w-9 h-9 rounded-lg bg-green-600 flex items-center justify-center shrink-0">
                   <span className="text-white text-xs font-bold">PCI</span>
                 </div>
                 <div>
@@ -4318,7 +4468,7 @@ function FinalReviewPage({
                 </div>
               </div>
               <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-full bg-blue-50 flex items-center justify-center">
+                <div className="w-9 h-9 rounded-full bg-blue-50 flex items-center justify-center shrink-0">
                   <User size={18} className="text-blue-600" />
                 </div>
                 <div>
@@ -4333,93 +4483,29 @@ function FinalReviewPage({
             </div>
           </div>
 
-          {/* ── Right: Transfer Summary (matches screenshot 3 right panel) ── */}
-          <div className="lg:col-span-2">
-            <div className="lg:sticky lg:top-4 bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
-              <h3 className="font-bold text-gray-900 mb-4 text-lg">
-                Transfer Summary
-              </h3>
-              <div className="space-y-3">
-                <div className="flex items-center gap-2.5">
-                  <ArrowUpRight size={14} className="text-green-600 shrink-0" />
-                  <span className="text-sm text-gray-500 flex-1">You send</span>
-                  <span className="text-sm font-semibold text-gray-900">
-                    ${formatCurrency(parseFloat(fromAmount || '0'))}{' '}
-                    {fromCurrency}
-                  </span>
-                </div>
-                <div className="flex items-center gap-2.5">
-                  <ArrowDownLeft
-                    size={14}
-                    className="text-green-600 shrink-0"
-                  />
-                  <span className="text-sm text-gray-500 flex-1">
-                    Recipient gets
-                  </span>
-                  <span className="text-sm font-semibold text-gray-900">
-                    {toAmount} {toCurrency}
-                  </span>
-                </div>
-                <div className="flex items-center gap-2.5">
-                  <ArrowLeftRight
-                    size={14}
-                    className="text-blue-500 shrink-0"
-                  />
-                  <span className="text-sm text-gray-500 flex-1">
-                    Exchange rate
-                  </span>
-                  <span className="text-sm font-semibold text-gray-900">
-                    1 {fromCurrency} = {rate.toFixed(4)} {toCurrency}
-                  </span>
-                </div>
-                <div className="flex items-center gap-2.5">
-                  <Tag size={14} className="text-yellow-500 shrink-0" />
-                  <span className="text-sm text-gray-500 flex-1">
-                    Transfer fee
-                  </span>
-                  <span className="text-sm font-semibold text-gray-900">
-                    ${fee.toFixed(2)} USD
-                  </span>
-                </div>
-                <div className="flex items-center gap-2.5">
-                  <Clock size={14} className="text-purple-500 shrink-0" />
-                  <span className="text-sm text-gray-500 flex-1">
-                    Delivery time
-                  </span>
-                  <span className="text-sm font-semibold text-gray-900">
-                    1–2 business days
-                  </span>
-                </div>
-                <div className="border-t border-gray-100 pt-3 mt-1">
-                  <div className="flex justify-between items-center">
-                    <span className="font-bold text-gray-900 text-sm">
-                      Total to pay
-                    </span>
-                    <span className="font-bold text-blue-600 text-xl">
-                      ${formatCurrency(total)} {fromCurrency}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <TransferSummary
+            fromAmount={fromAmount}
+            fromCurrency={fromCurrency}
+            toAmount={toAmount}
+            toCurrency={toCurrency}
+            rate={rate}
+            fee={fee}
+            total={total}
+            loadingRate={loadingRate}
+          />
         </div>
       </div>
     </div>
   );
 }
 
-// ─── MAIN PAGE ────────────────────────────────────────────────────────────────
-
 export default function SendMoneyPage() {
   const [rates, setRates] = useState<Record<string, number>>({});
   const [loadingRate, setLoadingRate] = useState(false);
   const [rateError, setRateError] = useState(false);
-  // unlockedUpTo tracks how far the user has progressed — steps never lock again
   const [unlockedUpTo, setUnlockedUpTo] = useState<number>(1);
   const [step, setStep] = useState<Step>(1);
 
-  // Step 1 — bidirectional amount
   const [fromAmount, setFromAmount] = useState('');
   const [toAmountInput, setToAmountInput] = useState('');
   const [lastEdited, setLastEdited] = useState<'from' | 'to'>('from');
@@ -4434,6 +4520,14 @@ export default function SendMoneyPage() {
   const [saveRecipient, setSaveRecipient] = useState(true);
   const [step2DocType, setStep2DocType] = useState('');
   const [step2Docs, setStep2Docs] = useState<UploadedDoc[]>([]);
+
+  // SendMoneyPage-এ নতুন state যোগ করো
+  const [bankName, setBankName] = useState('');
+  const [accountHolder, setAccountHolder] = useState('');
+  const [accountNumber, setAccountNumber] = useState('');
+  const [ibanRouting, setIbanRouting] = useState('');
+  const [swiftCode, setSwiftCode] = useState('');
+  const [bankDocType, setBankDocType] = useState('');
 
   // Step 3
   const [deliveryMethod, setDeliveryMethod] = useState<DeliveryMethod>(null);
@@ -4548,6 +4642,13 @@ export default function SendMoneyPage() {
         loadingRate={loadingRate}
         onConfirm={() => setStep(6)}
         onBack={() => setStep(4)}
+        recipientDocType={step2DocType}
+        bankName={bankName}
+        accountName={accountHolder}
+        accountNumber={accountNumber}
+        ibanRouting={ibanRouting}
+        swiftCode={swiftCode}
+        receivingDocType={bankDocType}
       />
     );
   }
@@ -4902,6 +5003,16 @@ export default function SendMoneyPage() {
                 <DeliveryMethodSection
                   deliveryMethod={deliveryMethod}
                   setDeliveryMethod={setDeliveryMethod}
+                  bankName={bankName}
+                  setBankName={setBankName}
+                  accountHolder={accountHolder}
+                  setAccountHolder={setAccountHolder}
+                  accountNumber={accountNumber}
+                  setAccountNumber={setAccountNumber}
+                  ibanRouting={ibanRouting}
+                  setIbanRouting={setIbanRouting}
+                  swiftCode={swiftCode}
+                  setSwiftCode={setSwiftCode}
                   onComplete={() => {
                     if (unlockedUpTo < 4) {
                       setUnlockedUpTo(4);
@@ -4911,7 +5022,6 @@ export default function SendMoneyPage() {
                 />
               </div>
 
-              {/* ── STEP 4: Payment ── */}
               <div
                 className={
                   unlockedUpTo < 4 ? 'opacity-40 pointer-events-none' : ''
@@ -4923,13 +5033,20 @@ export default function SendMoneyPage() {
                   onComplete={() => {
                     if (unlockedUpTo < 5) {
                       setUnlockedUpTo(5);
-                      setStep(5);
                     }
                   }}
                 />
+
+                {unlockedUpTo >= 5 && step === 4 && (
+                  <button
+                    onClick={() => setStep(5)}
+                    className="w-full py-3 bg-green-900 text-white rounded-xl font-semibold hover:bg-green-800 transition cursor-pointer mt-3"
+                  >
+                    Continue to Review
+                  </button>
+                )}
               </div>
 
-              {/* ── Hint when steps incomplete ── */}
               {unlockedUpTo < 5 && (
                 <div className="flex items-center gap-2 p-3 bg-gray-50 rounded-xl border border-dashed border-gray-200">
                   <Shield size={15} className="text-gray-300 shrink-0" />
