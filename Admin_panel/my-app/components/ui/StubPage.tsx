@@ -1,8 +1,11 @@
 import React from 'react'
 
-const StubPage = () => {
+const StubPage = ({ title, description }: { title: string, description: string }) => {
   return (
-    <div>Stub</div>
+    <div>
+      <h1>{title}</h1>
+      <p>{description}</p>
+    </div>
   )
 }
 
