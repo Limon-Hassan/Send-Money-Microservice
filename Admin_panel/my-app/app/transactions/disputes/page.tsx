@@ -1,4 +1,9 @@
-import StubPage from "@/components/ui/StubPage";
-export default function Page() {
-  return <StubPage title="Disputes" description="Open transaction disputes" />;
+import React from 'react'
+
+const page = () => {
+  return (
+    <div>page</div>
+  )
 }
+
+export default page

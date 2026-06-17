@@ -1,4 +1,9 @@
-import StubPage from "@/components/ui/StubPage";
-export default function Page() {
-  return <StubPage title="Analytics" description="Platform analytics and reporting" />;
+import React from 'react'
+
+const page = () => {
+  return (
+    <div>page</div>
+  )
 }
+
+export default page

@@ -1,4 +1,9 @@
-import StubPage from "@/components/ui/StubPage";
-export default function Page() {
-  return <StubPage title="KYC Verification" description="Review and approve identity documents" badge={124} />;
+import React from 'react'
+
+const page = () => {
+  return (
+    <div>page</div>
+  )
 }
+
+export default page
