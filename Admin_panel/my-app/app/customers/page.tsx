@@ -187,7 +187,7 @@ export default function Page() {
   const [selectedId, setSelectedId] = useState(customersData[0].id);
   const [activeTab, setActiveTab] = useState<TabKey>("Overview");
   const [search, setSearch] = useState("");
-  const [showDetail, setShowDetail] = useState(false); // mobile toggle
+  const [showDetail, setShowDetail] = useState(false); 
 
   const filtered = customersData.filter(c =>
     c.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -207,16 +207,13 @@ export default function Page() {
 
   return (
     <div className="space-y-4">
-      {/* Page Header */}
       <div>
         <h1 className="text-xl font-bold text-gray-900 dark:text-white">Customers</h1>
         <p className="text-sm text-gray-500 dark:text-gray-400">Dashboard &gt; Customers</p>
       </div>
 
-      {/* Main Layout */}
       <div className="flex flex-col lg:flex-row gap-4 h-full">
 
-        {/* ── Left: Customer List ── */}
         <div className={`w-full lg:w-72 xl:w-80 flex-shrink-0 bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 flex flex-col ${showDetail ? "hidden lg:flex" : "flex"}`}>
           {/* Search */}
           <div className="p-3 border-b border-gray-100 dark:border-gray-800">
@@ -516,24 +513,175 @@ export default function Page() {
             )}
 
             {activeTab === "KYC Status" && (
-              <div className="max-w-lg border border-gray-100 dark:border-gray-800 rounded-xl p-6">
-                <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-base font-semibold text-gray-800 dark:text-white">KYC Verification Details</h3>
-                  <span className={`px-2 py-0.5 text-xs font-medium rounded-full ${statusBadge(customer.kyc.status)}`}>{customer.kyc.status}</span>
+              <div className="space-y-5">
+                {/* Status Header */}
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-sm font-semibold text-gray-800 dark:text-white">KYC Verification</h3>
+                    <p className="text-xs text-gray-400 mt-0.5">Third-party verified identity & document management</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button className="px-3 py-1.5 text-xs font-medium border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 flex items-center gap-1">
+                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                      </svg>
+                      Run API Check
+                    </button>
+                    <span className={`px-2.5 py-1 text-xs font-medium rounded-full ${statusBadge(customer.kyc.status)}`}>
+                      {customer.kyc.status}
+                    </span>
+                  </div>
                 </div>
-                <div className="space-y-4">
-                  {[
-                    { label: "Identity Proof", value: customer.kyc.identityProof },
-                    { label: "Address Proof", value: customer.kyc.addressProof },
-                    { label: "Selfie Verification", value: customer.kyc.selfieVerification },
-                    { label: "AML Screening", value: customer.kyc.amlScreening },
-                    { label: "Verified On", value: customer.kyc.verifiedOn },
-                  ].map(item => (
-                    <div key={item.label} className="flex justify-between items-center py-2 border-b border-gray-50 dark:border-gray-800">
-                      <span className="text-sm text-gray-500 dark:text-gray-400">{item.label}</span>
-                      <span className="text-sm font-medium text-gray-800 dark:text-white">{item.value}</span>
+
+                <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
+                  {/* KYC Info */}
+                  <div className="xl:col-span-2 space-y-4">
+                    {/* Verification Checks */}
+                    <div className="border border-gray-100 dark:border-gray-800 rounded-xl p-4">
+                      <h4 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">Verification Checks</h4>
+                      <div className="grid grid-cols-2 gap-3">
+                        {[
+                          { label: "Identity Proof", value: customer.kyc.identityProof, icon: "🪪" },
+                          { label: "Address Proof", value: customer.kyc.addressProof, icon: "🏠" },
+                          { label: "Selfie Verification", value: customer.kyc.selfieVerification, icon: "🤳" },
+                          { label: "AML Screening", value: customer.kyc.amlScreening, icon: "🔍" },
+                        ].map(item => {
+                          const isOk = item.value === "Verified" || item.value === "Passed";
+                          const isPending = item.value === "Pending" || item.value === "In Progress";
+                          return (
+                            <div key={item.label} className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+                              <span className="text-lg flex-shrink-0">{item.icon}</span>
+                              <div className="flex-1 min-w-0">
+                                <p className="text-[10px] text-gray-400 uppercase tracking-wide">{item.label}</p>
+                                <p className={`text-xs font-semibold mt-0.5 ${isOk ? "text-green-600 dark:text-green-400" : isPending ? "text-yellow-600 dark:text-yellow-400" : "text-red-600 dark:text-red-400"}`}>
+                                  {item.value}
+                                </p>
+                              </div>
+                              <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${isOk ? "bg-green-100 dark:bg-green-900/40" : isPending ? "bg-yellow-100 dark:bg-yellow-900/40" : "bg-red-100 dark:bg-red-900/40"}`}>
+                                {isOk ? (
+                                  <svg className="w-3 h-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                  </svg>
+                                ) : isPending ? (
+                                  <svg className="w-3 h-3 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+                                  </svg>
+                                ) : (
+                                  <svg className="w-3 h-3 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                                  </svg>
+                                )}
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
-                  ))}
+
+                    {/* API Verification Result */}
+                    <div className="border border-gray-100 dark:border-gray-800 rounded-xl p-4">
+                      <div className="flex items-center gap-2 mb-3">
+                        <div className="w-5 h-5 rounded bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center">
+                          <svg className="w-3 h-3 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+                          </svg>
+                        </div>
+                        <h4 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                          Third-party API · Onfido
+                        </h4>
+                      </div>
+                      <div className="space-y-2">
+                        {[
+                          { key: "Identity Match", val: customer.kyc.identityProof !== "Rejected" ? "Passed" : "Failed" },
+                          { key: "Face Liveness", val: customer.kyc.selfieVerification === "Verified" ? "Passed" : customer.kyc.selfieVerification === "Failed" ? "Failed" : "Pending" },
+                          { key: "Sanctions Check", val: customer.kyc.amlScreening === "Passed" ? "Clear" : customer.kyc.amlScreening === "Failed" ? "Flagged" : "In Progress" },
+                          { key: "Document Authenticity", val: customer.kyc.identityProof !== "Rejected" && customer.kyc.identityProof !== "Pending" ? "Authentic" : customer.kyc.identityProof === "Rejected" ? "Invalid" : "Pending" },
+                        ].map(({ key, val }) => {
+                          const isGood = val === "Passed" || val === "Clear" || val === "Authentic";
+                          const isBad = val === "Failed" || val === "Flagged" || val === "Invalid";
+                          return (
+                            <div key={key} className="flex items-center justify-between py-1.5 border-b border-gray-50 dark:border-gray-800/80 last:border-0">
+                              <span className="text-xs text-gray-500 dark:text-gray-400">{key}</span>
+                              <span className={`text-xs font-semibold ${isGood ? "text-green-600 dark:text-green-400" : isBad ? "text-red-500 dark:text-red-400" : "text-yellow-600 dark:text-yellow-400"}`}>
+                                {isGood ? "✓ " : isBad ? "✗ " : "⏳ "}{val}
+                              </span>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right Side */}
+                  <div className="space-y-4">
+                    {/* KYC Details */}
+                    <div className="border border-gray-100 dark:border-gray-800 rounded-xl p-4">
+                      <h4 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">Details</h4>
+                      <div className="space-y-3">
+                        {[
+                          { label: "KYC Tier", value: "Tier 2" },
+                          { label: "Risk Rating", value: "Low", green: true },
+                          { label: "Submitted", value: customer.joinedDate },
+                          { label: "Verified On", value: customer.kyc.verifiedOn },
+                          { label: "Expires", value: customer.kyc.verifiedOn !== "—" ? "2027-" + customer.joinedDate.slice(-8) : "—" },
+                          { label: "Provider", value: "Onfido" },
+                        ].map(({ label, value, green }) => (
+                          <div key={label} className="flex justify-between items-center">
+                            <span className="text-[11px] text-gray-400">{label}</span>
+                            <span className={`text-[11px] font-semibold ${green ? "text-green-600 dark:text-green-400" : "text-gray-700 dark:text-gray-200"}`}>{value}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Risk Rating */}
+                    <div className="border border-gray-100 dark:border-gray-800 rounded-xl p-4">
+                      <h4 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">Risk Assessment</h4>
+                      <div className="space-y-2">
+                        {[
+                          { label: "Overall Risk", val: "Low", pct: 15 },
+                          { label: "Transaction Risk", val: "Low", pct: 20 },
+                          { label: "Compliance Risk", val: "Low", pct: 10 },
+                        ].map(({ label, val, pct }) => (
+                          <div key={label}>
+                            <div className="flex justify-between mb-1">
+                              <span className="text-[10px] text-gray-400">{label}</span>
+                              <span className="text-[10px] font-semibold text-green-600 dark:text-green-400">{val}</span>
+                            </div>
+                            <div className="h-1.5 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+                              <div className="h-full bg-green-500 rounded-full" style={{ width: `${pct}%` }} />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Actions */}
+                    {customer.kyc.status !== "Verified" && (
+                      <div className="space-y-2">
+                        <button className="w-full py-2 text-xs font-semibold rounded-lg bg-green-600 text-white hover:bg-green-700 flex items-center justify-center gap-1.5">
+                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                          </svg>
+                          Approve KYC
+                        </button>
+                        <button className="w-full py-2 text-xs font-semibold rounded-lg border border-red-200 dark:border-red-900 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center justify-center gap-1.5">
+                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                          Reject KYC
+                        </button>
+                      </div>
+                    )}
+                    {customer.kyc.status === "Verified" && (
+                      <div className="flex items-center justify-center gap-2 py-2.5 rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-600 dark:text-green-400 text-xs font-semibold">
+                        <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                        </svg>
+                        KYC Verified & Active
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             )}

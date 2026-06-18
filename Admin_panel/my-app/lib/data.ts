@@ -347,6 +347,7 @@ export const periodTotals = [
   { label: 'This Month', value: '$15,812,320' },
 ];
 
+
 //users
 
 export interface Customer {
@@ -3322,7 +3323,6 @@ export const recentExports = [
   { name: 'Agent_Performance_May_2025.xlsx', date: 'May 12, 2025 08:45 AM', type: 'xlsx' },
 ];
 
-// Country map data (for Transactions by Country - simplified)
 export const countryTransactionData = [
   { country: 'Bangladesh', value: 9800, pct: 100 },
   { country: 'India', value: 5200, pct: 53 },
@@ -3331,3 +3331,1594 @@ export const countryTransactionData = [
   { country: 'Nigeria', value: 1800, pct: 18 },
   { country: 'Nepal', value: 1200, pct: 12 },
 ];
+
+//here KYC fake data
+
+export type KycStatus = 'Approved' | 'Pending' | 'Rejected' | 'Under Review' | 'Expired';
+export type RiskLevel = 'Low' | 'Medium' | 'High';
+export type KycTier = 'Tier 1' | 'Tier 2' | 'Tier 3';
+export type DocumentStatus = 'Verified' | 'Missing' | 'Failed' | 'Pending';
+
+export interface KycDocument {
+  type: 'NID' | 'Passport' | 'Utility Bill' | 'Business Doc';
+  label: string;
+  status: DocumentStatus;
+  uploadedAt: string | null;
+}
+
+export interface ApiVerification {
+  identityMatch: 'Passed' | 'Failed' | 'Pending';
+  faceLiveness: 'Passed' | 'Failed' | 'Pending';
+  sanctionsCheck: 'Clear' | 'Flagged' | 'Pending';
+  documentAuthenticity: 'Authentic' | 'Invalid' | 'Pending';
+  provider: string;
+  checkedAt: string | null;
+}
+
+export interface KycCustomer {
+  id: string;
+  name: string;
+  initials: string;
+  avatarColor: 'blue' | 'purple' | 'green' | 'amber' | 'red' | 'teal' | 'pink';
+  email: string;
+  phone: string;
+  nationality: string;
+  occupation: string;
+  sourceOfFunds: string;
+  status: KycStatus;
+  tier: KycTier;
+  risk: RiskLevel;
+  submittedAt: string;
+  expiresAt: string | null;
+  reviewerNote: string;
+  documents: KycDocument[];
+  apiVerification: ApiVerification;
+}
+
+// ============ KYC STATS ============
+export const kycStats = {
+  totalSubmitted: 1284,
+  approved: 892,
+  pending: 213,
+  rejected: 98,
+  underReview: 50,
+  expired: 31,
+  highRisk: 31,
+  approvalRate: 69.5,
+  rejectRate: 7.6,
+  newToday: 18,
+  flaggedToday: 3,
+};
+
+// ============ KYC FAKE DATA ============
+export const kycCustomers: KycCustomer[] = [
+  {
+    id: 'C-10041',
+    name: 'Rahul Ahmed',
+    initials: 'RA',
+    avatarColor: 'blue',
+    email: 'rahul.ahmed@gmail.com',
+    phone: '+880 1711-234567',
+    nationality: 'Bangladeshi',
+    occupation: 'Software Engineer',
+    sourceOfFunds: 'Employment',
+    status: 'Approved',
+    tier: 'Tier 2',
+    risk: 'Low',
+    submittedAt: '2025-01-12',
+    expiresAt: '2027-01-12',
+    reviewerNote: 'All documents verified successfully via third-party API.',
+    documents: [
+      { type: 'NID', label: 'National ID (NID)', status: 'Verified', uploadedAt: '2025-01-12' },
+      { type: 'Passport', label: 'Passport', status: 'Verified', uploadedAt: '2025-01-12' },
+      { type: 'Utility Bill', label: 'Utility Bill', status: 'Verified', uploadedAt: '2025-01-14' },
+      { type: 'Business Doc', label: 'Business Document', status: 'Missing', uploadedAt: null },
+    ],
+    apiVerification: {
+      identityMatch: 'Passed',
+      faceLiveness: 'Passed',
+      sanctionsCheck: 'Clear',
+      documentAuthenticity: 'Authentic',
+      provider: 'Onfido',
+      checkedAt: '2025-01-12',
+    },
+  },
+  {
+    id: 'C-10042',
+    name: 'Nadia Islam',
+    initials: 'NI',
+    avatarColor: 'purple',
+    email: 'nadia.islam@yahoo.com',
+    phone: '+880 1812-345678',
+    nationality: 'Bangladeshi',
+    occupation: 'Teacher',
+    sourceOfFunds: 'Employment',
+    status: 'Pending',
+    tier: 'Tier 1',
+    risk: 'Medium',
+    submittedAt: '2025-11-28',
+    expiresAt: null,
+    reviewerNote: 'Awaiting passport and utility bill upload.',
+    documents: [
+      { type: 'NID', label: 'National ID (NID)', status: 'Verified', uploadedAt: '2025-11-28' },
+      { type: 'Passport', label: 'Passport', status: 'Missing', uploadedAt: null },
+      { type: 'Utility Bill', label: 'Utility Bill', status: 'Missing', uploadedAt: null },
+      { type: 'Business Doc', label: 'Business Document', status: 'Missing', uploadedAt: null },
+    ],
+    apiVerification: {
+      identityMatch: 'Pending',
+      faceLiveness: 'Pending',
+      sanctionsCheck: 'Pending',
+      documentAuthenticity: 'Pending',
+      provider: 'Onfido',
+      checkedAt: null,
+    },
+  },
+  {
+    id: 'C-10043',
+    name: 'Karim Hossain',
+    initials: 'KH',
+    avatarColor: 'red',
+    email: 'karim.hossain@hotmail.com',
+    phone: '+880 1913-456789',
+    nationality: 'Bangladeshi',
+    occupation: 'Businessman',
+    sourceOfFunds: 'Business Income',
+    status: 'Rejected',
+    tier: 'Tier 1',
+    risk: 'High',
+    submittedAt: '2025-10-05',
+    expiresAt: null,
+    reviewerNote: 'Document authenticity check failed. Suspected forged NID.',
+    documents: [
+      { type: 'NID', label: 'National ID (NID)', status: 'Failed', uploadedAt: '2025-10-05' },
+      { type: 'Passport', label: 'Passport', status: 'Missing', uploadedAt: null },
+      { type: 'Utility Bill', label: 'Utility Bill', status: 'Missing', uploadedAt: null },
+      { type: 'Business Doc', label: 'Business Document', status: 'Missing', uploadedAt: null },
+    ],
+    apiVerification: {
+      identityMatch: 'Failed',
+      faceLiveness: 'Failed',
+      sanctionsCheck: 'Flagged',
+      documentAuthenticity: 'Invalid',
+      provider: 'Onfido',
+      checkedAt: '2025-10-05',
+    },
+  },
+  {
+    id: 'C-10044',
+    name: 'Farida Begum',
+    initials: 'FB',
+    avatarColor: 'green',
+    email: 'farida.begum@gmail.com',
+    phone: '+880 1615-567890',
+    nationality: 'Bangladeshi',
+    occupation: 'Business Owner',
+    sourceOfFunds: 'Business Income',
+    status: 'Approved',
+    tier: 'Tier 3',
+    risk: 'Low',
+    submittedAt: '2026-01-03',
+    expiresAt: '2028-01-03',
+    reviewerNote: 'Full Tier 3 verification complete. All documents authentic.',
+    documents: [
+      { type: 'NID', label: 'National ID (NID)', status: 'Verified', uploadedAt: '2026-01-03' },
+      { type: 'Passport', label: 'Passport', status: 'Verified', uploadedAt: '2026-01-03' },
+      { type: 'Utility Bill', label: 'Utility Bill', status: 'Verified', uploadedAt: '2026-01-04' },
+      { type: 'Business Doc', label: 'Business Document', status: 'Verified', uploadedAt: '2026-01-05' },
+    ],
+    apiVerification: {
+      identityMatch: 'Passed',
+      faceLiveness: 'Passed',
+      sanctionsCheck: 'Clear',
+      documentAuthenticity: 'Authentic',
+      provider: 'Jumio',
+      checkedAt: '2026-01-05',
+    },
+  },
+  {
+    id: 'C-10045',
+    name: 'Tariq Mahmud',
+    initials: 'TM',
+    avatarColor: 'amber',
+    email: 'tariq.mahmud@gmail.com',
+    phone: '+880 1755-678901',
+    nationality: 'Bangladeshi',
+    occupation: 'Freelancer',
+    sourceOfFunds: 'Freelance Income',
+    status: 'Under Review',
+    tier: 'Tier 2',
+    risk: 'Medium',
+    submittedAt: '2026-02-10',
+    expiresAt: null,
+    reviewerNote: 'Utility bill address does not match NID address. Manual review required.',
+    documents: [
+      { type: 'NID', label: 'National ID (NID)', status: 'Verified', uploadedAt: '2026-02-10' },
+      { type: 'Passport', label: 'Passport', status: 'Verified', uploadedAt: '2026-02-10' },
+      { type: 'Utility Bill', label: 'Utility Bill', status: 'Pending', uploadedAt: '2026-02-11' },
+      { type: 'Business Doc', label: 'Business Document', status: 'Missing', uploadedAt: null },
+    ],
+    apiVerification: {
+      identityMatch: 'Passed',
+      faceLiveness: 'Passed',
+      sanctionsCheck: 'Clear',
+      documentAuthenticity: 'Pending',
+      provider: 'Onfido',
+      checkedAt: '2026-02-10',
+    },
+  },
+  {
+    id: 'C-10046',
+    name: 'Sadia Rahman',
+    initials: 'SR',
+    avatarColor: 'teal',
+    email: 'sadia.rahman@gmail.com',
+    phone: '+880 1833-789012',
+    nationality: 'Bangladeshi',
+    occupation: 'Doctor',
+    sourceOfFunds: 'Employment',
+    status: 'Expired',
+    tier: 'Tier 2',
+    risk: 'Low',
+    submittedAt: '2024-03-01',
+    expiresAt: '2026-03-01',
+    reviewerNote: 'KYC expired. Customer needs to re-submit documents.',
+    documents: [
+      { type: 'NID', label: 'National ID (NID)', status: 'Verified', uploadedAt: '2024-03-01' },
+      { type: 'Passport', label: 'Passport', status: 'Verified', uploadedAt: '2024-03-01' },
+      { type: 'Utility Bill', label: 'Utility Bill', status: 'Verified', uploadedAt: '2024-03-02' },
+      { type: 'Business Doc', label: 'Business Document', status: 'Missing', uploadedAt: null },
+    ],
+    apiVerification: {
+      identityMatch: 'Passed',
+      faceLiveness: 'Passed',
+      sanctionsCheck: 'Clear',
+      documentAuthenticity: 'Authentic',
+      provider: 'Jumio',
+      checkedAt: '2024-03-01',
+    },
+  },
+  {
+    id: 'C-10047',
+    name: 'Imran Khan',
+    initials: 'IK',
+    avatarColor: 'pink',
+    email: 'imran.khan@gmail.com',
+    phone: '+880 1944-890123',
+    nationality: 'Bangladeshi',
+    occupation: 'Remittance Agent',
+    sourceOfFunds: 'Business Income',
+    status: 'Approved',
+    tier: 'Tier 3',
+    risk: 'Medium',
+    submittedAt: '2025-08-15',
+    expiresAt: '2027-08-15',
+    reviewerNote: 'Tier 3 approved. Medium risk due to high transaction volume.',
+    documents: [
+      { type: 'NID', label: 'National ID (NID)', status: 'Verified', uploadedAt: '2025-08-15' },
+      { type: 'Passport', label: 'Passport', status: 'Verified', uploadedAt: '2025-08-15' },
+      { type: 'Utility Bill', label: 'Utility Bill', status: 'Verified', uploadedAt: '2025-08-16' },
+      { type: 'Business Doc', label: 'Business Document', status: 'Verified', uploadedAt: '2025-08-17' },
+    ],
+    apiVerification: {
+      identityMatch: 'Passed',
+      faceLiveness: 'Passed',
+      sanctionsCheck: 'Clear',
+      documentAuthenticity: 'Authentic',
+      provider: 'Jumio',
+      checkedAt: '2025-08-15',
+    },
+  },
+  {
+    id: 'C-10048',
+    name: 'Mitu Akter',
+    initials: 'MA',
+    avatarColor: 'blue',
+    email: 'mitu.akter@gmail.com',
+    phone: '+880 1677-901234',
+    nationality: 'Bangladeshi',
+    occupation: 'Housewife',
+    sourceOfFunds: 'Family Support',
+    status: 'Pending',
+    tier: 'Tier 1',
+    risk: 'Low',
+    submittedAt: '2026-03-20',
+    expiresAt: null,
+    reviewerNote: 'NID uploaded. Waiting for API verification queue.',
+    documents: [
+      { type: 'NID', label: 'National ID (NID)', status: 'Pending', uploadedAt: '2026-03-20' },
+      { type: 'Passport', label: 'Passport', status: 'Missing', uploadedAt: null },
+      { type: 'Utility Bill', label: 'Utility Bill', status: 'Missing', uploadedAt: null },
+      { type: 'Business Doc', label: 'Business Document', status: 'Missing', uploadedAt: null },
+    ],
+    apiVerification: {
+      identityMatch: 'Pending',
+      faceLiveness: 'Pending',
+      sanctionsCheck: 'Pending',
+      documentAuthenticity: 'Pending',
+      provider: 'Onfido',
+      checkedAt: null,
+    },
+  },
+];
+
+
+// start wallet fake data here
+
+
+export type WalletStatus = 'Active' | 'Frozen' | 'Suspended';
+export type CurrencyCode = 'GBP' | 'USD' | 'EUR' | 'BDT' | 'PKR' | 'INR' | 'PHP' | 'NGN' | 'NPR';
+
+export interface WalletCurrency {
+  code: CurrencyCode;
+  flag: string;
+  name: string;
+  balance: number;
+  onHold: number;
+  dailyLimit: number;
+  monthlyLimit: number;
+  dailyUsed: number;
+  monthlyUsed: number;
+}
+
+export interface CustomerWallet {
+  id: string;
+  customerId: string;
+  name: string;
+  initials: string;
+  avatarColor: 'blue' | 'purple' | 'green' | 'amber' | 'red' | 'teal' | 'pink' | 'indigo' | 'rose';
+  email: string;
+  status: WalletStatus;
+  totalBalanceGBP: number;
+  lastActivity: string;
+  wallets: WalletCurrency[];
+}
+
+// ============ WALLET STATS ============
+export const walletStats = {
+  totalWallets: 3840,
+  activeWallets: 3512,
+  frozenWallets: 218,
+  suspendedWallets: 110,
+  totalBalanceGBP: 2847500,
+  totalBalanceUSD: 3601200,
+  topUpToday: 142300,
+  withdrawToday: 98700,
+};
+
+// ============ WALLET FAKE DATA ============
+export const customerWallets: CustomerWallet[] = [
+  {
+    id: 'W-10001', customerId: 'C-10041', name: 'Rahul Ahmed', initials: 'RA',
+    avatarColor: 'blue', email: 'rahul.ahmed@gmail.com', status: 'Active',
+    totalBalanceGBP: 4731.15, lastActivity: '2026-06-17',
+    wallets: [
+      { code: 'GBP', flag: '🇬🇧', name: 'British Pound',      balance: 2450.75, onHold: 120.00, dailyLimit: 5000,   monthlyLimit: 50000,  dailyUsed: 820,   monthlyUsed: 12400 },
+      { code: 'USD', flag: '🇺🇸', name: 'US Dollar',          balance: 1280.40, onHold: 0,      dailyLimit: 6000,   monthlyLimit: 60000,  dailyUsed: 300,   monthlyUsed: 4500  },
+      { code: 'EUR', flag: '🇪🇺', name: 'Euro',               balance: 980.30,  onHold: 50.00,  dailyLimit: 5500,   monthlyLimit: 55000,  dailyUsed: 0,     monthlyUsed: 1200  },
+      { code: 'BDT', flag: '🇧🇩', name: 'Bangladeshi Taka',   balance: 125450,  onHold: 0,      dailyLimit: 500000, monthlyLimit: 5000000,dailyUsed: 45000, monthlyUsed: 280000},
+    ],
+  },
+  {
+    id: 'W-10002', customerId: 'C-10042', name: 'Nadia Islam', initials: 'NI',
+    avatarColor: 'purple', email: 'nadia.islam@yahoo.com', status: 'Active',
+    totalBalanceGBP: 850.20, lastActivity: '2026-06-16',
+    wallets: [
+      { code: 'GBP', flag: '🇬🇧', name: 'British Pound', balance: 850.20, onHold: 0,      dailyLimit: 2000,  monthlyLimit: 20000,  dailyUsed: 200,  monthlyUsed: 1800 },
+      { code: 'INR', flag: '🇮🇳', name: 'Indian Rupee',  balance: 45200,  onHold: 1000,   dailyLimit: 200000,monthlyLimit: 2000000,dailyUsed: 15000,monthlyUsed: 90000},
+    ],
+  },
+  {
+    id: 'W-10003', customerId: 'C-10043', name: 'Karim Hossain', initials: 'KH',
+    avatarColor: 'red', email: 'karim.hossain@hotmail.com', status: 'Frozen',
+    totalBalanceGBP: 0, lastActivity: '2025-10-05',
+    wallets: [
+      { code: 'GBP', flag: '🇬🇧', name: 'British Pound', balance: 0, onHold: 0, dailyLimit: 0, monthlyLimit: 0, dailyUsed: 0, monthlyUsed: 0 },
+    ],
+  },
+  {
+    id: 'W-10004', customerId: 'C-10044', name: 'Farida Begum', initials: 'FB',
+    avatarColor: 'green', email: 'farida.begum@gmail.com', status: 'Active',
+    totalBalanceGBP: 9350.85, lastActivity: '2026-06-18',
+    wallets: [
+      { code: 'GBP', flag: '🇬🇧', name: 'British Pound',    balance: 5120.60, onHold: 500,  dailyLimit: 10000, monthlyLimit: 100000, dailyUsed: 2000, monthlyUsed: 35000 },
+      { code: 'USD', flag: '🇺🇸', name: 'US Dollar',        balance: 2800.00, onHold: 0,    dailyLimit: 12000, monthlyLimit: 120000, dailyUsed: 800,  monthlyUsed: 12000 },
+      { code: 'PKR', flag: '🇵🇰', name: 'Pakistani Rupee',  balance: 180000,  onHold: 5000, dailyLimit: 800000,monthlyLimit: 8000000,dailyUsed: 50000,monthlyUsed: 420000},
+    ],
+  },
+  {
+    id: 'W-10005', customerId: 'C-10045', name: 'Tariq Mahmud', initials: 'TM',
+    avatarColor: 'amber', email: 'tariq.mahmud@gmail.com', status: 'Active',
+    totalBalanceGBP: 2140.00, lastActivity: '2026-06-15',
+    wallets: [
+      { code: 'GBP', flag: '🇬🇧', name: 'British Pound', balance: 1200.00, onHold: 200, dailyLimit: 3000,  monthlyLimit: 30000,  dailyUsed: 500,  monthlyUsed: 8000  },
+      { code: 'USD', flag: '🇺🇸', name: 'US Dollar',     balance: 940.00,  onHold: 0,   dailyLimit: 4000,  monthlyLimit: 40000,  dailyUsed: 940,  monthlyUsed: 5500  },
+    ],
+  },
+  {
+    id: 'W-10006', customerId: 'C-10046', name: 'Sadia Rahman', initials: 'SR',
+    avatarColor: 'teal', email: 'sadia.rahman@gmail.com', status: 'Active',
+    totalBalanceGBP: 8130.25, lastActivity: '2026-06-18',
+    wallets: [
+      { code: 'GBP', flag: '🇬🇧', name: 'British Pound', balance: 4350.80, onHold: 0,   dailyLimit: 8000,  monthlyLimit: 80000,  dailyUsed: 1200, monthlyUsed: 22000 },
+      { code: 'EUR', flag: '🇪🇺', name: 'Euro',          balance: 2800.00, onHold: 150, dailyLimit: 7000,  monthlyLimit: 70000,  dailyUsed: 0,    monthlyUsed: 9000  },
+      { code: 'PHP', flag: '🇵🇭', name: 'Philippine Peso',balance: 95000,  onHold: 0,   dailyLimit: 400000,monthlyLimit: 4000000,dailyUsed: 15000,monthlyUsed: 180000},
+    ],
+  },
+  {
+    id: 'W-10007', customerId: 'C-10047', name: 'Imran Khan', initials: 'IK',
+    avatarColor: 'pink', email: 'imran.khan@gmail.com', status: 'Active',
+    totalBalanceGBP: 14200.00, lastActivity: '2026-06-17',
+    wallets: [
+      { code: 'GBP', flag: '🇬🇧', name: 'British Pound',  balance: 8900.00, onHold: 1000, dailyLimit: 15000, monthlyLimit: 150000, dailyUsed: 3500, monthlyUsed: 62000 },
+      { code: 'USD', flag: '🇺🇸', name: 'US Dollar',      balance: 4200.00, onHold: 0,    dailyLimit: 18000, monthlyLimit: 180000, dailyUsed: 1200, monthlyUsed: 28000 },
+      { code: 'EUR', flag: '🇪🇺', name: 'Euro',           balance: 2100.00, onHold: 200,  dailyLimit: 12000, monthlyLimit: 120000, dailyUsed: 0,    monthlyUsed: 15000 },
+      { code: 'NGN', flag: '🇳🇬', name: 'Nigerian Naira', balance: 1850000, onHold: 0,    dailyLimit: 5000000,monthlyLimit: 50000000,dailyUsed: 200000,monthlyUsed: 1200000},
+    ],
+  },
+  {
+    id: 'W-10008', customerId: 'C-10048', name: 'Mitu Akter', initials: 'MA',
+    avatarColor: 'indigo', email: 'mitu.akter@gmail.com', status: 'Suspended',
+    totalBalanceGBP: 320.50, lastActivity: '2026-03-20',
+    wallets: [
+      { code: 'GBP', flag: '🇬🇧', name: 'British Pound', balance: 320.50, onHold: 320.50, dailyLimit: 0, monthlyLimit: 0, dailyUsed: 0, monthlyUsed: 0 },
+    ],
+  },
+  {
+    id: 'W-10009', customerId: 'C-10049', name: 'David Osei', initials: 'DO',
+    avatarColor: 'rose', email: 'david.osei@gmail.com', status: 'Active',
+    totalBalanceGBP: 6750.00, lastActivity: '2026-06-18',
+    wallets: [
+      { code: 'GBP', flag: '🇬🇧', name: 'British Pound',  balance: 3200.00, onHold: 400,  dailyLimit: 8000,   monthlyLimit: 80000,   dailyUsed: 1500, monthlyUsed: 28000  },
+      { code: 'USD', flag: '🇺🇸', name: 'US Dollar',      balance: 2100.00, onHold: 0,    dailyLimit: 10000,  monthlyLimit: 100000,  dailyUsed: 600,  monthlyUsed: 11000  },
+      { code: 'NGN', flag: '🇳🇬', name: 'Nigerian Naira', balance: 1450000, onHold: 50000,dailyLimit: 3000000,monthlyLimit: 30000000, dailyUsed: 80000,monthlyUsed: 650000 },
+      { code: 'NPR', flag: '🇳🇵', name: 'Nepali Rupee',   balance: 85000,   onHold: 0,    dailyLimit: 300000, monthlyLimit: 3000000,  dailyUsed: 12000,monthlyUsed: 95000  },
+    ],
+  },
+];
+
+
+
+// transaction details fake data
+
+// ============ TRANSACTION TYPES ============
+export type TransactionType = 'Send Money' | 'Receive' | 'Top Up' | 'Withdraw' | 'Refund' | 'Exchange' | 'Fee';
+export type TransactionStatus = 'Completed' | 'Pending' | 'Failed' | 'Refunded' | 'Cancelled' | 'On Hold';
+
+export interface TransactionHistory {
+  id: string;
+  customerId: string;
+  customerName: string;
+  customerInitials: string;
+  customerAvatarColor: string;
+  type: TransactionType;
+  status: TransactionStatus;
+  amount: number;
+  currency: string;
+  fee: number;
+  feeCurrency: string;
+  exchangeRate?: number;
+  fromCurrency?: string;
+  toCurrency?: string;
+  recipient?: string;
+  recipientCountry?: string;
+  recipientFlag?: string;
+  reference: string;
+  channel: 'Web' | 'Mobile' | 'API' | 'Admin';
+  note?: string;
+  createdAt: string;
+  completedAt?: string;
+}
+
+// ============ TRANSACTION STATS ============
+export const transactionStats = {
+  totalToday: 284,
+  volumeToday: 142300,
+  completedToday: 241,
+  pendingNow: 28,
+  failedToday: 9,
+  refundedToday: 6,
+  successRate: 94.7,
+  avgAmount: 501.06,
+};
+
+// ============ TRANSACTION FAKE DATA ============
+export const transactions: TransactionHistory[] = [
+  {
+    id: 'TXN-26061801', customerId: 'C-10041', customerName: 'Rahul Ahmed',
+    customerInitials: 'RA', customerAvatarColor: 'blue',
+    type: 'Send Money', status: 'Completed',
+    amount: 520.00, currency: 'GBP', fee: 3.50, feeCurrency: 'GBP',
+    recipient: 'Kamal Hossain', recipientCountry: 'Bangladesh', recipientFlag: '🇧🇩',
+    reference: 'TXN-26061801', channel: 'Mobile',
+    note: 'Family support', createdAt: '2026-06-18T10:22:00', completedAt: '2026-06-18T10:24:33',
+  },
+  {
+    id: 'TXN-26061802', customerId: 'C-10044', customerName: 'Farida Begum',
+    customerInitials: 'FB', customerAvatarColor: 'green',
+    type: 'Send Money', status: 'Completed',
+    amount: 1200.00, currency: 'GBP', fee: 5.00, feeCurrency: 'GBP',
+    recipient: 'Ali Hassan', recipientCountry: 'Pakistan', recipientFlag: '🇵🇰',
+    reference: 'TXN-26061802', channel: 'Web',
+    createdAt: '2026-06-18T09:45:00', completedAt: '2026-06-18T09:47:12',
+  },
+  {
+    id: 'TXN-26061803', customerId: 'C-10046', customerName: 'Sadia Rahman',
+    customerInitials: 'SR', customerAvatarColor: 'teal',
+    type: 'Top Up', status: 'Completed',
+    amount: 1500.00, currency: 'GBP', fee: 0, feeCurrency: 'GBP',
+    reference: 'TXN-26061803', channel: 'Mobile',
+    createdAt: '2026-06-18T09:10:00', completedAt: '2026-06-18T09:10:45',
+  },
+  {
+    id: 'TXN-26061804', customerId: 'C-10042', customerName: 'Nadia Islam',
+    customerInitials: 'NI', customerAvatarColor: 'purple',
+    type: 'Send Money', status: 'Pending',
+    amount: 420.00, currency: 'GBP', fee: 3.00, feeCurrency: 'GBP',
+    recipient: 'Priya Singh', recipientCountry: 'India', recipientFlag: '🇮🇳',
+    reference: 'TXN-26061804', channel: 'Web',
+    createdAt: '2026-06-18T08:55:00',
+  },
+  {
+    id: 'TXN-26061805', customerId: 'C-10047', customerName: 'Imran Khan',
+    customerInitials: 'IK', customerAvatarColor: 'pink',
+    type: 'Exchange', status: 'Completed',
+    amount: 2000.00, currency: 'GBP', fee: 8.00, feeCurrency: 'GBP',
+    fromCurrency: 'GBP', toCurrency: 'USD', exchangeRate: 1.2701,
+    reference: 'TXN-26061805', channel: 'Web',
+    createdAt: '2026-06-18T08:30:00', completedAt: '2026-06-18T08:30:22',
+  },
+  {
+    id: 'TXN-26061806', customerId: 'C-10045', customerName: 'Tariq Mahmud',
+    customerInitials: 'TM', customerAvatarColor: 'amber',
+    type: 'Withdraw', status: 'On Hold',
+    amount: 800.00, currency: 'GBP', fee: 2.00, feeCurrency: 'GBP',
+    reference: 'TXN-26061806', channel: 'Mobile',
+    note: 'Manual review required — high value withdrawal',
+    createdAt: '2026-06-18T08:15:00',
+  },
+  {
+    id: 'TXN-26061807', customerId: 'C-10041', customerName: 'Rahul Ahmed',
+    customerInitials: 'RA', customerAvatarColor: 'blue',
+    type: 'Fee', status: 'Completed',
+    amount: 3.50, currency: 'GBP', fee: 0, feeCurrency: 'GBP',
+    reference: 'TXN-26061801-FEE', channel: 'API',
+    note: 'Fee for TXN-26061801',
+    createdAt: '2026-06-18T10:24:33', completedAt: '2026-06-18T10:24:33',
+  },
+  {
+    id: 'TXN-26061808', customerId: 'C-10044', customerName: 'Farida Begum',
+    customerInitials: 'FB', customerAvatarColor: 'green',
+    type: 'Receive', status: 'Completed',
+    amount: 950.00, currency: 'GBP', fee: 0, feeCurrency: 'GBP',
+    recipient: 'From: UK Business Account', recipientCountry: 'United Kingdom', recipientFlag: '🇬🇧',
+    reference: 'TXN-26061808', channel: 'API',
+    createdAt: '2026-06-18T07:50:00', completedAt: '2026-06-18T07:52:10',
+  },
+  {
+    id: 'TXN-26061809', customerId: 'C-10043', customerName: 'Karim Hossain',
+    customerInitials: 'KH', customerAvatarColor: 'red',
+    type: 'Send Money', status: 'Failed',
+    amount: 350.00, currency: 'GBP', fee: 2.50, feeCurrency: 'GBP',
+    recipient: 'Unknown', recipientCountry: 'Nigeria', recipientFlag: '🇳🇬',
+    reference: 'TXN-26061809', channel: 'Web',
+    note: 'Failed: KYC rejected — transaction blocked',
+    createdAt: '2026-06-18T07:30:00',
+  },
+  {
+    id: 'TXN-26061810', customerId: 'C-10046', customerName: 'Sadia Rahman',
+    customerInitials: 'SR', customerAvatarColor: 'teal',
+    type: 'Send Money', status: 'Completed',
+    amount: 780.00, currency: 'GBP', fee: 3.50, feeCurrency: 'GBP',
+    recipient: 'Marie Dupont', recipientCountry: 'France', recipientFlag: '🇫🇷',
+    reference: 'TXN-26061810', channel: 'Mobile',
+    createdAt: '2026-06-17T18:45:00', completedAt: '2026-06-17T18:47:30',
+  },
+  {
+    id: 'TXN-26061811', customerId: 'C-10047', customerName: 'Imran Khan',
+    customerInitials: 'IK', customerAvatarColor: 'pink',
+    type: 'Refund', status: 'Refunded',
+    amount: 620.00, currency: 'GBP', fee: 0, feeCurrency: 'GBP',
+    reference: 'TXN-26061811', channel: 'Admin',
+    note: 'Refund for failed transfer TXN-26060922',
+    createdAt: '2026-06-17T17:20:00', completedAt: '2026-06-17T17:22:00',
+  },
+  {
+    id: 'TXN-26061812', customerId: 'C-10042', customerName: 'Nadia Islam',
+    customerInitials: 'NI', customerAvatarColor: 'purple',
+    type: 'Top Up', status: 'Cancelled',
+    amount: 200.00, currency: 'GBP', fee: 0, feeCurrency: 'GBP',
+    reference: 'TXN-26061812', channel: 'Web',
+    note: 'Cancelled by customer',
+    createdAt: '2026-06-17T16:10:00',
+  },
+  {
+    id: 'TXN-26061813', customerId: 'C-10049', customerName: 'David Osei',
+    customerInitials: 'DO', customerAvatarColor: 'rose',
+    type: 'Send Money', status: 'Completed',
+    amount: 1500.00, currency: 'GBP', fee: 5.50, feeCurrency: 'GBP',
+    recipient: 'Emeka Osei', recipientCountry: 'Nigeria', recipientFlag: '🇳🇬',
+    reference: 'TXN-26061813', channel: 'Mobile',
+    createdAt: '2026-06-17T15:30:00', completedAt: '2026-06-17T15:33:20',
+  },
+  {
+    id: 'TXN-26061814', customerId: 'C-10041', customerName: 'Rahul Ahmed',
+    customerInitials: 'RA', customerAvatarColor: 'blue',
+    type: 'Withdraw', status: 'Completed',
+    amount: 300.00, currency: 'GBP', fee: 1.50, feeCurrency: 'GBP',
+    reference: 'TXN-26061814', channel: 'Web',
+    createdAt: '2026-06-17T14:00:00', completedAt: '2026-06-17T14:02:45',
+  },
+  {
+    id: 'TXN-26061815', customerId: 'C-10045', customerName: 'Tariq Mahmud',
+    customerInitials: 'TM', customerAvatarColor: 'amber',
+    type: 'Exchange', status: 'Pending',
+    amount: 500.00, currency: 'USD', fee: 4.00, feeCurrency: 'USD',
+    fromCurrency: 'USD', toCurrency: 'BDT', exchangeRate: 110.25,
+    reference: 'TXN-26061815', channel: 'Mobile',
+    createdAt: '2026-06-17T13:20:00',
+  },
+];
+
+
+// transaction pending review fake data
+
+// ============ PENDING TRANSACTIONS ============
+export type PriorityLevel = 'Critical' | 'High' | 'Normal';
+export type EscalationStatus = 'None' | 'Escalated' | 'Under Review';
+
+export interface PendingTransaction {
+  id: string;
+  customerId: string;
+  customerName: string;
+  customerInitials: string;
+  customerAvatarColor: string;
+  amount: number;
+  currency: string;
+  fee: number;
+  recipient: string;
+  recipientCountry: string;
+  recipientFlag: string;
+  method: string;
+  priority: PriorityLevel;
+  escalation: EscalationStatus;
+  submittedAt: string;
+  estimatedCompletion: string;
+  waitingMins: number;
+  reason: string;
+  channel: 'Web' | 'Mobile' | 'API' | 'Admin';
+}
+
+export const pendingStats = {
+  totalPending: 213,
+  criticalCount: 12,
+  highCount: 45,
+  normalCount: 156,
+  avgWaitMins: 28,
+  oldestMins: 142,
+  totalVolume: 284500,
+  escalatedCount: 8,
+};
+
+export const pendingTransactions: PendingTransaction[] = [
+  {
+    id: 'TXN-26061901', customerId: 'C-10047', customerName: 'Imran Khan',
+    customerInitials: 'IK', customerAvatarColor: 'pink',
+    amount: 4500.00, currency: 'GBP', fee: 12.00,
+    recipient: 'Mohammed Al-Rashid', recipientCountry: 'Saudi Arabia', recipientFlag: '🇸🇦',
+    method: 'Bank Transfer', priority: 'Critical', escalation: 'Escalated',
+    submittedAt: '2026-06-18T06:15:00', estimatedCompletion: '2026-06-18T08:15:00',
+    waitingMins: 142, reason: 'Large value — awaiting compliance review',
+    channel: 'Web',
+  },
+  {
+    id: 'TXN-26061902', customerId: 'C-10044', customerName: 'Farida Begum',
+    customerInitials: 'FB', customerAvatarColor: 'green',
+    amount: 2800.00, currency: 'GBP', fee: 8.50,
+    recipient: 'Nasrin Akter', recipientCountry: 'Bangladesh', recipientFlag: '🇧🇩',
+    method: 'bKash', priority: 'Critical', escalation: 'Under Review',
+    submittedAt: '2026-06-18T07:00:00', estimatedCompletion: '2026-06-18T09:00:00',
+    waitingMins: 97, reason: 'Duplicate transaction flag — manual check required',
+    channel: 'Mobile',
+  },
+  {
+    id: 'TXN-26061903', customerId: 'C-10041', customerName: 'Rahul Ahmed',
+    customerInitials: 'RA', customerAvatarColor: 'blue',
+    amount: 1200.00, currency: 'GBP', fee: 5.00,
+    recipient: 'Sunita Sharma', recipientCountry: 'India', recipientFlag: '🇮🇳',
+    method: 'Bank Transfer', priority: 'High', escalation: 'None',
+    submittedAt: '2026-06-18T07:45:00', estimatedCompletion: '2026-06-18T09:45:00',
+    waitingMins: 52, reason: 'KYC tier 2 — secondary approval needed',
+    channel: 'Web',
+  },
+  {
+    id: 'TXN-26061904', customerId: 'C-10049', customerName: 'David Osei',
+    customerInitials: 'DO', customerAvatarColor: 'rose',
+    amount: 950.00, currency: 'GBP', fee: 4.50,
+    recipient: 'Grace Mensah', recipientCountry: 'Ghana', recipientFlag: '🇬🇭',
+    method: 'Mobile Money', priority: 'High', escalation: 'None',
+    submittedAt: '2026-06-18T08:10:00', estimatedCompletion: '2026-06-18T09:30:00',
+    waitingMins: 37, reason: 'New corridor — first Ghana transfer',
+    channel: 'Mobile',
+  },
+  {
+    id: 'TXN-26061905', customerId: 'C-10042', customerName: 'Nadia Islam',
+    customerInitials: 'NI', customerAvatarColor: 'purple',
+    amount: 420.00, currency: 'GBP', fee: 3.00,
+    recipient: 'Priya Singh', recipientCountry: 'India', recipientFlag: '🇮🇳',
+    method: 'Bank Transfer', priority: 'Normal', escalation: 'None',
+    submittedAt: '2026-06-18T08:30:00', estimatedCompletion: '2026-06-18T09:30:00',
+    waitingMins: 27, reason: 'Awaiting bank confirmation',
+    channel: 'Web',
+  },
+  {
+    id: 'TXN-26061906', customerId: 'C-10046', customerName: 'Sadia Rahman',
+    customerInitials: 'SR', customerAvatarColor: 'teal',
+    amount: 680.00, currency: 'GBP', fee: 3.50,
+    recipient: 'Marie Dupont', recipientCountry: 'France', recipientFlag: '🇫🇷',
+    method: 'Bank Transfer', priority: 'Normal', escalation: 'None',
+    submittedAt: '2026-06-18T08:45:00', estimatedCompletion: '2026-06-18T10:00:00',
+    waitingMins: 12, reason: 'Standard processing queue',
+    channel: 'Mobile',
+  },
+  {
+    id: 'TXN-26061907', customerId: 'C-10045', customerName: 'Tariq Mahmud',
+    customerInitials: 'TM', customerAvatarColor: 'amber',
+    amount: 800.00, currency: 'GBP', fee: 2.00,
+    recipient: 'Self — GBP Wallet', recipientCountry: 'United Kingdom', recipientFlag: '🇬🇧',
+    method: 'Wallet Transfer', priority: 'High', escalation: 'Escalated',
+    submittedAt: '2026-06-18T08:15:00', estimatedCompletion: '2026-06-18T09:15:00',
+    waitingMins: 42, reason: 'On hold — suspicious activity flag',
+    channel: 'Admin',
+  },
+  {
+    id: 'TXN-26061908', customerId: 'C-10041', customerName: 'Rahul Ahmed',
+    customerInitials: 'RA', customerAvatarColor: 'blue',
+    amount: 320.00, currency: 'GBP', fee: 2.50,
+    recipient: 'Kamal Hossain', recipientCountry: 'Bangladesh', recipientFlag: '🇧🇩',
+    method: 'Nagad', priority: 'Normal', escalation: 'None',
+    submittedAt: '2026-06-18T08:50:00', estimatedCompletion: '2026-06-18T09:20:00',
+    waitingMins: 7, reason: 'Awaiting Nagad API confirmation',
+    channel: 'Mobile',
+  },
+];
+
+
+// transaction compliance review fake data
+
+// ============ COMPLETED TRANSACTIONS ============
+export interface CompletedTransaction {
+  id: string;
+  customerId: string;
+  customerName: string;
+  customerInitials: string;
+  customerAvatarColor: string;
+  amount: number;
+  currency: string;
+  fee: number;
+  recipient: string;
+  recipientCountry: string;
+  recipientFlag: string;
+  method: string;
+  channel: 'Web' | 'Mobile' | 'API' | 'Admin';
+  completedAt: string;
+  processingMins: number;
+  receiptId: string;
+}
+
+export const completedStats = {
+  totalCompleted: 241,
+  totalVolume: 284500,
+  avgProcessingMins: 4,
+  successRate: 94.7,
+  topCorridor: 'UK → Bangladesh',
+  totalFees: 1240.50,
+};
+
+export const completedTransactions: CompletedTransaction[] = [
+  {
+    id: 'TXN-26061801', customerId: 'C-10041', customerName: 'Rahul Ahmed',
+    customerInitials: 'RA', customerAvatarColor: 'blue',
+    amount: 520.00, currency: 'GBP', fee: 3.50,
+    recipient: 'Kamal Hossain', recipientCountry: 'Bangladesh', recipientFlag: '🇧🇩',
+    method: 'bKash', channel: 'Mobile',
+    completedAt: '2026-06-18T10:24:33', processingMins: 2,
+    receiptId: 'RCP-26061801',
+  },
+  {
+    id: 'TXN-26061802', customerId: 'C-10044', customerName: 'Farida Begum',
+    customerInitials: 'FB', customerAvatarColor: 'green',
+    amount: 1200.00, currency: 'GBP', fee: 5.00,
+    recipient: 'Ali Hassan', recipientCountry: 'Pakistan', recipientFlag: '🇵🇰',
+    method: 'Bank Transfer', channel: 'Web',
+    completedAt: '2026-06-18T09:47:12', processingMins: 2,
+    receiptId: 'RCP-26061802',
+  },
+  {
+    id: 'TXN-26061803', customerId: 'C-10046', customerName: 'Sadia Rahman',
+    customerInitials: 'SR', customerAvatarColor: 'teal',
+    amount: 1500.00, currency: 'GBP', fee: 0,
+    recipient: 'GBP Wallet', recipientCountry: 'United Kingdom', recipientFlag: '🇬🇧',
+    method: 'Wallet Top Up', channel: 'Mobile',
+    completedAt: '2026-06-18T09:10:45', processingMins: 1,
+    receiptId: 'RCP-26061803',
+  },
+  {
+    id: 'TXN-26061805', customerId: 'C-10047', customerName: 'Imran Khan',
+    customerInitials: 'IK', customerAvatarColor: 'pink',
+    amount: 2000.00, currency: 'GBP', fee: 8.00,
+    recipient: 'USD Wallet', recipientCountry: 'United Kingdom', recipientFlag: '🇬🇧',
+    method: 'Exchange', channel: 'Web',
+    completedAt: '2026-06-18T08:30:22', processingMins: 1,
+    receiptId: 'RCP-26061805',
+  },
+  {
+    id: 'TXN-26061808', customerId: 'C-10044', customerName: 'Farida Begum',
+    customerInitials: 'FB', customerAvatarColor: 'green',
+    amount: 950.00, currency: 'GBP', fee: 0,
+    recipient: 'From: UK Business Account', recipientCountry: 'United Kingdom', recipientFlag: '🇬🇧',
+    method: 'Bank Transfer', channel: 'API',
+    completedAt: '2026-06-18T07:52:10', processingMins: 2,
+    receiptId: 'RCP-26061808',
+  },
+  {
+    id: 'TXN-26061810', customerId: 'C-10046', customerName: 'Sadia Rahman',
+    customerInitials: 'SR', customerAvatarColor: 'teal',
+    amount: 780.00, currency: 'GBP', fee: 3.50,
+    recipient: 'Marie Dupont', recipientCountry: 'France', recipientFlag: '🇫🇷',
+    method: 'Bank Transfer', channel: 'Mobile',
+    completedAt: '2026-06-17T18:47:30', processingMins: 3,
+    receiptId: 'RCP-26061810',
+  },
+  {
+    id: 'TXN-26061813', customerId: 'C-10049', customerName: 'David Osei',
+    customerInitials: 'DO', customerAvatarColor: 'rose',
+    amount: 1500.00, currency: 'GBP', fee: 5.50,
+    recipient: 'Emeka Osei', recipientCountry: 'Nigeria', recipientFlag: '🇳🇬',
+    method: 'Mobile Money', channel: 'Mobile',
+    completedAt: '2026-06-17T15:33:20', processingMins: 3,
+    receiptId: 'RCP-26061813',
+  },
+  {
+    id: 'TXN-26061814', customerId: 'C-10041', customerName: 'Rahul Ahmed',
+    customerInitials: 'RA', customerAvatarColor: 'blue',
+    amount: 300.00, currency: 'GBP', fee: 1.50,
+    recipient: 'Bank Withdrawal', recipientCountry: 'United Kingdom', recipientFlag: '🇬🇧',
+    method: 'Bank Transfer', channel: 'Web',
+    completedAt: '2026-06-17T14:02:45', processingMins: 3,
+    receiptId: 'RCP-26061814',
+  },
+  {
+    id: 'TXN-26061816', customerId: 'C-10045', customerName: 'Tariq Mahmud',
+    customerInitials: 'TM', customerAvatarColor: 'amber',
+    amount: 450.00, currency: 'GBP', fee: 2.50,
+    recipient: 'Ayesha Tariq', recipientCountry: 'Pakistan', recipientFlag: '🇵🇰',
+    method: 'Bank Transfer', channel: 'Web',
+    completedAt: '2026-06-17T12:15:00', processingMins: 4,
+    receiptId: 'RCP-26061816',
+  },
+  {
+    id: 'TXN-26061817', customerId: 'C-10042', customerName: 'Nadia Islam',
+    customerInitials: 'NI', customerAvatarColor: 'purple',
+    amount: 200.00, currency: 'GBP', fee: 0,
+    recipient: 'GBP Wallet', recipientCountry: 'United Kingdom', recipientFlag: '🇬🇧',
+    method: 'Wallet Top Up', channel: 'Mobile',
+    completedAt: '2026-06-17T11:05:00', processingMins: 1,
+    receiptId: 'RCP-26061817',
+  },
+];
+
+
+// transaction failed review fake data
+
+// ============ FAILED TRANSACTIONS ============
+export type FailureReason =
+  | 'Insufficient Funds'
+  | 'KYC Rejected'
+  | 'Bank Declined'
+  | 'Fraud Detected'
+  | 'Invalid Account'
+  | 'Limit Exceeded'
+  | 'Network Error'
+  | 'Compliance Block';
+
+export interface FailedTransaction {
+  id: string;
+  customerId: string;
+  customerName: string;
+  customerInitials: string;
+  customerAvatarColor: string;
+  customerEmail: string;
+  amount: number;
+  currency: string;
+  fee: number;
+  recipient: string;
+  recipientCountry: string;
+  recipientFlag: string;
+  method: string;
+  channel: 'Web' | 'Mobile' | 'API' | 'Admin';
+  failedAt: string;
+  failureReason: FailureReason;
+  failureDetail: string;
+  retryCount: number;
+  canRetry: boolean;
+  notified: boolean;
+}
+
+export const failedStats = {
+  totalFailed: 98,
+  failedToday: 9,
+  rejectRate: 7.6,
+  retrySuccess: 34,
+  topReason: 'Bank Declined',
+  totalLostVolume: 48200,
+  notNotified: 12,
+};
+
+export const failedTransactions: FailedTransaction[] = [
+  {
+    id: 'TXN-26061809', customerId: 'C-10043', customerName: 'Karim Hossain',
+    customerInitials: 'KH', customerAvatarColor: 'red',
+    customerEmail: 'karim.hossain@hotmail.com',
+    amount: 350.00, currency: 'GBP', fee: 2.50,
+    recipient: 'Unknown', recipientCountry: 'Nigeria', recipientFlag: '🇳🇬',
+    method: 'Bank Transfer', channel: 'Web',
+    failedAt: '2026-06-18T07:30:00',
+    failureReason: 'KYC Rejected',
+    failureDetail: 'Customer KYC status is Rejected. Transaction blocked by compliance engine.',
+    retryCount: 0, canRetry: false, notified: true,
+  },
+  {
+    id: 'TXN-26061820', customerId: 'C-10045', customerName: 'Tariq Mahmud',
+    customerInitials: 'TM', customerAvatarColor: 'amber',
+    customerEmail: 'tariq.mahmud@gmail.com',
+    amount: 1800.00, currency: 'GBP', fee: 6.00,
+    recipient: 'Mehmet Yilmaz', recipientCountry: 'Turkey', recipientFlag: '🇹🇷',
+    method: 'Bank Transfer', channel: 'Web',
+    failedAt: '2026-06-18T06:45:00',
+    failureReason: 'Limit Exceeded',
+    failureDetail: 'Daily transfer limit of £1,500 exceeded. Customer must upgrade KYC tier.',
+    retryCount: 1, canRetry: true, notified: true,
+  },
+  {
+    id: 'TXN-26061821', customerId: 'C-10042', customerName: 'Nadia Islam',
+    customerInitials: 'NI', customerAvatarColor: 'purple',
+    customerEmail: 'nadia.islam@yahoo.com',
+    amount: 550.00, currency: 'GBP', fee: 3.00,
+    recipient: 'Anjali Patel', recipientCountry: 'India', recipientFlag: '🇮🇳',
+    method: 'Bank Transfer', channel: 'Mobile',
+    failedAt: '2026-06-18T05:55:00',
+    failureReason: 'Insufficient Funds',
+    failureDetail: 'Available GBP wallet balance £420.00 is less than required £553.00 (amount + fee).',
+    retryCount: 2, canRetry: true, notified: false,
+  },
+  {
+    id: 'TXN-26061822', customerId: 'C-10047', customerName: 'Imran Khan',
+    customerInitials: 'IK', customerAvatarColor: 'pink',
+    customerEmail: 'imran.khan@gmail.com',
+    amount: 3200.00, currency: 'GBP', fee: 9.50,
+    recipient: 'Ahmed Al-Farsi', recipientCountry: 'UAE', recipientFlag: '🇦🇪',
+    method: 'Bank Transfer', channel: 'API',
+    failedAt: '2026-06-17T22:10:00',
+    failureReason: 'Fraud Detected',
+    failureDetail: 'Transaction flagged by fraud detection engine. Unusual pattern: 3rd high-value transfer in 6 hours.',
+    retryCount: 0, canRetry: false, notified: true,
+  },
+  {
+    id: 'TXN-26061823', customerId: 'C-10049', customerName: 'David Osei',
+    customerInitials: 'DO', customerAvatarColor: 'rose',
+    customerEmail: 'david.osei@gmail.com',
+    amount: 420.00, currency: 'GBP', fee: 3.00,
+    recipient: 'Kwame Mensah', recipientCountry: 'Ghana', recipientFlag: '🇬🇭',
+    method: 'Mobile Money', channel: 'Mobile',
+    failedAt: '2026-06-17T20:30:00',
+    failureReason: 'Network Error',
+    failureDetail: 'Mobile Money provider API timeout. Transaction could not be confirmed within 30s window.',
+    retryCount: 1, canRetry: true, notified: false,
+  },
+  {
+    id: 'TXN-26061824', customerId: 'C-10041', customerName: 'Rahul Ahmed',
+    customerInitials: 'RA', customerAvatarColor: 'blue',
+    customerEmail: 'rahul.ahmed@gmail.com',
+    amount: 780.00, currency: 'GBP', fee: 4.00,
+    recipient: 'Ravi Kumar', recipientCountry: 'India', recipientFlag: '🇮🇳',
+    method: 'Bank Transfer', channel: 'Web',
+    failedAt: '2026-06-17T18:00:00',
+    failureReason: 'Bank Declined',
+    failureDetail: 'Recipient bank HDFC returned error code 05 — Do not honour. Customer should verify account details.',
+    retryCount: 1, canRetry: true, notified: true,
+  },
+  {
+    id: 'TXN-26061825', customerId: 'C-10046', customerName: 'Sadia Rahman',
+    customerInitials: 'SR', customerAvatarColor: 'teal',
+    customerEmail: 'sadia.rahman@gmail.com',
+    amount: 290.00, currency: 'GBP', fee: 2.00,
+    recipient: 'Pierre Martin', recipientCountry: 'France', recipientFlag: '🇫🇷',
+    method: 'Bank Transfer', channel: 'Mobile',
+    failedAt: '2026-06-17T15:20:00',
+    failureReason: 'Invalid Account',
+    failureDetail: 'IBAN FR7630006000011234567890189 returned as invalid by recipient bank.',
+    retryCount: 0, canRetry: true, notified: false,
+  },
+  {
+    id: 'TXN-26061826', customerId: 'C-10044', customerName: 'Farida Begum',
+    customerInitials: 'FB', customerAvatarColor: 'green',
+    customerEmail: 'farida.begum@gmail.com',
+    amount: 2100.00, currency: 'GBP', fee: 7.00,
+    recipient: 'Hassan Al-Maktoum', recipientCountry: 'UAE', recipientFlag: '🇦🇪',
+    method: 'Bank Transfer', channel: 'Web',
+    failedAt: '2026-06-17T12:45:00',
+    failureReason: 'Compliance Block',
+    failureDetail: 'Destination account flagged in OFAC sanctions list. Transfer permanently blocked.',
+    retryCount: 0, canRetry: false, notified: true,
+  },
+];
+
+
+
+// ============ TRANSACTION DETAILS ============
+export interface AuditLogEntry {
+  action: string;
+  performedBy: string;
+  role: 'System' | 'Admin' | 'Customer' | 'API';
+  timestamp: string;
+  note?: string;
+}
+
+export interface TimelineStep {
+  label: string;
+  description: string;
+  timestamp: string;
+  status: 'completed' | 'active' | 'pending' | 'failed';
+}
+
+export interface TransactionDetail {
+  id: string;
+  status: 'Completed' | 'Pending' | 'Failed' | 'Refunded' | 'Cancelled' | 'On Hold';
+  type: 'Send Money' | 'Receive' | 'Top Up' | 'Withdraw' | 'Refund' | 'Exchange' | 'Fee';
+  amount: number;
+  currency: string;
+  fee: number;
+  exchangeRate?: number;
+  fromCurrency?: string;
+  toCurrency?: string;
+  convertedAmount?: number;
+  totalCharged: number;
+  reference: string;
+  channel: 'Web' | 'Mobile' | 'API' | 'Admin';
+  ipAddress: string;
+  deviceInfo: string;
+  customerId: string;
+  customerName: string;
+  customerInitials: string;
+  customerAvatarColor: string;
+  customerEmail: string;
+  customerPhone: string;
+  customerKyc: string;
+  recipientName: string;
+  recipientFlag: string;
+  recipientCountry: string;
+  recipientBank?: string;
+  recipientAccount?: string;
+  recipientPhone?: string;
+  timeline: TimelineStep[];
+  auditLog: AuditLogEntry[];
+  createdAt: string;
+  updatedAt: string;
+  completedAt?: string;
+  note?: string;
+}
+
+export const transactionDetails: TransactionDetail[] = [
+  {
+    id: 'TXN-26061801',
+    status: 'Completed',
+    type: 'Send Money',
+    amount: 520.00, currency: 'GBP', fee: 3.50,
+    totalCharged: 523.50,
+    reference: 'TXN-26061801',
+    channel: 'Mobile',
+    ipAddress: '82.14.201.55',
+    deviceInfo: 'iPhone 15 Pro · iOS 17.4 · TheSendMoney App v2.1',
+    customerId: 'C-10041', customerName: 'Rahul Ahmed',
+    customerInitials: 'RA', customerAvatarColor: 'blue',
+    customerEmail: 'rahul.ahmed@gmail.com',
+    customerPhone: '+880 1711-234567',
+    customerKyc: 'Tier 2 — Approved',
+    recipientName: 'Kamal Hossain',
+    recipientFlag: '🇧🇩', recipientCountry: 'Bangladesh',
+    recipientBank: 'Dutch-Bangla Bank Ltd',
+    recipientAccount: '•••• •••• 4821',
+    recipientPhone: '+880 1812-345678',
+    timeline: [
+      { label: 'Transaction Initiated',   description: 'Customer submitted transfer via mobile app',       timestamp: '2026-06-18T10:22:00', status: 'completed' },
+      { label: 'KYC & Compliance Check',  description: 'Identity verified — Tier 2 KYC passed',           timestamp: '2026-06-18T10:22:08', status: 'completed' },
+      { label: 'Payment Processing',      description: 'Deducted £523.50 from GBP wallet',                timestamp: '2026-06-18T10:22:15', status: 'completed' },
+      { label: 'Bank Transfer Initiated', description: 'Sent to Dutch-Bangla Bank via SWIFT',             timestamp: '2026-06-18T10:22:45', status: 'completed' },
+      { label: 'Recipient Notified',      description: 'SMS and email sent to recipient',                 timestamp: '2026-06-18T10:23:10', status: 'completed' },
+      { label: 'Transaction Completed',   description: 'Funds confirmed received by recipient bank',      timestamp: '2026-06-18T10:24:33', status: 'completed' },
+    ],
+    auditLog: [
+      { action: 'Transaction created',          performedBy: 'Rahul Ahmed',   role: 'Customer', timestamp: '2026-06-18T10:22:00' },
+      { action: 'KYC check passed',             performedBy: 'System',        role: 'System',   timestamp: '2026-06-18T10:22:08', note: 'Onfido API — identity match confirmed' },
+      { action: 'Funds debited from wallet',    performedBy: 'System',        role: 'System',   timestamp: '2026-06-18T10:22:15' },
+      { action: 'SWIFT transfer initiated',     performedBy: 'System',        role: 'System',   timestamp: '2026-06-18T10:22:45', note: 'SWIFT code: DBBLBDDH' },
+      { action: 'Recipient SMS sent',           performedBy: 'System',        role: 'System',   timestamp: '2026-06-18T10:23:10' },
+      { action: 'Transaction marked complete',  performedBy: 'System',        role: 'System',   timestamp: '2026-06-18T10:24:33' },
+    ],
+    createdAt: '2026-06-18T10:22:00',
+    updatedAt: '2026-06-18T10:24:33',
+    completedAt: '2026-06-18T10:24:33',
+    note: 'Family support — monthly remittance',
+  },
+  {
+    id: 'TXN-26061822',
+    status: 'Failed',
+    type: 'Send Money',
+    amount: 3200.00, currency: 'GBP', fee: 9.50,
+    totalCharged: 0,
+    reference: 'TXN-26061822',
+    channel: 'API',
+    ipAddress: '194.55.12.88',
+    deviceInfo: 'API Client · TheSendMoney API v3',
+    customerId: 'C-10047', customerName: 'Imran Khan',
+    customerInitials: 'IK', customerAvatarColor: 'pink',
+    customerEmail: 'imran.khan@gmail.com',
+    customerPhone: '+44 7900-112233',
+    customerKyc: 'Tier 3 — Approved',
+    recipientName: 'Ahmed Al-Farsi',
+    recipientFlag: '🇦🇪', recipientCountry: 'UAE',
+    recipientBank: 'Emirates NBD',
+    recipientAccount: '•••• •••• 9902',
+    timeline: [
+      { label: 'Transaction Initiated',  description: 'API request received',                              timestamp: '2026-06-17T22:10:00', status: 'completed' },
+      { label: 'KYC Check',             description: 'Tier 3 KYC passed',                                 timestamp: '2026-06-17T22:10:04', status: 'completed' },
+      { label: 'Fraud Detection',       description: 'Flagged — unusual high-value pattern detected',     timestamp: '2026-06-17T22:10:09', status: 'failed'    },
+      { label: 'Transaction Blocked',   description: 'Blocked by fraud engine — funds not debited',       timestamp: '2026-06-17T22:10:10', status: 'failed'    },
+      { label: 'Customer Notified',     description: 'Email alert sent to customer',                      timestamp: '2026-06-17T22:10:30', status: 'completed' },
+    ],
+    auditLog: [
+      { action: 'API transaction received',     performedBy: 'API Client',     role: 'API',     timestamp: '2026-06-17T22:10:00' },
+      { action: 'KYC check passed',             performedBy: 'System',         role: 'System',  timestamp: '2026-06-17T22:10:04' },
+      { action: 'Fraud flag triggered',         performedBy: 'System',         role: 'System',  timestamp: '2026-06-17T22:10:09', note: 'Rule: 3+ high-value transfers in 6h' },
+      { action: 'Transaction blocked',          performedBy: 'System',         role: 'System',  timestamp: '2026-06-17T22:10:10' },
+      { action: 'Admin alerted',                performedBy: 'System',         role: 'System',  timestamp: '2026-06-17T22:10:15', note: 'Fraud team notified via Slack' },
+      { action: 'Case reviewed',                performedBy: 'Sarah Johnson',  role: 'Admin',   timestamp: '2026-06-17T22:45:00', note: 'Confirmed fraud block — no further action' },
+    ],
+    createdAt: '2026-06-17T22:10:00',
+    updatedAt: '2026-06-17T22:45:00',
+    note: 'Blocked by fraud detection. Admin reviewed and confirmed.',
+  },
+  {
+    id: 'TXN-26061805',
+    status: 'Completed',
+    type: 'Exchange',
+    amount: 2000.00, currency: 'GBP', fee: 8.00,
+    exchangeRate: 1.2701, fromCurrency: 'GBP', toCurrency: 'USD',
+    convertedAmount: 2540.20,
+    totalCharged: 2008.00,
+    reference: 'TXN-26061805',
+    channel: 'Web',
+    ipAddress: '88.201.44.12',
+    deviceInfo: 'Chrome 124 · Windows 11 · Desktop',
+    customerId: 'C-10047', customerName: 'Imran Khan',
+    customerInitials: 'IK', customerAvatarColor: 'pink',
+    customerEmail: 'imran.khan@gmail.com',
+    customerPhone: '+44 7900-112233',
+    customerKyc: 'Tier 3 — Approved',
+    recipientName: 'USD Wallet (Self)',
+    recipientFlag: '🇺🇸', recipientCountry: 'Internal',
+    timeline: [
+      { label: 'Exchange Initiated',   description: 'Customer requested GBP → USD exchange',              timestamp: '2026-06-18T08:30:00', status: 'completed' },
+      { label: 'Rate Locked',          description: 'Rate 1 GBP = 1.2701 USD locked for 30s',            timestamp: '2026-06-18T08:30:02', status: 'completed' },
+      { label: 'GBP Debited',          description: '£2,008.00 deducted from GBP wallet',                timestamp: '2026-06-18T08:30:10', status: 'completed' },
+      { label: 'USD Credited',         description: '$2,540.20 added to USD wallet',                      timestamp: '2026-06-18T08:30:22', status: 'completed' },
+    ],
+    auditLog: [
+      { action: 'Exchange request created',  performedBy: 'Imran Khan',  role: 'Customer', timestamp: '2026-06-18T08:30:00' },
+      { action: 'Exchange rate locked',      performedBy: 'System',      role: 'System',   timestamp: '2026-06-18T08:30:02', note: 'Rate source: Wise FX feed' },
+      { action: 'GBP wallet debited',        performedBy: 'System',      role: 'System',   timestamp: '2026-06-18T08:30:10' },
+      { action: 'USD wallet credited',       performedBy: 'System',      role: 'System',   timestamp: '2026-06-18T08:30:22' },
+      { action: 'Exchange completed',        performedBy: 'System',      role: 'System',   timestamp: '2026-06-18T08:30:22' },
+    ],
+    createdAt: '2026-06-18T08:30:00',
+    updatedAt: '2026-06-18T08:30:22',
+    completedAt: '2026-06-18T08:30:22',
+  },
+];
+
+// transaction refund review fake data
+
+// ============ REFUND REQUESTS ============
+export type RefundStatus = 'Pending' | 'Approved' | 'Rejected' | 'Processed' | 'Partial';
+export type RefundReason =
+  | 'Transaction Error'
+  | 'Duplicate Payment'
+  | 'Service Not Received'
+  | 'Unauthorized Transaction'
+  | 'Wrong Amount'
+  | 'Customer Request';
+
+export interface RefundRequest {
+  id: string;
+  originalTxId: string;
+  customerId: string;
+  customerName: string;
+  customerInitials: string;
+  customerAvatarColor: string;
+  customerEmail: string;
+  originalAmount: number;
+  requestedRefund: number;
+  approvedRefund: number | null;
+  currency: string;
+  reason: RefundReason;
+  reasonDetail: string;
+  status: RefundStatus;
+  requestedAt: string;
+  processedAt: string | null;
+  adminNote: string;
+  channel: 'Web' | 'Mobile' | 'API' | 'Admin';
+}
+
+export const refundStats = {
+  totalRequests: 47,
+  pendingRequests: 18,
+  approvedToday: 6,
+  rejectedToday: 3,
+  totalRefundedAmount: 12480.50,
+  avgProcessingHours: 4.2,
+  approvalRate: 68.5,
+};
+
+export const refundRequests: RefundRequest[] = [
+  {
+    id: 'REF-26061801', originalTxId: 'TXN-26061805',
+    customerId: 'C-10047', customerName: 'Imran Khan',
+    customerInitials: 'IK', customerAvatarColor: 'pink',
+    customerEmail: 'imran.khan@gmail.com',
+    originalAmount: 2000.00, requestedRefund: 2000.00, approvedRefund: null,
+    currency: 'GBP', reason: 'Transaction Error',
+    reasonDetail: 'Exchange rate applied was incorrect. Customer was charged £2,000 but should have been £1,850.',
+    status: 'Pending', requestedAt: '2026-06-18T09:00:00', processedAt: null,
+    adminNote: '', channel: 'Web',
+  },
+  {
+    id: 'REF-26061802', originalTxId: 'TXN-26061810',
+    customerId: 'C-10046', customerName: 'Sadia Rahman',
+    customerInitials: 'SR', customerAvatarColor: 'teal',
+    customerEmail: 'sadia.rahman@gmail.com',
+    originalAmount: 780.00, requestedRefund: 780.00, approvedRefund: null,
+    currency: 'GBP', reason: 'Service Not Received',
+    reasonDetail: 'Transfer to France was initiated but recipient confirms no funds received after 48 hours.',
+    status: 'Pending', requestedAt: '2026-06-18T08:30:00', processedAt: null,
+    adminNote: '', channel: 'Mobile',
+  },
+  {
+    id: 'REF-26061803', originalTxId: 'TXN-26061802',
+    customerId: 'C-10044', customerName: 'Farida Begum',
+    customerInitials: 'FB', customerAvatarColor: 'green',
+    customerEmail: 'farida.begum@gmail.com',
+    originalAmount: 1200.00, requestedRefund: 1200.00, approvedRefund: 1200.00,
+    currency: 'GBP', reason: 'Duplicate Payment',
+    reasonDetail: 'Customer accidentally submitted the same transaction twice within 2 minutes.',
+    status: 'Approved', requestedAt: '2026-06-17T14:00:00', processedAt: '2026-06-17T16:30:00',
+    adminNote: 'Verified duplicate — full refund approved.', channel: 'Web',
+  },
+  {
+    id: 'REF-26061804', originalTxId: 'TXN-26061801',
+    customerId: 'C-10041', customerName: 'Rahul Ahmed',
+    customerInitials: 'RA', customerAvatarColor: 'blue',
+    customerEmail: 'rahul.ahmed@gmail.com',
+    originalAmount: 520.00, requestedRefund: 520.00, approvedRefund: 520.00,
+    currency: 'GBP', reason: 'Unauthorized Transaction',
+    reasonDetail: 'Customer reports transaction was made without their consent. Possible account compromise.',
+    status: 'Processed', requestedAt: '2026-06-17T10:00:00', processedAt: '2026-06-17T14:00:00',
+    adminNote: 'Security team verified — full refund processed. Account security review initiated.',
+    channel: 'Web',
+  },
+  {
+    id: 'REF-26061805', originalTxId: 'TXN-26061813',
+    customerId: 'C-10049', customerName: 'David Osei',
+    customerInitials: 'DO', customerAvatarColor: 'rose',
+    customerEmail: 'david.osei@gmail.com',
+    originalAmount: 1500.00, requestedRefund: 750.00, approvedRefund: 750.00,
+    currency: 'GBP', reason: 'Wrong Amount',
+    reasonDetail: 'Customer intended to send £750 but accidentally entered £1,500.',
+    status: 'Partial', requestedAt: '2026-06-17T16:00:00', processedAt: '2026-06-17T18:00:00',
+    adminNote: 'Partial refund of £750 approved — recipient confirmed receiving £750 excess.',
+    channel: 'Mobile',
+  },
+  {
+    id: 'REF-26061806', originalTxId: 'TXN-26061814',
+    customerId: 'C-10041', customerName: 'Rahul Ahmed',
+    customerInitials: 'RA', customerAvatarColor: 'blue',
+    customerEmail: 'rahul.ahmed@gmail.com',
+    originalAmount: 300.00, requestedRefund: 300.00, approvedRefund: null,
+    currency: 'GBP', reason: 'Customer Request',
+    reasonDetail: 'Customer changed mind and wants to cancel the withdrawal.',
+    status: 'Rejected', requestedAt: '2026-06-17T15:00:00', processedAt: '2026-06-17T15:45:00',
+    adminNote: 'Transaction already processed and funds disbursed. Refund not possible at this stage.',
+    channel: 'Mobile',
+  },
+  {
+    id: 'REF-26061807', originalTxId: 'TXN-26061816',
+    customerId: 'C-10045', customerName: 'Tariq Mahmud',
+    customerInitials: 'TM', customerAvatarColor: 'amber',
+    customerEmail: 'tariq.mahmud@gmail.com',
+    originalAmount: 450.00, requestedRefund: 450.00, approvedRefund: null,
+    currency: 'GBP', reason: 'Service Not Received',
+    reasonDetail: 'Recipient in Pakistan has not received the funds despite transaction showing completed.',
+    status: 'Pending', requestedAt: '2026-06-18T07:00:00', processedAt: null,
+    adminNote: '', channel: 'Web',
+  },
+  {
+    id: 'REF-26061808', originalTxId: 'TXN-26061817',
+    customerId: 'C-10042', customerName: 'Nadia Islam',
+    customerInitials: 'NI', customerAvatarColor: 'purple',
+    customerEmail: 'nadia.islam@yahoo.com',
+    originalAmount: 200.00, requestedRefund: 200.00, approvedRefund: null,
+    currency: 'GBP', reason: 'Customer Request',
+    reasonDetail: 'Customer requests refund of top-up amount as they no longer need the service.',
+    status: 'Pending', requestedAt: '2026-06-18T06:30:00', processedAt: null,
+    adminNote: '', channel: 'Mobile',
+  },
+];
+
+
+// wallet fake data end
+
+// ============ COMPANY WALLET ============
+export type WalletAccountType = 'Operating' | 'Settlement' | 'Reserve' | 'Float';
+export type DepositSource = 'Bank Transfer' | 'SWIFT' | 'SEPA' | 'Faster Payments' | 'CHAPS';
+export type WithdrawalType = 'Internal Transfer' | 'Settlement Payout' | 'Partner Payment' | 'Fee Withdrawal';
+export type CorridorStatus = 'Healthy' | 'Low' | 'Critical';
+
+export interface CompanyWalletAccount {
+  id: string;
+  name: string;
+  type: WalletAccountType;
+  currency: string;
+  flag: string;
+  bankName: string;
+  accountNumber: string;
+  balance: number;
+  reserved: number;
+  available: number;
+  minThreshold: number;
+  maxCapacity: number;
+  lastUpdated: string;
+  status: CorridorStatus;
+}
+
+export interface CorridorBalance {
+  id: string;
+  from: string;
+  fromFlag: string;
+  to: string;
+  toFlag: string;
+  currency: string;
+  balance: number;
+  dailyVolume: number;
+  utilizationPct: number;
+  status: CorridorStatus;
+}
+
+export interface CompanyDeposit {
+  id: string;
+  accountId: string;
+  accountName: string;
+  currency: string;
+  amount: number;
+  source: DepositSource;
+  senderBank: string;
+  senderRef: string;
+  receivedAt: string;
+  confirmedAt: string | null;
+  status: 'Confirmed' | 'Pending' | 'Failed';
+  note: string;
+}
+
+export interface CompanyWithdrawal {
+  id: string;
+  accountId: string;
+  accountName: string;
+  currency: string;
+  amount: number;
+  type: WithdrawalType;
+  destinationBank: string;
+  destinationAccount: string;
+  corridor?: string;
+  initiatedBy: string;
+  initiatedAt: string;
+  processedAt: string | null;
+  status: 'Completed' | 'Pending' | 'Failed' | 'Cancelled';
+  note: string;
+}
+
+// ── Company Wallet Accounts ──
+export const companyWalletAccounts: CompanyWalletAccount[] = [
+  {
+    id: 'CWA-001', name: 'GBP Operating Account', type: 'Operating',
+    currency: 'GBP', flag: '🇬🇧', bankName: 'Barclays Bank',
+    accountNumber: 'GB29 BARC 2013 1234', balance: 485000,
+    reserved: 120000, available: 365000, minThreshold: 100000,
+    maxCapacity: 1000000, lastUpdated: '2026-06-18T10:30:00', status: 'Healthy',
+  },
+  {
+    id: 'CWA-002', name: 'USD Settlement Account', type: 'Settlement',
+    currency: 'USD', flag: '🇺🇸', bankName: 'JP Morgan Chase',
+    accountNumber: 'US12 CHAS 0021 5678', balance: 320000,
+    reserved: 85000, available: 235000, minThreshold: 75000,
+    maxCapacity: 800000, lastUpdated: '2026-06-18T10:15:00', status: 'Healthy',
+  },
+  {
+    id: 'CWA-003', name: 'BDT Float Account', type: 'Float',
+    currency: 'BDT', flag: '🇧🇩', bankName: 'Dutch-Bangla Bank',
+    accountNumber: 'BD45 DBBL 1234 5678', balance: 12500000,
+    reserved: 8000000, available: 4500000, minThreshold: 5000000,
+    maxCapacity: 50000000, lastUpdated: '2026-06-18T09:45:00', status: 'Low',
+  },
+  {
+    id: 'CWA-004', name: 'EUR Reserve Account', type: 'Reserve',
+    currency: 'EUR', flag: '🇪🇺', bankName: 'Deutsche Bank',
+    accountNumber: 'DE89 3704 0044 0532', balance: 95000,
+    reserved: 20000, available: 75000, minThreshold: 50000,
+    maxCapacity: 500000, lastUpdated: '2026-06-18T09:00:00', status: 'Healthy',
+  },
+  {
+    id: 'CWA-005', name: 'PKR Float Account', type: 'Float',
+    currency: 'PKR', flag: '🇵🇰', bankName: 'Meezan Bank',
+    accountNumber: 'PK12 MEZN 0001 2345', balance: 8200000,
+    reserved: 7500000, available: 700000, minThreshold: 3000000,
+    maxCapacity: 30000000, lastUpdated: '2026-06-18T08:30:00', status: 'Critical',
+  },
+  {
+    id: 'CWA-006', name: 'INR Settlement Account', type: 'Settlement',
+    currency: 'INR', flag: '🇮🇳', bankName: 'HDFC Bank',
+    accountNumber: 'IN34 HDFC 0001 2345', balance: 18500000,
+    reserved: 6000000, available: 12500000, minThreshold: 5000000,
+    maxCapacity: 80000000, lastUpdated: '2026-06-18T10:00:00', status: 'Healthy',
+  },
+];
+
+// ── Corridor Balances ──
+export const corridorBalances: CorridorBalance[] = [
+  { id: 'COR-001', from: 'UK', fromFlag: '🇬🇧', to: 'Bangladesh', toFlag: '🇧🇩', currency: 'BDT', balance: 4500000,  dailyVolume: 2800000,  utilizationPct: 62, status: 'Low'      },
+  { id: 'COR-002', from: 'UK', fromFlag: '🇬🇧', to: 'Pakistan',   toFlag: '🇵🇰', currency: 'PKR', balance: 700000,   dailyVolume: 1200000,  utilizationPct: 91, status: 'Critical' },
+  { id: 'COR-003', from: 'UK', fromFlag: '🇬🇧', to: 'India',      toFlag: '🇮🇳', currency: 'INR', balance: 12500000, dailyVolume: 4500000,  utilizationPct: 36, status: 'Healthy'  },
+  { id: 'COR-004', from: 'UK', fromFlag: '🇬🇧', to: 'Nigeria',    toFlag: '🇳🇬', currency: 'NGN', balance: 3200000,  dailyVolume: 1800000,  utilizationPct: 56, status: 'Healthy'  },
+  { id: 'COR-005', from: 'UK', fromFlag: '🇬🇧', to: 'Philippines',toFlag: '🇵🇭', currency: 'PHP', balance: 1800000,  dailyVolume: 950000,   utilizationPct: 53, status: 'Healthy'  },
+  { id: 'COR-006', from: 'UK', fromFlag: '🇬🇧', to: 'UAE',        toFlag: '🇦🇪', currency: 'AED', balance: 520000,   dailyVolume: 680000,   utilizationPct: 78, status: 'Low'      },
+];
+
+// ── Company Deposits ──
+export const companyDeposits: CompanyDeposit[] = [
+  {
+    id: 'DEP-26061801', accountId: 'CWA-001', accountName: 'GBP Operating Account',
+    currency: 'GBP', amount: 150000, source: 'Faster Payments',
+    senderBank: 'HSBC UK', senderRef: 'HSBC-TRF-2026061801',
+    receivedAt: '2026-06-18T09:15:00', confirmedAt: '2026-06-18T09:18:00',
+    status: 'Confirmed', note: 'Monthly liquidity top-up from HSBC operating account',
+  },
+  {
+    id: 'DEP-26061802', accountId: 'CWA-002', accountName: 'USD Settlement Account',
+    currency: 'USD', amount: 80000, source: 'SWIFT',
+    senderBank: 'Bank of America', senderRef: 'BOA-SWIFT-20260618',
+    receivedAt: '2026-06-18T08:30:00', confirmedAt: '2026-06-18T10:00:00',
+    status: 'Confirmed', note: 'USD float replenishment for US corridor',
+  },
+  {
+    id: 'DEP-26061803', accountId: 'CWA-003', accountName: 'BDT Float Account',
+    currency: 'BDT', amount: 5000000, source: 'Bank Transfer',
+    senderBank: 'Dutch-Bangla Bank', senderRef: 'DBBL-INT-06180001',
+    receivedAt: '2026-06-18T07:00:00', confirmedAt: null,
+    status: 'Pending', note: 'BDT float top-up — pending bank confirmation',
+  },
+  {
+    id: 'DEP-26061804', accountId: 'CWA-005', accountName: 'PKR Float Account',
+    currency: 'PKR', amount: 3000000, source: 'SWIFT',
+    senderBank: 'Meezan Bank Pakistan', senderRef: 'MEZN-2026061804',
+    receivedAt: '2026-06-17T14:00:00', confirmedAt: '2026-06-17T16:30:00',
+    status: 'Confirmed', note: 'Emergency PKR top-up — critical threshold reached',
+  },
+  {
+    id: 'DEP-26061805', accountId: 'CWA-001', accountName: 'GBP Operating Account',
+    currency: 'GBP', amount: 200000, source: 'CHAPS',
+    senderBank: 'Lloyds Bank', senderRef: 'LLYD-CHAPS-20260617',
+    receivedAt: '2026-06-17T11:00:00', confirmedAt: '2026-06-17T11:45:00',
+    status: 'Confirmed', note: 'Weekly CHAPS settlement from Lloyds treasury',
+  },
+  {
+    id: 'DEP-26061806', accountId: 'CWA-004', accountName: 'EUR Reserve Account',
+    currency: 'EUR', amount: 25000, source: 'SEPA',
+    senderBank: 'Deutsche Bank', senderRef: 'DB-SEPA-2026061701',
+    receivedAt: '2026-06-17T09:00:00', confirmedAt: '2026-06-17T09:30:00',
+    status: 'Confirmed', note: 'EUR reserve top-up via SEPA',
+  },
+  {
+    id: 'DEP-26061807', accountId: 'CWA-006', accountName: 'INR Settlement Account',
+    currency: 'INR', amount: 3000000, source: 'SWIFT',
+    senderBank: 'HDFC Bank India', senderRef: 'HDFC-SWIFT-0618001',
+    receivedAt: '2026-06-16T08:00:00', confirmedAt: null,
+    status: 'Failed', note: 'Failed — incorrect SWIFT routing number',
+  },
+];
+
+// ── Company Withdrawals ──
+export const companyWithdrawals: CompanyWithdrawal[] = [
+  {
+    id: 'WDR-26061801', accountId: 'CWA-001', accountName: 'GBP Operating Account',
+    currency: 'GBP', amount: 85000, type: 'Settlement Payout',
+    destinationBank: 'Dutch-Bangla Bank', destinationAccount: 'BD45 DBBL 1234',
+    corridor: 'UK → Bangladesh', initiatedBy: 'System (Auto-Settlement)',
+    initiatedAt: '2026-06-18T10:00:00', processedAt: '2026-06-18T10:05:00',
+    status: 'Completed', note: 'Daily Bangladesh corridor settlement payout',
+  },
+  {
+    id: 'WDR-26061802', accountId: 'CWA-001', accountName: 'GBP Operating Account',
+    currency: 'GBP', amount: 42000, type: 'Settlement Payout',
+    destinationBank: 'Meezan Bank', destinationAccount: 'PK12 MEZN 0001',
+    corridor: 'UK → Pakistan', initiatedBy: 'System (Auto-Settlement)',
+    initiatedAt: '2026-06-18T09:30:00', processedAt: '2026-06-18T09:35:00',
+    status: 'Completed', note: 'Pakistan corridor settlement payout',
+  },
+  {
+    id: 'WDR-26061803', accountId: 'CWA-002', accountName: 'USD Settlement Account',
+    currency: 'USD', amount: 15000, type: 'Internal Transfer',
+    destinationBank: 'JP Morgan Chase', destinationAccount: 'US12 CHAS 0021',
+    initiatedBy: 'Sarah Johnson (Admin)',
+    initiatedAt: '2026-06-18T08:45:00', processedAt: null,
+    status: 'Pending', note: 'Internal transfer to EUR reserve account',
+  },
+  {
+    id: 'WDR-26061804', accountId: 'CWA-001', accountName: 'GBP Operating Account',
+    currency: 'GBP', amount: 28000, type: 'Settlement Payout',
+    destinationBank: 'HDFC Bank', destinationAccount: 'IN34 HDFC 0001',
+    corridor: 'UK → India', initiatedBy: 'System (Auto-Settlement)',
+    initiatedAt: '2026-06-17T22:00:00', processedAt: '2026-06-17T22:08:00',
+    status: 'Completed', note: 'India corridor nightly settlement',
+  },
+  {
+    id: 'WDR-26061805', accountId: 'CWA-001', accountName: 'GBP Operating Account',
+    currency: 'GBP', amount: 5000, type: 'Fee Withdrawal',
+    destinationBank: 'Barclays Bank', destinationAccount: 'GB29 BARC 9999',
+    initiatedBy: 'Finance Team',
+    initiatedAt: '2026-06-17T18:00:00', processedAt: '2026-06-17T18:10:00',
+    status: 'Completed', note: 'Monthly fee collection to revenue account',
+  },
+  {
+    id: 'WDR-26061806', accountId: 'CWA-006', accountName: 'INR Settlement Account',
+    currency: 'INR', amount: 2500000, type: 'Settlement Payout',
+    destinationBank: 'Axis Bank India', destinationAccount: 'IN99 AXIS 0001',
+    corridor: 'UK → India', initiatedBy: 'System (Auto-Settlement)',
+    initiatedAt: '2026-06-17T16:00:00', processedAt: null,
+    status: 'Failed', note: 'Failed — recipient bank API timeout',
+  },
+  {
+    id: 'WDR-26061807', accountId: 'CWA-002', accountName: 'USD Settlement Account',
+    currency: 'USD', amount: 22000, type: 'Partner Payment',
+    destinationBank: 'Western Union Partner', destinationAccount: 'WU-PART-9988',
+    initiatedBy: 'Operations Team',
+    initiatedAt: '2026-06-17T14:30:00', processedAt: '2026-06-17T15:00:00',
+    status: 'Completed', note: 'Monthly partner commission payout',
+  },
+  {
+    id: 'WDR-26061808', accountId: 'CWA-001', accountName: 'GBP Operating Account',
+    currency: 'GBP', amount: 12000, type: 'Internal Transfer',
+    destinationBank: 'Barclays Bank', destinationAccount: 'GB29 BARC 0044',
+    initiatedBy: 'Ahmed Khan (Admin)',
+    initiatedAt: '2026-06-17T11:00:00', processedAt: null,
+    status: 'Cancelled', note: 'Cancelled — duplicate request',
+  },
+];
+
+export const walletOverviewStats = {
+  totalBalance: 900000,
+  totalBalanceCurrency: 'GBP',
+  totalReserved: 205000,
+  totalAvailable: 695000,
+  dailyInflow: 455000,
+  dailyOutflow: 177000,
+  criticalAccounts: 1,
+  lowAccounts: 2,
+};
