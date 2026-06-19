@@ -4922,3 +4922,772 @@ export const walletOverviewStats = {
   criticalAccounts: 1,
   lowAccounts: 2,
 };
+
+
+
+// exchange rates fake data 
+
+// ============ EXCHANGE RATES ============
+export type RateStatus = 'Active' | 'Inactive' | 'Paused';
+export type RatePriority = 'High' | 'Medium' | 'Low';
+export type RateSourceStatus = 'Connected' | 'Disconnected' | 'Syncing';
+
+export interface CurrencyRate {
+  id: string;
+  baseCurrency: string;
+  baseCurrencyName: string;
+  baseFlag: string;
+  quoteCurrency: string;
+  quoteCurrencyName: string;
+  quoteFlag: string;
+  liveRate: number;
+  liveChange: number;
+  liveChangePct: number;
+  ourRate: number;
+  spread: number;
+  spreadPct: number;
+  source: string;
+  lastUpdated: string;
+  nextUpdate: string;
+  status: RateStatus;
+  autoUpdate: boolean;
+  priority: RatePriority;
+}
+
+export interface RatePoint {
+  time: string;
+  rate: number;
+}
+
+// ── Exchange Rate Overview Stats ──
+export const exchangeRateStats = {
+  totalCurrencyPairs: 28,
+  activePairs: 28,
+  lastUpdated: 'May 12, 2025 2:30 PM',
+  autoRefreshSeconds: 45,
+  baseCurrency: 'GBP',
+  baseCurrencyName: 'British Pound',
+  averageSpreadPct: 0.65,
+  rateSource: 'Xe.com',
+  rateSourceStatus: 'Connected' as RateSourceStatus,
+};
+
+// ── Currency Rates Table ──
+export const currencyRates: CurrencyRate[] = [
+  {
+    id: 'RATE-001', baseCurrency: 'GBP', baseCurrencyName: 'British Pound', baseFlag: '🇬🇧',
+    quoteCurrency: 'USD', quoteCurrencyName: 'US Dollar', quoteFlag: '🇺🇸',
+    liveRate: 1.2567, liveChange: 0.0034, liveChangePct: 0.27,
+    ourRate: 1.2486, spread: 0.0081, spreadPct: 0.65,
+    source: 'Xe.com', lastUpdated: 'May 12, 2025 2:30 PM', nextUpdate: 'May 12, 2025 2:31 PM',
+    status: 'Active', autoUpdate: true, priority: 'High',
+  },
+  {
+    id: 'RATE-002', baseCurrency: 'GBP', baseCurrencyName: 'British Pound', baseFlag: '🇬🇧',
+    quoteCurrency: 'EUR', quoteCurrencyName: 'Euro', quoteFlag: '🇪🇺',
+    liveRate: 1.1678, liveChange: -0.0021, liveChangePct: -0.18,
+    ourRate: 1.1603, spread: 0.0075, spreadPct: 0.64,
+    source: 'Xe.com', lastUpdated: 'May 12, 2025 2:30 PM', nextUpdate: 'May 12, 2025 2:31 PM',
+    status: 'Active', autoUpdate: true, priority: 'High',
+  },
+  {
+    id: 'RATE-003', baseCurrency: 'GBP', baseCurrencyName: 'British Pound', baseFlag: '🇬🇧',
+    quoteCurrency: 'BDT', quoteCurrencyName: 'Bangladeshi Taka', quoteFlag: '🇧🇩',
+    liveRate: 154.8500, liveChange: 0.3200, liveChangePct: 0.21,
+    ourRate: 153.6200, spread: 1.2300, spreadPct: 0.79,
+    source: 'Xe.com', lastUpdated: 'May 12, 2025 2:30 PM', nextUpdate: 'May 12, 2025 2:31 PM',
+    status: 'Active', autoUpdate: true, priority: 'High',
+  },
+  {
+    id: 'RATE-004', baseCurrency: 'USD', baseCurrencyName: 'US Dollar', baseFlag: '🇺🇸',
+    quoteCurrency: 'BDT', quoteCurrencyName: 'Bangladeshi Taka', quoteFlag: '🇧🇩',
+    liveRate: 123.2500, liveChange: 0.1500, liveChangePct: 0.12,
+    ourRate: 122.3800, spread: 0.8700, spreadPct: 0.71,
+    source: 'Xe.com', lastUpdated: 'May 12, 2025 2:30 PM', nextUpdate: 'May 12, 2025 2:31 PM',
+    status: 'Active', autoUpdate: true, priority: 'Medium',
+  },
+  {
+    id: 'RATE-005', baseCurrency: 'EUR', baseCurrencyName: 'Euro', baseFlag: '🇪🇺',
+    quoteCurrency: 'USD', quoteCurrencyName: 'US Dollar', quoteFlag: '🇺🇸',
+    liveRate: 1.0763, liveChange: 0.0015, liveChangePct: 0.14,
+    ourRate: 1.0695, spread: 0.0068, spreadPct: 0.63,
+    source: 'Xe.com', lastUpdated: 'May 12, 2025 2:30 PM', nextUpdate: 'May 12, 2025 2:31 PM',
+    status: 'Active', autoUpdate: true, priority: 'Medium',
+  },
+  {
+    id: 'RATE-006', baseCurrency: 'EUR', baseCurrencyName: 'Euro', baseFlag: '🇪🇺',
+    quoteCurrency: 'BDT', quoteCurrencyName: 'Bangladeshi Taka', quoteFlag: '🇧🇩',
+    liveRate: 132.2800, liveChange: -0.2100, liveChangePct: -0.16,
+    ourRate: 131.3200, spread: 0.9600, spreadPct: 0.73,
+    source: 'Xe.com', lastUpdated: 'May 12, 2025 2:30 PM', nextUpdate: 'May 12, 2025 2:31 PM',
+    status: 'Active', autoUpdate: true, priority: 'Medium',
+  },
+  {
+    id: 'RATE-007', baseCurrency: 'USD', baseCurrencyName: 'US Dollar', baseFlag: '🇺🇸',
+    quoteCurrency: 'EUR', quoteCurrencyName: 'Euro', quoteFlag: '🇪🇺',
+    liveRate: 0.9289, liveChange: -0.0012, liveChangePct: -0.13,
+    ourRate: 0.9232, spread: 0.0057, spreadPct: 0.61,
+    source: 'Xe.com', lastUpdated: 'May 12, 2025 2:30 PM', nextUpdate: 'May 12, 2025 2:31 PM',
+    status: 'Active', autoUpdate: true, priority: 'Low',
+  },
+  {
+    id: 'RATE-008', baseCurrency: 'AUD', baseCurrencyName: 'Australian Dollar', baseFlag: '🇦🇺',
+    quoteCurrency: 'USD', quoteCurrencyName: 'US Dollar', quoteFlag: '🇺🇸',
+    liveRate: 0.6642, liveChange: 0.0023, liveChangePct: 0.35,
+    ourRate: 0.6600, spread: 0.0042, spreadPct: 0.63,
+    source: 'Xe.com', lastUpdated: 'May 12, 2025 2:30 PM', nextUpdate: 'May 12, 2025 2:31 PM',
+    status: 'Active', autoUpdate: true, priority: 'Low',
+  },
+  {
+    id: 'RATE-009', baseCurrency: 'GBP', baseCurrencyName: 'British Pound', baseFlag: '🇬🇧',
+    quoteCurrency: 'PKR', quoteCurrencyName: 'Pakistani Rupee', quoteFlag: '🇵🇰',
+    liveRate: 349.1200, liveChange: 0.8800, liveChangePct: 0.25,
+    ourRate: 346.8900, spread: 2.2300, spreadPct: 0.64,
+    source: 'Xe.com', lastUpdated: 'May 12, 2025 2:30 PM', nextUpdate: 'May 12, 2025 2:31 PM',
+    status: 'Active', autoUpdate: true, priority: 'Medium',
+  },
+  {
+    id: 'RATE-010', baseCurrency: 'GBP', baseCurrencyName: 'British Pound', baseFlag: '🇬🇧',
+    quoteCurrency: 'INR', quoteCurrencyName: 'Indian Rupee', quoteFlag: '🇮🇳',
+    liveRate: 105.6200, liveChange: -0.1400, liveChangePct: -0.13,
+    ourRate: 104.9300, spread: 0.6900, spreadPct: 0.65,
+    source: 'Xe.com', lastUpdated: 'May 12, 2025 2:30 PM', nextUpdate: 'May 12, 2025 2:31 PM',
+    status: 'Active', autoUpdate: true, priority: 'Medium',
+  },
+  {
+    id: 'RATE-011', baseCurrency: 'GBP', baseCurrencyName: 'British Pound', baseFlag: '🇬🇧',
+    quoteCurrency: 'AED', quoteCurrencyName: 'UAE Dirham', quoteFlag: '🇦🇪',
+    liveRate: 4.6180, liveChange: 0.0090, liveChangePct: 0.20,
+    ourRate: 4.5880, spread: 0.0300, spreadPct: 0.65,
+    source: 'Xe.com', lastUpdated: 'May 12, 2025 2:30 PM', nextUpdate: 'May 12, 2025 2:31 PM',
+    status: 'Active', autoUpdate: true, priority: 'Low',
+  },
+  {
+    id: 'RATE-012', baseCurrency: 'USD', baseCurrencyName: 'US Dollar', baseFlag: '🇺🇸',
+    quoteCurrency: 'PHP', quoteCurrencyName: 'Philippine Peso', quoteFlag: '🇵🇭',
+    liveRate: 56.2400, liveChange: 0.1100, liveChangePct: 0.20,
+    ourRate: 55.8800, spread: 0.3600, spreadPct: 0.64,
+    source: 'Xe.com', lastUpdated: 'May 12, 2025 2:30 PM', nextUpdate: 'May 12, 2025 2:31 PM',
+    status: 'Active', autoUpdate: true, priority: 'Low',
+  },
+  {
+    id: 'RATE-013', baseCurrency: 'USD', baseCurrencyName: 'US Dollar', baseFlag: '🇺🇸',
+    quoteCurrency: 'NGN', quoteCurrencyName: 'Nigerian Naira', quoteFlag: '🇳🇬',
+    liveRate: 1542.5000, liveChange: -3.2000, liveChangePct: -0.21,
+    ourRate: 1532.6000, spread: 9.9000, spreadPct: 0.64,
+    source: 'Xe.com', lastUpdated: 'May 12, 2025 2:30 PM', nextUpdate: 'May 12, 2025 2:31 PM',
+    status: 'Paused', autoUpdate: false, priority: 'Low',
+  },
+  {
+    id: 'RATE-014', baseCurrency: 'GBP', baseCurrencyName: 'British Pound', baseFlag: '🇬🇧',
+    quoteCurrency: 'CAD', quoteCurrencyName: 'Canadian Dollar', quoteFlag: '🇨🇦',
+    liveRate: 1.7235, liveChange: 0.0028, liveChangePct: 0.16,
+    ourRate: 1.7124, spread: 0.0111, spreadPct: 0.64,
+    source: 'Xe.com', lastUpdated: 'May 12, 2025 2:30 PM', nextUpdate: 'May 12, 2025 2:31 PM',
+    status: 'Inactive', autoUpdate: false, priority: 'Low',
+  },
+];
+
+// ── Rate Movement (GBP/USD) chart series ──
+export const rateMovement1D: RatePoint[] = [
+  { time: '12 AM', rate: 1.2543 }, { time: '03 AM', rate: 1.2521 },
+  { time: '06 AM', rate: 1.2538 }, { time: '09 AM', rate: 1.2575 },
+  { time: '12 PM', rate: 1.2560 }, { time: '03 PM', rate: 1.2592 },
+  { time: '06 PM', rate: 1.2548 }, { time: '09 PM', rate: 1.2567 },
+];
+
+export const rateMovement7D: RatePoint[] = [
+  { time: 'May 6', rate: 1.2356 }, { time: 'May 7', rate: 1.2421 },
+  { time: 'May 8', rate: 1.2398 }, { time: 'May 9', rate: 1.2512 },
+  { time: 'May 10', rate: 1.2487 }, { time: 'May 11', rate: 1.2654 },
+  { time: 'May 12', rate: 1.2567 },
+];
+
+export const rateMovement30D: RatePoint[] = [
+  { time: 'Apr 13', rate: 1.2210 }, { time: 'Apr 18', rate: 1.2345 },
+  { time: 'Apr 23', rate: 1.2289 }, { time: 'Apr 28', rate: 1.2456 },
+  { time: 'May 3', rate: 1.2598 }, { time: 'May 8', rate: 1.2398 },
+  { time: 'May 12', rate: 1.2567 },
+];
+
+// ── Rate Summary (for GBP/USD selected pair) ──
+export const rateSummary = {
+  todaysHigh: 1.2589,
+  todaysLow: 1.2432,
+  sevenDayHigh: 1.2654,
+  sevenDayLow: 1.2356,
+  thirtyDayHigh: 1.2789,
+  thirtyDayLow: 1.2210,
+  average7d: 1.2486,
+  volatility7d: 0.87,
+};
+
+export const rateBaseCurrencyOptions = ['All Base Currencies', 'GBP', 'USD', 'EUR', 'AUD'];
+export const rateQuoteCurrencyOptions = [
+  'All Quote Currencies', 'USD', 'EUR', 'BDT', 'PKR', 'INR', 'AED', 'PHP', 'NGN', 'CAD',
+];
+export const rateStatusOptions = ['All Status', 'Active', 'Inactive', 'Paused'];
+
+export const RATE_PAGE_SIZE = 8;
+export const RATE_TOTAL = 28;
+
+
+// menual override 
+
+// ============ MANUAL RATE OVERRIDE ============
+export type OverrideStatus = 'Active' | 'Expired' | 'Reverted' | 'Scheduled';
+export type OverrideDuration = '1 Hour' | '4 Hours' | '12 Hours' | '24 Hours' | 'Until Reverted';
+
+export interface RateOverride {
+  id: string;
+  baseCurrency: string;
+  baseFlag: string;
+  quoteCurrency: string;
+  quoteFlag: string;
+  liveRate: number;
+  overrideRate: number;
+  diffPct: number;
+  reason: string;
+  duration: OverrideDuration;
+  status: OverrideStatus;
+  setBy: string;
+  setByInitials: string;
+  setAt: string;
+  expiresAt: string | null;
+  autoRevert: boolean;
+}
+
+export interface OverrideLogEntry {
+  id: string;
+  action: 'Created' | 'Reverted' | 'Expired' | 'Updated';
+  pairLabel: string;
+  pairFlags: string;
+  rate: number;
+  performedBy: string;
+  performedByInitials: string;
+  timestamp: string;
+  note: string;
+}
+
+// ── Manual Override Stats ──
+export const overrideStats = {
+  activeOverrides: 3,
+  expiringSoon: 1,
+  totalOverridesToday: 5,
+  avgOverrideDurationHours: 6.4,
+};
+
+// ── Active / Scheduled / Past Overrides ──
+export const rateOverrides: RateOverride[] = [
+  {
+    id: 'OVR-001',
+    baseCurrency: 'GBP', baseFlag: '🇬🇧', quoteCurrency: 'BDT', quoteFlag: '🇧🇩',
+    liveRate: 154.8500, overrideRate: 153.0000, diffPct: -1.20,
+    reason: 'Market volatility spike — capping rate to protect margin during BDT liquidity crunch.',
+    duration: '12 Hours', status: 'Active',
+    setBy: 'Sarah Johnson', setByInitials: 'SJ',
+    setAt: '2025-05-12T11:00:00', expiresAt: '2025-05-12T23:00:00',
+    autoRevert: true,
+  },
+  {
+    id: 'OVR-002',
+    baseCurrency: 'USD', baseFlag: '🇺🇸', quoteCurrency: 'PKR', quoteFlag: '🇵🇰',
+    liveRate: 278.4500, overrideRate: 280.0000, diffPct: 0.56,
+    reason: 'Promotional rate boost for Eid remittance campaign — approved by Marketing.',
+    duration: '24 Hours', status: 'Active',
+    setBy: 'Ahmed Khan', setByInitials: 'AK',
+    setAt: '2025-05-12T08:30:00', expiresAt: '2025-05-13T08:30:00',
+    autoRevert: true,
+  },
+  {
+    id: 'OVR-003',
+    baseCurrency: 'GBP', baseFlag: '🇬🇧', quoteCurrency: 'PKR', quoteFlag: '🇵🇰',
+    liveRate: 349.1200, overrideRate: 345.0000, diffPct: -1.18,
+    reason: 'Compliance hold — provider feed flagged as unreliable, using last verified rate.',
+    duration: 'Until Reverted', status: 'Active',
+    setBy: 'Sarah Johnson', setByInitials: 'SJ',
+    setAt: '2025-05-12T13:15:00', expiresAt: null,
+    autoRevert: false,
+  },
+  {
+    id: 'OVR-004',
+    baseCurrency: 'EUR', baseFlag: '🇪🇺', quoteCurrency: 'BDT', quoteFlag: '🇧🇩',
+    liveRate: 132.2800, overrideRate: 131.5000, diffPct: -0.59,
+    reason: 'Competitor price match for high-volume corporate client.',
+    duration: '4 Hours', status: 'Expired',
+    setBy: 'Imran Hossain', setByInitials: 'IH',
+    setAt: '2025-05-11T09:00:00', expiresAt: '2025-05-11T13:00:00',
+    autoRevert: true,
+  },
+  {
+    id: 'OVR-005',
+    baseCurrency: 'GBP', baseFlag: '🇬🇧', quoteCurrency: 'USD', quoteFlag: '🇺🇸',
+    liveRate: 1.2567, overrideRate: 1.2600, diffPct: 0.26,
+    reason: 'Manual correction — provider rate lagged by 4 minutes during high volatility window.',
+    duration: '1 Hour', status: 'Reverted',
+    setBy: 'Ahmed Khan', setByInitials: 'AK',
+    setAt: '2025-05-10T16:20:00', expiresAt: '2025-05-10T17:20:00',
+    autoRevert: true,
+  },
+  {
+    id: 'OVR-006',
+    baseCurrency: 'USD', baseFlag: '🇺🇸', quoteCurrency: 'NGN', quoteFlag: '🇳🇬',
+    liveRate: 1542.5000, overrideRate: 1500.0000, diffPct: -2.76,
+    reason: 'Scheduled override for upcoming Nigerian bank holiday liquidity adjustment.',
+    duration: '24 Hours', status: 'Scheduled',
+    setBy: 'Sarah Johnson', setByInitials: 'SJ',
+    setAt: '2025-05-12T14:00:00', expiresAt: '2025-05-13T14:00:00',
+    autoRevert: true,
+  },
+];
+
+// ── Override Activity Log ──
+export const overrideLog: OverrideLogEntry[] = [
+  {
+    id: 'LOG-001', action: 'Created', pairLabel: 'GBP / BDT', pairFlags: '🇬🇧🇧🇩',
+    rate: 153.0000, performedBy: 'Sarah Johnson', performedByInitials: 'SJ',
+    timestamp: '2025-05-12T11:00:00',
+    note: 'Override created — market volatility protection',
+  },
+  {
+    id: 'LOG-002', action: 'Created', pairLabel: 'USD / PKR', pairFlags: '🇺🇸🇵🇰',
+    rate: 280.0000, performedBy: 'Ahmed Khan', performedByInitials: 'AK',
+    timestamp: '2025-05-12T08:30:00',
+    note: 'Promotional campaign rate applied',
+  },
+  {
+    id: 'LOG-003', action: 'Created', pairLabel: 'GBP / PKR', pairFlags: '🇬🇧🇵🇰',
+    rate: 345.0000, performedBy: 'Sarah Johnson', performedByInitials: 'SJ',
+    timestamp: '2025-05-12T13:15:00',
+    note: 'Compliance hold on unreliable provider feed',
+  },
+  {
+    id: 'LOG-004', action: 'Reverted', pairLabel: 'GBP / USD', pairFlags: '🇬🇧🇺🇸',
+    rate: 1.2567, performedBy: 'System (Auto)', performedByInitials: 'SY',
+    timestamp: '2025-05-10T17:20:00',
+    note: 'Auto-reverted to live rate after 1 hour expiry',
+  },
+  {
+    id: 'LOG-005', action: 'Created', pairLabel: 'GBP / USD', pairFlags: '🇬🇧🇺🇸',
+    rate: 1.2600, performedBy: 'Ahmed Khan', performedByInitials: 'AK',
+    timestamp: '2025-05-10T16:20:00',
+    note: 'Manual correction for provider lag',
+  },
+  {
+    id: 'LOG-006', action: 'Expired', pairLabel: 'EUR / BDT', pairFlags: '🇪🇺🇧🇩',
+    rate: 131.5000, performedBy: 'System (Auto)', performedByInitials: 'SY',
+    timestamp: '2025-05-11T13:00:00',
+    note: 'Override expired after 4 hours, reverted to live rate',
+  },
+  {
+    id: 'LOG-007', action: 'Created', pairLabel: 'EUR / BDT', pairFlags: '🇪🇺🇧🇩',
+    rate: 131.5000, performedBy: 'Imran Hossain', performedByInitials: 'IH',
+    timestamp: '2025-05-11T09:00:00',
+    note: 'Competitor price match approved',
+  },
+  {
+    id: 'LOG-008', action: 'Updated', pairLabel: 'USD / PKR', pairFlags: '🇺🇸🇵🇰',
+    rate: 280.0000, performedBy: 'Ahmed Khan', performedByInitials: 'AK',
+    timestamp: '2025-05-12T09:10:00',
+    note: 'Duration extended from 12 to 24 hours',
+  },
+];
+
+export const overrideDurationOptions: OverrideDuration[] = [
+  '1 Hour', '4 Hours', '12 Hours', '24 Hours', 'Until Reverted',
+];
+
+
+// spread Management
+
+// ============ SPREAD MANAGEMENT ============
+export type SpreadRuleStatus = 'Active' | 'Inactive';
+export type CustomerTierName = 'Standard' | 'Silver' | 'Gold' | 'Platinum';
+
+export interface SpreadRule {
+  id: string;
+  baseCurrency: string;
+  baseFlag: string;
+  quoteCurrency: string;
+  quoteFlag: string;
+  currentSpreadPct: number;
+  minSpreadPct: number;
+  maxSpreadPct: number;
+  defaultSpreadPct: number;
+  monthlyVolume: number;
+  volumeCurrency: string;
+  status: SpreadRuleStatus;
+  lastUpdated: string;
+  updatedBy: string;
+}
+
+export interface CustomerTier {
+  tier: CustomerTierName;
+  monthlyVolumeThreshold: number;
+  spreadDiscountPct: number;
+  customerCount: number;
+  color: string;
+}
+
+export interface SpreadChangeLogEntry {
+  id: string;
+  pairLabel: string;
+  pairFlags: string;
+  fromPct: number;
+  toPct: number;
+  changedBy: string;
+  changedByInitials: string;
+  timestamp: string;
+  note: string;
+}
+
+// ── Spread Management Stats ──
+export const spreadStats = {
+  averageSpreadPct: 0.65,
+  highestSpreadPair: 'PKR Float Pairs',
+  highestSpreadPct: 1.23,
+  lowestSpreadPair: 'USD / EUR',
+  lowestSpreadPct: 0.57,
+  pairsNeedingReview: 2,
+};
+
+// ── Spread Rules (per currency pair) ──
+export const spreadRules: SpreadRule[] = [
+  {
+    id: 'SPR-001', baseCurrency: 'GBP', baseFlag: '🇬🇧', quoteCurrency: 'USD', quoteFlag: '🇺🇸',
+    currentSpreadPct: 0.65, minSpreadPct: 0.40, maxSpreadPct: 0.90, defaultSpreadPct: 0.65,
+    monthlyVolume: 4256780, volumeCurrency: 'GBP', status: 'Active',
+    lastUpdated: 'May 10, 2025', updatedBy: 'Sarah Johnson',
+  },
+  {
+    id: 'SPR-002', baseCurrency: 'GBP', baseFlag: '🇬🇧', quoteCurrency: 'EUR', quoteFlag: '🇪🇺',
+    currentSpreadPct: 0.64, minSpreadPct: 0.40, maxSpreadPct: 0.90, defaultSpreadPct: 0.60,
+    monthlyVolume: 2856420, volumeCurrency: 'GBP', status: 'Active',
+    lastUpdated: 'May 9, 2025', updatedBy: 'Ahmed Khan',
+  },
+  {
+    id: 'SPR-003', baseCurrency: 'GBP', baseFlag: '🇬🇧', quoteCurrency: 'BDT', quoteFlag: '🇧🇩',
+    currentSpreadPct: 0.79, minSpreadPct: 0.50, maxSpreadPct: 1.00, defaultSpreadPct: 0.75,
+    monthlyVolume: 6125400, volumeCurrency: 'GBP', status: 'Active',
+    lastUpdated: 'May 12, 2025', updatedBy: 'Sarah Johnson',
+  },
+  {
+    id: 'SPR-004', baseCurrency: 'USD', baseFlag: '🇺🇸', quoteCurrency: 'BDT', quoteFlag: '🇧🇩',
+    currentSpreadPct: 0.71, minSpreadPct: 0.50, maxSpreadPct: 1.00, defaultSpreadPct: 0.70,
+    monthlyVolume: 3856230, volumeCurrency: 'USD', status: 'Active',
+    lastUpdated: 'May 8, 2025', updatedBy: 'Imran Hossain',
+  },
+  {
+    id: 'SPR-005', baseCurrency: 'EUR', baseFlag: '🇪🇺', quoteCurrency: 'USD', quoteFlag: '🇺🇸',
+    currentSpreadPct: 0.63, minSpreadPct: 0.40, maxSpreadPct: 0.90, defaultSpreadPct: 0.60,
+    monthlyVolume: 1985600, volumeCurrency: 'EUR', status: 'Active',
+    lastUpdated: 'May 7, 2025', updatedBy: 'Ahmed Khan',
+  },
+  {
+    id: 'SPR-006', baseCurrency: 'EUR', baseFlag: '🇪🇺', quoteCurrency: 'BDT', quoteFlag: '🇧🇩',
+    currentSpreadPct: 0.73, minSpreadPct: 0.50, maxSpreadPct: 1.00, defaultSpreadPct: 0.70,
+    monthlyVolume: 1456780, volumeCurrency: 'EUR', status: 'Active',
+    lastUpdated: 'May 6, 2025', updatedBy: 'Sarah Johnson',
+  },
+  {
+    id: 'SPR-007', baseCurrency: 'USD', baseFlag: '🇺🇸', quoteCurrency: 'EUR', quoteFlag: '🇪🇺',
+    currentSpreadPct: 0.57, minSpreadPct: 0.40, maxSpreadPct: 0.90, defaultSpreadPct: 0.60,
+    monthlyVolume: 985450, volumeCurrency: 'USD', status: 'Active',
+    lastUpdated: 'May 5, 2025', updatedBy: 'Imran Hossain',
+  },
+  {
+    id: 'SPR-008', baseCurrency: 'GBP', baseFlag: '🇬🇧', quoteCurrency: 'PKR', quoteFlag: '🇵🇰',
+    currentSpreadPct: 0.64, minSpreadPct: 0.50, maxSpreadPct: 1.00, defaultSpreadPct: 0.70,
+    monthlyVolume: 2256800, volumeCurrency: 'GBP', status: 'Active',
+    lastUpdated: 'May 11, 2025', updatedBy: 'Sarah Johnson',
+  },
+  {
+    id: 'SPR-009', baseCurrency: 'USD', baseFlag: '🇺🇸', quoteCurrency: 'PKR', quoteFlag: '🇵🇰',
+    currentSpreadPct: 1.23, minSpreadPct: 0.50, maxSpreadPct: 1.00, defaultSpreadPct: 0.75,
+    monthlyVolume: 1685200, volumeCurrency: 'USD', status: 'Active',
+    lastUpdated: 'May 12, 2025', updatedBy: 'Ahmed Khan',
+  },
+  {
+    id: 'SPR-010', baseCurrency: 'USD', baseFlag: '🇺🇸', quoteCurrency: 'NGN', quoteFlag: '🇳🇬',
+    currentSpreadPct: 0.97, minSpreadPct: 0.50, maxSpreadPct: 1.00, defaultSpreadPct: 0.80,
+    monthlyVolume: 856420, volumeCurrency: 'USD', status: 'Inactive',
+    lastUpdated: 'Apr 28, 2025', updatedBy: 'Imran Hossain',
+  },
+  {
+    id: 'SPR-011', baseCurrency: 'GBP', baseFlag: '🇬🇧', quoteCurrency: 'INR', quoteFlag: '🇮🇳',
+    currentSpreadPct: 0.65, minSpreadPct: 0.40, maxSpreadPct: 0.90, defaultSpreadPct: 0.65,
+    monthlyVolume: 1985200, volumeCurrency: 'GBP', status: 'Active',
+    lastUpdated: 'May 10, 2025', updatedBy: 'Sarah Johnson',
+  },
+  {
+    id: 'SPR-012', baseCurrency: 'GBP', baseFlag: '🇬🇧', quoteCurrency: 'AED', quoteFlag: '🇦🇪',
+    currentSpreadPct: 0.65, minSpreadPct: 0.40, maxSpreadPct: 0.90, defaultSpreadPct: 0.65,
+    monthlyVolume: 685200, volumeCurrency: 'GBP', status: 'Active',
+    lastUpdated: 'May 4, 2025', updatedBy: 'Ahmed Khan',
+  },
+];
+
+// ── Customer Tier-based spread discounts ──
+export const customerTiers: CustomerTier[] = [
+  { tier: 'Standard', monthlyVolumeThreshold: 0, spreadDiscountPct: 0, customerCount: 8642, color: 'gray' },
+  { tier: 'Silver', monthlyVolumeThreshold: 5000, spreadDiscountPct: 10, customerCount: 2156, color: 'blue' },
+  { tier: 'Gold', monthlyVolumeThreshold: 20000, spreadDiscountPct: 20, customerCount: 654, color: 'amber' },
+  { tier: 'Platinum', monthlyVolumeThreshold: 50000, spreadDiscountPct: 35, customerCount: 128, color: 'purple' },
+];
+
+// ── Spread Change Log ──
+export const spreadChangeLog: SpreadChangeLogEntry[] = [
+  {
+    id: 'SCL-001', pairLabel: 'USD / PKR', pairFlags: '🇺🇸🇵🇰',
+    fromPct: 0.75, toPct: 1.23,
+    changedBy: 'Ahmed Khan', changedByInitials: 'AK',
+    timestamp: '2025-05-12T10:30:00',
+    note: 'Increased due to high volatility in PKR corridor and provider liquidity risk.',
+  },
+  {
+    id: 'SCL-002', pairLabel: 'GBP / BDT', pairFlags: '🇬🇧🇧🇩',
+    fromPct: 0.75, toPct: 0.79,
+    changedBy: 'Sarah Johnson', changedByInitials: 'SJ',
+    timestamp: '2025-05-12T09:00:00',
+    note: 'Adjusted to reflect increased operational cost in BDT settlement.',
+  },
+  {
+    id: 'SCL-003', pairLabel: 'GBP / PKR', pairFlags: '🇬🇧🇵🇰',
+    fromPct: 0.70, toPct: 0.64,
+    changedBy: 'Sarah Johnson', changedByInitials: 'SJ',
+    timestamp: '2025-05-11T15:20:00',
+    note: 'Reduced spread to stay competitive against market rate aggregators.',
+  },
+  {
+    id: 'SCL-004', pairLabel: 'USD / BDT', pairFlags: '🇺🇸🇧🇩',
+    fromPct: 0.68, toPct: 0.71,
+    changedBy: 'Imran Hossain', changedByInitials: 'IH',
+    timestamp: '2025-05-08T11:45:00',
+    note: 'Minor adjustment after monthly margin review.',
+  },
+  {
+    id: 'SCL-005', pairLabel: 'USD / NGN', pairFlags: '🇺🇸🇳🇬',
+    fromPct: 0.80, toPct: 0.97,
+    changedBy: 'Imran Hossain', changedByInitials: 'IH',
+    timestamp: '2025-04-28T14:10:00',
+    note: 'Pair deactivated pending compliance review — spread frozen at last value.',
+  },
+  {
+    id: 'SCL-006', pairLabel: 'EUR / USD', pairFlags: '🇪🇺🇺🇸',
+    fromPct: 0.60, toPct: 0.57,
+    changedBy: 'Ahmed Khan', changedByInitials: 'AK',
+    timestamp: '2025-05-05T08:30:00',
+    note: 'Reduced as part of Q2 competitive pricing initiative.',
+  },
+];
+
+export const spreadStatusOptions = ['All Status', 'Active', 'Inactive'];
+
+
+// payment overview data =>
+
+// ============ PAYMENT METHODS ============
+export type PaymentMethodType = 'Bank Transfer' | 'Mobile Wallet' | 'Cash Pickup' | 'Card Payments';
+export type PaymentMethodStatus = 'Active' | 'Inactive';
+
+export interface PaymentMethod {
+  id: string;
+  name: string;
+  type: PaymentMethodType;
+  icon: string;
+  iconBg: string;
+  provider: string;
+  providerLogo: string;
+  countries: string[];
+  countryCount: number;
+  currencies: string[];
+  status: PaymentMethodStatus;
+  transactions: number;
+  transactionFeePct: number;
+  minTransaction: number;
+  maxTransaction: number;
+  dailyLimit: number;
+  limitCurrency: string;
+  connectedOn: string;
+  weeklyTransactions: number;
+  weeklyVolume: number;
+  weeklyVolumeCurrency: string;
+  successRatePct: number;
+  weeklyTransactionsChangePct: number;
+  weeklyVolumeChangePct: number;
+  successRateChangePct: number;
+}
+
+// ── Overview category stats ──
+export const paymentCategoryStats = [
+  {
+    type: 'Bank Transfer' as PaymentMethodType,
+    icon: '🏦', iconBg: 'bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400',
+    activeMethods: 32, status: 'Active' as PaymentMethodStatus,
+    countries: 8, secondaryLabel: 'Banks', secondaryValue: 156,
+  },
+  {
+    type: 'Mobile Wallet' as PaymentMethodType,
+    icon: '📱', iconBg: 'bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400',
+    activeMethods: 18, status: 'Active' as PaymentMethodStatus,
+    countries: 6, secondaryLabel: 'Transactions', secondaryValue: 2_450_000,
+  },
+  {
+    type: 'Cash Pickup' as PaymentMethodType,
+    icon: '👁', iconBg: 'bg-orange-50 dark:bg-orange-950 text-orange-600 dark:text-orange-400',
+    activeMethods: 24, status: 'Active' as PaymentMethodStatus,
+    countries: 12, secondaryLabel: 'Transactions', secondaryValue: 1_120_000,
+  },
+  {
+    type: 'Card Payments' as PaymentMethodType,
+    icon: '💳', iconBg: 'bg-purple-50 dark:bg-purple-950 text-purple-600 dark:text-purple-400',
+    activeMethods: 12, status: 'Active' as PaymentMethodStatus,
+    countries: 4, secondaryLabel: 'Transactions', secondaryValue: 892_000,
+  },
+];
+
+export const paymentOverviewStats = {
+  totalMethods: 86,
+  totalCountries: 24,
+  totalTransactionsThisWeek: 124_580,
+  totalVolumeThisWeek: 245_680_000,
+  volumeCurrency: '৳',
+};
+
+// ── All Payment Methods ──
+export const paymentMethods: PaymentMethod[] = [
+  {
+    id: 'PM-001', name: 'HSBC Bank Transfer', type: 'Bank Transfer',
+    icon: '🏦', iconBg: 'bg-red-50 dark:bg-red-950 text-red-600 dark:text-red-400',
+    provider: 'HSBC', providerLogo: '🔴',
+    countries: ['United Kingdom', 'United States', 'UAE', 'Singapore', 'Hong Kong', 'France', 'Germany', 'Canada'],
+    countryCount: 8, currencies: ['GBP', 'USD', 'EUR', 'BDT'], status: 'Active',
+    transactions: 245680, transactionFeePct: 0.50, minTransaction: 10, maxTransaction: 100000,
+    dailyLimit: 250000, limitCurrency: 'GBP', connectedOn: 'Jan 10, 2024 09:00 AM',
+    weeklyTransactions: 18540, weeklyVolume: 8245600, weeklyVolumeCurrency: 'GBP', successRatePct: 99.1,
+    weeklyTransactionsChangePct: 8.2, weeklyVolumeChangePct: 6.5, successRateChangePct: 0.4,
+  },
+  {
+    id: 'PM-002', name: 'bKash', type: 'Mobile Wallet',
+    icon: '📱', iconBg: 'bg-pink-50 dark:bg-pink-950 text-pink-600 dark:text-pink-400',
+    provider: 'bKash Limited', providerLogo: '🇵🇭',
+    countries: ['Bangladesh'], countryCount: 1, currencies: ['BDT'], status: 'Active',
+    transactions: 1245780, transactionFeePct: 1.50, minTransaction: 10, maxTransaction: 50000,
+    dailyLimit: 200000, limitCurrency: 'BDT', connectedOn: 'Jan 15, 2024 10:30 AM',
+    weeklyTransactions: 124580, weeklyVolume: 245680000, weeklyVolumeCurrency: 'BDT', successRatePct: 98.45,
+    weeklyTransactionsChangePct: 12.5, weeklyVolumeChangePct: 8.3, successRateChangePct: 1.2,
+  },
+  {
+    id: 'PM-003', name: 'Nagad', type: 'Mobile Wallet',
+    icon: '🟠', iconBg: 'bg-orange-50 dark:bg-orange-950 text-orange-600 dark:text-orange-400',
+    provider: 'Nagad Limited', providerLogo: '🟠',
+    countries: ['Bangladesh'], countryCount: 1, currencies: ['BDT'], status: 'Active',
+    transactions: 856230, transactionFeePct: 1.20, minTransaction: 10, maxTransaction: 45000,
+    dailyLimit: 180000, limitCurrency: 'BDT', connectedOn: 'Feb 2, 2024 11:00 AM',
+    weeklyTransactions: 78540, weeklyVolume: 156280000, weeklyVolumeCurrency: 'BDT', successRatePct: 97.8,
+    weeklyTransactionsChangePct: 9.4, weeklyVolumeChangePct: 7.1, successRateChangePct: 0.8,
+  },
+  {
+    id: 'PM-004', name: 'Rocket', type: 'Mobile Wallet',
+    icon: '🚀', iconBg: 'bg-violet-50 dark:bg-violet-950 text-violet-600 dark:text-violet-400',
+    provider: 'Rocket (DBBL)', providerLogo: '🚀',
+    countries: ['Bangladesh'], countryCount: 1, currencies: ['BDT'], status: 'Active',
+    transactions: 342680, transactionFeePct: 1.30, minTransaction: 10, maxTransaction: 40000,
+    dailyLimit: 150000, limitCurrency: 'BDT', connectedOn: 'Feb 18, 2024 02:15 PM',
+    weeklyTransactions: 28450, weeklyVolume: 52860000, weeklyVolumeCurrency: 'BDT', successRatePct: 96.9,
+    weeklyTransactionsChangePct: 4.6, weeklyVolumeChangePct: 3.9, successRateChangePct: -0.3,
+  },
+  {
+    id: 'PM-005', name: 'Cash Pickup (Agent)', type: 'Cash Pickup',
+    icon: '👥', iconBg: 'bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400',
+    provider: 'Global Agent Network', providerLogo: '🌐',
+    countries: ['Bangladesh', 'Pakistan', 'India', 'Philippines', 'Nigeria', 'UAE', 'Saudi Arabia', 'Malaysia', 'Nepal', 'Sri Lanka', 'Kenya', 'Ghana'],
+    countryCount: 12, currencies: ['USD', 'EUR', 'BDT'], status: 'Active',
+    transactions: 1123450, transactionFeePct: 2.00, minTransaction: 20, maxTransaction: 5000,
+    dailyLimit: 50000, limitCurrency: 'USD', connectedOn: 'Jan 5, 2024 08:45 AM',
+    weeklyTransactions: 96420, weeklyVolume: 18560000, weeklyVolumeCurrency: 'USD', successRatePct: 95.6,
+    weeklyTransactionsChangePct: 6.8, weeklyVolumeChangePct: 5.2, successRateChangePct: 0.5,
+  },
+  {
+    id: 'PM-006', name: 'Visa Card', type: 'Card Payments',
+    icon: '💳', iconBg: 'bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400',
+    provider: 'Visa', providerLogo: '🔵',
+    countries: ['United Kingdom', 'United States', 'Eurozone', 'UAE'], countryCount: 4,
+    currencies: ['USD', 'EUR', 'GBP'], status: 'Active',
+    transactions: 512410, transactionFeePct: 2.50, minTransaction: 10, maxTransaction: 25000,
+    dailyLimit: 50000, limitCurrency: 'USD', connectedOn: 'Jan 8, 2024 01:00 PM',
+    weeklyTransactions: 42850, weeklyVolume: 7856200, weeklyVolumeCurrency: 'USD', successRatePct: 97.4,
+    weeklyTransactionsChangePct: 5.9, weeklyVolumeChangePct: 4.8, successRateChangePct: 0.6,
+  },
+  {
+    id: 'PM-007', name: 'Mastercard', type: 'Card Payments',
+    icon: '💳', iconBg: 'bg-orange-50 dark:bg-orange-950 text-orange-600 dark:text-orange-400',
+    provider: 'Mastercard', providerLogo: '🟠',
+    countries: ['United Kingdom', 'United States', 'Eurozone', 'UAE'], countryCount: 4,
+    currencies: ['USD', 'EUR', 'GBP'], status: 'Active',
+    transactions: 379240, transactionFeePct: 2.50, minTransaction: 10, maxTransaction: 25000,
+    dailyLimit: 50000, limitCurrency: 'USD', connectedOn: 'Jan 8, 2024 01:10 PM',
+    weeklyTransactions: 31250, weeklyVolume: 5642300, weeklyVolumeCurrency: 'USD', successRatePct: 96.8,
+    weeklyTransactionsChangePct: 4.2, weeklyVolumeChangePct: 3.6, successRateChangePct: 0.3,
+  },
+  {
+    id: 'PM-008', name: 'Bank of America Transfer', type: 'Bank Transfer',
+    icon: '🏦', iconBg: 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400',
+    provider: 'Bank of America', providerLogo: '🔷',
+    countries: ['United States', 'Canada'], countryCount: 2, currencies: ['USD'], status: 'Inactive',
+    transactions: 0, transactionFeePct: 0.60, minTransaction: 10, maxTransaction: 100000,
+    dailyLimit: 200000, limitCurrency: 'USD', connectedOn: 'Mar 1, 2024 10:00 AM',
+    weeklyTransactions: 0, weeklyVolume: 0, weeklyVolumeCurrency: 'USD', successRatePct: 0,
+    weeklyTransactionsChangePct: 0, weeklyVolumeChangePct: 0, successRateChangePct: 0,
+  },
+  {
+    id: 'PM-009', name: 'Barclays Transfer', type: 'Bank Transfer',
+    icon: '🏦', iconBg: 'bg-sky-50 dark:bg-sky-950 text-sky-600 dark:text-sky-400',
+    provider: 'Barclays', providerLogo: '🔵',
+    countries: ['United Kingdom'], countryCount: 1, currencies: ['GBP'], status: 'Active',
+    transactions: 186420, transactionFeePct: 0.45, minTransaction: 10, maxTransaction: 100000,
+    dailyLimit: 250000, limitCurrency: 'GBP', connectedOn: 'Jan 12, 2024 09:30 AM',
+    weeklyTransactions: 15420, weeklyVolume: 6842300, weeklyVolumeCurrency: 'GBP', successRatePct: 99.3,
+    weeklyTransactionsChangePct: 7.1, weeklyVolumeChangePct: 5.9, successRateChangePct: 0.2,
+  },
+  {
+    id: 'PM-010', name: 'Easypaisa', type: 'Mobile Wallet',
+    icon: '📲', iconBg: 'bg-green-50 dark:bg-green-950 text-green-600 dark:text-green-400',
+    provider: 'Telenor Microfinance Bank', providerLogo: '🟢',
+    countries: ['Pakistan'], countryCount: 1, currencies: ['PKR'], status: 'Active',
+    transactions: 425600, transactionFeePct: 1.40, minTransaction: 10, maxTransaction: 30000,
+    dailyLimit: 120000, limitCurrency: 'PKR', connectedOn: 'Feb 22, 2024 03:30 PM',
+    weeklyTransactions: 35840, weeklyVolume: 68420000, weeklyVolumeCurrency: 'PKR', successRatePct: 96.2,
+    weeklyTransactionsChangePct: 5.4, weeklyVolumeChangePct: 4.1, successRateChangePct: -0.2,
+  },
+  {
+    id: 'PM-011', name: 'GCash', type: 'Mobile Wallet',
+    icon: '🔵', iconBg: 'bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400',
+    provider: 'Globe Fintech Innovations', providerLogo: '🔵',
+    countries: ['Philippines'], countryCount: 1, currencies: ['PHP'], status: 'Active',
+    transactions: 612400, transactionFeePct: 1.10, minTransaction: 10, maxTransaction: 50000,
+    dailyLimit: 150000, limitCurrency: 'PHP', connectedOn: 'Jan 28, 2024 12:00 PM',
+    weeklyTransactions: 52680, weeklyVolume: 48560000, weeklyVolumeCurrency: 'PHP', successRatePct: 97.9,
+    weeklyTransactionsChangePct: 6.2, weeklyVolumeChangePct: 5.0, successRateChangePct: 0.5,
+  },
+  {
+    id: 'PM-012', name: 'Cash Pickup (Western Union Partner)', type: 'Cash Pickup',
+    icon: '👥', iconBg: 'bg-yellow-50 dark:bg-yellow-950 text-yellow-600 dark:text-yellow-400',
+    provider: 'Western Union Network', providerLogo: '🟡',
+    countries: ['Nigeria', 'Ghana', 'Kenya'], countryCount: 3, currencies: ['NGN', 'GHS', 'KES'], status: 'Active',
+    transactions: 286400, transactionFeePct: 2.20, minTransaction: 20, maxTransaction: 3000,
+    dailyLimit: 30000, limitCurrency: 'USD', connectedOn: 'Mar 5, 2024 09:00 AM',
+    weeklyTransactions: 24560, weeklyVolume: 4256000, weeklyVolumeCurrency: 'USD', successRatePct: 94.8,
+    weeklyTransactionsChangePct: 3.8, weeklyVolumeChangePct: 2.9, successRateChangePct: -0.6,
+  },
+];
+
+export const paymentMethodTypeOptions: PaymentMethodType[] = [
+  'Bank Transfer', 'Mobile Wallet', 'Cash Pickup', 'Card Payments',
+];
+export const paymentCountryOptions = ['All Countries', 'Bangladesh', 'Pakistan', 'United Kingdom', 'United States', 'Philippines', 'Nigeria', 'UAE'];
+export const paymentCurrencyOptions = ['All Currencies', 'GBP', 'USD', 'EUR', 'BDT', 'PKR', 'PHP'];
+export const paymentStatusOptions = ['All Status', 'Active', 'Inactive'];
+
+export const PAYMENT_TOTAL = 86;
+export const PAYMENT_PAGE_SIZE = 8;

@@ -2,98 +2,372 @@
 
 import { useState } from 'react';
 import {
-  ChevronRight, TrendingUp, TrendingDown, AlertTriangle,
-  Eye, EyeOff, RefreshCw, Building2, ArrowUpRight, ArrowDownLeft,
+  ChevronRight, MoreVertical, Filter, Calendar, ChevronDown,
+  ArrowDownToLine, ArrowUpFromLine, Building2,
 } from 'lucide-react';
 import {
-  companyWalletAccounts, corridorBalances, walletOverviewStats,
-  CompanyWalletAccount, CorridorBalance, CorridorStatus,
+  companyWalletAccounts,
+  companyDeposits,
+  companyWithdrawals,
+  walletOverviewStats,
+  CompanyWalletAccount,
+  CompanyDeposit,
+  CompanyWithdrawal,
+  CorridorStatus,
 } from '@/lib/data';
 
 // ── helpers ───────────────────────────────────────────────────
-const statusConfig: Record<CorridorStatus, { classes: string; bar: string; label: string }> = {
-  Healthy: { classes: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400', bar: 'bg-emerald-500', label: 'Healthy' },
-  Low: { classes: 'bg-amber-100  text-amber-700  dark:bg-amber-950  dark:text-amber-400', bar: 'bg-amber-500', label: 'Low' },
-  Critical: { classes: 'bg-red-100    text-red-700    dark:bg-red-950    dark:text-red-400', bar: 'bg-red-500', label: 'Critical' },
+const currencySymbol: Record<string, string> = {
+  GBP: '£', USD: '$', EUR: '€', BDT: '৳', PKR: '₨', INR: '₹', PHP: '₱', NGN: '₦', AED: 'AED ',
 };
 
-const typeConfig: Record<string, string> = {
-  Operating: 'bg-blue-100   text-blue-700   dark:bg-blue-950   dark:text-blue-400',
-  Settlement: 'bg-purple-100 text-purple-700 dark:bg-purple-950 dark:text-purple-400',
-  Reserve: 'bg-teal-100   text-teal-700   dark:bg-teal-950   dark:text-teal-400',
-  Float: 'bg-amber-100  text-amber-700  dark:bg-amber-950  dark:text-amber-400',
+const sym = (code: string) => currencySymbol[code] ?? '';
+
+const fmt = (n: number) =>
+  n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+const fmtCompact = (n: number) => {
+  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
+  if (n >= 1_000) return `${(n / 1_000).toFixed(0)}k`;
+  return n.toFixed(0);
 };
 
-const fmt = (n: number, currency = 'GBP') => {
-  const sym: Record<string, string> = { GBP: '£', USD: '$', EUR: '€', BDT: '৳', PKR: '₨', INR: '₹', PHP: '₱', NGN: '₦', AED: 'AED ' };
-  return `${sym[currency] ?? ''}${n.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+const statusBadge: Record<CorridorStatus, string> = {
+  Healthy: 'bg-emerald-50 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400',
+  Low: 'bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-400',
+  Critical: 'bg-red-50 text-red-600 dark:bg-red-950 dark:text-red-400',
 };
 
-function BalanceBar({ used, total, status }: { used: number; total: number; status: CorridorStatus }) {
-  const pct = Math.min((used / total) * 100, 100);
+const depositStatusClasses: Record<CompanyDeposit['status'], string> = {
+  Confirmed: 'bg-emerald-50 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400',
+  Pending: 'bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-400',
+  Failed: 'bg-red-50 text-red-600 dark:bg-red-950 dark:text-red-400',
+};
+
+const withdrawalStatusClasses: Record<CompanyWithdrawal['status'], string> = {
+  Completed: 'bg-emerald-50 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400',
+  Pending: 'bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-400',
+  Failed: 'bg-red-50 text-red-600 dark:bg-red-950 dark:text-red-400',
+  Cancelled: 'bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-400',
+};
+
+function dateTimeParts(iso: string) {
+  const d = new Date(iso);
+  const date = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  const time = d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+  return { date, time };
+}
+
+// ── Wallet Card ───────────────────────────────────────────────
+function WalletCard({ acc }: { acc: CompanyWalletAccount }) {
   return (
-    <div className="h-1.5 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden mt-2">
-      <div className={`h-full rounded-full transition-all ${statusConfig[status].bar}`} style={{ width: `${pct}%` }} />
+    <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 flex flex-col">
+      <div className="flex items-start justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <span className="text-2xl leading-none">{acc.flag}</span>
+          <span className="text-[13px] font-semibold text-gray-800 dark:text-gray-100">{acc.name}</span>
+        </div>
+        <span className={`text-[10px] font-medium px-2 py-0.5 rounded whitespace-nowrap ${statusBadge[acc.status]}`}>
+          {acc.status}
+        </span>
+      </div>
+
+      <p className="text-xl font-bold text-gray-900 dark:text-white">
+        {sym(acc.currency)}{fmt(acc.available)}
+      </p>
+      <p className="text-[11px] text-gray-400 dark:text-gray-500 mb-3">Available Balance</p>
+
+      <div className="flex items-center justify-between mb-4 gap-2 flex-wrap">
+        <div>
+          <p className="text-[13px] font-semibold text-gray-800 dark:text-gray-100">
+            {sym(acc.currency)}{fmt(acc.reserved)}
+          </p>
+          <p className="text-[11px] text-gray-400 dark:text-gray-500">Hold Balance</p>
+        </div>
+        <span className="text-[11px] text-gray-400 dark:text-gray-500">{acc.bankName}</span>
+      </div>
+
+      <button className="mt-auto w-full border border-gray-200 dark:border-gray-700 rounded-lg py-2 text-[12px] font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer">
+        View Details
+      </button>
     </div>
   );
 }
 
-// ── Account Card ──────────────────────────────────────────────
-function AccountCard({ acc, hideBalance }: { acc: CompanyWalletAccount; hideBalance: boolean }) {
-  const sc = statusConfig[acc.status];
-  const tc = typeConfig[acc.type];
-  const usedPct = Math.round(((acc.balance - acc.available) / acc.maxCapacity) * 100);
-
+function TotalBalanceCard() {
+  const s = walletOverviewStats;
   return (
     <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4">
-      <div className="flex items-start justify-between mb-3">
-        <div className="flex items-center gap-2.5">
-          <span className="text-2xl">{acc.flag}</span>
-          <div>
-            <p className="text-[13px] font-semibold text-gray-900 dark:text-white">{acc.name}</p>
-            <p className="text-[11px] text-gray-400 font-mono">{acc.accountNumber}</p>
-          </div>
+      <p className="text-[13px] font-semibold text-gray-800 dark:text-gray-100 mb-1">Total Balance (All Accounts)</p>
+      <p className="text-2xl font-bold text-gray-900 dark:text-white">
+        {sym(s.totalBalanceCurrency)}{fmt(s.totalBalance)}
+      </p>
+      <p className="text-[11px] text-gray-400 dark:text-gray-500 mb-3">{s.totalBalanceCurrency} equivalent</p>
+
+      <div className="space-y-2">
+        <div className="flex items-center justify-between text-[12px]">
+          <span className="text-gray-500 dark:text-gray-400">Available</span>
+          <span className="font-semibold text-emerald-600 dark:text-emerald-400">
+            {sym(s.totalBalanceCurrency)}{fmt(s.totalAvailable)}
+          </span>
         </div>
-        <div className="flex flex-col items-end gap-1">
-          <span className={`text-[10px] font-medium px-2 py-0.5 rounded ${sc.classes}`}>{sc.label}</span>
-          <span className={`text-[10px] font-medium px-2 py-0.5 rounded ${tc}`}>{acc.type}</span>
+        <div className="flex items-center justify-between text-[12px]">
+          <span className="text-gray-500 dark:text-gray-400">Reserved</span>
+          <span className="font-semibold text-amber-600 dark:text-amber-400">
+            {sym(s.totalBalanceCurrency)}{fmt(s.totalReserved)}
+          </span>
+        </div>
+        <div className="flex items-center justify-between text-[12px]">
+          <span className="text-gray-500 dark:text-gray-400">Daily Inflow</span>
+          <span className="font-semibold text-gray-800 dark:text-gray-100">
+            {sym(s.totalBalanceCurrency)}{fmtCompact(s.dailyInflow)}
+          </span>
+        </div>
+        <div className="flex items-center justify-between text-[12px]">
+          <span className="text-gray-500 dark:text-gray-400">Daily Outflow</span>
+          <span className="font-semibold text-gray-800 dark:text-gray-100">
+            {sym(s.totalBalanceCurrency)}{fmtCompact(s.dailyOutflow)}
+          </span>
         </div>
       </div>
+    </div>
+  );
+}
 
-      <div className="mb-3">
-        <p className="text-[11px] text-gray-400 mb-0.5">Total Balance</p>
-        <p className="text-xl font-bold text-gray-900 dark:text-white">
-          {hideBalance ? '••••••' : fmt(acc.balance, acc.currency)}
-        </p>
+function FilterBar() {
+  return (
+    <div className="flex flex-wrap items-center gap-2 px-4 py-3 border-b border-gray-100 dark:border-gray-700/60">
+      <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 text-[12px] text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
+        All Accounts <ChevronDown size={13} />
+      </button>
+      <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 text-[12px] text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
+        All Status <ChevronDown size={13} />
+      </button>
+      <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 text-[12px] text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
+        <Calendar size={13} /> <span className="hidden sm:inline">This Week</span><span className="sm:hidden">Week</span> <ChevronDown size={13} />
+      </button>
+      <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 text-[12px] text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer sm:ml-auto">
+        <Filter size={13} /> Filters
+      </button>
+    </div>
+  );
+}
+
+// ── Deposit Table ─────────────────────────────────────────────
+function DepositTable({ rows }: { rows: CompanyDeposit[] }) {
+  return (
+    <>
+      <div className="overflow-x-auto">
+        <table className="w-full text-left min-w-[760px]">
+          <thead>
+            <tr className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500 border-b border-gray-100 dark:border-gray-700/60">
+              <th className="px-4 py-2.5 font-medium">ID</th>
+              <th className="px-2 py-2.5 font-medium">Account</th>
+              <th className="px-2 py-2.5 font-medium">Amount</th>
+              <th className="px-2 py-2.5 font-medium">Source</th>
+              <th className="px-2 py-2.5 font-medium">Status</th>
+              <th className="px-2 py-2.5 font-medium">Received</th>
+              <th className="px-2 py-2.5 font-medium">Reference</th>
+              <th className="px-2 py-2.5 font-medium text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map(r => {
+              const { date, time } = dateTimeParts(r.receivedAt);
+              return (
+                <tr key={r.id} className="border-b border-gray-50 dark:border-gray-700/40 last:border-0 hover:bg-gray-50/60 dark:hover:bg-gray-700/30">
+                  <td className="px-4 py-2.5 text-[12px] text-blue-600 dark:text-blue-400 font-medium whitespace-nowrap">{r.id}</td>
+                  <td className="px-2 py-2.5 text-[12px] text-gray-700 dark:text-gray-300 whitespace-nowrap">{r.accountName}</td>
+                  <td className="px-2 py-2.5 text-[12px] text-gray-900 dark:text-white font-semibold whitespace-nowrap">
+                    {sym(r.currency)}{fmt(r.amount)}
+                  </td>
+                  <td className="px-2 py-2.5 text-[12px] text-gray-600 dark:text-gray-300 whitespace-nowrap">{r.source}</td>
+                  <td className="px-2 py-2.5 whitespace-nowrap">
+                    <span className={`text-[11px] font-medium px-2 py-0.5 rounded ${depositStatusClasses[r.status]}`}>
+                      {r.status}
+                    </span>
+                  </td>
+                  <td className="px-2 py-2.5 text-[12px] text-gray-500 dark:text-gray-400 whitespace-nowrap">{date}<br />{time}</td>
+                  <td className="px-2 py-2.5 text-[12px] text-gray-500 dark:text-gray-400 whitespace-nowrap">{r.senderRef}</td>
+                  <td className="px-2 py-2.5 text-right">
+                    <button className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 cursor-pointer">
+                      <MoreVertical size={14} />
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
 
-      <div className="grid grid-cols-2 gap-2 mb-3">
-        <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-2">
-          <p className="text-[10px] text-gray-400 mb-0.5">Available</p>
-          <p className="text-[13px] font-semibold text-emerald-600 dark:text-emerald-400">
-            {hideBalance ? '••••' : fmt(acc.available, acc.currency)}
-          </p>
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-4 py-3 text-[12px] text-gray-500 dark:text-gray-400">
+        <span>Showing 1 to {rows.length} of {rows.length} deposits</span>
+        <div className="flex items-center gap-1">
+          <button className="px-2 py-1 rounded border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer disabled:opacity-40" disabled>‹</button>
+          <button className="px-2.5 py-1 rounded bg-blue-600 text-white cursor-pointer">1</button>
+          <button className="px-2 py-1 rounded border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer disabled:opacity-40" disabled>›</button>
         </div>
-        <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-2">
-          <p className="text-[10px] text-gray-400 mb-0.5">Reserved</p>
-          <p className="text-[13px] font-semibold text-amber-600 dark:text-amber-400">
-            {hideBalance ? '••••' : fmt(acc.reserved, acc.currency)}
-          </p>
-        </div>
+        <select className="border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 rounded px-2 py-1 text-[12px] text-gray-600 dark:text-gray-300">
+          <option>10 / page</option>
+          <option>20 / page</option>
+          <option>50 / page</option>
+        </select>
+      </div>
+    </>
+  );
+}
+
+// ── Withdrawal Table ──────────────────────────────────────────
+function WithdrawalTable({ rows }: { rows: CompanyWithdrawal[] }) {
+  return (
+    <>
+      <div className="overflow-x-auto">
+        <table className="w-full text-left min-w-[760px]">
+          <thead>
+            <tr className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500 border-b border-gray-100 dark:border-gray-700/60">
+              <th className="px-4 py-2.5 font-medium">ID</th>
+              <th className="px-2 py-2.5 font-medium">Account</th>
+              <th className="px-2 py-2.5 font-medium">Amount</th>
+              <th className="px-2 py-2.5 font-medium">Type</th>
+              <th className="px-2 py-2.5 font-medium">Status</th>
+              <th className="px-2 py-2.5 font-medium">Initiated</th>
+              <th className="px-2 py-2.5 font-medium">Destination</th>
+              <th className="px-2 py-2.5 font-medium text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map(r => {
+              const { date, time } = dateTimeParts(r.initiatedAt);
+              return (
+                <tr key={r.id} className="border-b border-gray-50 dark:border-gray-700/40 last:border-0 hover:bg-gray-50/60 dark:hover:bg-gray-700/30">
+                  <td className="px-4 py-2.5 text-[12px] text-blue-600 dark:text-blue-400 font-medium whitespace-nowrap">{r.id}</td>
+                  <td className="px-2 py-2.5 text-[12px] text-gray-700 dark:text-gray-300 whitespace-nowrap">{r.accountName}</td>
+                  <td className="px-2 py-2.5 text-[12px] text-gray-900 dark:text-white font-semibold whitespace-nowrap">
+                    {sym(r.currency)}{fmt(r.amount)}
+                  </td>
+                  <td className="px-2 py-2.5 text-[12px] text-gray-600 dark:text-gray-300 whitespace-nowrap">{r.type}</td>
+                  <td className="px-2 py-2.5 whitespace-nowrap">
+                    <span className={`text-[11px] font-medium px-2 py-0.5 rounded ${withdrawalStatusClasses[r.status]}`}>
+                      {r.status}
+                    </span>
+                  </td>
+                  <td className="px-2 py-2.5 text-[12px] text-gray-500 dark:text-gray-400 whitespace-nowrap">{date}<br />{time}</td>
+                  <td className="px-2 py-2.5 text-[12px] text-gray-500 dark:text-gray-400 whitespace-nowrap">{r.destinationBank}</td>
+                  <td className="px-2 py-2.5 text-right">
+                    <button className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 cursor-pointer">
+                      <MoreVertical size={14} />
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
 
-      <div>
-        <div className="flex justify-between mb-1">
-          <span className="text-[10px] text-gray-400">{acc.bankName}</span>
-          <span className="text-[10px] text-gray-400">{usedPct}% used</span>
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-4 py-3 text-[12px] text-gray-500 dark:text-gray-400">
+        <span>Showing 1 to {rows.length} of {rows.length} withdrawals</span>
+        <div className="flex items-center gap-1">
+          <button className="px-2 py-1 rounded border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer disabled:opacity-40" disabled>‹</button>
+          <button className="px-2.5 py-1 rounded bg-blue-600 text-white cursor-pointer">1</button>
+          <button className="px-2 py-1 rounded border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer disabled:opacity-40" disabled>›</button>
         </div>
-        <BalanceBar used={acc.balance - acc.available} total={acc.maxCapacity} status={acc.status} />
-        {acc.status !== 'Healthy' && (
-          <p className="text-[10px] text-red-500 dark:text-red-400 mt-1 flex items-center gap-1">
-            <AlertTriangle size={9} />
-            {acc.status === 'Critical' ? 'Below minimum threshold!' : 'Approaching minimum threshold'}
-          </p>
-        )}
+        <select className="border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 rounded px-2 py-1 text-[12px] text-gray-600 dark:text-gray-300">
+          <option>10 / page</option>
+          <option>20 / page</option>
+          <option>50 / page</option>
+        </select>
+      </div>
+    </>
+  );
+}
+
+function HistoryPanel({ defaultTab = 'deposit' }: { defaultTab?: 'deposit' | 'withdrawal' }) {
+  const [tab, setTab] = useState<'deposit' | 'withdrawal'>(defaultTab);
+  return (
+    <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl">
+      <div className="flex items-center gap-6 px-4 pt-3 border-b border-gray-100 dark:border-gray-700/60">
+        <button
+          onClick={() => setTab('deposit')}
+          className={`pb-2.5 text-[13px] font-medium border-b-2 -mb-px transition-colors cursor-pointer ${tab === 'deposit'
+              ? 'border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400'
+              : 'border-transparent text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300'
+            }`}
+        >
+          Deposit History
+        </button>
+        <button
+          onClick={() => setTab('withdrawal')}
+          className={`pb-2.5 text-[13px] font-medium border-b-2 -mb-px transition-colors cursor-pointer ${tab === 'withdrawal'
+              ? 'border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400'
+              : 'border-transparent text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300'
+            }`}
+        >
+          Withdrawal History
+        </button>
+      </div>
+      <FilterBar />
+      {tab === 'deposit'
+        ? <DepositTable rows={companyDeposits} />
+        : <WithdrawalTable rows={companyWithdrawals} />}
+    </div>
+  );
+}
+
+// ── Recent Activity (merged from deposits + withdrawals) ──────
+function RecentActivity() {
+  const merged = [
+    ...companyDeposits.map(d => ({
+      id: d.id,
+      type: 'deposit' as const,
+      amount: `+ ${sym(d.currency)}${fmt(d.amount)}`,
+      account: d.accountName,
+      at: d.receivedAt,
+    })),
+    ...companyWithdrawals.map(w => ({
+      id: w.id,
+      type: 'withdrawal' as const,
+      amount: `- ${sym(w.currency)}${fmt(w.amount)}`,
+      account: w.accountName,
+      at: w.initiatedAt,
+    })),
+  ]
+    .sort((a, b) => new Date(b.at).getTime() - new Date(a.at).getTime())
+    .slice(0, 6);
+
+  return (
+    <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-5">
+      <h2 className="text-[14px] font-semibold text-gray-800 dark:text-gray-100 mb-5">Recent Wallet Activity</h2>
+      <div className="flex flex-col sm:flex-row sm:items-start gap-6 sm:gap-2 overflow-x-auto">
+        {merged.map((item, idx) => {
+          const { date, time } = dateTimeParts(item.at);
+          return (
+            <div key={item.id} className="flex sm:flex-col items-center sm:items-center gap-3 sm:gap-2 sm:flex-1 relative shrink-0 sm:min-w-[120px]">
+              {idx !== 0 && (
+                <div className="hidden sm:block absolute top-4 right-1/2 w-full h-px bg-gray-100 dark:bg-gray-700 -z-10" />
+              )}
+              <div
+                className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${item.type === 'deposit'
+                    ? 'bg-emerald-50 text-emerald-500 dark:bg-emerald-950 dark:text-emerald-400'
+                    : 'bg-orange-50 text-orange-500 dark:bg-orange-950 dark:text-orange-400'
+                  }`}
+              >
+                {item.type === 'deposit' ? <ArrowDownToLine size={14} /> : <ArrowUpFromLine size={14} />}
+              </div>
+              <div className="sm:text-center">
+                <p className="text-[12px] font-medium text-gray-700 dark:text-gray-300">
+                  {item.type === 'deposit' ? 'Deposit' : 'Withdrawal'}
+                </p>
+                <p className={`text-[13px] font-semibold ${item.type === 'deposit' ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-500 dark:text-red-400'}`}>
+                  {item.amount}
+                </p>
+                <p className="text-[11px] text-gray-400 dark:text-gray-500">{item.account}</p>
+                <p className="text-[10px] text-gray-400 dark:text-gray-500">{date} {time}</p>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
@@ -101,134 +375,34 @@ function AccountCard({ acc, hideBalance }: { acc: CompanyWalletAccount; hideBala
 
 // ── Main Page ─────────────────────────────────────────────────
 export default function WalletOverviewPage() {
-  const [hideBalance, setHideBalance] = useState(false);
-  const s = walletOverviewStats;
-
   return (
-    <div className="px-4 py-6">
+    <div className="px-4 py-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
       {/* header */}
-      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
-        <div>
-          <div className="flex items-center gap-2 text-[13px] text-gray-400 dark:text-gray-500 mb-1">
-            <span>Wallets</span><ChevronRight size={12} />
-            <span className="text-gray-900 dark:text-white font-medium">Wallet Overview</span>
-          </div>
-          <h1 className="text-xl font-bold text-gray-900 dark:text-white">Company Wallet Overview</h1>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">Internal fund management, liquidity and settlement accounts</p>
-        </div>
-        <div className="flex items-center gap-2 shrink-0">
-          <button onClick={() => setHideBalance(h => !h)}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 text-[12px] font-medium hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors">
-            {hideBalance ? <Eye size={13} /> : <EyeOff size={13} />}
-            {hideBalance ? 'Show' : 'Hide'} Balances
-          </button>
-          <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 text-[12px] font-medium hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors">
-            <RefreshCw size={13} /> Refresh
-          </button>
+      <div className="mb-5">
+        <h1 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+          <Building2 size={18} className="text-gray-700 dark:text-gray-300" /> Wallet Management
+        </h1>
+        <div className="flex items-center gap-2 text-[12px] text-gray-400 dark:text-gray-500 mt-1">
+          <span>Dashboard</span><ChevronRight size={12} />
+          <span>Wallets</span><ChevronRight size={12} />
+          <span className="text-gray-700 dark:text-gray-300 font-medium">Wallet Overview</span>
         </div>
       </div>
 
-      {/* summary stats */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
-        {[
-          { label: 'Total Balance', value: hideBalance ? '••••••' : `£${(s.totalBalance / 1000).toFixed(0)}k`, sub: 'GBP equivalent', color: 'text-blue-600 dark:text-blue-400', Icon: Building2 },
-          { label: 'Available Funds', value: hideBalance ? '••••••' : `£${(s.totalAvailable / 1000).toFixed(0)}k`, sub: 'ready to deploy', color: 'text-emerald-600 dark:text-emerald-400', Icon: TrendingUp },
-          { label: 'Daily Inflow', value: hideBalance ? '••••••' : `£${(s.dailyInflow / 1000).toFixed(0)}k`, sub: 'deposits today', color: 'text-emerald-600 dark:text-emerald-400', Icon: ArrowDownLeft },
-          { label: 'Daily Outflow', value: hideBalance ? '••••••' : `£${(s.dailyOutflow / 1000).toFixed(0)}k`, sub: 'withdrawals today', color: 'text-red-600 dark:text-red-400', Icon: ArrowUpRight },
-        ].map(({ label, value, sub, color, Icon }) => (
-          <div key={label} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4">
-            <div className="flex items-start justify-between mb-1">
-              <p className="text-[11px] uppercase tracking-widest text-gray-400 dark:text-gray-500">{label}</p>
-              <Icon size={15} className={color} />
-            </div>
-            <p className={`text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white ${color}`}>{value}</p>
-            <p className="text-[11px] text-gray-400 dark:text-gray-500 mt-1">{sub}</p>
-          </div>
-        ))}
+      {/* wallet account cards + total */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-6">
+        {companyWalletAccounts.map(acc => <WalletCard key={acc.id} acc={acc} />)}
+        <TotalBalanceCard />
       </div>
 
-      {/* alert banner */}
-      {(s.criticalAccounts > 0 || s.lowAccounts > 0) && (
-        <div className="flex items-center gap-3 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900 rounded-xl px-4 py-3 mb-6">
-          <AlertTriangle size={16} className="text-red-600 dark:text-red-400 shrink-0" />
-          <div>
-            <p className="text-[13px] font-semibold text-red-700 dark:text-red-400">
-              {s.criticalAccounts} critical · {s.lowAccounts} low balance account{s.lowAccounts !== 1 ? 's' : ''}
-            </p>
-            <p className="text-[12px] text-red-500 dark:text-red-400">Immediate top-up required for PKR Float Account</p>
-          </div>
-        </div>
-      )}
-
-      {/* account cards */}
-      <div className="mb-6">
-        <h2 className="text-[13px] font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-3">Account Balances</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-          {companyWalletAccounts.map(acc => (
-            <AccountCard key={acc.id} acc={acc} hideBalance={hideBalance} />
-          ))}
-        </div>
+      {/* deposit / withdrawal histories */}
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-6">
+        <HistoryPanel defaultTab="deposit" />
+        <HistoryPanel defaultTab="withdrawal" />
       </div>
 
-      {/* corridor table */}
-      <div>
-        <h2 className="text-[13px] font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-3">Corridor Float Status</h2>
-        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
-          <div className="hidden sm:grid grid-cols-[2fr_1fr_1fr_1fr_1.5fr_1fr] px-4 py-2.5 bg-gray-50 dark:bg-gray-700/50 border-b border-gray-200 dark:border-gray-700 text-[10px] uppercase tracking-widest text-gray-400 dark:text-gray-500">
-            <span>Corridor</span><span>Currency</span><span>Float Balance</span>
-            <span>Daily Volume</span><span>Utilization</span><span>Status</span>
-          </div>
-
-          {corridorBalances.map(cor => {
-            const sc = statusConfig[cor.status];
-            return (
-              <div key={cor.id} className="border-b border-gray-100 dark:border-gray-700/60 last:border-0">
-                {/* desktop */}
-                <div className="hidden sm:grid grid-cols-[2fr_1fr_1fr_1fr_1.5fr_1fr] px-4 py-3.5 items-center">
-                  <div className="flex items-center gap-2">
-                    <span className="text-base">{cor.fromFlag}</span>
-                    <span className="text-[12px] text-gray-400">→</span>
-                    <span className="text-base">{cor.toFlag}</span>
-                    <span className="text-[13px] font-medium text-gray-800 dark:text-gray-200">{cor.from} → {cor.to}</span>
-                  </div>
-                  <span className="text-[12px] font-medium text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded">{cor.currency}</span>
-                  <p className={`text-[13px] font-semibold ${hideBalance ? 'text-gray-400' : 'text-gray-900 dark:text-white'}`}>
-                    {hideBalance ? '••••••' : fmt(cor.balance, cor.currency)}
-                  </p>
-                  <p className="text-[12px] text-gray-500 dark:text-gray-400">{hideBalance ? '••••••' : fmt(cor.dailyVolume, cor.currency)}</p>
-                  <div className="pr-4">
-                    <div className="flex justify-between mb-1">
-                      <span className="text-[10px] text-gray-400">{cor.utilizationPct}%</span>
-                    </div>
-                    <div className="h-1.5 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
-                      <div className={`h-full rounded-full ${sc.bar}`} style={{ width: `${cor.utilizationPct}%` }} />
-                    </div>
-                  </div>
-                  <span className={`text-[11px] font-medium px-2 py-0.5 rounded w-fit ${sc.classes}`}>{sc.label}</span>
-                </div>
-
-                {/* mobile */}
-                <div className="sm:hidden px-4 py-3">
-                  <div className="flex items-center justify-between mb-1.5">
-                    <div className="flex items-center gap-1.5">
-                      <span>{cor.fromFlag}</span><span className="text-gray-400 text-[11px]">→</span><span>{cor.toFlag}</span>
-                      <span className="text-[13px] font-medium text-gray-800 dark:text-gray-200">{cor.from} → {cor.to}</span>
-                    </div>
-                    <span className={`text-[11px] font-medium px-2 py-0.5 rounded ${sc.classes}`}>{sc.label}</span>
-                  </div>
-                  <div className="flex items-center justify-between mb-1">
-                    <p className="text-[12px] font-semibold text-gray-900 dark:text-white">{hideBalance ? '••••••' : fmt(cor.balance, cor.currency)} {cor.currency}</p>
-                    <p className="text-[11px] text-gray-400">{cor.utilizationPct}% used</p>
-                  </div>
-                  <div className="h-1.5 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
-                    <div className={`h-full rounded-full ${sc.bar}`} style={{ width: `${cor.utilizationPct}%` }} />
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+      {/* recent activity */}
+      <RecentActivity />
     </div>
   );
 }
