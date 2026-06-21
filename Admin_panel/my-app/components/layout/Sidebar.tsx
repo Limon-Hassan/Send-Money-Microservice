@@ -67,6 +67,7 @@ const nav: NavGroup[] = [
           { href: "/customers/transactions", label: "Transaction History" },
           { href: "/customers/documents", label: "Documents" },
           { href: "/customers/notes", label: "Notes" },
+          { href: "/customers/blacklist", label: "Blacklist" }, // new added
         ],
       },
       {
@@ -128,13 +129,12 @@ const nav: NavGroup[] = [
         icon: ShoppingBag,
         sub: [
           { href: "/cash-pickup", label: "Dashboard" },
-          { href: "/cash-pickup/all", label: "All Requests" },
+          { href: "/cash-pickup/all-requests", label: "All Requests" },
           { href: "/cash-pickup/add", label: "Add New Request" },
           { href: "/cash-pickup/pending", label: "Pending Requests" },
           { href: "/cash-pickup/approved", label: "Approved Requests" },
           { href: "/cash-pickup/completed", label: "Completed Requests" },
           { href: "/cash-pickup/cancelled", label: "Cancelled Requests" },
-          { href: "/cash-pickup/agents", label: "Agents" },
         ],
       },
       {
@@ -144,7 +144,6 @@ const nav: NavGroup[] = [
           { href: "/management", label: "Overview" },
           { href: "/management/countries", label: "Countries & Corridors" },
           { href: "/management/agents", label: "Agents & Branches" },
-          { href: "/management/rates", label: "Exchange Rates" },
           { href: "/management/fees", label: "Fees & Charges" },
         ],
       },

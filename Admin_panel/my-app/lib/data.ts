@@ -5691,3 +5691,1535 @@ export const paymentStatusOptions = ['All Status', 'Active', 'Inactive'];
 
 export const PAYMENT_TOTAL = 86;
 export const PAYMENT_PAGE_SIZE = 8;
+
+// cash pickup fake data
+
+// ============ CASH PICKUP — DASHBOARD ============
+export type CashPickupStatus = 'Pending' | 'Approved' | 'Completed' | 'Cancelled';
+
+export interface CashPickupRequest {
+  id: string;
+  senderName: string;
+  recipientName: string;
+  country: string;
+  countryFlag: string;
+  city: string;
+  mobile: string;
+  amount: number;
+  currency: string;
+  pickupDate: string;
+  agentName: string;
+  status: CashPickupStatus;
+}
+
+export interface ActivityFeedItem {
+  id: string;
+  type: 'created' | 'approved' | 'completed' | 'cancelled';
+  title: string;
+  subtitle: string;
+  timeAgo: string;
+}
+
+export interface TopAgentThisWeek {
+  name: string;
+  initials: string;
+  requests: number;
+  barPct: number;
+}
+
+// ── Dashboard summary stats (with sparkline series) ──
+export const cashPickupDashboardStats = {
+  dateRangeLabel: 'May 6 - May 12, 2025',
+  totalRequests: 1248, totalChangePct: 12.5,
+  pendingRequests: 286, pendingChangePct: 8.3,
+  approvedRequests: 452, approvedChangePct: 15.7,
+  completedRequests: 428, completedChangePct: 10.2,
+  cancelledRequests: 82, cancelledChangePct: 5.2,
+};
+
+export const cashPickupSparklines = {
+  total: [1020, 1055, 1040, 1090, 1110, 1130, 1160, 1180, 1205, 1248],
+  pending: [240, 255, 248, 260, 270, 265, 275, 280, 278, 286],
+  approved: [360, 375, 368, 390, 400, 410, 420, 435, 440, 452],
+  completed: [340, 350, 348, 365, 375, 385, 395, 405, 415, 428],
+  cancelled: [70, 72, 75, 73, 78, 76, 80, 78, 81, 82],
+};
+
+// ── Request Summary donut (right sidebar top) ──
+export const requestSummaryDonut = [
+  { label: 'Pending', value: 286, pct: 22.9, color: '#f59e0b' },
+  { label: 'Approved', value: 452, pct: 36.2, color: '#16a34a' },
+  { label: 'Completed', value: 428, pct: 34.3, color: '#7c3aed' },
+  { label: 'Cancelled', value: 82, pct: 6.6, color: '#ef4444' },
+];
+export const requestSummaryTotal = 1248;
+
+// ── Today's Activity feed ──
+export const todaysActivity: ActivityFeedItem[] = [
+  { id: 'ACT-001', type: 'created', title: 'New Request', subtitle: 'TXN-2505124789 created', timeAgo: '2 min ago' },
+  { id: 'ACT-002', type: 'approved', title: 'Request Approved', subtitle: 'TXN-2505124788 approved', timeAgo: '10 min ago' },
+  { id: 'ACT-003', type: 'completed', title: 'Request Completed', subtitle: 'TXN-2505124787 completed', timeAgo: '25 min ago' },
+  { id: 'ACT-004', type: 'cancelled', title: 'Request Cancelled', subtitle: 'TXN-2505124784 cancelled', timeAgo: '1 hour ago' },
+];
+
+// ── Top Agents (This Week) — shown on dashboard widget only ──
+export const topAgentsThisWeek: TopAgentThisWeek[] = [
+  { name: 'Abul Hasan', initials: 'AH', requests: 128, barPct: 100 },
+  { name: 'Kamal Hossain', initials: 'KH', requests: 96, barPct: 75 },
+  { name: 'Juan Dela Cruz', initials: 'JD', requests: 74, barPct: 58 },
+  { name: 'Amit Kumar', initials: 'AK', requests: 58, barPct: 45 },
+  { name: 'Rashed Alom', initials: 'RA', requests: 42, barPct: 33 },
+];
+
+// ── Requests Overview (weekly line chart) ──
+export const requestsOverviewWeekly = {
+  labels: ['May 6', 'May 7', 'May 8', 'May 9', 'May 10', 'May 11', 'May 12'],
+  values: [180, 205, 195, 230, 215, 260, 286],
+  changePct: 12.5,
+};
+
+// ── Requests by Country (donut) ──
+export const requestsByCountry = [
+  { country: 'Bangladesh', value: 680, pct: 54.5, color: '#16a34a' },
+  { country: 'Philippines', value: 220, pct: 17.6, color: '#3b82f6' },
+  { country: 'India', value: 180, pct: 14.4, color: '#f59e0b' },
+  { country: 'UAE', value: 96, pct: 7.7, color: '#7c3aed' },
+  { country: 'Others', value: 72, pct: 5.8, color: '#ec4899' },
+];
+export const requestsByCountryTotal = 1248;
+
+// ── Requests by Status (bar chart) ──
+export const requestsByStatus = {
+  labels: ['Pending', 'Approved', 'Completed', 'Cancelled'],
+  values: [286, 452, 428, 82],
+  colors: ['#f59e0b', '#16a34a', '#16a34a', '#ef4444'],
+};
+
+// ── Recent Pickup Requests (table) ──
+export const recentPickupRequests: CashPickupRequest[] = [
+  {
+    id: 'TXN-2505124789', senderName: 'John Doe', recipientName: 'Rahim Uddin',
+    country: 'Bangladesh', countryFlag: '🇧🇩', city: 'Dhaka', mobile: '+880 1712 345678',
+    amount: 25000.00, currency: 'BDT', pickupDate: 'May 12, 2025', agentName: 'Abul Hasan', status: 'Pending',
+  },
+  {
+    id: 'TXN-2505124788', senderName: 'Ahmed Khan', recipientName: 'Maria Santos',
+    country: 'Philippines', countryFlag: '🇵🇭', city: 'Manila', mobile: '+63 917 123 4567',
+    amount: 15000.00, currency: 'PHP', pickupDate: 'May 12, 2025', agentName: 'Juan Dela Cruz', status: 'Approved',
+  },
+  {
+    id: 'TXN-2505124787', senderName: 'Rashid Ahmed', recipientName: 'Sabbir Hossain',
+    country: 'Bangladesh', countryFlag: '🇧🇩', city: 'Chittagong', mobile: '+880 1812 345679',
+    amount: 30000.00, currency: 'BDT', pickupDate: 'May 12, 2025', agentName: 'Kamal Hossain', status: 'Completed',
+  },
+  {
+    id: 'TXN-2505124786', senderName: 'Imran Hossain', recipientName: 'Mohammad Ali',
+    country: 'India', countryFlag: '🇮🇳', city: 'Kolkata', mobile: '+91 98765 43210',
+    amount: 12500.00, currency: 'INR', pickupDate: 'May 11, 2025', agentName: 'Amit Kumar', status: 'Completed',
+  },
+  {
+    id: 'TXN-2505124785', senderName: 'Fatima Ali', recipientName: 'Arif Khan',
+    country: 'Bangladesh', countryFlag: '🇧🇩', city: 'Sylhet', mobile: '+880 1912 345680',
+    amount: 18000.00, currency: 'BDT', pickupDate: 'May 11, 2025', agentName: 'Abul Hasan', status: 'Pending',
+  },
+  {
+    id: 'TXN-2505124784', senderName: 'David Wilson', recipientName: 'Nusrat Jahan',
+    country: 'Bangladesh', countryFlag: '🇧🇩', city: 'Rajshahi', mobile: '+880 1612 345681',
+    amount: 22000.00, currency: 'BDT', pickupDate: 'May 10, 2025', agentName: 'Kamal Hossain', status: 'Cancelled',
+  },
+  {
+    id: 'TXN-2505124783', senderName: 'Sophia Martin', recipientName: 'Tanvir Hasan',
+    country: 'Bangladesh', countryFlag: '🇧🇩', city: 'Barishal', mobile: '+880 1512 345682',
+    amount: 28000.00, currency: 'BDT', pickupDate: 'May 10, 2025', agentName: 'Abul Hasan', status: 'Approved',
+  },
+  {
+    id: 'TXN-2505124782', senderName: 'James Okafor', recipientName: 'Ibrahim Khalil',
+    country: 'UAE', countryFlag: '🇦🇪', city: 'Dubai', mobile: '+971 50 123 4567',
+    amount: 1200.00, currency: 'AED', pickupDate: 'May 9, 2025', agentName: 'Rashed Alom', status: 'Completed',
+  },
+];
+
+export const cashPickupCountryOptions = ['All Countries', 'Bangladesh', 'Philippines', 'India', 'UAE'];
+export const cashPickupStatusOptions = ['All Status', 'Pending', 'Approved', 'Completed', 'Cancelled'];
+export const cashPickupAgentOptions = ['All Agents', 'Abul Hasan', 'Kamal Hossain', 'Juan Dela Cruz', 'Amit Kumar', 'Rashed Alom'];
+
+export const CASH_PICKUP_TOTAL = 1248;
+export const CASH_PICKUP_PAGE_SIZE = 8;
+
+
+// cash pickup all requests data =>
+
+// ============ CASH PICKUP — ALL REQUESTS ============
+
+export const allPickupRequests: CashPickupRequest[] = [
+  ...recentPickupRequests,
+  {
+    id: 'TXN-2505124781', senderName: 'Karim Hassan', recipientName: 'Rubel Hossain',
+    country: 'Bangladesh', countryFlag: '🇧🇩', city: 'Khulna', mobile: '+880 1711 234567',
+    amount: 16500.00, currency: 'BDT', pickupDate: 'May 9, 2025', agentName: 'Kamal Hossain', status: 'Completed',
+  },
+  {
+    id: 'TXN-2505124780', senderName: 'Nadia Islam', recipientName: 'Selim Ahmed',
+    country: 'Bangladesh', countryFlag: '🇧🇩', city: 'Dhaka', mobile: '+880 1811 234567',
+    amount: 9800.00, currency: 'BDT', pickupDate: 'May 9, 2025', agentName: 'Abul Hasan', status: 'Pending',
+  },
+  {
+    id: 'TXN-2505124779', senderName: 'Liza Fernandez', recipientName: 'Carlos Reyes',
+    country: 'Philippines', countryFlag: '🇵🇭', city: 'Cebu', mobile: '+63 918 234 5678',
+    amount: 8200.00, currency: 'PHP', pickupDate: 'May 8, 2025', agentName: 'Juan Dela Cruz', status: 'Approved',
+  },
+  {
+    id: 'TXN-2505124778', senderName: 'Rajesh Mehta', recipientName: 'Sunita Sharma',
+    country: 'India', countryFlag: '🇮🇳', city: 'Mumbai', mobile: '+91 98123 45678',
+    amount: 21000.00, currency: 'INR', pickupDate: 'May 8, 2025', agentName: 'Amit Kumar', status: 'Completed',
+  },
+  {
+    id: 'TXN-2505124777', senderName: 'Mohammed Al-Rashid', recipientName: 'Hassan Al-Maktoum',
+    country: 'UAE', countryFlag: '🇦🇪', city: 'Abu Dhabi', mobile: '+971 52 234 5678',
+    amount: 2400.00, currency: 'AED', pickupDate: 'May 7, 2025', agentName: 'Rashed Alom', status: 'Cancelled',
+  },
+  {
+    id: 'TXN-2505124776', senderName: 'Sumon Mia', recipientName: 'Roksana Begum',
+    country: 'Bangladesh', countryFlag: '🇧🇩', city: 'Comilla', mobile: '+880 1911 234567',
+    amount: 14200.00, currency: 'BDT', pickupDate: 'May 7, 2025', agentName: 'Kamal Hossain', status: 'Pending',
+  },
+  {
+    id: 'TXN-2505124775', senderName: 'Maria Lopez', recipientName: 'Jose Santos',
+    country: 'Philippines', countryFlag: '🇵🇭', city: 'Davao', mobile: '+63 920 345 6789',
+    amount: 11500.00, currency: 'PHP', pickupDate: 'May 6, 2025', agentName: 'Juan Dela Cruz', status: 'Completed',
+  },
+  {
+    id: 'TXN-2505124774', senderName: 'Priya Patel', recipientName: 'Ramesh Gupta',
+    country: 'India', countryFlag: '🇮🇳', city: 'Delhi', mobile: '+91 99887 65432',
+    amount: 17800.00, currency: 'INR', pickupDate: 'May 6, 2025', agentName: 'Amit Kumar', status: 'Approved',
+  },
+  {
+    id: 'TXN-2505124773', senderName: 'Ibrahim Khalil', recipientName: 'Omar Sheikh',
+    country: 'UAE', countryFlag: '🇦🇪', city: 'Sharjah', mobile: '+971 56 345 6789',
+    amount: 3200.00, currency: 'AED', pickupDate: 'May 5, 2025', agentName: 'Rashed Alom', status: 'Completed',
+  },
+  {
+    id: 'TXN-2505124772', senderName: 'Habibur Rahman', recipientName: 'Jamal Uddin',
+    country: 'Bangladesh', countryFlag: '🇧🇩', city: 'Rangpur', mobile: '+880 1612 345678',
+    amount: 19500.00, currency: 'BDT', pickupDate: 'May 5, 2025', agentName: 'Abul Hasan', status: 'Pending',
+  },
+  {
+    id: 'TXN-2505124771', senderName: 'Anita Cruz', recipientName: 'Mark Villanueva',
+    country: 'Philippines', countryFlag: '🇵🇭', city: 'Quezon City', mobile: '+63 917 456 7890',
+    amount: 6700.00, currency: 'PHP', pickupDate: 'May 4, 2025', agentName: 'Juan Dela Cruz', status: 'Cancelled',
+  },
+  {
+    id: 'TXN-2505124770', senderName: 'Vikram Singh', recipientName: 'Anjali Verma',
+    country: 'India', countryFlag: '🇮🇳', city: 'Bangalore', mobile: '+91 90123 45678',
+    amount: 24500.00, currency: 'INR', pickupDate: 'May 4, 2025', agentName: 'Amit Kumar', status: 'Approved',
+  },
+];
+
+export const ALL_REQUESTS_TOTAL = 1248;
+export const ALL_REQUESTS_PAGE_SIZE = 10;
+
+
+// cash pickup pending requests 
+
+// ============ CASH PICKUP — PENDING REQUESTS ============
+export type PendingPriority = 'High' | 'Normal';
+
+export interface PendingPickupRequest extends CashPickupRequest {
+  submittedAt: string;
+  waitingMins: number;
+  priority: PendingPriority;
+}
+
+// Pending-status requests with SLA tracking fields for the Pending Requests page.
+export const pendingPickupRequests: PendingPickupRequest[] = [
+  {
+    id: 'TXN-2505124789', senderName: 'John Doe', recipientName: 'Rahim Uddin',
+    country: 'Bangladesh', countryFlag: '🇧🇩', city: 'Dhaka', mobile: '+880 1712 345678',
+    amount: 25000.00, currency: 'BDT', pickupDate: 'May 12, 2025', agentName: 'Abul Hasan', status: 'Pending',
+    submittedAt: '2025-05-12T14:02:00', waitingMins: 28, priority: 'Normal',
+  },
+  {
+    id: 'TXN-2505124785', senderName: 'Fatima Ali', recipientName: 'Arif Khan',
+    country: 'Bangladesh', countryFlag: '🇧🇩', city: 'Sylhet', mobile: '+880 1912 345680',
+    amount: 18000.00, currency: 'BDT', pickupDate: 'May 11, 2025', agentName: 'Abul Hasan', status: 'Pending',
+    submittedAt: '2025-05-12T11:40:00', waitingMins: 110, priority: 'Normal',
+  },
+  {
+    id: 'TXN-2505124780', senderName: 'Nadia Islam', recipientName: 'Selim Ahmed',
+    country: 'Bangladesh', countryFlag: '🇧🇩', city: 'Dhaka', mobile: '+880 1811 234567',
+    amount: 9800.00, currency: 'BDT', pickupDate: 'May 9, 2025', agentName: 'Abul Hasan', status: 'Pending',
+    submittedAt: '2025-05-12T12:55:00', waitingMins: 55, priority: 'Normal',
+  },
+  {
+    id: 'TXN-2505124776', senderName: 'Sumon Mia', recipientName: 'Roksana Begum',
+    country: 'Bangladesh', countryFlag: '🇧🇩', city: 'Comilla', mobile: '+880 1911 234567',
+    amount: 14200.00, currency: 'BDT', pickupDate: 'May 7, 2025', agentName: 'Kamal Hossain', status: 'Pending',
+    submittedAt: '2025-05-12T10:10:00', waitingMins: 220, priority: 'High',
+  },
+  {
+    id: 'TXN-2505124772', senderName: 'Habibur Rahman', recipientName: 'Jamal Uddin',
+    country: 'Bangladesh', countryFlag: '🇧🇩', city: 'Rangpur', mobile: '+880 1612 345678',
+    amount: 19500.00, currency: 'BDT', pickupDate: 'May 5, 2025', agentName: 'Abul Hasan', status: 'Pending',
+    submittedAt: '2025-05-12T13:30:00', waitingMins: 40, priority: 'Normal',
+  },
+  {
+    id: 'TXN-2505124762', senderName: 'Tariq Mahmud', recipientName: 'Ayesha Tariq',
+    country: 'Bangladesh', countryFlag: '🇧🇩', city: 'Dhaka', mobile: '+880 1511 234567',
+    amount: 32500.00, currency: 'BDT', pickupDate: 'May 12, 2025', agentName: 'Kamal Hossain', status: 'Pending',
+    submittedAt: '2025-05-12T08:15:00', waitingMins: 315, priority: 'High',
+  },
+  {
+    id: 'TXN-2505124758', senderName: 'Meera Pillai', recipientName: 'Vikram Singh',
+    country: 'India', countryFlag: '🇮🇳', city: 'Bangalore', mobile: '+91 90123 98765',
+    amount: 28800.00, currency: 'INR', pickupDate: 'May 12, 2025', agentName: 'Amit Kumar', status: 'Pending',
+    submittedAt: '2025-05-12T13:55:00', waitingMins: 15, priority: 'Normal',
+  },
+];
+
+export const pendingStatsCashPickup = {
+  totalPending: 286,
+  highPriority: 18,
+  avgWaitMins: 64,
+  oldestWaitMins: 315,
+};
+
+
+// ============ CASH PICKUP — APPROVED REQUESTS ============
+export interface ApprovedPickupRequest extends CashPickupRequest {
+  approvedBy: string;
+  approvedAt: string;
+  scheduledPickupDate: string;
+}
+
+export const approvedPickupRequests: ApprovedPickupRequest[] = [
+  {
+    id: 'TXN-2505124788', senderName: 'Ahmed Khan', recipientName: 'Maria Santos',
+    country: 'Philippines', countryFlag: '🇵🇭', city: 'Manila', mobile: '+63 917 123 4567',
+    amount: 15000.00, currency: 'PHP', pickupDate: 'May 12, 2025', agentName: 'Juan Dela Cruz', status: 'Approved',
+    approvedBy: 'Sarah Johnson', approvedAt: '2025-05-12T10:15:00', scheduledPickupDate: 'May 13, 2025',
+  },
+  {
+    id: 'TXN-2505124783', senderName: 'Sophia Martin', recipientName: 'Tanvir Hasan',
+    country: 'Bangladesh', countryFlag: '🇧🇩', city: 'Barishal', mobile: '+880 1512 345682',
+    amount: 28000.00, currency: 'BDT', pickupDate: 'May 10, 2025', agentName: 'Abul Hasan', status: 'Approved',
+    approvedBy: 'Ahmed Khan', approvedAt: '2025-05-11T09:30:00', scheduledPickupDate: 'May 12, 2025',
+  },
+  {
+    id: 'TXN-2505124779', senderName: 'Liza Fernandez', recipientName: 'Carlos Reyes',
+    country: 'Philippines', countryFlag: '🇵🇭', city: 'Cebu', mobile: '+63 918 234 5678',
+    amount: 8200.00, currency: 'PHP', pickupDate: 'May 8, 2025', agentName: 'Juan Dela Cruz', status: 'Approved',
+    approvedBy: 'Sarah Johnson', approvedAt: '2025-05-08T14:05:00', scheduledPickupDate: 'May 9, 2025',
+  },
+  {
+    id: 'TXN-2505124774', senderName: 'Priya Patel', recipientName: 'Ramesh Gupta',
+    country: 'India', countryFlag: '🇮🇳', city: 'Delhi', mobile: '+91 99887 65432',
+    amount: 17800.00, currency: 'INR', pickupDate: 'May 6, 2025', agentName: 'Amit Kumar', status: 'Approved',
+    approvedBy: 'Imran Hossain', approvedAt: '2025-05-06T11:20:00', scheduledPickupDate: 'May 7, 2025',
+  },
+  {
+    id: 'TXN-2505124770', senderName: 'Vikram Singh', recipientName: 'Anjali Verma',
+    country: 'India', countryFlag: '🇮🇳', city: 'Bangalore', mobile: '+91 90123 45678',
+    amount: 24500.00, currency: 'INR', pickupDate: 'May 4, 2025', agentName: 'Amit Kumar', status: 'Approved',
+    approvedBy: 'Sarah Johnson', approvedAt: '2025-05-04T16:40:00', scheduledPickupDate: 'May 5, 2025',
+  },
+];
+
+export const approvedStatsCashPickup = {
+  totalApproved: 452,
+  scheduledToday: 38,
+  awaitingPickup: 64,
+  avgApprovalMins: 22,
+};
+
+
+
+// ============ CASH PICKUP — COMPLETED REQUESTS ============
+export interface CompletedPickupRequest extends CashPickupRequest {
+  completedAt: string;
+  receiptId: string;
+  collectedBy: string;
+}
+
+export const completedPickupRequests: CompletedPickupRequest[] = [
+  {
+    id: 'TXN-2505124787', senderName: 'Rashid Ahmed', recipientName: 'Sabbir Hossain',
+    country: 'Bangladesh', countryFlag: '🇧🇩', city: 'Chittagong', mobile: '+880 1812 345679',
+    amount: 30000.00, currency: 'BDT', pickupDate: 'May 12, 2025', agentName: 'Kamal Hossain', status: 'Completed',
+    completedAt: '2025-05-12T11:05:00', receiptId: 'RCP-2505124787', collectedBy: 'Sabbir Hossain',
+  },
+  {
+    id: 'TXN-2505124786', senderName: 'Imran Hossain', recipientName: 'Mohammad Ali',
+    country: 'India', countryFlag: '🇮🇳', city: 'Kolkata', mobile: '+91 98765 43210',
+    amount: 12500.00, currency: 'INR', pickupDate: 'May 11, 2025', agentName: 'Amit Kumar', status: 'Completed',
+    completedAt: '2025-05-11T15:30:00', receiptId: 'RCP-2505124786', collectedBy: 'Mohammad Ali',
+  },
+  {
+    id: 'TXN-2505124782', senderName: 'James Okafor', recipientName: 'Ibrahim Khalil',
+    country: 'UAE', countryFlag: '🇦🇪', city: 'Dubai', mobile: '+971 50 123 4567',
+    amount: 1200.00, currency: 'AED', pickupDate: 'May 9, 2025', agentName: 'Rashed Alom', status: 'Completed',
+    completedAt: '2025-05-09T13:45:00', receiptId: 'RCP-2505124782', collectedBy: 'Ibrahim Khalil',
+  },
+  {
+    id: 'TXN-2505124781', senderName: 'Karim Hassan', recipientName: 'Rubel Hossain',
+    country: 'Bangladesh', countryFlag: '🇧🇩', city: 'Khulna', mobile: '+880 1711 234567',
+    amount: 16500.00, currency: 'BDT', pickupDate: 'May 9, 2025', agentName: 'Kamal Hossain', status: 'Completed',
+    completedAt: '2025-05-09T10:20:00', receiptId: 'RCP-2505124781', collectedBy: 'Rubel Hossain',
+  },
+  {
+    id: 'TXN-2505124775', senderName: 'Maria Lopez', recipientName: 'Jose Santos',
+    country: 'Philippines', countryFlag: '🇵🇭', city: 'Davao', mobile: '+63 920 345 6789',
+    amount: 11500.00, currency: 'PHP', pickupDate: 'May 6, 2025', agentName: 'Juan Dela Cruz', status: 'Completed',
+    completedAt: '2025-05-06T17:10:00', receiptId: 'RCP-2505124775', collectedBy: 'Jose Santos',
+  },
+  {
+    id: 'TXN-2505124773', senderName: 'Ibrahim Khalil', recipientName: 'Omar Sheikh',
+    country: 'UAE', countryFlag: '🇦🇪', city: 'Sharjah', mobile: '+971 56 345 6789',
+    amount: 3200.00, currency: 'AED', pickupDate: 'May 5, 2025', agentName: 'Rashed Alom', status: 'Completed',
+    completedAt: '2025-05-05T12:00:00', receiptId: 'RCP-2505124773', collectedBy: 'Omar Sheikh',
+  },
+];
+
+export const completedStatsCashPickup = {
+  totalCompleted: 428,
+  totalVolumeBDT: 5860400,
+  avgCompletionMins: 18,
+  successRatePct: 98.4,
+};
+
+
+
+// ============ CASH PICKUP — CANCELLED REQUESTS ============
+export type CancelReason =
+  | 'Customer Request' | 'KYC Failed' | 'Duplicate Request'
+  | 'Incorrect Details' | 'Fraud Suspected' | 'Agent Unavailable';
+
+export type PickupRefundStatus = 'Not Applicable' | 'Pending' | 'Refunded';
+
+export interface CancelledPickupRequest extends CashPickupRequest {
+  cancelledBy: string;
+  cancelledAt: string;
+  cancelReason: CancelReason;
+  refundStatus: PickupRefundStatus;
+}
+
+export const cancelledPickupRequests: CancelledPickupRequest[] = [
+  {
+    id: 'TXN-2505124784', senderName: 'David Wilson', recipientName: 'Nusrat Jahan',
+    country: 'Bangladesh', countryFlag: '🇧🇩', city: 'Rajshahi', mobile: '+880 1612 345681',
+    amount: 22000.00, currency: 'BDT', pickupDate: 'May 10, 2025', agentName: 'Kamal Hossain', status: 'Cancelled',
+    cancelledBy: 'Sarah Johnson', cancelledAt: '2025-05-10T14:20:00', cancelReason: 'KYC Failed', refundStatus: 'Refunded',
+  },
+  {
+    id: 'TXN-2505124777', senderName: 'Mohammed Al-Rashid', recipientName: 'Hassan Al-Maktoum',
+    country: 'UAE', countryFlag: '🇦🇪', city: 'Abu Dhabi', mobile: '+971 52 234 5678',
+    amount: 2400.00, currency: 'AED', pickupDate: 'May 7, 2025', agentName: 'Rashed Alom', status: 'Cancelled',
+    cancelledBy: 'Imran Hossain', cancelledAt: '2025-05-07T11:35:00', cancelReason: 'Fraud Suspected', refundStatus: 'Pending',
+  },
+  {
+    id: 'TXN-2505124771', senderName: 'Anita Cruz', recipientName: 'Mark Villanueva',
+    country: 'Philippines', countryFlag: '🇵🇭', city: 'Quezon City', mobile: '+63 917 456 7890',
+    amount: 6700.00, currency: 'PHP', pickupDate: 'May 4, 2025', agentName: 'Juan Dela Cruz', status: 'Cancelled',
+    cancelledBy: 'Customer', cancelledAt: '2025-05-04T09:50:00', cancelReason: 'Customer Request', refundStatus: 'Refunded',
+  },
+  {
+    id: 'TXN-2505124768', senderName: 'Hina Qureshi', recipientName: 'Babul Akter',
+    country: 'Bangladesh', countryFlag: '🇧🇩', city: 'Sylhet', mobile: '+880 1811 666555',
+    amount: 18900.00, currency: 'BDT', pickupDate: 'May 3, 2025', agentName: 'Abul Hasan', status: 'Cancelled',
+    cancelledBy: 'Sarah Johnson', cancelledAt: '2025-05-03T16:05:00', cancelReason: 'Duplicate Request', refundStatus: 'Refunded',
+  },
+  {
+    id: 'TXN-2505124759', senderName: 'Robert Kim', recipientName: 'Arifa Khatun',
+    country: 'Bangladesh', countryFlag: '🇧🇩', city: 'Dhaka', mobile: '+880 1511 555444',
+    amount: 8400.00, currency: 'BDT', pickupDate: 'May 1, 2025', agentName: 'Kamal Hossain', status: 'Cancelled',
+    cancelledBy: 'Ahmed Khan', cancelledAt: '2025-05-01T10:15:00', cancelReason: 'Incorrect Details', refundStatus: 'Refunded',
+  },
+  {
+    id: 'TXN-2505124751', senderName: 'Tomás García', recipientName: 'Nasim Uddin',
+    country: 'Bangladesh', countryFlag: '🇧🇩', city: 'Dhaka', mobile: '+880 1511 444333',
+    amount: 51200.00, currency: 'BDT', pickupDate: 'Apr 28, 2025', agentName: 'Abul Hasan', status: 'Cancelled',
+    cancelledBy: 'System', cancelledAt: '2025-04-28T19:40:00', cancelReason: 'Agent Unavailable', refundStatus: 'Pending',
+  },
+];
+
+export const cancelledStatsCashPickup = {
+  totalCancelled: 82,
+  cancellationRatePct: 6.6,
+  topReason: 'KYC Failed',
+  refundsPending: 14,
+};
+
+export const cancelReasonOptions: CancelReason[] = [
+  'Customer Request', 'KYC Failed', 'Duplicate Request', 'Incorrect Details', 'Fraud Suspected', 'Agent Unavailable',
+];
+
+
+// management fake data 
+
+// ============ MANAGEMENT OVERVIEW ============
+export interface ManagementCategoryStat {
+  key: 'countries' | 'agents' | 'rates' | 'fees';
+  title: string;
+  icon: string;
+  iconBg: string;
+  value: number;
+  subLabel: string;
+  status: 'Active' | 'Inactive';
+  metricA: { label: string; value: number };
+  metricB: { label: string; value: number };
+}
+
+export const managementCategoryStats: ManagementCategoryStat[] = [
+  {
+    key: 'countries', title: 'Countries & Corridors', icon: '🌐',
+    iconBg: 'bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400',
+    value: 45, subLabel: 'Active Countries', status: 'Active',
+    metricA: { label: 'Countries', value: 28 }, metricB: { label: 'Corridors', value: 128 },
+  },
+  {
+    key: 'agents', title: 'Agents & Branches', icon: '👥',
+    iconBg: 'bg-purple-50 dark:bg-purple-950 text-purple-600 dark:text-purple-400',
+    value: 214, subLabel: 'Active Agents', status: 'Active',
+    metricA: { label: 'Agents', value: 88 }, metricB: { label: 'Branches', value: 326 },
+  },
+  {
+    key: 'rates', title: 'Exchange Rates', icon: '💲',
+    iconBg: 'bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400',
+    value: 58, subLabel: 'Currency Pairs', status: 'Active',
+    metricA: { label: 'Auto Update', value: 12 }, metricB: { label: 'Manual Override', value: 8 },
+  },
+  {
+    key: 'fees', title: 'Fees & Charges', icon: '💳',
+    iconBg: 'bg-amber-50 dark:bg-amber-950 text-amber-600 dark:text-amber-400',
+    value: 36, subLabel: 'Active Fee Rules', status: 'Active',
+    metricA: { label: 'Corridor Fees', value: 18 }, metricB: { label: 'Promotions', value: 15 },
+  },
+];
+
+export const managementDateRangeLabel = 'May 6 - May 12, 2025';
+
+// ── Popular Corridors ──
+export const popularCorridorsManagement = [
+  { sendingCountry: 'United Kingdom', sendingFlag: '🇬🇧', receivingCountry: 'Bangladesh', receivingFlag: '🇧🇩', currencyPair: 'GBP → BDT', transactions: 12458, status: 'Active' },
+  { sendingCountry: 'United States', sendingFlag: '🇺🇸', receivingCountry: 'Bangladesh', receivingFlag: '🇧🇩', currencyPair: 'USD → BDT', transactions: 18256, status: 'Active' },
+  { sendingCountry: 'Canada', sendingFlag: '🇨🇦', receivingCountry: 'Bangladesh', receivingFlag: '🇧🇩', currencyPair: 'CAD → BDT', transactions: 2145, status: 'Active' },
+  { sendingCountry: 'Australia', sendingFlag: '🇦🇺', receivingCountry: 'Bangladesh', receivingFlag: '🇧🇩', currencyPair: 'AUD → BDT', transactions: 1987, status: 'Active' },
+  { sendingCountry: 'Malaysia', sendingFlag: '🇲🇾', receivingCountry: 'Bangladesh', receivingFlag: '🇧🇩', currencyPair: 'MYR → BDT', transactions: 1254, status: 'Active' },
+];
+
+// ── Country Distribution (by region) ──
+export const countryDistributionByRegion = [
+  { region: 'Asia', countries: 16, pct: 36 },
+  { region: 'Europe', countries: 14, pct: 31 },
+  { region: 'North America', countries: 7, pct: 16 },
+  { region: 'Oceania', countries: 4, pct: 9 },
+  { region: 'Others', countries: 4, pct: 8 },
+];
+
+// ── Country Map Points (for the interactive world distribution map) ──
+// x,y are positioned on a 1000x500 stylized world map viewBox.
+export const countryMapPoints = [
+  { name: 'United Kingdom', flag: '🇬🇧', x: 478, y: 118, transactions: 12458, region: 'Europe' },
+  { name: 'United States', flag: '🇺🇸', x: 225, y: 165, transactions: 18256, region: 'North America' },
+  { name: 'Canada', flag: '🇨🇦', x: 230, y: 95, transactions: 2145, region: 'North America' },
+  { name: 'Bangladesh', flag: '🇧🇩', x: 728, y: 228, transactions: 24580, region: 'Asia' },
+  { name: 'India', flag: '🇮🇳', x: 695, y: 232, transactions: 9840, region: 'Asia' },
+  { name: 'Pakistan', flag: '🇵🇰', x: 672, y: 212, transactions: 5230, region: 'Asia' },
+  { name: 'Malaysia', flag: '🇲🇾', x: 738, y: 282, transactions: 1254, region: 'Asia' },
+  { name: 'Philippines', flag: '🇵🇭', x: 788, y: 258, transactions: 3420, region: 'Asia' },
+  { name: 'UAE', flag: '🇦🇪', x: 618, y: 218, transactions: 4180, region: 'Asia' },
+  { name: 'Saudi Arabia', flag: '🇸🇦', x: 598, y: 212, transactions: 2860, region: 'Asia' },
+  { name: 'Nigeria', flag: '🇳🇬', x: 498, y: 278, transactions: 1620, region: 'Others' },
+  { name: 'Australia', flag: '🇦🇺', x: 828, y: 388, transactions: 1987, region: 'Oceania' },
+];
+
+// ── Top Agents (By Transactions) ──
+export const topAgentsManagement = [
+  { agentName: 'BRAC Bank', transactions: 12458, volume: 245680, volumeCurrency: '£' },
+  { agentName: 'Eastern Bank Ltd.', transactions: 9254, volume: 185420, volumeCurrency: '£' },
+  { agentName: 'Islami Bank', transactions: 6985, volume: 125780, volumeCurrency: '£' },
+  { agentName: 'City Bank', transactions: 5421, volume: 98450, volumeCurrency: '£' },
+  { agentName: 'DBBL', transactions: 4125, volume: 78650, volumeCurrency: '£' },
+];
+
+// ── Recent Exchange Rates (management widget) ──
+export const recentExchangeRatesManagement = [
+  { from: 'GBP', to: 'BDT', buyRate: 165.2500, sellRate: 165.9500, updated: '2 min ago' },
+  { from: 'USD', to: 'BDT', buyRate: 122.2500, sellRate: 122.8500, updated: '2 min ago' },
+  { from: 'EUR', to: 'BDT', buyRate: 134.5500, sellRate: 135.1800, updated: '2 min ago' },
+  { from: 'CAD', to: 'BDT', buyRate: 88.1200, sellRate: 88.5200, updated: '5 min ago' },
+  { from: 'AUD', to: 'BDT', buyRate: 79.8500, sellRate: 80.2500, updated: '5 min ago' },
+];
+
+// ── Active Fees (management widget) ──
+export const activeFeesManagement = [
+  { corridor: 'UK → Bangladesh', feeType: 'Fixed', charge: '£3.00' },
+  { corridor: 'UK → Bangladesh', feeType: '%', charge: '1.50%' },
+  { corridor: 'USA → Bangladesh', feeType: 'Fixed', charge: '$2.99' },
+  { corridor: 'USA → Bangladesh', feeType: '%', charge: '1.25%' },
+  { corridor: 'Canada → Bangladesh', feeType: 'Fixed', charge: 'C$2.50' },
+];
+
+// ── Branch Status Overview ──
+export const branchStatusOverview = [
+  { status: 'Active', branches: 256, pct: 78.52, color: '#16a34a' },
+  { status: 'Inactive', branches: 48, pct: 14.72, color: '#f59e0b' },
+  { status: 'Maintenance', branches: 15, pct: 4.60, color: '#3b82f6' },
+  { status: 'Closed', branches: 7, pct: 2.15, color: '#ef4444' },
+];
+
+// ── Quick Actions (management) ──
+export const managementQuickActions = [
+  { label: 'Add Country', icon: '🌐', color: 'bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400' },
+  { label: 'Add Corridor', icon: '🔁', color: 'bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400' },
+  { label: 'Add Agent', icon: '👤', color: 'bg-purple-50 dark:bg-purple-950 text-purple-600 dark:text-purple-400' },
+  { label: 'Add Branch', icon: '🏦', color: 'bg-amber-50 dark:bg-amber-950 text-amber-600 dark:text-amber-400' },
+  { label: 'Add Exchange Rate', icon: '💲', color: 'bg-teal-50 dark:bg-teal-950 text-teal-600 dark:text-teal-400' },
+  { label: 'Add Fee Rule', icon: '🧾', color: 'bg-rose-50 dark:bg-rose-950 text-rose-600 dark:text-rose-400' },
+];
+
+// ── Permissions by Role ──
+export const permissionsByRole = [
+  { role: 'Super Admin', pct: 100, color: '#3b82f6', description: 'All Permissions' },
+  { role: 'Operations Manager', pct: 70, color: '#f59e0b', description: 'Countries, Agents, Rates' },
+  { role: 'Finance Manager', pct: 55, color: '#22c55e', description: 'Rates, Fees & Charges' },
+  { role: 'Branch Manager', pct: 35, color: '#8b5cf6', description: 'Branch Operations' },
+];
+
+// ── System Summary ──
+export const managementSystemSummary = {
+  totalUsers: 142,
+  activeUsers: 98,
+  totalRoles: 6,
+  systemStatus: 'Healthy' as const,
+};
+
+
+// ============ MANAGEMENT — COUNTRIES & CORRIDORS ============
+export type CountryStatus = 'Active' | 'Inactive';
+export type CorridorStatusMgmt = 'Active' | 'Inactive' | 'Suspended';
+
+export interface ManagedCountry {
+  id: string;
+  name: string;
+  flag: string;
+  region: 'Asia' | 'Europe' | 'North America' | 'South America' | 'Africa' | 'Oceania';
+  currency: string;
+  corridorCount: number;
+  status: CountryStatus;
+  addedOn: string;
+}
+
+export interface ManagedCorridor {
+  id: string;
+  sendingCountry: string;
+  sendingFlag: string;
+  receivingCountry: string;
+  receivingFlag: string;
+  currencyPair: string;
+  transactions: number;
+  volume: number;
+  volumeCurrency: string;
+  feeRulesCount: number;
+  status: CorridorStatusMgmt;
+}
+
+// ── Stats ──
+export const countriesCorridorsStats = {
+  totalCountries: 28,
+  activeCountries: 26,
+  totalCorridors: 128,
+  activeCorridors: 119,
+};
+
+// ── Countries ──
+export const managedCountries: ManagedCountry[] = [
+  { id: 'CTY-001', name: 'United Kingdom', flag: '🇬🇧', region: 'Europe', currency: 'GBP', corridorCount: 18, status: 'Active', addedOn: 'Jan 10, 2023' },
+  { id: 'CTY-002', name: 'United States', flag: '🇺🇸', region: 'North America', currency: 'USD', corridorCount: 22, status: 'Active', addedOn: 'Jan 10, 2023' },
+  { id: 'CTY-003', name: 'Bangladesh', flag: '🇧🇩', region: 'Asia', currency: 'BDT', corridorCount: 24, status: 'Active', addedOn: 'Jan 10, 2023' },
+  { id: 'CTY-004', name: 'Canada', flag: '🇨🇦', region: 'North America', currency: 'CAD', corridorCount: 9, status: 'Active', addedOn: 'Feb 14, 2023' },
+  { id: 'CTY-005', name: 'Australia', flag: '🇦🇺', region: 'Oceania', currency: 'AUD', corridorCount: 6, status: 'Active', addedOn: 'Mar 2, 2023' },
+  { id: 'CTY-006', name: 'Malaysia', flag: '🇲🇾', region: 'Asia', currency: 'MYR', corridorCount: 5, status: 'Active', addedOn: 'Mar 20, 2023' },
+  { id: 'CTY-007', name: 'India', flag: '🇮🇳', region: 'Asia', currency: 'INR', corridorCount: 11, status: 'Active', addedOn: 'Apr 5, 2023' },
+  { id: 'CTY-008', name: 'Pakistan', flag: '🇵🇰', region: 'Asia', currency: 'PKR', corridorCount: 8, status: 'Active', addedOn: 'Apr 18, 2023' },
+  { id: 'CTY-009', name: 'UAE', flag: '🇦🇪', region: 'Asia', currency: 'AED', corridorCount: 10, status: 'Active', addedOn: 'May 1, 2023' },
+  { id: 'CTY-010', name: 'Saudi Arabia', flag: '🇸🇦', region: 'Asia', currency: 'SAR', corridorCount: 7, status: 'Active', addedOn: 'May 22, 2023' },
+  { id: 'CTY-011', name: 'Philippines', flag: '🇵🇭', region: 'Asia', currency: 'PHP', corridorCount: 6, status: 'Active', addedOn: 'Jun 8, 2023' },
+  { id: 'CTY-012', name: 'Nigeria', flag: '🇳🇬', region: 'Africa', currency: 'NGN', corridorCount: 4, status: 'Active', addedOn: 'Jun 30, 2023' },
+  { id: 'CTY-013', name: 'Germany', flag: '🇩🇪', region: 'Europe', currency: 'EUR', corridorCount: 5, status: 'Active', addedOn: 'Jul 15, 2023' },
+  { id: 'CTY-014', name: 'France', flag: '🇫🇷', region: 'Europe', currency: 'EUR', corridorCount: 3, status: 'Inactive', addedOn: 'Aug 2, 2023' },
+  { id: 'CTY-015', name: 'Qatar', flag: '🇶🇦', region: 'Asia', currency: 'QAR', corridorCount: 2, status: 'Inactive', addedOn: 'Sep 10, 2023' },
+];
+
+// ── Corridors ──
+export const managedCorridors: ManagedCorridor[] = [
+  { id: 'COR-101', sendingCountry: 'United Kingdom', sendingFlag: '🇬🇧', receivingCountry: 'Bangladesh', receivingFlag: '🇧🇩', currencyPair: 'GBP → BDT', transactions: 12458, volume: 4256780, volumeCurrency: '£', feeRulesCount: 2, status: 'Active' },
+  { id: 'COR-102', sendingCountry: 'United States', sendingFlag: '🇺🇸', receivingCountry: 'Bangladesh', receivingFlag: '🇧🇩', currencyPair: 'USD → BDT', transactions: 18256, volume: 5856230, volumeCurrency: '$', feeRulesCount: 2, status: 'Active' },
+  { id: 'COR-103', sendingCountry: 'Canada', sendingFlag: '🇨🇦', receivingCountry: 'Bangladesh', receivingFlag: '🇧🇩', currencyPair: 'CAD → BDT', transactions: 2145, volume: 856230, volumeCurrency: 'C$', feeRulesCount: 1, status: 'Active' },
+  { id: 'COR-104', sendingCountry: 'Australia', sendingFlag: '🇦🇺', receivingCountry: 'Bangladesh', receivingFlag: '🇧🇩', currencyPair: 'AUD → BDT', transactions: 1987, volume: 685200, volumeCurrency: 'A$', feeRulesCount: 1, status: 'Active' },
+  { id: 'COR-105', sendingCountry: 'Malaysia', sendingFlag: '🇲🇾', receivingCountry: 'Bangladesh', receivingFlag: '🇧🇩', currencyPair: 'MYR → BDT', transactions: 1254, volume: 425600, volumeCurrency: 'RM', feeRulesCount: 1, status: 'Active' },
+  { id: 'COR-106', sendingCountry: 'United Kingdom', sendingFlag: '🇬🇧', receivingCountry: 'Pakistan', receivingFlag: '🇵🇰', currencyPair: 'GBP → PKR', transactions: 4180, volume: 1256400, volumeCurrency: '£', feeRulesCount: 2, status: 'Active' },
+  { id: 'COR-107', sendingCountry: 'UAE', sendingFlag: '🇦🇪', receivingCountry: 'Pakistan', receivingFlag: '🇵🇰', currencyPair: 'AED → PKR', transactions: 2856, volume: 985600, volumeCurrency: 'AED', feeRulesCount: 1, status: 'Active' },
+  { id: 'COR-108', sendingCountry: 'United Kingdom', sendingFlag: '🇬🇧', receivingCountry: 'India', receivingFlag: '🇮🇳', currencyPair: 'GBP → INR', transactions: 5230, volume: 1685400, volumeCurrency: '£', feeRulesCount: 2, status: 'Active' },
+  { id: 'COR-109', sendingCountry: 'Saudi Arabia', sendingFlag: '🇸🇦', receivingCountry: 'India', receivingFlag: '🇮🇳', currencyPair: 'SAR → INR', transactions: 2145, volume: 685200, volumeCurrency: 'SAR', feeRulesCount: 1, status: 'Active' },
+  { id: 'COR-110', sendingCountry: 'United States', sendingFlag: '🇺🇸', receivingCountry: 'Philippines', receivingFlag: '🇵🇭', currencyPair: 'USD → PHP', transactions: 3420, volume: 985600, volumeCurrency: '$', feeRulesCount: 1, status: 'Active' },
+  { id: 'COR-111', sendingCountry: 'United Kingdom', sendingFlag: '🇬🇧', receivingCountry: 'Nigeria', receivingFlag: '🇳🇬', currencyPair: 'GBP → NGN', transactions: 1620, volume: 425800, volumeCurrency: '£', feeRulesCount: 1, status: 'Suspended' },
+  { id: 'COR-112', sendingCountry: 'Germany', sendingFlag: '🇩🇪', receivingCountry: 'Bangladesh', receivingFlag: '🇧🇩', currencyPair: 'EUR → BDT', transactions: 856, volume: 285600, volumeCurrency: '€', feeRulesCount: 1, status: 'Active' },
+  { id: 'COR-113', sendingCountry: 'France', sendingFlag: '🇫🇷', receivingCountry: 'Bangladesh', receivingFlag: '🇧🇩', currencyPair: 'EUR → BDT', transactions: 320, volume: 98500, volumeCurrency: '€', feeRulesCount: 1, status: 'Inactive' },
+  { id: 'COR-114', sendingCountry: 'Qatar', sendingFlag: '🇶🇦', receivingCountry: 'Bangladesh', receivingFlag: '🇧🇩', currencyPair: 'QAR → BDT', transactions: 145, volume: 45200, volumeCurrency: 'QAR', feeRulesCount: 1, status: 'Inactive' },
+];
+
+export const regionOptions = ['All Regions', 'Asia', 'Europe', 'North America', 'South America', 'Africa', 'Oceania'];
+
+
+
+// ============ MANAGEMENT — AGENTS & BRANCHES ============
+export type ManagedAgentStatus = 'Active' | 'Inactive' | 'Suspended';
+export type ManagedBranchStatus = 'Active' | 'Inactive' | 'Maintenance' | 'Closed';
+export type BranchType = 'Main' | 'Sub Branch' | 'Partner';
+
+export interface ManagedAgent {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  branch: string;
+  country: string;
+  flag: string;
+  status: ManagedAgentStatus;
+  commissionRatePct: number;
+  totalTransactions: number;
+  volume: number;
+  volumeCurrency: string;
+  joinedDate: string;
+}
+
+export interface ManagedBranch {
+  id: string;
+  name: string;
+  code: string;
+  country: string;
+  flag: string;
+  city: string;
+  manager: string;
+  type: BranchType;
+  agentsCount: number;
+  status: ManagedBranchStatus;
+  openedDate: string;
+}
+
+// ── Stats ──
+export const agentsBranchesStats = {
+  totalAgents: 88,
+  activeAgents: 79,
+  totalBranches: 326,
+  activeBranches: 256,
+};
+
+// ── Agents ──
+export const managedAgents: ManagedAgent[] = [
+  { id: 'AGT-001', name: 'BRAC Bank', email: 'agent@bracbank.com', phone: '+880 2 9844080', branch: 'Dhanmondi Branch', country: 'Bangladesh', flag: '🇧🇩', status: 'Active', commissionRatePct: 1.2, totalTransactions: 12458, volume: 245680, volumeCurrency: '£', joinedDate: 'Jan 10, 2023' },
+  { id: 'AGT-002', name: 'Eastern Bank Ltd.', email: 'agent@ebl.com', phone: '+880 2 9883301', branch: 'Gulshan Branch', country: 'Bangladesh', flag: '🇧🇩', status: 'Active', commissionRatePct: 1.1, totalTransactions: 9254, volume: 185420, volumeCurrency: '£', joinedDate: 'Feb 14, 2023' },
+  { id: 'AGT-003', name: 'Islami Bank', email: 'agent@islamibank.com', phone: '+880 2 9560099', branch: 'Motijheel Branch', country: 'Bangladesh', flag: '🇧🇩', status: 'Active', commissionRatePct: 1.0, totalTransactions: 6985, volume: 125780, volumeCurrency: '£', joinedDate: 'Mar 2, 2023' },
+  { id: 'AGT-004', name: 'City Bank', email: 'agent@citybank.com', phone: '+880 2 9667444', branch: 'Uttara Branch', country: 'Bangladesh', flag: '🇧🇩', status: 'Active', commissionRatePct: 1.0, totalTransactions: 5421, volume: 98450, volumeCurrency: '£', joinedDate: 'Mar 20, 2023' },
+  { id: 'AGT-005', name: 'DBBL', email: 'agent@dbbl.com', phone: '+880 2 9883301', branch: 'Banani Branch', country: 'Bangladesh', flag: '🇧🇩', status: 'Active', commissionRatePct: 0.9, totalTransactions: 4125, volume: 78650, volumeCurrency: '£', joinedDate: 'Apr 5, 2023' },
+  { id: 'AGT-006', name: 'Juan Dela Cruz', email: 'juan.delacruz@agent.com', phone: '+63 917 123 4567', branch: 'Manila Branch', country: 'Philippines', flag: '🇵🇭', status: 'Active', commissionRatePct: 1.3, totalTransactions: 3845, volume: 56200, volumeCurrency: '£', joinedDate: 'Apr 18, 2023' },
+  { id: 'AGT-007', name: 'Amit Kumar', email: 'amit.kumar@agent.com', phone: '+91 98765 43210', branch: 'Mumbai Branch', country: 'India', flag: '🇮🇳', status: 'Active', commissionRatePct: 1.1, totalTransactions: 3210, volume: 48500, volumeCurrency: '£', joinedDate: 'May 1, 2023' },
+  { id: 'AGT-008', name: 'Rashed Alom', email: 'rashed.alom@agent.com', phone: '+971 50 123 4567', branch: 'Dubai Branch', country: 'UAE', flag: '🇦🇪', status: 'Active', commissionRatePct: 1.4, totalTransactions: 2856, volume: 42100, volumeCurrency: '£', joinedDate: 'May 22, 2023' },
+  { id: 'AGT-009', name: 'Kamal Hossain', email: 'kamal.hossain@agent.com', phone: '+880 1812 345679', branch: 'Chittagong Branch', country: 'Bangladesh', flag: '🇧🇩', status: 'Suspended', commissionRatePct: 1.0, totalTransactions: 1250, volume: 18600, volumeCurrency: '£', joinedDate: 'Jun 8, 2023' },
+  { id: 'AGT-010', name: 'Abul Hasan', email: 'abul.hasan@agent.com', phone: '+880 1711 234567', branch: 'Sylhet Branch', country: 'Bangladesh', flag: '🇧🇩', status: 'Active', commissionRatePct: 1.0, totalTransactions: 2845, volume: 36400, volumeCurrency: '£', joinedDate: 'Jun 30, 2023' },
+  { id: 'AGT-011', name: 'Hassan Travels Agency', email: 'contact@hassantravels.com', phone: '+966 55 123 4567', branch: 'Riyadh Branch', country: 'Saudi Arabia', flag: '🇸🇦', status: 'Inactive', commissionRatePct: 0.8, totalTransactions: 420, volume: 8200, volumeCurrency: '£', joinedDate: 'Jul 15, 2023' },
+  { id: 'AGT-012', name: 'Global Exchange Co.', email: 'info@globalexchange.com', phone: '+60 12 345 6789', branch: 'Kuala Lumpur Branch', country: 'Malaysia', flag: '🇲🇾', status: 'Active', commissionRatePct: 1.2, totalTransactions: 1654, volume: 24800, volumeCurrency: '£', joinedDate: 'Aug 2, 2023' },
+];
+
+// ── Branches ──
+export const managedBranches: ManagedBranch[] = [
+  { id: 'BRN-001', name: 'Dhanmondi Branch', code: 'DHK-001', country: 'Bangladesh', flag: '🇧🇩', city: 'Dhaka', manager: 'Nasreen Akter', type: 'Main', agentsCount: 12, status: 'Active', openedDate: 'Jan 10, 2023' },
+  { id: 'BRN-002', name: 'Gulshan Branch', code: 'DHK-002', country: 'Bangladesh', flag: '🇧🇩', city: 'Dhaka', manager: 'Tariq Mahmud', type: 'Sub Branch', agentsCount: 9, status: 'Active', openedDate: 'Feb 14, 2023' },
+  { id: 'BRN-003', name: 'Motijheel Branch', code: 'DHK-003', country: 'Bangladesh', flag: '🇧🇩', city: 'Dhaka', manager: 'Sadia Rahman', type: 'Sub Branch', agentsCount: 8, status: 'Active', openedDate: 'Mar 2, 2023' },
+  { id: 'BRN-004', name: 'Chittagong Branch', code: 'CTG-001', country: 'Bangladesh', flag: '🇧🇩', city: 'Chittagong', manager: 'Imran Khan', type: 'Main', agentsCount: 10, status: 'Active', openedDate: 'Mar 20, 2023' },
+  { id: 'BRN-005', name: 'Sylhet Branch', code: 'SYL-001', country: 'Bangladesh', flag: '🇧🇩', city: 'Sylhet', manager: 'Mitu Akter', type: 'Sub Branch', agentsCount: 6, status: 'Active', openedDate: 'Apr 5, 2023' },
+  { id: 'BRN-006', name: 'Manila Branch', code: 'MNL-001', country: 'Philippines', flag: '🇵🇭', city: 'Manila', manager: 'Maria Santos', type: 'Main', agentsCount: 7, status: 'Active', openedDate: 'Apr 18, 2023' },
+  { id: 'BRN-007', name: 'Mumbai Branch', code: 'MUM-001', country: 'India', flag: '🇮🇳', city: 'Mumbai', manager: 'Rajesh Mehta', type: 'Main', agentsCount: 8, status: 'Active', openedDate: 'May 1, 2023' },
+  { id: 'BRN-008', name: 'Dubai Branch', code: 'DXB-001', country: 'UAE', flag: '🇦🇪', city: 'Dubai', manager: 'Ibrahim Khalil', type: 'Main', agentsCount: 5, status: 'Active', openedDate: 'May 22, 2023' },
+  { id: 'BRN-009', name: 'Riyadh Branch', code: 'RUH-001', country: 'Saudi Arabia', flag: '🇸🇦', city: 'Riyadh', manager: 'Omar Sheikh', type: 'Partner', agentsCount: 3, status: 'Maintenance', openedDate: 'Jun 8, 2023' },
+  { id: 'BRN-010', name: 'Kuala Lumpur Branch', code: 'KUL-001', country: 'Malaysia', flag: '🇲🇾', city: 'Kuala Lumpur', manager: 'Siti Aisyah', type: 'Partner', agentsCount: 4, status: 'Active', openedDate: 'Jun 30, 2023' },
+  { id: 'BRN-011', name: 'Khulna Branch', code: 'KHL-001', country: 'Bangladesh', flag: '🇧🇩', city: 'Khulna', manager: 'Rubel Hossain', type: 'Sub Branch', agentsCount: 4, status: 'Inactive', openedDate: 'Jul 15, 2023' },
+  { id: 'BRN-012', name: 'Rajshahi Branch', code: 'RAJ-001', country: 'Bangladesh', flag: '🇧🇩', city: 'Rajshahi', manager: 'Nusrat Jahan', type: 'Sub Branch', agentsCount: 3, status: 'Closed', openedDate: 'Aug 2, 2023' },
+];
+
+export const agentStatusOptions = ['All Status', 'Active', 'Inactive', 'Suspended'];
+export const branchStatusOptionsManagement = ['All Status', 'Active', 'Inactive', 'Maintenance', 'Closed'];
+export const branchTypeOptions = ['Main', 'Sub Branch', 'Partner'];
+
+
+// ============ MANAGEMENT — FEES & CHARGES ============
+export type FeeRuleStatus = 'Active' | 'Inactive';
+export type FeeChargeType = 'Fixed' | 'Percentage';
+export type PromotionStatus = 'Active' | 'Scheduled' | 'Expired';
+
+export interface ManagedFeeRule {
+  id: string;
+  corridor: string;
+  sendingFlag: string;
+  receivingFlag: string;
+  chargeType: FeeChargeType;
+  amount: number;
+  currency: string;
+  minFee: number;
+  maxFee: number;
+  status: FeeRuleStatus;
+  updatedOn: string;
+}
+
+export interface ManagedPromotion {
+  id: string;
+  title: string;
+  description: string;
+  discountPct: number;
+  corridor: string;
+  startDate: string;
+  endDate: string;
+  usageCount: number;
+  usageLimit: number;
+  status: PromotionStatus;
+}
+
+// ── Stats ──
+export const feesChargesStats = {
+  totalFeeRules: 36,
+  activeFeeRules: 30,
+  corridorFees: 18,
+  promotions: 15,
+};
+
+// ── Fee Rules ──
+export const managedFeeRules: ManagedFeeRule[] = [
+  { id: 'FEE-001', corridor: 'UK → Bangladesh', sendingFlag: '🇬🇧', receivingFlag: '🇧🇩', chargeType: 'Fixed', amount: 3.00, currency: 'GBP', minFee: 3.00, maxFee: 3.00, status: 'Active', updatedOn: 'May 10, 2025' },
+  { id: 'FEE-002', corridor: 'UK → Bangladesh', sendingFlag: '🇬🇧', receivingFlag: '🇧🇩', chargeType: 'Percentage', amount: 1.50, currency: 'GBP', minFee: 1.00, maxFee: 25.00, status: 'Active', updatedOn: 'May 10, 2025' },
+  { id: 'FEE-003', corridor: 'USA → Bangladesh', sendingFlag: '🇺🇸', receivingFlag: '🇧🇩', chargeType: 'Fixed', amount: 2.99, currency: 'USD', minFee: 2.99, maxFee: 2.99, status: 'Active', updatedOn: 'May 9, 2025' },
+  { id: 'FEE-004', corridor: 'USA → Bangladesh', sendingFlag: '🇺🇸', receivingFlag: '🇧🇩', chargeType: 'Percentage', amount: 1.25, currency: 'USD', minFee: 1.00, maxFee: 20.00, status: 'Active', updatedOn: 'May 9, 2025' },
+  { id: 'FEE-005', corridor: 'Canada → Bangladesh', sendingFlag: '🇨🇦', receivingFlag: '🇧🇩', chargeType: 'Fixed', amount: 2.50, currency: 'CAD', minFee: 2.50, maxFee: 2.50, status: 'Active', updatedOn: 'May 8, 2025' },
+  { id: 'FEE-006', corridor: 'UK → Pakistan', sendingFlag: '🇬🇧', receivingFlag: '🇵🇰', chargeType: 'Fixed', amount: 3.50, currency: 'GBP', minFee: 3.50, maxFee: 3.50, status: 'Active', updatedOn: 'May 7, 2025' },
+  { id: 'FEE-007', corridor: 'UAE → Pakistan', sendingFlag: '🇦🇪', receivingFlag: '🇵🇰', chargeType: 'Percentage', amount: 1.80, currency: 'AED', minFee: 5.00, maxFee: 40.00, status: 'Active', updatedOn: 'May 6, 2025' },
+  { id: 'FEE-008', corridor: 'UK → India', sendingFlag: '🇬🇧', receivingFlag: '🇮🇳', chargeType: 'Fixed', amount: 3.20, currency: 'GBP', minFee: 3.20, maxFee: 3.20, status: 'Active', updatedOn: 'May 5, 2025' },
+  { id: 'FEE-009', corridor: 'Saudi Arabia → India', sendingFlag: '🇸🇦', receivingFlag: '🇮🇳', chargeType: 'Percentage', amount: 1.60, currency: 'SAR', minFee: 4.00, maxFee: 35.00, status: 'Active', updatedOn: 'May 4, 2025' },
+  { id: 'FEE-010', corridor: 'USA → Philippines', sendingFlag: '🇺🇸', receivingFlag: '🇵🇭', chargeType: 'Fixed', amount: 2.75, currency: 'USD', minFee: 2.75, maxFee: 2.75, status: 'Active', updatedOn: 'May 3, 2025' },
+  { id: 'FEE-011', corridor: 'UK → Nigeria', sendingFlag: '🇬🇧', receivingFlag: '🇳🇬', chargeType: 'Percentage', amount: 2.00, currency: 'GBP', minFee: 3.00, maxFee: 30.00, status: 'Inactive', updatedOn: 'Apr 28, 2025' },
+  { id: 'FEE-012', corridor: 'Germany → Bangladesh', sendingFlag: '🇩🇪', receivingFlag: '🇧🇩', chargeType: 'Fixed', amount: 3.00, currency: 'EUR', minFee: 3.00, maxFee: 3.00, status: 'Active', updatedOn: 'Apr 25, 2025' },
+];
+
+// ── Promotions ──
+export const managedPromotions: ManagedPromotion[] = [
+  { id: 'PRM-001', title: 'Eid Special — Zero Fee', description: 'Zero transfer fee for all UK to Bangladesh transfers', discountPct: 100, corridor: 'UK → Bangladesh', startDate: 'May 1, 2025', endDate: 'May 15, 2025', usageCount: 8420, usageLimit: 10000, status: 'Active' },
+  { id: 'PRM-002', title: 'New Customer Discount', description: '50% off transfer fee for first-time senders', discountPct: 50, corridor: 'All Corridors', startDate: 'Apr 1, 2025', endDate: 'Jun 30, 2025', usageCount: 1245, usageLimit: 5000, status: 'Active' },
+  { id: 'PRM-003', title: 'Weekend Cashback', discountPct: 20, description: '20% fee cashback on weekend transfers', corridor: 'USA → Bangladesh', startDate: 'May 3, 2025', endDate: 'May 31, 2025', usageCount: 856, usageLimit: 2000, status: 'Active' },
+  { id: 'PRM-004', title: 'Summer Send Bonus', description: '15% discount for transfers above £500', discountPct: 15, corridor: 'UK → India', startDate: 'Jun 1, 2025', endDate: 'Aug 31, 2025', usageCount: 0, usageLimit: 3000, status: 'Scheduled' },
+  { id: 'PRM-005', title: 'Ramadan Fee Waiver', description: 'Fee waived for all Pakistan corridors', discountPct: 100, corridor: 'UK → Pakistan', startDate: 'Feb 28, 2025', endDate: 'Mar 30, 2025', usageCount: 4280, usageLimit: 4280, status: 'Expired' },
+  { id: 'PRM-006', title: 'Loyalty Reward Tier 2', description: '10% discount for Gold tier customers', discountPct: 10, corridor: 'All Corridors', startDate: 'Jan 1, 2025', endDate: 'Dec 31, 2025', usageCount: 2150, usageLimit: 20000, status: 'Active' },
+];
+
+export const feeRuleStatusOptions = ['All Status', 'Active', 'Inactive'];
+export const promotionStatusOptions = ['All Status', 'Active', 'Scheduled', 'Expired'];
+export const feeChargeTypeOptions: FeeChargeType[] = ['Fixed', 'Percentage'];
+
+
+
+// agent data 
+
+// ============ AGENTS & PARTNERS — AGENT LIST ============
+export type PartnerAgentStatus = 'Active' | 'Pending' | 'Inactive';
+
+export interface PartnerAgent {
+  id: string;
+  code: string;
+  name: string;
+  country: string;
+  flag: string;
+  contact: string;
+  status: PartnerAgentStatus;
+  totalVolume: number;
+  transactions: number;
+  commission: number;
+}
+
+export interface TopPerformingAgent {
+  rank: number;
+  name: string;
+  code: string;
+  avatarColor: string;
+  volume: number;
+  changePct: number;
+}
+
+export interface AgentActivityItem {
+  id: string;
+  type: 'approved' | 'volume' | 'commission' | 'document' | 'branch';
+  text: string;
+  timeAgo: string;
+}
+
+// ── Header stats ──
+export const agentPartnerStats = {
+  dateRangeLabel: 'May 19, 2025 - May 19, 2025',
+  totalAgents: 245, totalAgentsChangeNote: '+18 this month',
+  activeAgents: 198, activeAgentsPctOfTotal: 80.8,
+  totalTransactions: 12540, totalTransactionsChangePct: 24.5,
+  totalVolume: 4850000, totalVolumeChangePct: 28.3,
+  totalCommission: 128450, totalCommissionChangePct: 19.6,
+};
+
+// ── Agent List table ──
+export const partnerAgents: PartnerAgent[] = [
+  { id: 'AGT-1001', code: 'AGT-1001', name: 'Rahman Global Services', country: 'Bangladesh', flag: '🇧🇩', contact: '+880 1712 345678', status: 'Active', totalVolume: 620450, transactions: 1254, commission: 15512 },
+  { id: 'AGT-1002', code: 'AGT-1002', name: 'Quick Remit UK', country: 'United Kingdom', flag: '🇬🇧', contact: '+44 7700 900123', status: 'Active', totalVolume: 512300, transactions: 985, commission: 12805 },
+  { id: 'AGT-1003', code: 'AGT-1003', name: 'Trust Transfer Ltd.', country: 'United Kingdom', flag: '🇬🇧', contact: '+44 7700 900124', status: 'Active', totalVolume: 398750, transactions: 754, commission: 9968 },
+  { id: 'AGT-1004', code: 'AGT-1004', name: 'Green World Remit', country: 'Pakistan', flag: '🇵🇰', contact: '+92 300 1234567', status: 'Active', totalVolume: 284600, transactions: 612, commission: 7115 },
+  { id: 'AGT-1005', code: 'AGT-1005', name: 'Skyline Transfers', country: 'India', flag: '🇮🇳', contact: '+91 98765 43210', status: 'Active', totalVolume: 245300, transactions: 498, commission: 6132 },
+  { id: 'AGT-1006', code: 'AGT-1006', name: 'Bismillah Exchange', country: 'Bangladesh', flag: '🇧🇩', contact: '+880 1687 654321', status: 'Pending', totalVolume: 142200, transactions: 320, commission: 3550 },
+  { id: 'AGT-1007', code: 'AGT-1007', name: 'Secure Remit BD', country: 'Bangladesh', flag: '🇧🇩', contact: '+880 1555 667788', status: 'Inactive', totalVolume: 98450, transactions: 210, commission: 2461 },
+  { id: 'AGT-1008', code: 'AGT-1008', name: 'Remit Expert', country: 'United Kingdom', flag: '🇬🇧', contact: '+44 7700 900125', status: 'Active', totalVolume: 85600, transactions: 168, commission: 2140 },
+  { id: 'AGT-1009', code: 'AGT-1009', name: 'Horizon Money Transfer', country: 'UAE', flag: '🇦🇪', contact: '+971 50 123 4567', status: 'Active', totalVolume: 156800, transactions: 342, commission: 3920 },
+  { id: 'AGT-1010', code: 'AGT-1010', name: 'Asia Pacific Exchange', country: 'Malaysia', flag: '🇲🇾', contact: '+60 12 345 6789', status: 'Active', totalVolume: 112400, transactions: 256, commission: 2810 },
+  { id: 'AGT-1011', code: 'AGT-1011', name: 'Continental Transfers', country: 'Philippines', flag: '🇵🇭', contact: '+63 917 123 4567', status: 'Pending', totalVolume: 64200, transactions: 145, commission: 1605 },
+  { id: 'AGT-1012', code: 'AGT-1012', name: 'Reliable Money Services', country: 'Saudi Arabia', flag: '🇸🇦', contact: '+966 55 123 4567', status: 'Active', totalVolume: 189500, transactions: 410, commission: 4738 },
+];
+
+// ── Top Performing Agents (sidebar widget) ──
+export const topPerformingAgents: TopPerformingAgent[] = [
+  { rank: 1, name: 'Rahman Global Services', code: 'AGT-1001', avatarColor: 'bg-orange-500', volume: 620450, changePct: 32.5 },
+  { rank: 2, name: 'Quick Remit UK', code: 'AGT-1002', avatarColor: 'bg-gray-400', volume: 512300, changePct: 20.1 },
+  { rank: 3, name: 'Trust Transfer Ltd.', code: 'AGT-1003', avatarColor: 'bg-amber-700', volume: 398750, changePct: 24.7 },
+  { rank: 4, name: 'Green World Remit', code: 'AGT-1004', avatarColor: 'bg-blue-600', volume: 284600, changePct: 18.9 },
+  { rank: 5, name: 'Skyline Transfers', code: 'AGT-1005', avatarColor: 'bg-blue-900', volume: 245300, changePct: 15.3 },
+];
+
+// ── Recent Activities (sidebar widget) ──
+export const agentRecentActivities: AgentActivityItem[] = [
+  { id: 'ACT-1', type: 'approved', text: 'New agent Rahman Global Services has been approved', timeAgo: '2 hours ago' },
+  { id: 'ACT-2', type: 'volume', text: 'Quick Remit UK completed £512,300 volume', timeAgo: '5 hours ago' },
+  { id: 'ACT-3', type: 'commission', text: 'Commission of £2,450 paid to Trust Transfer Ltd.', timeAgo: '1 day ago' },
+  { id: 'ACT-4', type: 'document', text: 'Agent Green World Remit updated their documents', timeAgo: '2 days ago' },
+  { id: 'ACT-5', type: 'branch', text: 'New branch added by Skyline Transfers', timeAgo: '2 days ago' },
+];
+
+// ── Volume Overview (bottom-left line chart) ──
+export const agentVolumeOverview = {
+  labels: ['May 13', 'May 14', 'May 15', 'May 16', 'May 17', 'May 18', 'May 19'],
+  values: [420000, 680000, 710000, 980000, 860000, 1080000, 950000],
+};
+
+// ── Commission Overview (bottom-middle donut) ──
+export const commissionOverview = {
+  total: 128450,
+  paid: 98750,
+  paidPct: 76.9,
+  pending: 29700,
+  pendingPct: 23.1,
+};
+
+// ── Agent Status (bottom-right donut) ──
+export const agentStatusOverview = {
+  total: 245,
+  active: 198, activePct: 80.8,
+  pending: 32, pendingPct: 13.1,
+  inactive: 15, inactivePct: 6.1,
+};
+
+export const agentCountryOptionsPartner = ['All Countries', 'Bangladesh', 'United Kingdom', 'Pakistan', 'India', 'UAE', 'Malaysia', 'Philippines', 'Saudi Arabia'];
+export const agentStatusOptionsPartner = ['All Status', 'Active', 'Pending', 'Inactive'];
+
+
+
+
+// ============ AGENTS & PARTNERS — INLINE TAB DATA ============
+// Used by the Agent List page's in-page tabs (Branches / Partner List / Commission)
+
+export interface AgentBranchRow {
+  id: string;
+  name: string;
+  code: string;
+  country: string;
+  flag: string;
+  manager: string;
+  agentsCount: number;
+  status: 'Active' | 'Inactive';
+}
+
+export interface PartnerRow {
+  id: string;
+  name: string;
+  type: 'Bank' | 'Mobile Wallet' | 'Money Transfer Operator' | 'Aggregator';
+  country: string;
+  flag: string;
+  commissionRatePct: number;
+  status: 'Active' | 'Pending' | 'Inactive';
+}
+
+export interface CommissionRow {
+  id: string;
+  agentName: string;
+  agentCode: string;
+  period: string;
+  volume: number;
+  ratePct: number;
+  commission: number;
+  status: 'Paid' | 'Pending';
+}
+
+export const agentBranches: AgentBranchRow[] = [
+  { id: 'BR-01', name: 'Dhaka Main Branch', code: 'DHK-001', country: 'Bangladesh', flag: '🇧🇩', manager: 'Nasreen Akter', agentsCount: 24, status: 'Active' },
+  { id: 'BR-02', name: 'London Branch', code: 'LDN-001', country: 'United Kingdom', flag: '🇬🇧', manager: 'James Wilson', agentsCount: 18, status: 'Active' },
+  { id: 'BR-03', name: 'Karachi Branch', code: 'KHI-001', country: 'Pakistan', flag: '🇵🇰', manager: 'Ahsan Raza', agentsCount: 12, status: 'Active' },
+  { id: 'BR-04', name: 'Mumbai Branch', code: 'MUM-001', country: 'India', flag: '🇮🇳', manager: 'Rajesh Mehta', agentsCount: 10, status: 'Active' },
+  { id: 'BR-05', name: 'Chittagong Branch', code: 'CTG-001', country: 'Bangladesh', flag: '🇧🇩', manager: 'Imran Khan', agentsCount: 8, status: 'Inactive' },
+];
+
+export const agentPartnersList: PartnerRow[] = [
+  { id: 'PTR-01', name: 'BRAC Bank', type: 'Bank', country: 'Bangladesh', flag: '🇧🇩', commissionRatePct: 1.2, status: 'Active' },
+  { id: 'PTR-02', name: 'bKash', type: 'Mobile Wallet', country: 'Bangladesh', flag: '🇧🇩', commissionRatePct: 1.5, status: 'Active' },
+  { id: 'PTR-03', name: 'Western Union', type: 'Money Transfer Operator', country: 'United States', flag: '🇺🇸', commissionRatePct: 0.9, status: 'Active' },
+  { id: 'PTR-04', name: 'Wise', type: 'Aggregator', country: 'United Kingdom', flag: '🇬🇧', commissionRatePct: 0.7, status: 'Pending' },
+  { id: 'PTR-05', name: 'Easypaisa', type: 'Mobile Wallet', country: 'Pakistan', flag: '🇵🇰', commissionRatePct: 1.4, status: 'Active' },
+];
+
+export const agentCommissionRows: CommissionRow[] = [
+  { id: 'CMS-01', agentName: 'Rahman Global Services', agentCode: 'AGT-1001', period: 'May 2025', volume: 620450, ratePct: 2.5, commission: 15512, status: 'Paid' },
+  { id: 'CMS-02', agentName: 'Quick Remit UK', agentCode: 'AGT-1002', period: 'May 2025', volume: 512300, ratePct: 2.5, commission: 12805, status: 'Paid' },
+  { id: 'CMS-03', agentName: 'Trust Transfer Ltd.', agentCode: 'AGT-1003', period: 'May 2025', volume: 398750, ratePct: 2.5, commission: 9968, status: 'Pending' },
+  { id: 'CMS-04', agentName: 'Green World Remit', agentCode: 'AGT-1004', period: 'May 2025', volume: 284600, ratePct: 2.5, commission: 7115, status: 'Pending' },
+  { id: 'CMS-05', agentName: 'Skyline Transfers', agentCode: 'AGT-1005', period: 'May 2025', volume: 245300, ratePct: 2.5, commission: 6132, status: 'Paid' },
+];
+
+
+
+
+
+// ============ AGENTS & PARTNERS — BRANCHES (standalone page) ============
+export type PartnerBranchStatus = 'Active' | 'Inactive' | 'Maintenance';
+export type PartnerBranchType = 'Main Branch' | 'Sub Branch' | 'Partner Branch';
+
+export interface PartnerBranch {
+  id: string;
+  name: string;
+  code: string;
+  country: string;
+  flag: string;
+  city: string;
+  address: string;
+  manager: string;
+  managerPhone: string;
+  type: PartnerBranchType;
+  agentsCount: number;
+  monthlyVolume: number;
+  volumeCurrency: string;
+  status: PartnerBranchStatus;
+  openedDate: string;
+}
+
+// ── Stats ──
+export const partnerBranchesStats = {
+  totalBranches: 326,
+  activeBranches: 256,
+  totalCountries: 18,
+  totalMonthlyVolume: 8560400,
+};
+
+// ── Branches ──
+export const partnerBranches: PartnerBranch[] = [
+  { id: 'PBR-001', name: 'Dhaka Main Branch', code: 'DHK-001', country: 'Bangladesh', flag: '🇧🇩', city: 'Dhaka', address: 'House 12, Road 5, Dhanmondi', manager: 'Nasreen Akter', managerPhone: '+880 1712 111222', type: 'Main Branch', agentsCount: 24, monthlyVolume: 1856400, volumeCurrency: '£', status: 'Active', openedDate: 'Jan 10, 2023' },
+  { id: 'PBR-002', name: 'London Branch', code: 'LDN-001', country: 'United Kingdom', flag: '🇬🇧', city: 'London', address: '14 Baker Street, Marylebone', manager: 'James Wilson', managerPhone: '+44 7700 900100', type: 'Main Branch', agentsCount: 18, monthlyVolume: 2456800, volumeCurrency: '£', status: 'Active', openedDate: 'Feb 14, 2023' },
+  { id: 'PBR-003', name: 'Karachi Branch', code: 'KHI-001', country: 'Pakistan', flag: '🇵🇰', city: 'Karachi', address: 'Gulshan-e-Iqbal Block 7', manager: 'Ahsan Raza', managerPhone: '+92 300 1112223', type: 'Main Branch', agentsCount: 12, monthlyVolume: 985600, volumeCurrency: '£', status: 'Active', openedDate: 'Mar 2, 2023' },
+  { id: 'PBR-004', name: 'Mumbai Branch', code: 'MUM-001', country: 'India', flag: '🇮🇳', city: 'Mumbai', address: 'Bandra West, Mumbai 400050', manager: 'Rajesh Mehta', managerPhone: '+91 98765 11122', type: 'Main Branch', agentsCount: 10, monthlyVolume: 765200, volumeCurrency: '£', status: 'Active', openedDate: 'Mar 20, 2023' },
+  { id: 'PBR-005', name: 'Chittagong Branch', code: 'CTG-001', country: 'Bangladesh', flag: '🇧🇩', city: 'Chittagong', address: 'Agrabad Commercial Area', manager: 'Imran Khan', managerPhone: '+880 1812 111333', type: 'Sub Branch', agentsCount: 8, monthlyVolume: 425600, volumeCurrency: '£', status: 'Active', openedDate: 'Apr 5, 2023' },
+  { id: 'PBR-006', name: 'Gulshan Branch', code: 'DHK-002', country: 'Bangladesh', flag: '🇧🇩', city: 'Dhaka', address: 'Gulshan Avenue, Dhaka 1212', manager: 'Tariq Mahmud', managerPhone: '+880 1912 222444', type: 'Sub Branch', agentsCount: 9, monthlyVolume: 512300, volumeCurrency: '£', status: 'Active', openedDate: 'Apr 18, 2023' },
+  { id: 'PBR-007', name: 'Manchester Branch', code: 'MAN-001', country: 'United Kingdom', flag: '🇬🇧', city: 'Manchester', address: 'Market Street, Manchester', manager: 'Sophie Clark', managerPhone: '+44 7700 900200', type: 'Sub Branch', agentsCount: 6, monthlyVolume: 386700, volumeCurrency: '£', status: 'Active', openedDate: 'May 1, 2023' },
+  { id: 'PBR-008', name: 'Dubai Branch', code: 'DXB-001', country: 'UAE', flag: '🇦🇪', city: 'Dubai', address: 'Al Barsha 1, Dubai', manager: 'Ibrahim Khalil', managerPhone: '+971 50 111 2233', type: 'Partner Branch', agentsCount: 5, monthlyVolume: 298500, volumeCurrency: '£', status: 'Active', openedDate: 'May 22, 2023' },
+  { id: 'PBR-009', name: 'Kuala Lumpur Branch', code: 'KUL-001', country: 'Malaysia', flag: '🇲🇾', city: 'Kuala Lumpur', address: 'Jalan Ampang, KL 50450', manager: 'Siti Aisyah', managerPhone: '+60 12 345 6789', type: 'Partner Branch', agentsCount: 4, monthlyVolume: 186400, volumeCurrency: '£', status: 'Maintenance', openedDate: 'Jun 8, 2023' },
+  { id: 'PBR-010', name: 'Manila Branch', code: 'MNL-001', country: 'Philippines', flag: '🇵🇭', city: 'Manila', address: 'Ayala Avenue, Makati City', manager: 'Maria Santos', managerPhone: '+63 917 123 4567', type: 'Partner Branch', agentsCount: 7, monthlyVolume: 245800, volumeCurrency: '£', status: 'Active', openedDate: 'Jun 30, 2023' },
+  { id: 'PBR-011', name: 'Khulna Branch', code: 'KHL-001', country: 'Bangladesh', flag: '🇧🇩', city: 'Khulna', address: 'Khan Jahan Ali Road', manager: 'Rubel Hossain', managerPhone: '+880 1611 333555', type: 'Sub Branch', agentsCount: 4, monthlyVolume: 156200, volumeCurrency: '£', status: 'Inactive', openedDate: 'Jul 15, 2023' },
+  { id: 'PBR-012', name: 'Riyadh Branch', code: 'RUH-001', country: 'Saudi Arabia', flag: '🇸🇦', city: 'Riyadh', address: 'Al Olaya District', manager: 'Omar Sheikh', managerPhone: '+966 55 123 4567', type: 'Partner Branch', agentsCount: 3, monthlyVolume: 142600, volumeCurrency: '£', status: 'Active', openedDate: 'Aug 2, 2023' },
+];
+
+export const partnerBranchStatusOptions = ['All Status', 'Active', 'Inactive', 'Maintenance'];
+export const partnerBranchTypeOptions = ['All Types', 'Main Branch', 'Sub Branch', 'Partner Branch'];
+
+
+
+// ============ AGENTS & PARTNERS — PARTNER LIST (standalone page) ============
+export type BusinessPartnerStatus = 'Active' | 'Pending' | 'Inactive';
+export type BusinessPartnerType = 'Bank' | 'Mobile Wallet' | 'Money Transfer Operator' | 'Aggregator' | 'Cash Pickup Network';
+
+export interface BusinessPartner {
+  id: string;
+  name: string;
+  type: BusinessPartnerType;
+  country: string;
+  flag: string;
+  contactPerson: string;
+  email: string;
+  phone: string;
+  commissionRatePct: number;
+  integrationType: 'API' | 'Manual' | 'File-based';
+  monthlyVolume: number;
+  volumeCurrency: string;
+  status: BusinessPartnerStatus;
+  partnerSince: string;
+}
+
+// ── Stats ──
+export const businessPartnersStats = {
+  totalPartners: 64,
+  activePartners: 52,
+  pendingPartners: 8,
+  totalMonthlyVolume: 12450600,
+};
+
+// ── Partners ──
+export const businessPartners: BusinessPartner[] = [
+  { id: 'PTN-001', name: 'BRAC Bank', type: 'Bank', country: 'Bangladesh', flag: '🇧🇩', contactPerson: 'Nasreen Akter', email: 'partnerships@bracbank.com', phone: '+880 2 9844080', commissionRatePct: 1.2, integrationType: 'API', monthlyVolume: 2856400, volumeCurrency: '£', status: 'Active', partnerSince: 'Jan 2023' },
+  { id: 'PTN-002', name: 'bKash', type: 'Mobile Wallet', country: 'Bangladesh', flag: '🇧🇩', contactPerson: 'Tariq Mahmud', email: 'partners@bkash.com', phone: '+880 2 9560099', commissionRatePct: 1.5, integrationType: 'API', monthlyVolume: 3245800, volumeCurrency: '£', status: 'Active', partnerSince: 'Jan 2023' },
+  { id: 'PTN-003', name: 'Western Union', type: 'Money Transfer Operator', country: 'United States', flag: '🇺🇸', contactPerson: 'Michael Brown', email: 'corp@westernunion.com', phone: '+1 720 332 7100', commissionRatePct: 0.9, integrationType: 'API', monthlyVolume: 4856200, volumeCurrency: '£', status: 'Active', partnerSince: 'Feb 2023' },
+  { id: 'PTN-004', name: 'Wise', type: 'Aggregator', country: 'United Kingdom', flag: '🇬🇧', contactPerson: 'Sophie Clark', email: 'partnerships@wise.com', phone: '+44 20 3695 9100', commissionRatePct: 0.7, integrationType: 'API', monthlyVolume: 1856400, volumeCurrency: '£', status: 'Pending', partnerSince: 'Mar 2023' },
+  { id: 'PTN-005', name: 'Easypaisa', type: 'Mobile Wallet', country: 'Pakistan', flag: '🇵🇰', contactPerson: 'Ahsan Raza', email: 'partners@easypaisa.com.pk', phone: '+92 21 111 003 007', commissionRatePct: 1.4, integrationType: 'API', monthlyVolume: 985600, volumeCurrency: '£', status: 'Active', partnerSince: 'Mar 2023' },
+  { id: 'PTN-006', name: 'GCash', type: 'Mobile Wallet', country: 'Philippines', flag: '🇵🇭', contactPerson: 'Maria Santos', email: 'business@gcash.com', phone: '+63 2 8845 2222', commissionRatePct: 1.1, integrationType: 'API', monthlyVolume: 745800, volumeCurrency: '£', status: 'Active', partnerSince: 'Apr 2023' },
+  { id: 'PTN-007', name: 'Global Agent Network', type: 'Cash Pickup Network', country: 'UAE', flag: '🇦🇪', contactPerson: 'Ibrahim Khalil', email: 'ops@globalagentnetwork.com', phone: '+971 4 123 4567', commissionRatePct: 2.0, integrationType: 'Manual', monthlyVolume: 568200, volumeCurrency: '£', status: 'Active', partnerSince: 'May 2023' },
+  { id: 'PTN-008', name: 'Nagad', type: 'Mobile Wallet', country: 'Bangladesh', flag: '🇧🇩', contactPerson: 'Imran Khan', email: 'partners@nagad.com.bd', phone: '+880 2 9555000', commissionRatePct: 1.2, integrationType: 'API', monthlyVolume: 1245600, volumeCurrency: '£', status: 'Active', partnerSince: 'May 2023' },
+  { id: 'PTN-009', name: 'Riya Money Transfer', type: 'Money Transfer Operator', country: 'United States', flag: '🇺🇸', contactPerson: 'David Lee', email: 'partner@riya.com', phone: '+1 213 689 8900', commissionRatePct: 0.8, integrationType: 'File-based', monthlyVolume: 425800, volumeCurrency: '£', status: 'Inactive', partnerSince: 'Jun 2023' },
+  { id: 'PTN-010', name: 'Al Rajhi Bank', type: 'Bank', country: 'Saudi Arabia', flag: '🇸🇦', contactPerson: 'Omar Sheikh', email: 'corporate@alrajhibank.com.sa', phone: '+966 11 211 6000', commissionRatePct: 1.0, integrationType: 'API', monthlyVolume: 685400, volumeCurrency: '£', status: 'Active', partnerSince: 'Jun 2023' },
+  { id: 'PTN-011', name: 'Remitly', type: 'Aggregator', country: 'United Kingdom', flag: '🇬🇧', contactPerson: 'Emma Watson', email: 'partnerships@remitly.com', phone: '+44 20 3322 4500', commissionRatePct: 0.75, integrationType: 'API', monthlyVolume: 1456200, volumeCurrency: '£', status: 'Pending', partnerSince: 'Jul 2023' },
+  { id: 'PTN-012', name: 'Maybank', type: 'Bank', country: 'Malaysia', flag: '🇲🇾', contactPerson: 'Siti Aisyah', email: 'partnerships@maybank.com', phone: '+60 3 7844 3696', commissionRatePct: 1.1, integrationType: 'Manual', monthlyVolume: 365800, volumeCurrency: '£', status: 'Active', partnerSince: 'Aug 2023' },
+];
+
+export const businessPartnerTypeOptions = ['All Types', 'Bank', 'Mobile Wallet', 'Money Transfer Operator', 'Aggregator', 'Cash Pickup Network'];
+export const businessPartnerStatusOptions = ['All Status', 'Active', 'Pending', 'Inactive'];
+
+
+
+
+// ============ AGENTS & PARTNERS — COMMISSION (standalone page) ============
+export type CommissionPayoutStatus = 'Paid' | 'Pending' | 'Processing' | 'Failed';
+export type CommissionPeriod = 'Weekly' | 'Monthly' | 'Quarterly';
+
+export interface CommissionRecord {
+  id: string;
+  agentName: string;
+  agentCode: string;
+  country: string;
+  flag: string;
+  period: string;
+  periodType: CommissionPeriod;
+  volume: number;
+  ratePct: number;
+  commission: number;
+  bonus: number;
+  totalPayout: number;
+  status: CommissionPayoutStatus;
+  paidOn: string | null;
+  paymentMethod: string;
+}
+
+// ── Stats ──
+export const commissionPageStats = {
+  totalCommissionThisMonth: 128450,
+  paidCommission: 98750,
+  pendingCommission: 29700,
+  avgCommissionRatePct: 1.18,
+};
+
+// ── Commission Records ──
+export const commissionRecords: CommissionRecord[] = [
+  { id: 'CMR-001', agentName: 'Rahman Global Services', agentCode: 'AGT-1001', country: 'Bangladesh', flag: '🇧🇩', period: 'May 2025', periodType: 'Monthly', volume: 620450, ratePct: 2.5, commission: 15512, bonus: 500, totalPayout: 16012, status: 'Paid', paidOn: 'Jun 1, 2025', paymentMethod: 'Bank Transfer' },
+  { id: 'CMR-002', agentName: 'Quick Remit UK', agentCode: 'AGT-1002', country: 'United Kingdom', flag: '🇬🇧', period: 'May 2025', periodType: 'Monthly', volume: 512300, ratePct: 2.5, commission: 12805, bonus: 0, totalPayout: 12805, status: 'Paid', paidOn: 'Jun 1, 2025', paymentMethod: 'Bank Transfer' },
+  { id: 'CMR-003', agentName: 'Trust Transfer Ltd.', agentCode: 'AGT-1003', country: 'United Kingdom', flag: '🇬🇧', period: 'May 2025', periodType: 'Monthly', volume: 398750, ratePct: 2.5, commission: 9968, bonus: 0, totalPayout: 9968, status: 'Pending', paidOn: null, paymentMethod: 'Bank Transfer' },
+  { id: 'CMR-004', agentName: 'Green World Remit', agentCode: 'AGT-1004', country: 'Pakistan', flag: '🇵🇰', period: 'May 2025', periodType: 'Monthly', volume: 284600, ratePct: 2.5, commission: 7115, bonus: 200, totalPayout: 7315, status: 'Pending', paidOn: null, paymentMethod: 'Wire Transfer' },
+  { id: 'CMR-005', agentName: 'Skyline Transfers', agentCode: 'AGT-1005', country: 'India', flag: '🇮🇳', period: 'May 2025', periodType: 'Monthly', volume: 245300, ratePct: 2.5, commission: 6132, bonus: 0, totalPayout: 6132, status: 'Paid', paidOn: 'Jun 1, 2025', paymentMethod: 'Bank Transfer' },
+  { id: 'CMR-006', agentName: 'Bismillah Exchange', agentCode: 'AGT-1006', country: 'Bangladesh', flag: '🇧🇩', period: 'May 2025', periodType: 'Monthly', volume: 142200, ratePct: 2.5, commission: 3550, bonus: 0, totalPayout: 3550, status: 'Processing', paidOn: null, paymentMethod: 'bKash' },
+  { id: 'CMR-007', agentName: 'Secure Remit BD', agentCode: 'AGT-1007', country: 'Bangladesh', flag: '🇧🇩', period: 'May 2025', periodType: 'Monthly', volume: 98450, ratePct: 2.5, commission: 2461, bonus: 0, totalPayout: 2461, status: 'Failed', paidOn: null, paymentMethod: 'Bank Transfer' },
+  { id: 'CMR-008', agentName: 'Remit Expert', agentCode: 'AGT-1008', country: 'United Kingdom', flag: '🇬🇧', period: 'May 2025', periodType: 'Monthly', volume: 85600, ratePct: 2.5, commission: 2140, bonus: 0, totalPayout: 2140, status: 'Paid', paidOn: 'Jun 1, 2025', paymentMethod: 'Bank Transfer' },
+  { id: 'CMR-009', agentName: 'Horizon Money Transfer', agentCode: 'AGT-1009', country: 'UAE', flag: '🇦🇪', period: 'May 2025', periodType: 'Monthly', volume: 156800, ratePct: 2.5, commission: 3920, bonus: 100, totalPayout: 4020, status: 'Pending', paidOn: null, paymentMethod: 'Wire Transfer' },
+  { id: 'CMR-010', agentName: 'Asia Pacific Exchange', agentCode: 'AGT-1010', country: 'Malaysia', flag: '🇲🇾', period: 'May 2025', periodType: 'Monthly', volume: 112400, ratePct: 2.5, commission: 2810, bonus: 0, totalPayout: 2810, status: 'Paid', paidOn: 'Jun 1, 2025', paymentMethod: 'Bank Transfer' },
+  { id: 'CMR-011', agentName: 'Continental Transfers', agentCode: 'AGT-1011', country: 'Philippines', flag: '🇵🇭', period: 'May 2025', periodType: 'Monthly', volume: 64200, ratePct: 2.5, commission: 1605, bonus: 0, totalPayout: 1605, status: 'Pending', paidOn: null, paymentMethod: 'GCash' },
+  { id: 'CMR-012', agentName: 'Reliable Money Services', agentCode: 'AGT-1012', country: 'Saudi Arabia', flag: '🇸🇦', period: 'May 2025', periodType: 'Monthly', volume: 189500, ratePct: 2.5, commission: 4738, bonus: 0, totalPayout: 4738, status: 'Paid', paidOn: 'Jun 1, 2025', paymentMethod: 'Bank Transfer' },
+];
+
+export const commissionStatusOptions = ['All Status', 'Paid', 'Pending', 'Processing', 'Failed'];
+export const commissionPeriodOptions = ['May 2025', 'April 2025', 'March 2025'];
+
+
+
+// ============================================================
+// BANKING & CARD PAYMENT MANAGEMENT — append to lib/data.ts
+// ============================================================
+
+export interface BankingCardStat {
+  id: string;
+  label: string;
+  value: string;
+  change: number; // positive or negative percent
+  changeLabel: string; // e.g. "vs last month"
+  linkLabel: string;
+  linkHref: string;
+}
+
+export const bankingCardStats: BankingCardStat[] = [
+  { id: 'active-banks', label: 'Active Banks', value: '48', change: 12.5, changeLabel: 'vs last month', linkLabel: 'View All Banks', linkHref: '/banking-cards/international-banks' },
+  { id: 'bank-corridors', label: 'Bank Corridors', value: '36', change: 8.3, changeLabel: 'vs last month', linkLabel: 'View Corridors', linkHref: '/banking-cards/bank-corridors' },
+  { id: 'card-gateways', label: 'Card Gateways', value: '6', change: 20, changeLabel: 'vs last month', linkLabel: 'View Gateways', linkHref: '/banking-cards/card-gateways' },
+  { id: 'total-card-transactions', label: 'Total Card Transactions', value: '12,458', change: 15.7, changeLabel: 'vs last month', linkLabel: 'View Transactions', linkHref: '/banking-cards/transactions' },
+  { id: 'failed-transactions', label: 'Failed Transactions', value: '156', change: -3.4, changeLabel: 'vs last month', linkLabel: 'View Failures', linkHref: '/banking-cards/failures' },
+  { id: 'total-payout-volume', label: 'Total Payout Volume', value: '$4.25M', change: 18.6, changeLabel: 'vs last month', linkLabel: 'View Reports', linkHref: '/banking-cards/reports' },
+];
+
+export type BankStatus = 'Active' | 'Inactive';
+
+export interface InternationalBankAccount {
+  id: string;
+  bankName: string;
+  country: string;
+  countryFlag: string; // emoji flag
+  swiftBic: string;
+  currency: string;
+  accountHolder: string;
+  status: BankStatus;
+  isDefault: boolean;
+  dailyLimit: string;
+}
+
+export const internationalBankAccounts: InternationalBankAccount[] = [
+  { id: 'bnk-001', bankName: 'HSBC Bank PLC', country: 'United Kingdom', countryFlag: '🇬🇧', swiftBic: 'MIDLGB22', currency: 'GBP', accountHolder: 'SendMoney UK Ltd', status: 'Active', isDefault: true, dailyLimit: '£500,000' },
+  { id: 'bnk-002', bankName: 'DBBL Bank Ltd.', country: 'Bangladesh', countryFlag: '🇧🇩', swiftBic: 'DBBLBDDH', currency: 'BDT', accountHolder: 'SendMoney BD Ltd', status: 'Active', isDefault: true, dailyLimit: '৳50,000,000' },
+  { id: 'bnk-003', bankName: 'JPMorgan Chase', country: 'United States', countryFlag: '🇺🇸', swiftBic: 'CHASUS33', currency: 'USD', accountHolder: 'SendMoney USA Inc', status: 'Active', isDefault: false, dailyLimit: '$1,000,000' },
+  { id: 'bnk-004', bankName: 'Standard Chartered', country: 'Singapore', countryFlag: '🇸🇬', swiftBic: 'SCBLSG22', currency: 'SGD', accountHolder: 'SendMoney SG Pte Ltd', status: 'Inactive', isDefault: false, dailyLimit: '$300,000' },
+  { id: 'bnk-005', bankName: 'Emirates NBD', country: 'United Arab Emirates', countryFlag: '🇦🇪', swiftBic: 'EBILAEAD', currency: 'AED', accountHolder: 'SendMoney UAE LLC', status: 'Active', isDefault: true, dailyLimit: 'AED 2,000,000' },
+  { id: 'bnk-006', bankName: 'ICICI Bank', country: 'India', countryFlag: '🇮🇳', swiftBic: 'ICICINBB', currency: 'INR', accountHolder: 'SendMoney India Pvt Ltd', status: 'Active', isDefault: false, dailyLimit: '₹25,000,000' },
+  { id: 'bnk-007', bankName: 'Commonwealth Bank', country: 'Australia', countryFlag: '🇦🇺', swiftBic: 'CTBAAU2S', currency: 'AUD', accountHolder: 'SendMoney AU Pty Ltd', status: 'Inactive', isDefault: false, dailyLimit: 'A$500,000' },
+];
+
+export type GatewayStatus = 'Active' | 'Inactive';
+export type GatewayMode = 'Live' | 'Sandbox';
+
+export interface CardGateway {
+  id: string;
+  name: string;
+  description: string;
+  status: GatewayStatus;
+  mode: GatewayMode;
+  currencies: string[];
+  feePercent: number;
+  feeFixed: string;
+  threeDsEnabled: boolean;
+}
+
+export const cardGateways: CardGateway[] = [
+  { id: 'gw-stripe', name: 'Stripe', description: 'Stripe Payments', status: 'Active', mode: 'Live', currencies: ['USD', 'EUR', 'GBP', 'AUD'], feePercent: 2.5, feeFixed: '$0.30', threeDsEnabled: true },
+  { id: 'gw-adyen', name: 'Adyen', description: 'Adyen Payments', status: 'Active', mode: 'Live', currencies: ['EUR', 'USD', 'GBP', 'AED'], feePercent: 2.2, feeFixed: '€0.25', threeDsEnabled: true },
+  { id: 'gw-paypal', name: 'PayPal', description: 'PayPal Payments', status: 'Inactive', mode: 'Live', currencies: ['USD'], feePercent: 3.4, feeFixed: '$0.35', threeDsEnabled: false },
+  { id: 'gw-checkout', name: 'Checkout.com', description: 'Checkout.com', status: 'Active', mode: 'Sandbox', currencies: ['USD', 'EUR', 'GBP'], feePercent: 2.6, feeFixed: '$0.30', threeDsEnabled: true },
+  { id: 'gw-razorpay', name: 'Razorpay', description: 'Razorpay Payments', status: 'Active', mode: 'Live', currencies: ['INR'], feePercent: 2.0, feeFixed: '₹2.00', threeDsEnabled: true },
+  { id: 'gw-worldpay', name: 'Worldpay', description: 'Worldpay Payments', status: 'Inactive', mode: 'Sandbox', currencies: ['GBP', 'EUR', 'AED'], feePercent: 2.8, feeFixed: '£0.20', threeDsEnabled: false },
+];
+
+export interface CardPaymentRule {
+  id: string;
+  currency: string;
+  minLimit: string;
+  maxLimit: string;
+  feePercent: number;
+  fixedFee: string;
+  threeDsEnabled: boolean;
+  appliesToGateway: string;
+  status: 'Active' | 'Inactive';
+}
+
+export const cardPaymentRules: CardPaymentRule[] = [
+  { id: 'rule-usd', currency: 'USD', minLimit: '$10', maxLimit: '$10,000', feePercent: 2.5, fixedFee: '$0.30', threeDsEnabled: true, appliesToGateway: 'Stripe', status: 'Active' },
+  { id: 'rule-gbp', currency: 'GBP', minLimit: '£10', maxLimit: '£10,000', feePercent: 2.4, fixedFee: '£0.30', threeDsEnabled: true, appliesToGateway: 'Stripe', status: 'Active' },
+  { id: 'rule-eur', currency: 'EUR', minLimit: '€10', maxLimit: '€10,000', feePercent: 2.2, fixedFee: '€0.25', threeDsEnabled: true, appliesToGateway: 'Adyen', status: 'Active' },
+  { id: 'rule-aud', currency: 'AUD', minLimit: 'A$10', maxLimit: 'A$10,000', feePercent: 2.6, fixedFee: 'A$0.30', threeDsEnabled: true, appliesToGateway: 'Stripe', status: 'Active' },
+  { id: 'rule-aed', currency: 'AED', minLimit: 'AED 50', maxLimit: 'AED 50,000', feePercent: 2.3, fixedFee: 'AED 1.00', threeDsEnabled: true, appliesToGateway: 'Adyen', status: 'Active' },
+  { id: 'rule-inr', currency: 'INR', minLimit: '₹100', maxLimit: '₹500,000', feePercent: 2.0, fixedFee: '₹2.00', threeDsEnabled: true, appliesToGateway: 'Razorpay', status: 'Active' },
+  { id: 'rule-sgd', currency: 'SGD', minLimit: 'S$10', maxLimit: 'S$10,000', feePercent: 2.7, fixedFee: 'S$0.30', threeDsEnabled: false, appliesToGateway: 'Checkout.com', status: 'Inactive' },
+];
+
+export const cardPaymentRulesTotalCount = 7;
+
+export const cardPaymentRuleCurrencyFilterOptions: string[] = [
+  'All Currencies',
+  'USD',
+  'GBP',
+  'EUR',
+  'AUD',
+  'AED',
+  'INR',
+  'SGD',
+];
+
+export type FraudFilterType = 'Velocity' | 'Geo-blocking' | 'Blacklist' | 'Amount Threshold' | 'Device Fingerprint';
+export type FraudFilterAction = 'Block' | 'Flag for Review' | 'Require 3DS';
+export type FraudRiskLevel = 'High' | 'Medium' | 'Low';
+export type FraudFilterStatus = 'Active' | 'Inactive';
+
+export interface FraudFilter {
+  id: string;
+  name: string;
+  type: FraudFilterType;
+  triggerCondition: string;
+  action: FraudFilterAction;
+  riskLevel: FraudRiskLevel;
+  triggeredCount: number;
+  status: FraudFilterStatus;
+}
+
+export const fraudFilters: FraudFilter[] = [
+  { id: 'ff-001', name: 'High Velocity Card Use', type: 'Velocity', triggerCondition: '> 5 transactions in 10 min', action: 'Block', riskLevel: 'High', triggeredCount: 42, status: 'Active' },
+  { id: 'ff-002', name: 'Blocked Country List', type: 'Geo-blocking', triggerCondition: 'Card issued in restricted country', action: 'Block', riskLevel: 'High', triggeredCount: 18, status: 'Active' },
+  { id: 'ff-003', name: 'Known Fraud BIN List', type: 'Blacklist', triggerCondition: 'BIN matches blacklist', action: 'Block', riskLevel: 'High', triggeredCount: 9, status: 'Active' },
+  { id: 'ff-004', name: 'Large Transaction Review', type: 'Amount Threshold', triggerCondition: 'Amount > $5,000', action: 'Flag for Review', riskLevel: 'Medium', triggeredCount: 63, status: 'Active' },
+  { id: 'ff-005', name: 'New Device Check', type: 'Device Fingerprint', triggerCondition: 'Unrecognized device fingerprint', action: 'Require 3DS', riskLevel: 'Medium', triggeredCount: 121, status: 'Active' },
+  { id: 'ff-006', name: 'Mismatched Billing Address', type: 'Blacklist', triggerCondition: 'Billing address ≠ card country', action: 'Flag for Review', riskLevel: 'Low', triggeredCount: 35, status: 'Inactive' },
+  { id: 'ff-007', name: 'Rapid Retry Attempts', type: 'Velocity', triggerCondition: '> 3 failed attempts in 5 min', action: 'Block', riskLevel: 'Medium', triggeredCount: 27, status: 'Active' },
+];
+
+export const fraudFiltersTotalCount = 24;
+
+export const fraudFilterTypeOptions: string[] = [
+  'All Types',
+  'Velocity',
+  'Geo-blocking',
+  'Blacklist',
+  'Amount Threshold',
+  'Device Fingerprint',
+];
+
+export const fraudFilterRiskLevelOptions: string[] = ['All Risk Levels', 'High', 'Medium', 'Low'];
+
+export type TransactionLimitScope = 'Per Transaction' | 'Daily' | 'Monthly';
+export type TransactionLimitAppliesTo = 'All Customers' | 'New Customers' | 'Verified Customers' | 'Agent Channel';
+export type TransactionLimitStatus = 'Active' | 'Inactive';
+
+export interface TransactionLimit {
+  id: string;
+  name: string;
+  scope: TransactionLimitScope;
+  currency: string;
+  minAmount: string;
+  maxAmount: string;
+  appliesTo: TransactionLimitAppliesTo;
+  status: TransactionLimitStatus;
+}
+
+export const transactionLimits: TransactionLimit[] = [
+  { id: 'tl-001', name: 'Standard Per-Transaction Cap', scope: 'Per Transaction', currency: 'USD', minAmount: '$10', maxAmount: '$10,000', appliesTo: 'All Customers', status: 'Active' },
+  { id: 'tl-002', name: 'New Customer Daily Limit', scope: 'Daily', currency: 'USD', minAmount: '$10', maxAmount: '$1,000', appliesTo: 'New Customers', status: 'Active' },
+  { id: 'tl-003', name: 'Verified Customer Daily Limit', scope: 'Daily', currency: 'USD', minAmount: '$10', maxAmount: '$25,000', appliesTo: 'Verified Customers', status: 'Active' },
+  { id: 'tl-004', name: 'Standard Monthly Limit', scope: 'Monthly', currency: 'USD', minAmount: '$10', maxAmount: '$100,000', appliesTo: 'All Customers', status: 'Active' },
+  { id: 'tl-005', name: 'Agent Channel Per-Transaction', scope: 'Per Transaction', currency: 'GBP', minAmount: '£10', maxAmount: '£5,000', appliesTo: 'Agent Channel', status: 'Active' },
+  { id: 'tl-006', name: 'New Customer Monthly Limit', scope: 'Monthly', currency: 'GBP', minAmount: '£10', maxAmount: '£5,000', appliesTo: 'New Customers', status: 'Inactive' },
+  { id: 'tl-007', name: 'Verified Customer Monthly Limit', scope: 'Monthly', currency: 'AED', minAmount: 'AED 50', maxAmount: 'AED 200,000', appliesTo: 'Verified Customers', status: 'Active' },
+];
+
+export const transactionLimitsTotalCount = 18;
+
+export const transactionLimitScopeOptions: string[] = ['All Scopes', 'Per Transaction', 'Daily', 'Monthly'];
+
+export const transactionLimitAppliesToOptions: string[] = [
+  'All Audiences',
+  'All Customers',
+  'New Customers',
+  'Verified Customers',
+  'Agent Channel',
+];
+
+export type BankVerificationLabel = 'Verified' | 'Pending' | 'Rejected' | 'Not Submitted';
+
+export interface BankVerificationStatusItem {
+  label: BankVerificationLabel;
+  count: number;
+  percent: number;
+  color: string; 
+}
+
+export const bankVerificationStatus: BankVerificationStatusItem[] = [
+  { label: 'Verified', count: 34, percent: 70.8, color: '#22c55e' },
+  { label: 'Pending', count: 8, percent: 16.7, color: '#f59e0b' },
+  { label: 'Rejected', count: 3, percent: 6.3, color: '#ef4444' },
+  { label: 'Not Submitted', count: 3, percent: 6.3, color: '#9ca3af' },
+];
+
+export const bankVerificationTotal = 48;
+
+export interface BankVerificationListItem {
+  id: string;
+  bankName: string;
+  country: string;
+  countryFlag: string;
+  status: BankVerificationLabel;
+}
+
+export const bankVerificationList: BankVerificationListItem[] = [
+  { id: 'bv-001', bankName: 'HSBC Bank PLC', country: 'United Kingdom', countryFlag: '🇬🇧', status: 'Verified' },
+  { id: 'bv-002', bankName: 'DBBL Bank Ltd.', country: 'Bangladesh', countryFlag: '🇧🇩', status: 'Verified' },
+  { id: 'bv-003', bankName: 'JPMorgan Chase', country: 'United States', countryFlag: '🇺🇸', status: 'Pending' },
+  { id: 'bv-004', bankName: 'Standard Chartered', country: 'Singapore', countryFlag: '🇸🇬', status: 'Verified' },
+];
+
+export interface BankVerificationRecord {
+  id: string;
+  bankName: string;
+  country: string;
+  countryFlag: string;
+  swiftBic: string;
+  status: BankVerificationLabel;
+  submittedDate: string;
+  verifiedDate: string | null;
+  reviewer: string | null;
+  documentsCount: number;
+}
+
+export const bankVerificationRecords: BankVerificationRecord[] = [
+  { id: 'bvr-001', bankName: 'HSBC Bank PLC', country: 'United Kingdom', countryFlag: '🇬🇧', swiftBic: 'MIDLGB22', status: 'Verified', submittedDate: '12 Jan 2026', verifiedDate: '18 Jan 2026', reviewer: 'Sarah Ahmed', documentsCount: 5 },
+  { id: 'bvr-002', bankName: 'DBBL Bank Ltd.', country: 'Bangladesh', countryFlag: '🇧🇩', swiftBic: 'DBBLBDDH', status: 'Verified', submittedDate: '08 Jan 2026', verifiedDate: '15 Jan 2026', reviewer: 'Tanvir Rahman', documentsCount: 4 },
+  { id: 'bvr-003', bankName: 'JPMorgan Chase', country: 'United States', countryFlag: '🇺🇸', swiftBic: 'CHASUS33', status: 'Pending', submittedDate: '02 Feb 2026', verifiedDate: null, reviewer: null, documentsCount: 3 },
+  { id: 'bvr-004', bankName: 'Standard Chartered', country: 'Singapore', countryFlag: '🇸🇬', swiftBic: 'SCBLSG22', status: 'Verified', submittedDate: '20 Dec 2025', verifiedDate: '28 Dec 2025', reviewer: 'Sarah Ahmed', documentsCount: 6 },
+  { id: 'bvr-005', bankName: 'Emirates NBD', country: 'United Arab Emirates', countryFlag: '🇦🇪', swiftBic: 'EBILAEAD', status: 'Verified', submittedDate: '14 Dec 2025', verifiedDate: '22 Dec 2025', reviewer: 'Tanvir Rahman', documentsCount: 5 },
+  { id: 'bvr-006', bankName: 'ICICI Bank', country: 'India', countryFlag: '🇮🇳', swiftBic: 'ICICINBB', status: 'Pending', submittedDate: '05 Feb 2026', verifiedDate: null, reviewer: null, documentsCount: 2 },
+  { id: 'bvr-007', bankName: 'Commonwealth Bank', country: 'Australia', countryFlag: '🇦🇺', swiftBic: 'CTBAAU2S', status: 'Rejected', submittedDate: '10 Jan 2026', verifiedDate: null, reviewer: 'Sarah Ahmed', documentsCount: 1 },
+  { id: 'bvr-008', bankName: 'Banco Santander', country: 'Spain', countryFlag: '🇪🇸', swiftBic: 'BSCHESMM', status: 'Not Submitted', submittedDate: '—', verifiedDate: null, reviewer: null, documentsCount: 0 },
+];
+
+export const bankVerificationTotalCount = 48;
+
+export const bankVerificationStatusFilterOptions: string[] = [
+  'All Status',
+  'Verified',
+  'Pending',
+  'Rejected',
+  'Not Submitted',
+];
+
+export type SettlementFrequency = 'Daily' | 'Weekly' | 'Monthly';
+export type SettlementRuleStatus = 'Active' | 'Inactive';
+
+export interface SettlementRule {
+  id: string;
+  bankName: string;
+  country: string;
+  countryFlag: string;
+  currency: string;
+  frequency: SettlementFrequency;
+  cutoffTime: string;
+  minSettlementAmount: string;
+  autoSettle: boolean;
+  status: SettlementRuleStatus;
+}
+
+export const settlementRules: SettlementRule[] = [
+  { id: 'set-001', bankName: 'HSBC Bank PLC', country: 'United Kingdom', countryFlag: '🇬🇧', currency: 'GBP', frequency: 'Daily', cutoffTime: '5:00 PM GMT', minSettlementAmount: '£1,000', autoSettle: true, status: 'Active' },
+  { id: 'set-002', bankName: 'DBBL Bank Ltd.', country: 'Bangladesh', countryFlag: '🇧🇩', currency: 'BDT', frequency: 'Daily', cutoffTime: '6:00 PM BST', minSettlementAmount: '৳50,000', autoSettle: true, status: 'Active' },
+  { id: 'set-003', bankName: 'JPMorgan Chase', country: 'United States', countryFlag: '🇺🇸', currency: 'USD', frequency: 'Daily', cutoffTime: '4:00 PM EST', minSettlementAmount: '$2,000', autoSettle: false, status: 'Active' },
+  { id: 'set-004', bankName: 'Standard Chartered', country: 'Singapore', countryFlag: '🇸🇬', currency: 'SGD', frequency: 'Weekly', cutoffTime: '3:00 PM SGT', minSettlementAmount: 'S$5,000', autoSettle: false, status: 'Inactive' },
+  { id: 'set-005', bankName: 'Emirates NBD', country: 'United Arab Emirates', countryFlag: '🇦🇪', currency: 'AED', frequency: 'Daily', cutoffTime: '2:00 PM GST', minSettlementAmount: 'AED 3,000', autoSettle: true, status: 'Active' },
+  { id: 'set-006', bankName: 'ICICI Bank', country: 'India', countryFlag: '🇮🇳', currency: 'INR', frequency: 'Weekly', cutoffTime: '5:30 PM IST', minSettlementAmount: '₹50,000', autoSettle: false, status: 'Active' },
+  { id: 'set-007', bankName: 'Commonwealth Bank', country: 'Australia', countryFlag: '🇦🇺', currency: 'AUD', frequency: 'Monthly', cutoffTime: '4:00 PM AEST', minSettlementAmount: 'A$10,000', autoSettle: false, status: 'Inactive' },
+];
+
+export const settlementRulesTotalCount = 36;
+
+export const settlementFrequencyFilterOptions: string[] = ['All Frequencies', 'Daily', 'Weekly', 'Monthly'];
+
+export const gatewayModeFilterOptions: string[] = ['All Modes', 'Live', 'Sandbox'];
+
+export const cardGatewaysTotalCount = 6;
+
+export type BankCorridorStatus = 'Active' | 'Inactive';
+
+export interface BankCorridor {
+  id: string;
+  fromCountry: string;
+  fromFlag: string;
+  toCountry: string;
+  toFlag: string;
+  fromCurrency: string;
+  toCurrency: string;
+  settlementBank: string;
+  feePercent: number;
+  status: BankCorridorStatus;
+  isDefault: boolean;
+  dailyVolumeLimit: string;
+}
+
+export const bankCorridors: BankCorridor[] = [
+  { id: 'crd-001', fromCountry: 'United Kingdom', fromFlag: '🇬🇧', toCountry: 'Bangladesh', toFlag: '🇧🇩', fromCurrency: 'GBP', toCurrency: 'BDT', settlementBank: 'HSBC Bank PLC', feePercent: 1.2, status: 'Active', isDefault: true, dailyVolumeLimit: '£2,000,000' },
+  { id: 'crd-002', fromCountry: 'United States', fromFlag: '🇺🇸', toCountry: 'Bangladesh', toFlag: '🇧🇩', fromCurrency: 'USD', toCurrency: 'BDT', settlementBank: 'JPMorgan Chase', feePercent: 1.5, status: 'Active', isDefault: true, dailyVolumeLimit: '$1,500,000' },
+  { id: 'crd-003', fromCountry: 'United Arab Emirates', fromFlag: '🇦🇪', toCountry: 'Pakistan', toFlag: '🇵🇰', fromCurrency: 'AED', toCurrency: 'PKR', settlementBank: 'Emirates NBD', feePercent: 1.1, status: 'Active', isDefault: false, dailyVolumeLimit: 'AED 3,000,000' },
+  { id: 'crd-004', fromCountry: 'Saudi Arabia', fromFlag: '🇸🇦', toCountry: 'India', toFlag: '🇮🇳', fromCurrency: 'SAR', toCurrency: 'INR', settlementBank: 'ICICI Bank', feePercent: 1.3, status: 'Active', isDefault: false, dailyVolumeLimit: 'SAR 4,000,000' },
+  { id: 'crd-005', fromCountry: 'Singapore', fromFlag: '🇸🇬', toCountry: 'Indonesia', toFlag: '🇮🇩', fromCurrency: 'SGD', toCurrency: 'IDR', settlementBank: 'Standard Chartered', feePercent: 1.4, status: 'Inactive', isDefault: false, dailyVolumeLimit: 'S$500,000' },
+  { id: 'crd-006', fromCountry: 'Australia', fromFlag: '🇦🇺', toCountry: 'Philippines', toFlag: '🇵🇭', fromCurrency: 'AUD', toCurrency: 'PHP', settlementBank: 'Commonwealth Bank', feePercent: 1.6, status: 'Active', isDefault: false, dailyVolumeLimit: 'A$800,000' },
+  { id: 'crd-007', fromCountry: 'United Kingdom', fromFlag: '🇬🇧', toCountry: 'Nigeria', toFlag: '🇳🇬', fromCurrency: 'GBP', toCurrency: 'NGN', settlementBank: 'HSBC Bank PLC', feePercent: 1.8, status: 'Inactive', isDefault: false, dailyVolumeLimit: '£300,000' },
+];
+
+export const corridorTotalCount = 36;
+
+export const corridorCountryFilterOptions: string[] = [
+  'All Countries',
+  'United Kingdom',
+  'United States',
+  'United Arab Emirates',
+  'Saudi Arabia',
+  'Singapore',
+  'Australia',
+];
+
+export const corridorCurrencyFilterOptions: string[] = [
+  'All Currencies',
+  'GBP',
+  'USD',
+  'AED',
+  'SAR',
+  'SGD',
+  'AUD',
+];
+
+export interface TopBankCorridor {
+  id: string;
+  fromCountry: string;
+  fromFlag: string;
+  toCountry: string;
+  toFlag: string;
+  fromCurrency: string;
+  toCurrency: string;
+  volume: string;
+  status: 'Active' | 'Inactive';
+}
+
+export const topBankCorridors: TopBankCorridor[] = [
+  { id: 'cor-001', fromCountry: 'UK', fromFlag: '🇬🇧', toCountry: 'Bangladesh', toFlag: '🇧🇩', fromCurrency: 'GBP', toCurrency: 'BDT', volume: '$2,456,780', status: 'Active' },
+  { id: 'cor-002', fromCountry: 'USA', fromFlag: '🇺🇸', toCountry: 'Bangladesh', toFlag: '🇧🇩', fromCurrency: 'USD', toCurrency: 'BDT', volume: '$1,856,230', status: 'Active' },
+  { id: 'cor-003', fromCountry: 'UAE', fromFlag: '🇦🇪', toCountry: 'Pakistan', toFlag: '🇵🇰', fromCurrency: 'AED', toCurrency: 'PKR', volume: '$1,256,540', status: 'Active' },
+  { id: 'cor-004', fromCountry: 'Saudi Arabia', fromFlag: '🇸🇦', toCountry: 'India', toFlag: '🇮🇳', fromCurrency: 'SAR', toCurrency: 'INR', volume: '$995,420', status: 'Active' },
+  { id: 'cor-005', fromCountry: 'Singapore', fromFlag: '🇸🇬', toCountry: 'Indonesia', toFlag: '🇮🇩', fromCurrency: 'SGD', toCurrency: 'IDR', volume: '$754,820', status: 'Active' },
+];
+
+export const countryFilterOptions: string[] = [
+  'All Countries',
+  'United Kingdom',
+  'Bangladesh',
+  'United States',
+  'Singapore',
+  'United Arab Emirates',
+  'India',
+  'Australia',
+];
+
+export const currencyFilterOptions: string[] = [
+  'All Currencies',
+  'GBP',
+  'BDT',
+  'USD',
+  'SGD',
+  'AED',
+  'INR',
+  'AUD',
+];
+
+export const bankStatusFilterOptions: string[] = ['All Status', 'Active', 'Inactive'];
