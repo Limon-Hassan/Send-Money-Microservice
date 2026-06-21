@@ -7223,3 +7223,475 @@ export const currencyFilterOptions: string[] = [
 ];
 
 export const bankStatusFilterOptions: string[] = ['All Status', 'Active', 'Inactive'];
+
+
+
+
+
+
+
+// ============ KYC & COMPLIANCE — OVERVIEW ============
+export type AlertRiskLevel = 'Low' | 'Medium' | 'High' | 'Critical';
+export type AlertStatus = 'New' | 'Under Review' | 'Escalated' | 'Cleared';
+export type FraudCaseStatus = 'Investigating' | 'Open' | 'Resolved';
+export type InvestigationStage = 'Investigating' | 'Open' | 'Confirmed Fraud' | 'False Positive';
+
+export interface AmlAlertRow {
+  id: string;
+  transactionNo: string;
+  customerName: string;
+  country: string;
+  flag: string;
+  amount: number;
+  currency: string;
+  riskScore: number;
+  riskLevel: AlertRiskLevel;
+  alertType: string;
+  status: AlertStatus;
+  assignedOfficer: string;
+  reviewDate: string;
+}
+
+export interface FraudCaseRow {
+  id: string;
+  customerName: string;
+  fraudType: string;
+  riskScore: number;
+  status: FraudCaseStatus;
+}
+
+export interface AuditLogRow {
+  id: string;
+  time: string;
+  user: string;
+  action: string;
+  module: string;
+  ipAddress: string;
+}
+
+export interface RiskAssessmentRow {
+  category: AlertRiskLevel;
+  customers: number;
+  pct: number;
+  trendPct: number;
+  trendUp: boolean;
+}
+
+// ── Header date range ──
+export const complianceDateRangeLabel = 'May 6 - May 12, 2025';
+
+// ── Top 7 stat cards (with sparkline series) ──
+export const complianceOverviewStats = {
+  amlAlerts: 156, amlAlertsChangePct: 18.4,
+  fraudAlerts: 89, fraudAlertsChangePct: 12.7,
+  highRiskCustomers: 234, highRiskCustomersChangePct: 9.3,
+  openInvestigations: 42, openInvestigationsChangePct: 5.6,
+  complianceCases: 67, complianceCasesChangePct: 14.2,
+  auditEventsToday: 1248, auditEventsTodayChangePct: 22.8,
+  riskReviewsDue: 28, riskReviewsDueChangePct: -8.3,
+};
+
+export const complianceSparklines = {
+  amlAlerts: [110, 118, 114, 125, 130, 128, 138, 142, 148, 156],
+  fraudAlerts: [62, 68, 65, 72, 75, 70, 78, 82, 85, 89],
+  highRiskCustomers: [190, 198, 195, 205, 210, 208, 218, 224, 228, 234],
+  openInvestigations: [32, 35, 33, 38, 36, 40, 38, 41, 39, 42],
+  complianceCases: [50, 55, 52, 58, 60, 57, 62, 64, 65, 67],
+  auditEventsToday: [820, 880, 850, 950, 980, 1020, 1080, 1120, 1180, 1248],
+  riskReviewsDue: [38, 36, 37, 34, 33, 32, 31, 30, 29, 28],
+};
+
+// ── Alert Distribution donut ──
+export const alertDistributionDonut = [
+  { label: 'AML Alerts', value: 156, pct: 63.7, color: '#2563eb' },
+  { label: 'Fraud Alerts', value: 89, pct: 36.3, color: '#f59e0b' },
+  { label: 'Risk Alerts', value: 45, pct: 18.4, color: '#16a34a' },
+  { label: 'Other Alerts', value: 23, pct: 9.4, color: '#7c3aed' },
+];
+export const alertDistributionTotal = 245;
+
+// ── Risk Level Distribution donut ──
+export const riskLevelDistributionDonut = [
+  { label: 'Low Risk', value: 656, pct: 52.6, color: '#16a34a' },
+  { label: 'Medium Risk', value: 352, pct: 28.2, color: '#f59e0b' },
+  { label: 'High Risk', value: 168, pct: 13.5, color: '#ef4444' },
+  { label: 'Critical Risk', value: 72, pct: 5.7, color: '#7c2d12' },
+];
+export const riskLevelDistributionTotal = 1248;
+
+// ── Case Status Overview donut ──
+export const caseStatusOverviewDonut = [
+  { label: 'Open', value: 42, pct: 38.5, color: '#2563eb' },
+  { label: 'Under Review', value: 28, pct: 25.7, color: '#f59e0b' },
+  { label: 'Escalated', value: 15, pct: 13.8, color: '#ef4444' },
+  { label: 'Closed', value: 24, pct: 22.0, color: '#16a34a' },
+];
+export const caseStatusOverviewTotal = 109;
+
+// ── Investigation Status donut ──
+export const investigationStatusDonut = [
+  { label: 'Investigating', value: 34, pct: 38.2, color: '#2563eb' },
+  { label: 'Open', value: 24, pct: 27.0, color: '#f59e0b' },
+  { label: 'Confirmed Fraud', value: 18, pct: 20.2, color: '#ef4444' },
+  { label: 'False Positive', value: 13, pct: 14.6, color: '#16a34a' },
+];
+export const investigationStatusTotal = 89;
+
+// ── Recent AML Alerts table ──
+export const recentAmlAlerts: AmlAlertRow[] = [
+  { id: 'AML-A-250512-001', transactionNo: 'TXN-2505124789', customerName: 'Rahim Uddin', country: 'Bangladesh', flag: '🇧🇩', amount: 25000.00, currency: 'BDT', riskScore: 85, riskLevel: 'High', alertType: 'Structuring', status: 'New', assignedOfficer: 'Nusrat Jahan', reviewDate: 'May 13, 2025' },
+  { id: 'AML-A-250512-002', transactionNo: 'TXN-2505124788', customerName: 'Maria Santos', country: 'Philippines', flag: '🇵🇭', amount: 15000.00, currency: 'PHP', riskScore: 72, riskLevel: 'Medium', alertType: 'High Amount', status: 'Under Review', assignedOfficer: 'Arif Khan', reviewDate: 'May 13, 2025' },
+  { id: 'AML-A-250512-003', transactionNo: 'TXN-2505124787', customerName: 'Sabir Hossain', country: 'Bangladesh', flag: '🇧🇩', amount: 30000.00, currency: 'BDT', riskScore: 91, riskLevel: 'High', alertType: 'Round Tripping', status: 'Escalated', assignedOfficer: 'Kamrul Hasan', reviewDate: 'May 14, 2025' },
+  { id: 'AML-A-250512-004', transactionNo: 'TXN-2505124786', customerName: 'David Wilson', country: 'United Kingdom', flag: '🇬🇧', amount: 12500.00, currency: 'GBP', riskScore: 45, riskLevel: 'Low', alertType: 'Unusual Pattern', status: 'Under Review', assignedOfficer: 'Fatima Ali', reviewDate: 'May 13, 2025' },
+  { id: 'AML-A-250512-005', transactionNo: 'TXN-2505124785', customerName: 'Imran Hossain', country: 'Bangladesh', flag: '🇧🇩', amount: 18000.00, currency: 'BDT', riskScore: 65, riskLevel: 'Medium', alertType: 'Multiple Txns', status: 'New', assignedOfficer: 'Nusrat Jahan', reviewDate: 'May 12, 2025' },
+];
+
+// ── Recent Fraud Cases table ──
+export const recentFraudCases: FraudCaseRow[] = [
+  { id: 'FRAUD-C-250512-001', customerName: 'Ahmed Khan', fraudType: 'Duplicate Transaction', riskScore: 89, status: 'Investigating' },
+  { id: 'FRAUD-C-250512-002', customerName: 'Fatima Ali', fraudType: 'Account Takeover', riskScore: 95, status: 'Open' },
+  { id: 'FRAUD-C-250512-003', customerName: 'John Doe', fraudType: 'Payment Fraud', riskScore: 78, status: 'Investigating' },
+  { id: 'FRAUD-C-250512-004', customerName: 'Sophie Martin', fraudType: 'Velocity Fraud', riskScore: 66, status: 'Open' },
+  { id: 'FRAUD-C-250512-005', customerName: 'Rashed Alam', fraudType: 'False Information', riskScore: 40, status: 'Investigating' },
+];
+
+// ── Recent Audit Logs table ──
+export const recentAuditLogs: AuditLogRow[] = [
+  { id: 'LOG-001', time: 'May 12, 2025 10:30 AM', user: 'Nusrat Jahan', action: 'Approve Transaction', module: 'Transactions', ipAddress: '192.168.1.45' },
+  { id: 'LOG-002', time: 'May 12, 2025 10:25 AM', user: 'Arif Khan', action: 'Update Exchange Rate', module: 'Exchange Rates', ipAddress: '192.168.1.32' },
+  { id: 'LOG-003', time: 'May 12, 2025 10:20 AM', user: 'Kamrul Hasan', action: 'Add Pickup Request', module: 'Pickup Requests', ipAddress: '192.168.1.28' },
+  { id: 'LOG-004', time: 'May 12, 2025 10:15 AM', user: 'Fatima Ali', action: 'Login', module: 'Authentication', ipAddress: '192.168.1.45' },
+  { id: 'LOG-005', time: 'May 12, 2025 10:05 AM', user: 'Nusrat Jahan', action: 'Edit Customer', module: 'Customers', ipAddress: '192.168.1.46' },
+];
+
+// ── Sanctions Screening (sidebar widget) ──
+export const sanctionsScreening = {
+  screenedTransactions: 8642,
+  hitsFound: 3,
+  cleared: 8639,
+  hitRatePct: 0.03,
+};
+
+// ── PEP Screening (sidebar widget) ──
+export const pepScreening = {
+  screenedCustomers: 2451,
+  pepMatches: 7,
+  cleared: 2444,
+  matchRatePct: 0.29,
+};
+
+// ── Risk Assessment Summary table ──
+export const riskAssessmentSummary: RiskAssessmentRow[] = [
+  { category: 'Low', customers: 656, pct: 52.6, trendPct: 5.2, trendUp: true },
+  { category: 'Medium', customers: 352, pct: 28.2, trendPct: 3.1, trendUp: true },
+  { category: 'High', customers: 168, pct: 13.5, trendPct: 1.8, trendUp: false },
+  { category: 'Critical', customers: 72, pct: 5.7, trendPct: 0.6, trendUp: false },
+];
+
+export const COMPLIANCE_TABS = ['Recent AML Alerts', 'Recent Fraud Alerts', 'Open Investigations', 'Risk Reviews Due'] as const;
+
+
+
+
+
+
+
+
+
+// ============ KYC & COMPLIANCE — AML MONITORING (standalone page) ============
+export interface AmlMonitoringAlert {
+  id: string;
+  transactionNo: string;
+  customerName: string;
+  customerId: string;
+  country: string;
+  flag: string;
+  amount: number;
+  currency: string;
+  riskScore: number;
+  riskLevel: AlertRiskLevel;
+  alertType: string;
+  ruleTriggered: string;
+  status: AlertStatus;
+  assignedOfficer: string;
+  createdAt: string;
+  reviewDate: string;
+}
+
+// ── Stats ──
+export const amlMonitoringStats = {
+  totalAlerts: 156,
+  newAlerts: 38,
+  underReview: 64,
+  escalated: 22,
+  cleared: 32,
+  avgRiskScore: 61.4,
+};
+
+// ── Alert type / rule options ──
+export const amlAlertTypeOptions = ['All Types', 'Structuring', 'High Amount', 'Round Tripping', 'Unusual Pattern', 'Multiple Txns', 'Velocity Breach'];
+export const amlRiskLevelOptions = ['All Levels', 'Low', 'Medium', 'High', 'Critical'];
+export const amlStatusOptionsFull = ['All Status', 'New', 'Under Review', 'Escalated', 'Cleared'];
+
+// ── Full AML alert list ──
+export const amlMonitoringAlerts: AmlMonitoringAlert[] = [
+  { id: 'AML-A-250512-001', transactionNo: 'TXN-2505124789', customerName: 'Rahim Uddin', customerId: 'CUS-10041', country: 'Bangladesh', flag: '🇧🇩', amount: 25000.00, currency: 'BDT', riskScore: 85, riskLevel: 'High', alertType: 'Structuring', ruleTriggered: 'Multiple sub-threshold deposits within 24h', status: 'New', assignedOfficer: 'Nusrat Jahan', createdAt: 'May 12, 2025 2:30 PM', reviewDate: 'May 13, 2025' },
+  { id: 'AML-A-250512-002', transactionNo: 'TXN-2505124788', customerName: 'Maria Santos', customerId: 'CUS-10042', country: 'Philippines', flag: '🇵🇭', amount: 15000.00, currency: 'PHP', riskScore: 72, riskLevel: 'Medium', alertType: 'High Amount', ruleTriggered: 'Single transaction exceeds £10,000 equivalent', status: 'Under Review', assignedOfficer: 'Arif Khan', createdAt: 'May 12, 2025 11:15 AM', reviewDate: 'May 13, 2025' },
+  { id: 'AML-A-250512-003', transactionNo: 'TXN-2505124787', customerName: 'Sabir Hossain', customerId: 'CUS-10043', country: 'Bangladesh', flag: '🇧🇩', amount: 30000.00, currency: 'BDT', riskScore: 91, riskLevel: 'High', alertType: 'Round Tripping', ruleTriggered: 'Funds returned to originating account within 48h', status: 'Escalated', assignedOfficer: 'Kamrul Hasan', createdAt: 'May 12, 2025 10:05 AM', reviewDate: 'May 14, 2025' },
+  { id: 'AML-A-250512-004', transactionNo: 'TXN-2505124786', customerName: 'David Wilson', customerId: 'CUS-10044', country: 'United Kingdom', flag: '🇬🇧', amount: 12500.00, currency: 'GBP', riskScore: 45, riskLevel: 'Low', alertType: 'Unusual Pattern', ruleTriggered: 'Transaction time outside normal customer behavior', status: 'Under Review', assignedOfficer: 'Fatima Ali', createdAt: 'May 11, 2025 6:45 PM', reviewDate: 'May 13, 2025' },
+  { id: 'AML-A-250512-005', transactionNo: 'TXN-2505124785', customerName: 'Imran Hossain', customerId: 'CUS-10045', country: 'Bangladesh', flag: '🇧🇩', amount: 18000.00, currency: 'BDT', riskScore: 65, riskLevel: 'Medium', alertType: 'Multiple Txns', ruleTriggered: '5+ transactions within 1 hour window', status: 'New', assignedOfficer: 'Nusrat Jahan', createdAt: 'May 11, 2025 4:20 PM', reviewDate: 'May 12, 2025' },
+  { id: 'AML-A-250511-006', transactionNo: 'TXN-2505124784', customerName: 'Karim Hassan', customerId: 'CUS-10046', country: 'Germany', flag: '🇩🇪', amount: 9800.00, currency: 'EUR', riskScore: 38, riskLevel: 'Low', alertType: 'Velocity Breach', ruleTriggered: 'Transaction count exceeded weekly limit', status: 'Cleared', assignedOfficer: 'Arif Khan', createdAt: 'May 11, 2025 1:30 PM', reviewDate: 'May 11, 2025' },
+  { id: 'AML-A-250511-007', transactionNo: 'TXN-2505124783', customerName: 'Farida Begum', customerId: 'CUS-10047', country: 'Bangladesh', flag: '🇧🇩', amount: 42000.00, currency: 'BDT', riskScore: 88, riskLevel: 'High', alertType: 'High Amount', ruleTriggered: 'Single transaction exceeds tier limit', status: 'Escalated', assignedOfficer: 'Kamrul Hasan', createdAt: 'May 11, 2025 9:30 AM', reviewDate: 'May 13, 2025' },
+  { id: 'AML-A-250510-008', transactionNo: 'TXN-2505124782', customerName: 'James Okafor', customerId: 'CUS-10048', country: 'Nigeria', flag: '🇳🇬', amount: 7200.00, currency: 'NGN', riskScore: 55, riskLevel: 'Medium', alertType: 'Unusual Pattern', ruleTriggered: 'New recipient added to high-frequency sender', status: 'Cleared', assignedOfficer: 'Fatima Ali', createdAt: 'May 10, 2025 3:15 PM', reviewDate: 'May 11, 2025' },
+  { id: 'AML-A-250510-009', transactionNo: 'TXN-2505124781', customerName: 'Tariq Mahmud', customerId: 'CUS-10049', country: 'Bangladesh', flag: '🇧🇩', amount: 33500.00, currency: 'BDT', riskScore: 79, riskLevel: 'High', alertType: 'Structuring', ruleTriggered: 'Cash equivalent deposits split across agents', status: 'Under Review', assignedOfficer: 'Nusrat Jahan', createdAt: 'May 10, 2025 11:00 AM', reviewDate: 'May 12, 2025' },
+  { id: 'AML-A-250509-010', transactionNo: 'TXN-2505124780', customerName: 'Priya Sharma', customerId: 'CUS-10050', country: 'India', flag: '🇮🇳', amount: 5600.00, currency: 'INR', riskScore: 29, riskLevel: 'Low', alertType: 'Multiple Txns', ruleTriggered: 'Repeated low-value transactions', status: 'Cleared', assignedOfficer: 'Arif Khan', createdAt: 'May 9, 2025 5:20 PM', reviewDate: 'May 10, 2025' },
+  { id: 'AML-A-250509-011', transactionNo: 'TXN-2505124779', customerName: 'Mohammed Al-Rashid', customerId: 'CUS-10051', country: 'UAE', flag: '🇦🇪', amount: 28400.00, currency: 'AED', riskScore: 70, riskLevel: 'Medium', alertType: 'Round Tripping', ruleTriggered: 'Circular fund movement detected across 3 accounts', status: 'New', assignedOfficer: 'Kamrul Hasan', createdAt: 'May 9, 2025 2:10 PM', reviewDate: 'May 10, 2025' },
+  { id: 'AML-A-250508-012', transactionNo: 'TXN-2505124778', customerName: 'Sumon Mia', customerId: 'CUS-10052', country: 'Bangladesh', flag: '🇧🇩', amount: 95000.00, currency: 'BDT', riskScore: 96, riskLevel: 'Critical', alertType: 'High Amount', ruleTriggered: 'Transaction exceeds 90th percentile of customer history by 10x', status: 'Escalated', assignedOfficer: 'Nusrat Jahan', createdAt: 'May 8, 2025 9:45 AM', reviewDate: 'May 9, 2025' },
+];
+
+
+
+
+
+// ============ KYC & COMPLIANCE — FRAUD DETECTION (standalone page) ============
+export type FraudDetectionStatus = 'Open' | 'Investigating' | 'Confirmed Fraud' | 'False Positive' | 'Resolved';
+export type FraudDetectionMethod = 'ML Model' | 'Rule Engine' | 'Manual Flag' | 'Customer Report';
+
+export interface FraudDetectionCase {
+  id: string;
+  transactionNo: string;
+  customerName: string;
+  customerId: string;
+  country: string;
+  flag: string;
+  amount: number;
+  currency: string;
+  fraudScore: number;
+  fraudType: string;
+  detectionMethod: FraudDetectionMethod;
+  status: FraudDetectionStatus;
+  assignedAnalyst: string;
+  detectedAt: string;
+  channel: 'Web' | 'Mobile' | 'API' | 'Agent';
+}
+
+// ── Stats ──
+export const fraudDetectionStats = {
+  totalCases: 89,
+  openCases: 24,
+  investigating: 34,
+  confirmedFraud: 18,
+  falsePositive: 13,
+  blockedAmount: 284600,
+};
+
+// ── Filter options ──
+export const fraudTypeOptions = ['All Types', 'Duplicate Transaction', 'Account Takeover', 'Payment Fraud', 'Velocity Fraud', 'False Information', 'Identity Theft', 'Synthetic Identity'];
+export const fraudDetectionMethodOptions = ['All Methods', 'ML Model', 'Rule Engine', 'Manual Flag', 'Customer Report'];
+export const fraudDetectionStatusOptions = ['All Status', 'Open', 'Investigating', 'Confirmed Fraud', 'False Positive', 'Resolved'];
+
+// ── Fraud cases ──
+export const fraudDetectionCases: FraudDetectionCase[] = [
+  { id: 'FRAUD-C-250512-001', transactionNo: 'TXN-2505124720', customerName: 'Ahmed Khan', customerId: 'CUS-10061', country: 'United Kingdom', flag: '🇬🇧', amount: 1850.00, currency: 'GBP', fraudScore: 89, fraudType: 'Duplicate Transaction', detectionMethod: 'ML Model', status: 'Investigating', assignedAnalyst: 'Sarah Johnson', detectedAt: 'May 12, 2025 10:30 AM', channel: 'Mobile' },
+  { id: 'FRAUD-C-250512-002', transactionNo: 'TXN-2505124721', customerName: 'Fatima Ali', customerId: 'CUS-10062', country: 'Bangladesh', flag: '🇧🇩', amount: 3200.00, currency: 'GBP', fraudScore: 95, fraudType: 'Account Takeover', detectionMethod: 'Rule Engine', status: 'Open', assignedAnalyst: 'Ahmed Khan', detectedAt: 'May 12, 2025 10:25 AM', channel: 'Web' },
+  { id: 'FRAUD-C-250512-003', transactionNo: 'TXN-2505124722', customerName: 'John Doe', customerId: 'CUS-10063', country: 'United States', flag: '🇺🇸', amount: 980.00, currency: 'USD', fraudScore: 78, fraudType: 'Payment Fraud', detectionMethod: 'ML Model', status: 'Investigating', assignedAnalyst: 'Imran Hossain', detectedAt: 'May 12, 2025 10:20 AM', channel: 'API' },
+  { id: 'FRAUD-C-250512-004', transactionNo: 'TXN-2505124723', customerName: 'Sophie Martin', customerId: 'CUS-10064', country: 'France', flag: '🇫🇷', amount: 650.00, currency: 'EUR', fraudScore: 66, fraudType: 'Velocity Fraud', detectionMethod: 'Rule Engine', status: 'Open', assignedAnalyst: 'Sarah Johnson', detectedAt: 'May 12, 2025 10:15 AM', channel: 'Mobile' },
+  { id: 'FRAUD-C-250512-005', transactionNo: 'TXN-2505124724', customerName: 'Rashed Alam', customerId: 'CUS-10065', country: 'Bangladesh', flag: '🇧🇩', amount: 4500.00, currency: 'BDT', fraudScore: 40, fraudType: 'False Information', detectionMethod: 'Manual Flag', status: 'Investigating', assignedAnalyst: 'Ahmed Khan', detectedAt: 'May 12, 2025 10:05 AM', channel: 'Agent' },
+  { id: 'FRAUD-C-250511-006', transactionNo: 'TXN-2505124710', customerName: 'Hassan Al-Maktoum', customerId: 'CUS-10066', country: 'UAE', flag: '🇦🇪', amount: 5800.00, currency: 'AED', fraudScore: 91, fraudType: 'Identity Theft', detectionMethod: 'ML Model', status: 'Confirmed Fraud', assignedAnalyst: 'Imran Hossain', detectedAt: 'May 11, 2025 8:40 PM', channel: 'Web' },
+  { id: 'FRAUD-C-250511-007', transactionNo: 'TXN-2505124711', customerName: 'Maria Santos', customerId: 'CUS-10067', country: 'Philippines', flag: '🇵🇭', amount: 320.00, currency: 'PHP', fraudScore: 22, fraudType: 'Velocity Fraud', detectionMethod: 'Rule Engine', status: 'False Positive', assignedAnalyst: 'Sarah Johnson', detectedAt: 'May 11, 2025 5:15 PM', channel: 'Mobile' },
+  { id: 'FRAUD-C-250511-008', transactionNo: 'TXN-2505124712', customerName: 'David Wilson', customerId: 'CUS-10068', country: 'United Kingdom', flag: '🇬🇧', amount: 2100.00, currency: 'GBP', fraudScore: 84, fraudType: 'Synthetic Identity', detectionMethod: 'ML Model', status: 'Confirmed Fraud', assignedAnalyst: 'Ahmed Khan', detectedAt: 'May 11, 2025 2:30 PM', channel: 'Web' },
+  { id: 'FRAUD-C-250510-009', transactionNo: 'TXN-2505124700', customerName: 'Omar Sheikh', customerId: 'CUS-10069', country: 'Saudi Arabia', flag: '🇸🇦', amount: 7600.00, currency: 'SAR', fraudScore: 73, fraudType: 'Payment Fraud', detectionMethod: 'Customer Report', status: 'Investigating', assignedAnalyst: 'Imran Hossain', detectedAt: 'May 10, 2025 11:50 AM', channel: 'API' },
+  { id: 'FRAUD-C-250510-010', transactionNo: 'TXN-2505124701', customerName: 'Nadia Islam', customerId: 'CUS-10070', country: 'Bangladesh', flag: '🇧🇩', amount: 1200.00, currency: 'BDT', fraudScore: 15, fraudType: 'False Information', detectionMethod: 'Manual Flag', status: 'Resolved', assignedAnalyst: 'Sarah Johnson', detectedAt: 'May 10, 2025 9:00 AM', channel: 'Agent' },
+  { id: 'FRAUD-C-250509-011', transactionNo: 'TXN-2505124690', customerName: 'Karim Hossain', customerId: 'CUS-10071', country: 'Bangladesh', flag: '🇧🇩', amount: 12400.00, currency: 'BDT', fraudScore: 97, fraudType: 'Account Takeover', detectionMethod: 'ML Model', status: 'Confirmed Fraud', assignedAnalyst: 'Ahmed Khan', detectedAt: 'May 9, 2025 4:10 PM', channel: 'Mobile' },
+  { id: 'FRAUD-C-250508-012', transactionNo: 'TXN-2505124680', customerName: 'Lena Fischer', customerId: 'CUS-10072', country: 'Germany', flag: '🇩🇪', amount: 540.00, currency: 'EUR', fraudScore: 31, fraudType: 'Duplicate Transaction', detectionMethod: 'Rule Engine', status: 'False Positive', assignedAnalyst: 'Imran Hossain', detectedAt: 'May 8, 2025 1:25 PM', channel: 'Web' },
+];
+
+
+
+
+
+
+
+// ============ KYC & COMPLIANCE — AUDIT LOGS (standalone page) ============
+export type AuditLogSeverity = 'Info' | 'Warning' | 'Critical';
+export type AuditLogModule = 'Transactions' | 'Exchange Rates' | 'Pickup Requests' | 'Authentication' | 'Customers' | 'Agents' | 'Payment Methods' | 'KYC' | 'Settings' | 'Wallets';
+
+export interface AuditLogDetail {
+  id: string;
+  time: string;
+  user: string;
+  userRole: string;
+  action: string;
+  module: AuditLogModule;
+  ipAddress: string;
+  severity: AuditLogSeverity;
+  details: string;
+  recordId: string | null;
+}
+
+// ── Stats ──
+export const auditLogsStats = {
+  totalEventsToday: 1248,
+  criticalEvents: 12,
+  failedLogins: 8,
+  uniqueUsers: 34,
+};
+
+// ── Filter options ──
+export const auditModuleOptions = ['All Modules', 'Transactions', 'Exchange Rates', 'Pickup Requests', 'Authentication', 'Customers', 'Agents', 'Payment Methods', 'KYC', 'Settings', 'Wallets'];
+export const auditSeverityOptions = ['All Severity', 'Info', 'Warning', 'Critical'];
+
+// ── Audit log entries ──
+export const auditLogDetails: AuditLogDetail[] = [
+  { id: 'LOG-001', time: 'May 12, 2025 10:30 AM', user: 'Nusrat Jahan', userRole: 'Compliance Officer', action: 'Approve Transaction', module: 'Transactions', ipAddress: '192.168.1.45', severity: 'Info', details: 'Approved transaction TXN-2505124789 after AML review', recordId: 'TXN-2505124789' },
+  { id: 'LOG-002', time: 'May 12, 2025 10:25 AM', user: 'Arif Khan', userRole: 'Finance Manager', action: 'Update Exchange Rate', module: 'Exchange Rates', ipAddress: '192.168.1.32', severity: 'Info', details: 'Updated GBP/BDT rate from 164.98 to 165.25', recordId: 'RATE-001' },
+  { id: 'LOG-003', time: 'May 12, 2025 10:20 AM', user: 'Kamrul Hasan', userRole: 'Operations Manager', action: 'Add Pickup Request', module: 'Pickup Requests', ipAddress: '192.168.1.28', severity: 'Info', details: 'Created new cash pickup request for customer CUS-10041', recordId: 'TXN-2505124790' },
+  { id: 'LOG-004', time: 'May 12, 2025 10:15 AM', user: 'Fatima Ali', userRole: 'Compliance Officer', action: 'Login', module: 'Authentication', ipAddress: '192.168.1.45', severity: 'Info', details: 'Successful login from registered device', recordId: null },
+  { id: 'LOG-005', time: 'May 12, 2025 10:05 AM', user: 'Nusrat Jahan', userRole: 'Compliance Officer', action: 'Edit Customer', module: 'Customers', ipAddress: '192.168.1.46', severity: 'Info', details: 'Updated phone number for customer CUS-10044', recordId: 'CUS-10044' },
+  { id: 'LOG-006', time: 'May 12, 2025 9:50 AM', user: 'Unknown', userRole: '—', action: 'Failed Login Attempt', module: 'Authentication', ipAddress: '203.0.113.55', severity: 'Warning', details: 'Three consecutive failed login attempts for admin@sendmoney.com', recordId: null },
+  { id: 'LOG-007', time: 'May 12, 2025 9:40 AM', user: 'Ahmed Khan', userRole: 'Super Admin', action: 'Delete Agent', module: 'Agents', ipAddress: '192.168.1.12', severity: 'Critical', details: 'Permanently removed agent AGT-1099 from the system', recordId: 'AGT-1099' },
+  { id: 'LOG-008', time: 'May 12, 2025 9:30 AM', user: 'Sarah Johnson', userRole: 'Risk Analyst', action: 'Override Exchange Rate', module: 'Exchange Rates', ipAddress: '192.168.1.50', severity: 'Warning', details: 'Manual override applied to GBP/PKR rate — 12h duration', recordId: 'OVR-003' },
+  { id: 'LOG-009', time: 'May 12, 2025 9:15 AM', user: 'Imran Hossain', userRole: 'Compliance Officer', action: 'Approve KYC', module: 'KYC', ipAddress: '192.168.1.33', severity: 'Info', details: 'Approved Tier 2 KYC verification for customer CUS-10049', recordId: 'CUS-10049' },
+  { id: 'LOG-010', time: 'May 12, 2025 9:00 AM', user: 'Tariq Mahmud', userRole: 'Operations Manager', action: 'Add Payment Method', module: 'Payment Methods', ipAddress: '192.168.1.41', severity: 'Info', details: 'Added new mobile wallet integration: Easypaisa', recordId: 'PM-013' },
+  { id: 'LOG-011', time: 'May 12, 2025 8:50 AM', user: 'Ahmed Khan', userRole: 'Super Admin', action: 'Change System Setting', module: 'Settings', ipAddress: '192.168.1.12', severity: 'Critical', details: 'Changed default transaction fee policy for all corridors', recordId: 'SET-007' },
+  { id: 'LOG-012', time: 'May 12, 2025 8:35 AM', user: 'Kamal Hossain', userRole: 'Branch Manager', action: 'Withdraw Funds', module: 'Wallets', ipAddress: '192.168.1.19', severity: 'Warning', details: 'Large withdrawal of £12,000 from GBP Operating Account', recordId: 'WDR-26061802' },
+  { id: 'LOG-013', time: 'May 11, 2025 6:45 PM', user: 'Fatima Ali', userRole: 'Compliance Officer', action: 'Reject Transaction', module: 'Transactions', ipAddress: '192.168.1.45', severity: 'Warning', details: 'Rejected transaction TXN-2505124777 — sanctions list match', recordId: 'TXN-2505124777' },
+  { id: 'LOG-014', time: 'May 11, 2025 5:20 PM', user: 'Unknown', userRole: '—', action: 'Failed Login Attempt', module: 'Authentication', ipAddress: '198.51.100.23', severity: 'Warning', details: 'Login attempt from unrecognized IP address', recordId: null },
+  { id: 'LOG-015', time: 'May 11, 2025 4:10 PM', user: 'Nusrat Jahan', userRole: 'Compliance Officer', action: 'Escalate Alert', module: 'KYC', ipAddress: '192.168.1.46', severity: 'Critical', details: 'Escalated AML alert AML-A-250511-007 to senior review', recordId: 'AML-A-250511-007' },
+];
+
+
+
+
+
+
+
+
+// ============ KYC & COMPLIANCE — RISK MANAGEMENT (standalone page) ============
+export type RiskRuleStatus = 'Active' | 'Inactive';
+export type RiskRuleCategory = 'Transaction Behavior' | 'Geographic' | 'Identity' | 'Velocity' | 'Account Activity';
+
+export interface RiskRule {
+  id: string;
+  name: string;
+  category: RiskRuleCategory;
+  description: string;
+  weight: number;
+  triggerCount: number;
+  status: RiskRuleStatus;
+  lastUpdated: string;
+}
+
+export interface CustomerRiskScore {
+  id: string;
+  customerName: string;
+  customerId: string;
+  country: string;
+  flag: string;
+  riskScore: number;
+  riskLevel: AlertRiskLevel;
+  kycTier: string;
+  lastAssessed: string;
+  topFactor: string;
+  trend: 'up' | 'down' | 'stable';
+}
+
+// ── Stats ──
+export const riskManagementStats = {
+  totalScored: 1248,
+  lowRisk: 656,
+  mediumRisk: 352,
+  highRisk: 168,
+  criticalRisk: 72,
+  avgRiskScore: 34.2,
+};
+
+export const riskRuleCategoryOptions = ['All Categories', 'Transaction Behavior', 'Geographic', 'Identity', 'Velocity', 'Account Activity'];
+export const riskRuleStatusOptions = ['All Status', 'Active', 'Inactive'];
+export const riskLevelOptionsFull = ['All Levels', 'Low', 'Medium', 'High', 'Critical'];
+
+// ── Risk Rules ──
+export const riskRules: RiskRule[] = [
+  { id: 'RR-001', name: 'High-Value Single Transaction', category: 'Transaction Behavior', description: 'Flags transactions exceeding £10,000 in a single transfer', weight: 25, triggerCount: 142, status: 'Active', lastUpdated: 'May 1, 2025' },
+  { id: 'RR-002', name: 'Sanctioned Country Corridor', category: 'Geographic', description: 'Flags transfers to or from countries on the sanctions watchlist', weight: 40, triggerCount: 8, status: 'Active', lastUpdated: 'Apr 28, 2025' },
+  { id: 'RR-003', name: 'Mismatched Identity Document', category: 'Identity', description: 'Flags customers whose ID document name does not match account name', weight: 30, triggerCount: 23, status: 'Active', lastUpdated: 'Apr 20, 2025' },
+  { id: 'RR-004', name: 'Velocity Breach (24h)', category: 'Velocity', description: 'Flags more than 5 transactions within a 24-hour window', weight: 20, triggerCount: 96, status: 'Active', lastUpdated: 'May 5, 2025' },
+  { id: 'RR-005', name: 'Dormant Account Reactivation', category: 'Account Activity', description: 'Flags large transactions on accounts dormant for 90+ days', weight: 18, triggerCount: 34, status: 'Active', lastUpdated: 'Apr 15, 2025' },
+  { id: 'RR-006', name: 'Rapid Fund In-Out', category: 'Transaction Behavior', description: 'Flags funds withdrawn within 1 hour of deposit', weight: 22, triggerCount: 57, status: 'Active', lastUpdated: 'May 8, 2025' },
+  { id: 'RR-007', name: 'Multiple Failed KYC Attempts', category: 'Identity', description: 'Flags customers with 3+ failed KYC verification attempts', weight: 28, triggerCount: 15, status: 'Active', lastUpdated: 'Apr 22, 2025' },
+  { id: 'RR-008', name: 'New Account High Volume', category: 'Account Activity', description: 'Flags accounts under 7 days old with transaction volume above £5,000', weight: 24, triggerCount: 41, status: 'Inactive', lastUpdated: 'Mar 30, 2025' },
+  { id: 'RR-009', name: 'IP Geolocation Mismatch', category: 'Geographic', description: 'Flags logins from IP locations inconsistent with registered country', weight: 15, triggerCount: 68, status: 'Active', lastUpdated: 'May 3, 2025' },
+  { id: 'RR-010', name: 'Structuring Pattern Detection', category: 'Transaction Behavior', description: 'Flags multiple sub-threshold transactions that sum above reporting limit', weight: 35, triggerCount: 19, status: 'Active', lastUpdated: 'May 9, 2025' },
+];
+
+// ── Customer Risk Scores ──
+export const customerRiskScores: CustomerRiskScore[] = [
+  { id: 'CRS-001', customerName: 'Sumon Mia', customerId: 'CUS-10052', country: 'Bangladesh', flag: '🇧🇩', riskScore: 96, riskLevel: 'Critical', kycTier: 'Tier 1', lastAssessed: 'May 12, 2025', topFactor: 'High-Value Single Transaction', trend: 'up' },
+  { id: 'CRS-002', customerName: 'Karim Hossain', customerId: 'CUS-10043', country: 'Bangladesh', flag: '🇧🇩', riskScore: 91, riskLevel: 'High', kycTier: 'Tier 1', lastAssessed: 'May 12, 2025', topFactor: 'Round Tripping Pattern', trend: 'up' },
+  { id: 'CRS-003', customerName: 'Hassan Al-Maktoum', customerId: 'CUS-10066', country: 'UAE', flag: '🇦🇪', riskScore: 88, riskLevel: 'High', kycTier: 'Tier 2', lastAssessed: 'May 11, 2025', topFactor: 'Mismatched Identity Document', trend: 'stable' },
+  { id: 'CRS-004', customerName: 'Farida Begum', customerId: 'CUS-10047', country: 'Bangladesh', flag: '🇧🇩', riskScore: 79, riskLevel: 'High', kycTier: 'Tier 2', lastAssessed: 'May 11, 2025', topFactor: 'Structuring Pattern Detection', trend: 'down' },
+  { id: 'CRS-005', customerName: 'Mohammed Al-Rashid', customerId: 'CUS-10051', country: 'UAE', flag: '🇦🇪', riskScore: 70, riskLevel: 'Medium', kycTier: 'Tier 2', lastAssessed: 'May 10, 2025', topFactor: 'Rapid Fund In-Out', trend: 'up' },
+  { id: 'CRS-006', customerName: 'Maria Santos', customerId: 'CUS-10042', country: 'Philippines', flag: '🇵🇭', riskScore: 72, riskLevel: 'Medium', kycTier: 'Tier 1', lastAssessed: 'May 10, 2025', topFactor: 'Velocity Breach (24h)', trend: 'stable' },
+  { id: 'CRS-007', customerName: 'David Wilson', customerId: 'CUS-10044', country: 'United Kingdom', flag: '🇬🇧', riskScore: 45, riskLevel: 'Low', kycTier: 'Tier 3', lastAssessed: 'May 9, 2025', topFactor: 'IP Geolocation Mismatch', trend: 'down' },
+  { id: 'CRS-008', customerName: 'Karim Hassan', customerId: 'CUS-10046', country: 'Germany', flag: '🇩🇪', riskScore: 38, riskLevel: 'Low', kycTier: 'Tier 3', lastAssessed: 'May 9, 2025', topFactor: 'New Account High Volume', trend: 'stable' },
+  { id: 'CRS-009', customerName: 'Priya Sharma', customerId: 'CUS-10050', country: 'India', flag: '🇮🇳', riskScore: 29, riskLevel: 'Low', kycTier: 'Tier 2', lastAssessed: 'May 8, 2025', topFactor: 'None — clean profile', trend: 'down' },
+  { id: 'CRS-010', customerName: 'James Okafor', customerId: 'CUS-10048', country: 'Nigeria', flag: '🇳🇬', riskScore: 55, riskLevel: 'Medium', kycTier: 'Tier 1', lastAssessed: 'May 8, 2025', topFactor: 'Dormant Account Reactivation', trend: 'up' },
+  { id: 'CRS-011', customerName: 'Tariq Mahmud', customerId: 'CUS-10049', country: 'Bangladesh', flag: '🇧🇩', riskScore: 65, riskLevel: 'Medium', kycTier: 'Tier 2', lastAssessed: 'May 7, 2025', topFactor: 'Multiple Failed KYC Attempts', trend: 'stable' },
+  { id: 'CRS-012', customerName: 'Sadia Rahman', customerId: 'CUS-10046b', country: 'Bangladesh', flag: '🇧🇩', riskScore: 18, riskLevel: 'Low', kycTier: 'Tier 3', lastAssessed: 'May 6, 2025', topFactor: 'None — clean profile', trend: 'down' },
+];
+
+
+
+
+// ============ KYC & COMPLIANCE — COMPLIANCE CASES (standalone page) ============
+export type ComplianceCaseStatus = 'Open' | 'Under Review' | 'Escalated' | 'Closed';
+export type ComplianceCasePriority = 'Low' | 'Medium' | 'High' | 'Urgent';
+export type ComplianceCaseType = 'AML Review' | 'Sanctions Match' | 'PEP Review' | 'Fraud Escalation' | 'Regulatory Inquiry' | 'Suspicious Activity Report';
+
+export interface ComplianceCase {
+  id: string;
+  title: string;
+  caseType: ComplianceCaseType;
+  customerName: string;
+  customerId: string;
+  country: string;
+  flag: string;
+  priority: ComplianceCasePriority;
+  status: ComplianceCaseStatus;
+  assignedOfficer: string;
+  relatedAlerts: number;
+  openedDate: string;
+  dueDate: string;
+  lastUpdated: string;
+}
+
+// ── Stats ──
+export const complianceCasesStats = {
+  totalCases: 67,
+  openCases: 18,
+  underReview: 24,
+  escalated: 13,
+  closed: 12,
+  overdueCases: 5,
+};
+
+// ── Filter options ──
+export const complianceCaseTypeOptions = ['All Types', 'AML Review', 'Sanctions Match', 'PEP Review', 'Fraud Escalation', 'Regulatory Inquiry', 'Suspicious Activity Report'];
+export const compliancePriorityOptions = ['All Priority', 'Low', 'Medium', 'High', 'Urgent'];
+export const complianceCaseStatusOptions = ['All Status', 'Open', 'Under Review', 'Escalated', 'Closed'];
+
+// ── Compliance Cases ──
+export const complianceCases: ComplianceCase[] = [
+  { id: 'CMP-C-001', title: 'Structuring pattern across 3 agents', caseType: 'AML Review', customerName: 'Sumon Mia', customerId: 'CUS-10052', country: 'Bangladesh', flag: '🇧🇩', priority: 'Urgent', status: 'Escalated', assignedOfficer: 'Nusrat Jahan', relatedAlerts: 4, openedDate: 'May 8, 2025', dueDate: 'May 13, 2025', lastUpdated: 'May 12, 2025' },
+  { id: 'CMP-C-002', title: 'Potential OFAC sanctions match', caseType: 'Sanctions Match', customerName: 'Hassan Al-Maktoum', customerId: 'CUS-10066', country: 'UAE', flag: '🇦🇪', priority: 'Urgent', status: 'Under Review', assignedOfficer: 'Arif Khan', relatedAlerts: 1, openedDate: 'May 9, 2025', dueDate: 'May 12, 2025', lastUpdated: 'May 12, 2025' },
+  { id: 'CMP-C-003', title: 'Politically exposed person verification', caseType: 'PEP Review', customerName: 'Mohammed Al-Rashid', customerId: 'CUS-10051', country: 'UAE', flag: '🇦🇪', priority: 'High', status: 'Open', assignedOfficer: 'Kamrul Hasan', relatedAlerts: 2, openedDate: 'May 10, 2025', dueDate: 'May 17, 2025', lastUpdated: 'May 11, 2025' },
+  { id: 'CMP-C-004', title: 'Confirmed account takeover escalation', caseType: 'Fraud Escalation', customerName: 'Fatima Ali', customerId: 'CUS-10062', country: 'Bangladesh', flag: '🇧🇩', priority: 'Urgent', status: 'Escalated', assignedOfficer: 'Sarah Johnson', relatedAlerts: 3, openedDate: 'May 11, 2025', dueDate: 'May 13, 2025', lastUpdated: 'May 12, 2025' },
+  { id: 'CMP-C-005', title: 'Regulator information request — FCA', caseType: 'Regulatory Inquiry', customerName: 'N/A', customerId: '—', country: 'United Kingdom', flag: '🇬🇧', priority: 'High', status: 'Under Review', assignedOfficer: 'Nusrat Jahan', relatedAlerts: 0, openedDate: 'May 7, 2025', dueDate: 'May 21, 2025', lastUpdated: 'May 10, 2025' },
+  { id: 'CMP-C-006', title: 'SAR filing — round tripping detected', caseType: 'Suspicious Activity Report', customerName: 'Karim Hossain', customerId: 'CUS-10043', country: 'Bangladesh', flag: '🇧🇩', priority: 'High', status: 'Escalated', assignedOfficer: 'Arif Khan', relatedAlerts: 2, openedDate: 'May 8, 2025', dueDate: 'May 15, 2025', lastUpdated: 'May 11, 2025' },
+  { id: 'CMP-C-007', title: 'High-value transaction review', caseType: 'AML Review', customerName: 'Farida Begum', customerId: 'CUS-10047', country: 'Bangladesh', flag: '🇧🇩', priority: 'Medium', status: 'Open', assignedOfficer: 'Kamrul Hasan', relatedAlerts: 1, openedDate: 'May 11, 2025', dueDate: 'May 18, 2025', lastUpdated: 'May 11, 2025' },
+  { id: 'CMP-C-008', title: 'Customer self-declared PEP status', caseType: 'PEP Review', customerName: 'Omar Sheikh', customerId: 'CUS-10069', country: 'Saudi Arabia', flag: '🇸🇦', priority: 'Medium', status: 'Under Review', assignedOfficer: 'Sarah Johnson', relatedAlerts: 0, openedDate: 'May 6, 2025', dueDate: 'May 20, 2025', lastUpdated: 'May 9, 2025' },
+  { id: 'CMP-C-009', title: 'Synthetic identity fraud confirmed', caseType: 'Fraud Escalation', customerName: 'David Wilson', customerId: 'CUS-10068', country: 'United Kingdom', flag: '🇬🇧', priority: 'High', status: 'Closed', assignedOfficer: 'Ahmed Khan', relatedAlerts: 2, openedDate: 'May 3, 2025', dueDate: 'May 10, 2025', lastUpdated: 'May 8, 2025' },
+  { id: 'CMP-C-010', title: 'Annual compliance audit data request', caseType: 'Regulatory Inquiry', customerName: 'N/A', customerId: '—', country: 'Bangladesh', flag: '🇧🇩', priority: 'Low', status: 'Closed', assignedOfficer: 'Nusrat Jahan', relatedAlerts: 0, openedDate: 'Apr 28, 2025', dueDate: 'May 12, 2025', lastUpdated: 'May 5, 2025' },
+  { id: 'CMP-C-011', title: 'Velocity breach SAR consideration', caseType: 'Suspicious Activity Report', customerName: 'Imran Hossain', customerId: 'CUS-10045', country: 'Bangladesh', flag: '🇧🇩', priority: 'Medium', status: 'Open', assignedOfficer: 'Arif Khan', relatedAlerts: 1, openedDate: 'May 9, 2025', dueDate: 'May 16, 2025', lastUpdated: 'May 10, 2025' },
+  { id: 'CMP-C-012', title: 'Sanctions list false positive resolved', caseType: 'Sanctions Match', customerName: 'James Okafor', customerId: 'CUS-10048', country: 'Nigeria', flag: '🇳🇬', priority: 'Low', status: 'Closed', assignedOfficer: 'Kamrul Hasan', relatedAlerts: 1, openedDate: 'May 4, 2025', dueDate: 'May 9, 2025', lastUpdated: 'May 7, 2025' },
+];
