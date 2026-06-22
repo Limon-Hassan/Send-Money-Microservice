@@ -3206,131 +3206,7 @@ export const BENEFICIARY_INACTIVE = 186;
 export const BENEFICIARY_WEEK_ADDED = 45;
 export const BENEFICIARY_PAGE_SIZE = 10;
 
-// report & analytics fake data here
 
-
-// ── Reports & Analytics Fake Data ─────────────────────────────────────────────
-
-// Stat cards
-export const reportStatCards = [
-  { label: 'Total Transactions', value: '24,752', change: '+12.5%', positive: true, sub: 'vs last 7 days', color: 'blue' },
-  { label: 'Total Cash Pickups', value: '8,642', change: '+8.3%', positive: true, sub: 'vs last 7 days', color: 'orange' },
-  { label: 'Total Revenue (Fees)', value: '$425,780', change: '+15.7%', positive: true, sub: 'vs last 7 days', color: 'green' },
-  { label: 'Total Payouts', value: '$4,256,540', change: '+10.2%', positive: true, sub: 'vs last 7 days', color: 'teal' },
-  { label: 'Pending Transactions', value: '1,248', change: '+5.2%', positive: true, sub: 'vs last 7 days', color: 'yellow' },
-  { label: 'Failed Transactions', value: '156', change: '-3.1%', positive: false, sub: 'vs last 7 days', color: 'red' },
-  { label: 'Active Users', value: '12,856', change: '+9.4%', positive: true, sub: 'vs last 7 days', color: 'purple' },
-  { label: 'Active Agents', value: '214', change: '+6.7%', positive: true, sub: 'vs last 7 days', color: 'pink' },
-];
-
-// Daily Transaction Volume (May 6–12)
-export const dailyVolumeData = {
-  labels: ['May 6', 'May 7', 'May 8', 'May 9', 'May 10', 'May 11', 'May 12'],
-  values: [2100, 3200, 2800, 3800, 3400, 4600, 4900],
-};
-
-// Monthly Revenue Trend (Nov–May)
-export const monthlyRevenueData = {
-  labels: ['Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May'],
-  revenue: [180000, 220000, 160000, 290000, 340000, 410000, 425780],
-  fees: [12000, 15000, 11000, 19000, 23000, 28000, 30000],
-};
-
-// Status Distribution (donut)
-export const statusDistribution = [
-  { label: 'Completed', value: 18752, pct: 75.8, color: '#16a34a' },
-  { label: 'Pending', value: 3124, pct: 12.6, color: '#f59e0b' },
-  { label: 'Failed', value: 1563, pct: 6.3, color: '#ef4444' },
-  { label: 'Refunded', value: 1313, pct: 5.3, color: '#6366f1' },
-];
-
-// Recent Transactions (analytics view)
-export interface AnalyticsTransaction {
-  id: string;
-  sender: string;
-  recipient: string;
-  sendCountry: string;
-  sendFlag: string;
-  receiveCountry: string;
-  receiveFlag: string;
-  amount: string;
-  currency: string;
-  rate: string;
-  fee: string;
-  netPayout: string;
-  status: 'Completed' | 'Pending' | 'Failed';
-  dateTime: string;
-}
-
-export const analyticsRecentTransactions: AnalyticsTransaction[] = [
-  { id: 'TXN-2505124789', sender: 'John Doe', recipient: 'Rahim Uddin', sendCountry: 'United Kingdom', sendFlag: '🇬🇧', receiveCountry: 'Bangladesh', receiveFlag: '🇧🇩', amount: '£500.00', currency: 'GBP', rate: '165.2500', fee: '£3.50', netPayout: '৳62,625.00', status: 'Completed', dateTime: 'May 12, 2025 10:30 AM' },
-  { id: 'TXN-2505124788', sender: 'Ahmed Khan', recipient: 'Maria Santos', sendCountry: 'United States', sendFlag: '🇺🇸', receiveCountry: 'Philippines', receiveFlag: '🇵🇭', amount: '$300.00', currency: 'USD', rate: '122.2500', fee: '$2.50', netPayout: '₱36,675.00', status: 'Pending', dateTime: 'May 12, 2025 09:15 AM' },
-  { id: 'TXN-2505124787', sender: 'Rashid Ahmed', recipient: 'Sabir Hossain', sendCountry: 'United Kingdom', sendFlag: '🇬🇧', receiveCountry: 'Bangladesh', receiveFlag: '🇧🇩', amount: '£28.00', currency: 'GBP', rate: '165.2500', fee: '£4.00', netPayout: '৳123,937.50', status: 'Completed', dateTime: 'May 12, 2025 08:45 AM' },
-  { id: 'TXN-2505124786', sender: 'Imran Hossain', recipient: 'Mohammed Ali', sendCountry: 'Saudi Arabia', sendFlag: '🇸🇦', receiveCountry: 'Bangladesh', receiveFlag: '🇧🇩', amount: 'SAR 1,000.00', currency: 'SAR', rate: '28.5600', fee: 'SAR 8.00', netPayout: '৳30,560.00', status: 'Failed', dateTime: 'May 12, 2025 08:20 AM' },
-  { id: 'TXN-2505124785', sender: 'Fatima Ali', recipient: 'Arif Khan', sendCountry: 'United Arab Emirates', sendFlag: '🇦🇪', receiveCountry: 'Pakistan', receiveFlag: '🇵🇰', amount: 'AED 1,250.00', currency: 'AED', rate: '33.2800', fee: 'AED 6.00', netPayout: 'Rs. 162,100.00', status: 'Pending', dateTime: 'May 12, 2025 07:55 AM' },
-];
-
-// Top Sending Corridors
-export const topSendingCorridors = [
-  { corridor: 'UK → Bangladesh', transactions: 5248, volume: '£2,456,780' },
-  { corridor: 'USA → Bangladesh', transactions: 4125, volume: '$1,856,230' },
-  { corridor: 'UAE → Pakistan', transactions: 2856, volume: 'AED 3,125,450' },
-  { corridor: 'Saudi Arabia → Bangladesh', transactions: 1985, volume: 'SAR 2,145,600' },
-  { corridor: 'Canada → India', transactions: 1256, volume: 'CAD 856,230' },
-];
-
-// Top Agents by Transactions
-export const topAgents = [
-  { name: 'Abul Hasan', branch: 'Gulshan Branch', avatar: 'AH', transactions: 1256, completionRate: '98.5%' },
-  { name: 'Kamal Hossain', branch: 'Uttara Branch', avatar: 'KH', transactions: 985, completionRate: '97.2%' },
-  { name: 'Juan Dela Cruz', branch: 'Manila Branch', avatar: 'JD', transactions: 874, completionRate: '96.1%' },
-  { name: 'Amit Kumar', branch: 'Mumbai Branch', avatar: 'AK', transactions: 763, completionRate: '95.7%' },
-  { name: 'Rashed Alom', branch: 'Sylhet Branch', avatar: 'RA', transactions: 654, completionRate: '95.4%' },
-];
-
-// Revenue Summary
-export const revenueSummary = [
-  { label: 'Total Fees Collected', value: '$425,780' },
-  { label: 'Transaction Count', value: '24,752' },
-  { label: 'Average Fee per Transaction', value: '$17.20' },
-  { label: 'Total Payouts', value: '$4,256,540' },
-  { label: 'Net Revenue', value: '$425,780' },
-];
-
-// Quick Reports list
-export const quickReports = [
-  { label: 'Transaction Report', icon: 'doc' },
-  { label: 'Cash Pickup Report', icon: 'cash' },
-  { label: 'Agent Performance Report', icon: 'agent' },
-  { label: 'Revenue & Finance Report', icon: 'revenue' },
-  { label: 'Compliance Report', icon: 'compliance' },
-  { label: 'Customer Report', icon: 'customer' },
-  { label: 'System Activity Report', icon: 'system' },
-];
-
-// Report Schedules
-export const reportSchedules = [
-  { label: 'Daily Transaction Report', sub: 'Every day at 06:00 AM', active: true },
-  { label: 'Weekly Summary Report', sub: 'Every Monday at 09:00 AM', active: true },
-  { label: 'Monthly Revenue Report', sub: '1st of every month at 10:00 AM', active: true },
-  { label: 'Compliance Summary Report', sub: 'Every Friday at 06:00 PM', active: false },
-];
-
-// Recent Exports
-export const recentExports = [
-  { name: 'Transaction_Report_May_12_2025.xlsx', date: 'May 12, 2025 10:30 AM', type: 'xlsx' },
-  { name: 'Revenue_Report_April_2025.pdf', date: 'May 12, 2025 09:15 AM', type: 'pdf' },
-  { name: 'Agent_Performance_May_2025.xlsx', date: 'May 12, 2025 08:45 AM', type: 'xlsx' },
-];
-
-export const countryTransactionData = [
-  { country: 'Bangladesh', value: 9800, pct: 100 },
-  { country: 'India', value: 5200, pct: 53 },
-  { country: 'Pakistan', value: 3600, pct: 37 },
-  { country: 'Philippines', value: 2400, pct: 24 },
-  { country: 'Nigeria', value: 1800, pct: 18 },
-  { country: 'Nepal', value: 1200, pct: 12 },
-];
 
 //here KYC fake data
 
@@ -7695,3 +7571,1019 @@ export const complianceCases: ComplianceCase[] = [
   { id: 'CMP-C-011', title: 'Velocity breach SAR consideration', caseType: 'Suspicious Activity Report', customerName: 'Imran Hossain', customerId: 'CUS-10045', country: 'Bangladesh', flag: '🇧🇩', priority: 'Medium', status: 'Open', assignedOfficer: 'Arif Khan', relatedAlerts: 1, openedDate: 'May 9, 2025', dueDate: 'May 16, 2025', lastUpdated: 'May 10, 2025' },
   { id: 'CMP-C-012', title: 'Sanctions list false positive resolved', caseType: 'Sanctions Match', customerName: 'James Okafor', customerId: 'CUS-10048', country: 'Nigeria', flag: '🇳🇬', priority: 'Low', status: 'Closed', assignedOfficer: 'Kamrul Hasan', relatedAlerts: 1, openedDate: 'May 4, 2025', dueDate: 'May 9, 2025', lastUpdated: 'May 7, 2025' },
 ];
+
+
+
+
+
+
+
+
+
+
+// ============ KYC & COMPLIANCE — FRAUD INVESTIGATIONS (standalone page) ============
+export type InvestigationStageType = 'Evidence Collection' | 'Customer Interview' | 'Forensic Analysis' | 'Final Reporting';
+export type InvestigationOutcome = 'Pending' | 'Confirmed Fraud' | 'Cleared' | 'Inconclusive';
+export type InvestigationPriorityLevel = 'Low' | 'Medium' | 'High' | 'Critical';
+
+export interface InvestigationTimelineStep {
+  label: string;
+  date: string;
+  completed: boolean;
+}
+
+export interface FraudInvestigation {
+  id: string;
+  linkedCaseId: string;
+  customerName: string;
+  customerId: string;
+  country: string;
+  flag: string;
+  investigator: string;
+  stage: InvestigationStageType;
+  outcome: InvestigationOutcome;
+  priority: InvestigationPriorityLevel;
+  evidenceCount: number;
+  amountInvolved: number;
+  currency: string;
+  openedDate: string;
+  targetCloseDate: string;
+  findings: string;
+  timeline: InvestigationTimelineStep[];
+}
+
+// ── Stats ──
+export const fraudInvestigationsStats = {
+  totalInvestigations: 34,
+  activeInvestigations: 21,
+  evidencePending: 9,
+  confirmedOutcomes: 18,
+  avgResolutionDays: 6.4,
+};
+
+// ── Filter options ──
+export const investigationStageOptions = ['All Stages', 'Evidence Collection', 'Customer Interview', 'Forensic Analysis', 'Final Reporting'];
+export const investigationOutcomeOptions = ['All Outcomes', 'Pending', 'Confirmed Fraud', 'Cleared', 'Inconclusive'];
+export const investigationPriorityOptions = ['All Priority', 'Low', 'Medium', 'High', 'Critical'];
+
+// ── Investigations ──
+export const fraudInvestigations: FraudInvestigation[] = [
+  {
+    id: 'INV-2025-001', linkedCaseId: 'FRAUD-C-250512-002', customerName: 'Fatima Ali', customerId: 'CUS-10062',
+    country: 'Bangladesh', flag: '🇧🇩', investigator: 'Sarah Johnson', stage: 'Forensic Analysis',
+    outcome: 'Pending', priority: 'Critical', evidenceCount: 7, amountInvolved: 3200, currency: 'GBP',
+    openedDate: 'May 12, 2025', targetCloseDate: 'May 16, 2025',
+    findings: 'Device fingerprint mismatch detected; login originated from previously unseen device and IP range inconsistent with customer history.',
+    timeline: [
+      { label: 'Investigation Opened', date: 'May 12, 2025', completed: true },
+      { label: 'Evidence Collection', date: 'May 12, 2025', completed: true },
+      { label: 'Customer Interview', date: 'May 13, 2025', completed: true },
+      { label: 'Forensic Analysis', date: 'May 14, 2025', completed: false },
+      { label: 'Final Reporting', date: 'May 16, 2025', completed: false },
+    ],
+  },
+  {
+    id: 'INV-2025-002', linkedCaseId: 'FRAUD-C-250511-006', customerName: 'Hassan Al-Maktoum', customerId: 'CUS-10066',
+    country: 'UAE', flag: '🇦🇪', investigator: 'Ahmed Khan', stage: 'Final Reporting',
+    outcome: 'Confirmed Fraud', priority: 'Critical', evidenceCount: 12, amountInvolved: 5800, currency: 'AED',
+    openedDate: 'May 11, 2025', targetCloseDate: 'May 15, 2025',
+    findings: 'Synthetic identity confirmed via document forensics; fabricated employment letter and altered passport scan identified.',
+    timeline: [
+      { label: 'Investigation Opened', date: 'May 11, 2025', completed: true },
+      { label: 'Evidence Collection', date: 'May 11, 2025', completed: true },
+      { label: 'Customer Interview', date: 'May 12, 2025', completed: true },
+      { label: 'Forensic Analysis', date: 'May 13, 2025', completed: true },
+      { label: 'Final Reporting', date: 'May 14, 2025', completed: true },
+    ],
+  },
+  {
+    id: 'INV-2025-003', linkedCaseId: 'FRAUD-C-250512-001', customerName: 'Ahmed Khan', customerId: 'CUS-10061',
+    country: 'United Kingdom', flag: '🇬🇧', investigator: 'Imran Hossain', stage: 'Customer Interview',
+    outcome: 'Pending', priority: 'High', evidenceCount: 4, amountInvolved: 1850, currency: 'GBP',
+    openedDate: 'May 12, 2025', targetCloseDate: 'May 17, 2025',
+    findings: 'Duplicate transaction detected within 90 seconds; awaiting customer confirmation on whether transaction was intentional.',
+    timeline: [
+      { label: 'Investigation Opened', date: 'May 12, 2025', completed: true },
+      { label: 'Evidence Collection', date: 'May 12, 2025', completed: true },
+      { label: 'Customer Interview', date: 'May 13, 2025', completed: false },
+      { label: 'Forensic Analysis', date: 'May 15, 2025', completed: false },
+      { label: 'Final Reporting', date: 'May 17, 2025', completed: false },
+    ],
+  },
+  {
+    id: 'INV-2025-004', linkedCaseId: 'FRAUD-C-250509-011', customerName: 'Karim Hossain', customerId: 'CUS-10071',
+    country: 'Bangladesh', flag: '🇧🇩', investigator: 'Sarah Johnson', stage: 'Final Reporting',
+    outcome: 'Confirmed Fraud', priority: 'Critical', evidenceCount: 15, amountInvolved: 12400, currency: 'BDT',
+    openedDate: 'May 9, 2025', targetCloseDate: 'May 13, 2025',
+    findings: 'Account takeover confirmed via SIM swap correlation; unauthorized password reset traced to compromised mobile carrier account.',
+    timeline: [
+      { label: 'Investigation Opened', date: 'May 9, 2025', completed: true },
+      { label: 'Evidence Collection', date: 'May 9, 2025', completed: true },
+      { label: 'Customer Interview', date: 'May 10, 2025', completed: true },
+      { label: 'Forensic Analysis', date: 'May 11, 2025', completed: true },
+      { label: 'Final Reporting', date: 'May 12, 2025', completed: true },
+    ],
+  },
+  {
+    id: 'INV-2025-005', linkedCaseId: 'FRAUD-C-250511-007', customerName: 'Maria Santos', customerId: 'CUS-10067',
+    country: 'Philippines', flag: '🇵🇭', investigator: 'Ahmed Khan', stage: 'Evidence Collection',
+    outcome: 'Inconclusive', priority: 'Low', evidenceCount: 2, amountInvolved: 320, currency: 'PHP',
+    openedDate: 'May 11, 2025', targetCloseDate: 'May 18, 2025',
+    findings: 'Velocity rule triggered on legitimate batch payroll disbursement; pattern consistent with verified business use case.',
+    timeline: [
+      { label: 'Investigation Opened', date: 'May 11, 2025', completed: true },
+      { label: 'Evidence Collection', date: 'May 12, 2025', completed: false },
+      { label: 'Customer Interview', date: 'May 14, 2025', completed: false },
+      { label: 'Forensic Analysis', date: 'May 16, 2025', completed: false },
+      { label: 'Final Reporting', date: 'May 18, 2025', completed: false },
+    ],
+  },
+  {
+    id: 'INV-2025-006', linkedCaseId: 'FRAUD-C-250510-009', customerName: 'Omar Sheikh', customerId: 'CUS-10069',
+    country: 'Saudi Arabia', flag: '🇸🇦', investigator: 'Imran Hossain', stage: 'Forensic Analysis',
+    outcome: 'Pending', priority: 'Medium', evidenceCount: 6, amountInvolved: 7600, currency: 'SAR',
+    openedDate: 'May 10, 2025', targetCloseDate: 'May 16, 2025',
+    findings: 'Customer-reported unauthorized transaction; reviewing transaction authorization logs and device session data.',
+    timeline: [
+      { label: 'Investigation Opened', date: 'May 10, 2025', completed: true },
+      { label: 'Evidence Collection', date: 'May 11, 2025', completed: true },
+      { label: 'Customer Interview', date: 'May 12, 2025', completed: true },
+      { label: 'Forensic Analysis', date: 'May 14, 2025', completed: false },
+      { label: 'Final Reporting', date: 'May 16, 2025', completed: false },
+    ],
+  },
+  {
+    id: 'INV-2025-007', linkedCaseId: 'FRAUD-C-250508-012', customerName: 'Lena Fischer', customerId: 'CUS-10072',
+    country: 'Germany', flag: '🇩🇪', investigator: 'Sarah Johnson', stage: 'Final Reporting',
+    outcome: 'Cleared', priority: 'Low', evidenceCount: 5, amountInvolved: 540, currency: 'EUR',
+    openedDate: 'May 8, 2025', targetCloseDate: 'May 12, 2025',
+    findings: 'Duplicate transaction flag resulted from network retry on customer mobile app; single legitimate charge confirmed.',
+    timeline: [
+      { label: 'Investigation Opened', date: 'May 8, 2025', completed: true },
+      { label: 'Evidence Collection', date: 'May 8, 2025', completed: true },
+      { label: 'Customer Interview', date: 'May 9, 2025', completed: true },
+      { label: 'Forensic Analysis', date: 'May 10, 2025', completed: true },
+      { label: 'Final Reporting', date: 'May 11, 2025', completed: true },
+    ],
+  },
+  {
+    id: 'INV-2025-008', linkedCaseId: 'FRAUD-C-250512-004', customerName: 'Sophie Martin', customerId: 'CUS-10064',
+    country: 'France', flag: '🇫🇷', investigator: 'Ahmed Khan', stage: 'Customer Interview',
+    outcome: 'Pending', priority: 'Medium', evidenceCount: 3, amountInvolved: 650, currency: 'EUR',
+    openedDate: 'May 12, 2025', targetCloseDate: 'May 19, 2025',
+    findings: 'Velocity fraud rule triggered on weekend; gathering merchant correlation data before customer follow-up.',
+    timeline: [
+      { label: 'Investigation Opened', date: 'May 12, 2025', completed: true },
+      { label: 'Evidence Collection', date: 'May 12, 2025', completed: true },
+      { label: 'Customer Interview', date: 'May 14, 2025', completed: false },
+      { label: 'Forensic Analysis', date: 'May 16, 2025', completed: false },
+      { label: 'Final Reporting', date: 'May 19, 2025', completed: false },
+    ],
+  },
+];
+
+
+
+
+
+
+
+
+
+
+
+// ============ KYC & COMPLIANCE — ESCALATIONS (standalone page) ============
+export type EscalationLevel = 'Level 1 - Team Lead' | 'Level 2 - Senior Manager' | 'Level 3 - Executive' | 'Level 4 - Regulatory';
+export type EscalationStatusType = 'Pending Response' | 'Acknowledged' | 'In Progress' | 'Resolved';
+export type EscalationSourceType = 'AML Alert' | 'Fraud Case' | 'Compliance Case' | 'Sanctions Hit' | 'PEP Match';
+
+export interface EscalationItem {
+  id: string;
+  sourceType: EscalationSourceType;
+  sourceId: string;
+  title: string;
+  customerName: string;
+  customerId: string;
+  country: string;
+  flag: string;
+  escalatedBy: string;
+  escalatedTo: string;
+  level: EscalationLevel;
+  status: EscalationStatusType;
+  escalatedDate: string;
+  dueDate: string;
+  reason: string;
+}
+
+// ── Stats ──
+export const escalationsStats = {
+  totalEscalations: 28,
+  pendingResponse: 9,
+  inProgress: 11,
+  resolved: 8,
+  overdue: 4,
+  avgResponseHours: 14.6,
+};
+
+// ── Filter options ──
+export const escalationSourceOptions = ['All Sources', 'AML Alert', 'Fraud Case', 'Compliance Case', 'Sanctions Hit', 'PEP Match'];
+export const escalationLevelOptions = ['All Levels', 'Level 1 - Team Lead', 'Level 2 - Senior Manager', 'Level 3 - Executive', 'Level 4 - Regulatory'];
+export const escalationStatusOptions = ['All Status', 'Pending Response', 'Acknowledged', 'In Progress', 'Resolved'];
+
+// ── Escalations ──
+export const escalationItems: EscalationItem[] = [
+  { id: 'ESC-001', sourceType: 'AML Alert', sourceId: 'AML-A-250512-003', title: 'Round tripping pattern requires senior sign-off', customerName: 'Sabir Hossain', customerId: 'CUS-10043', country: 'Bangladesh', flag: '🇧🇩', escalatedBy: 'Kamrul Hasan', escalatedTo: 'Nusrat Jahan', level: 'Level 2 - Senior Manager', status: 'Pending Response', escalatedDate: 'May 12, 2025', dueDate: 'May 13, 2025', reason: 'Risk score above 90 — requires manager approval before account action.' },
+  { id: 'ESC-002', sourceType: 'Sanctions Hit', sourceId: 'CMP-C-002', title: 'Potential OFAC match — urgent review needed', customerName: 'Hassan Al-Maktoum', customerId: 'CUS-10066', country: 'UAE', flag: '🇦🇪', escalatedBy: 'Arif Khan', escalatedTo: 'Ahmed Khan', level: 'Level 3 - Executive', status: 'In Progress', escalatedDate: 'May 9, 2025', dueDate: 'May 12, 2025', reason: 'Name match against OFAC SDN list requires executive review prior to fund release.' },
+  { id: 'ESC-003', sourceType: 'Fraud Case', sourceId: 'FRAUD-C-250512-002', title: 'Confirmed account takeover — customer notification required', customerName: 'Fatima Ali', customerId: 'CUS-10062', country: 'Bangladesh', flag: '🇧🇩', escalatedBy: 'Sarah Johnson', escalatedTo: 'Imran Hossain', level: 'Level 2 - Senior Manager', status: 'Acknowledged', escalatedDate: 'May 12, 2025', dueDate: 'May 13, 2025', reason: 'Confirmed fraud case requires customer communication plan approval.' },
+  { id: 'ESC-004', sourceType: 'Compliance Case', sourceId: 'CMP-C-005', title: 'FCA information request — legal review needed', customerName: 'N/A', customerId: '—', country: 'United Kingdom', flag: '🇬🇧', escalatedBy: 'Nusrat Jahan', escalatedTo: 'Ahmed Khan', level: 'Level 4 - Regulatory', status: 'In Progress', escalatedDate: 'May 10, 2025', dueDate: 'May 21, 2025', reason: 'Regulator inquiry requires legal counsel involvement before formal response.' },
+  { id: 'ESC-005', sourceType: 'PEP Match', sourceId: 'CMP-C-003', title: 'High-profile PEP onboarding decision', customerName: 'Mohammed Al-Rashid', customerId: 'CUS-10051', country: 'UAE', flag: '🇦🇪', escalatedBy: 'Kamrul Hasan', escalatedTo: 'Nusrat Jahan', level: 'Level 2 - Senior Manager', status: 'Resolved', escalatedDate: 'May 6, 2025', dueDate: 'May 10, 2025', reason: 'PEP status confirmed — enhanced due diligence approved and account activated with monitoring flag.' },
+  { id: 'ESC-006', sourceType: 'AML Alert', sourceId: 'AML-A-250511-007', title: 'High amount structuring — SAR consideration', customerName: 'Farida Begum', customerId: 'CUS-10047', country: 'Bangladesh', flag: '🇧🇩', escalatedBy: 'Arif Khan', escalatedTo: 'Nusrat Jahan', level: 'Level 2 - Senior Manager', status: 'Pending Response', escalatedDate: 'May 11, 2025', dueDate: 'May 12, 2025', reason: 'Pattern consistent with structuring; senior officer decision needed on SAR filing.' },
+  { id: 'ESC-007', sourceType: 'Fraud Case', sourceId: 'FRAUD-C-250509-011', title: 'SIM swap fraud — law enforcement referral', customerName: 'Karim Hossain', customerId: 'CUS-10071', country: 'Bangladesh', flag: '🇧🇩', escalatedBy: 'Sarah Johnson', escalatedTo: 'Ahmed Khan', level: 'Level 3 - Executive', status: 'Resolved', escalatedDate: 'May 9, 2025', dueDate: 'May 11, 2025', reason: 'Confirmed account takeover via SIM swap — referred to law enforcement, case closed internally.' },
+  { id: 'ESC-008', sourceType: 'Sanctions Hit', sourceId: 'CMP-C-012', title: 'False positive sanctions match — clearance needed', customerName: 'James Okafor', customerId: 'CUS-10048', country: 'Nigeria', flag: '🇳🇬', escalatedBy: 'Kamrul Hasan', escalatedTo: 'Arif Khan', level: 'Level 1 - Team Lead', status: 'Resolved', escalatedDate: 'May 5, 2025', dueDate: 'May 7, 2025', reason: 'Name similarity match cleared after secondary identity verification — no further action required.' },
+  { id: 'ESC-009', sourceType: 'Compliance Case', sourceId: 'CMP-C-006', title: 'SAR filing decision — round tripping', customerName: 'Karim Hossain', customerId: 'CUS-10043', country: 'Bangladesh', flag: '🇧🇩', escalatedBy: 'Arif Khan', escalatedTo: 'Nusrat Jahan', level: 'Level 2 - Senior Manager', status: 'In Progress', escalatedDate: 'May 11, 2025', dueDate: 'May 15, 2025', reason: 'Senior officer reviewing transaction pattern to determine SAR filing requirement.' },
+  { id: 'ESC-010', sourceType: 'AML Alert', sourceId: 'AML-A-250512-001', title: 'New customer high-value structuring alert', customerName: 'Rahim Uddin', customerId: 'CUS-10041', country: 'Bangladesh', flag: '🇧🇩', escalatedBy: 'Nusrat Jahan', escalatedTo: 'Kamrul Hasan', level: 'Level 1 - Team Lead', status: 'Pending Response', escalatedDate: 'May 12, 2025', dueDate: 'May 13, 2025', reason: 'First escalation for newly onboarded customer flagged on day 2 of account activity.' },
+];
+
+
+
+
+
+
+
+// ============ KYC & COMPLIANCE — SANCTIONS LIST (standalone page) ============
+export type SanctionEntityType = 'Individual' | 'Entity' | 'Vessel';
+export type SanctionListSource = 'OFAC SDN' | 'UN Consolidated' | 'EU Sanctions' | 'UK HMT' | 'Interpol';
+export type SanctionEntryStatus = 'Active' | 'Removed';
+export type ScreeningHitStatus = 'Pending Review' | 'Confirmed Match' | 'False Positive' | 'Cleared';
+
+export interface SanctionedEntity {
+  id: string;
+  name: string;
+  aliases: string[];
+  type: SanctionEntityType;
+  country: string;
+  flag: string;
+  listSource: SanctionListSource;
+  dateAdded: string;
+  status: SanctionEntryStatus;
+  reason: string;
+}
+
+export interface SanctionScreeningHit {
+  id: string;
+  customerName: string;
+  customerId: string;
+  matchedEntity: string;
+  matchScore: number;
+  listSource: SanctionListSource;
+  transactionNo: string | null;
+  status: ScreeningHitStatus;
+  screenedAt: string;
+  reviewedBy: string | null;
+}
+
+// ── Stats ──
+export const sanctionsListStats = {
+  totalEntities: 18642,
+  activeHitsThisWeek: 3,
+  listsMonitored: 5,
+  lastSyncTime: 'May 12, 2025 6:00 AM',
+};
+
+// ── Filter options ──
+export const sanctionTypeOptions = ['All Types', 'Individual', 'Entity', 'Vessel'];
+export const sanctionListSourceOptions = ['All Lists', 'OFAC SDN', 'UN Consolidated', 'EU Sanctions', 'UK HMT', 'Interpol'];
+export const screeningHitStatusOptions = ['All Status', 'Pending Review', 'Confirmed Match', 'False Positive', 'Cleared'];
+
+// ── Sanctioned entities (sample from larger watchlist) ──
+export const sanctionedEntities: SanctionedEntity[] = [
+  { id: 'SDN-10234', name: 'Aliyev Trading FZE', aliases: ['Aliyev Trade Co.', 'AT Holdings'], type: 'Entity', country: 'UAE', flag: '🇦🇪', listSource: 'OFAC SDN', dateAdded: 'Mar 14, 2024', status: 'Active', reason: 'Sanctioned for facilitating prohibited financial transactions on behalf of designated persons.' },
+  { id: 'UN-58821', name: 'Karim Al-Bashir', aliases: ['K. Bashir', 'Abu Karim'], type: 'Individual', country: 'Sudan', flag: '🇸🇩', listSource: 'UN Consolidated', dateAdded: 'Jan 8, 2023', status: 'Active', reason: 'Listed for involvement in financing activities linked to designated armed groups.' },
+  { id: 'EU-30214', name: 'Vostok Maritime Ltd.', aliases: ['Vostok Shipping'], type: 'Entity', country: 'Russia', flag: '🇷🇺', listSource: 'EU Sanctions', dateAdded: 'Jun 2, 2024', status: 'Active', reason: 'Sanctioned for supporting circumvention of EU trade restrictions via shipping operations.' },
+  { id: 'OFAC-77410', name: 'Mohammed Al-Rashid', aliases: ['M. Al Rasheed', 'Abu Mohammed'], type: 'Individual', country: 'Syria', flag: '🇸🇾', listSource: 'OFAC SDN', dateAdded: 'Sep 19, 2022', status: 'Active', reason: 'Designated for ties to entities involved in proliferation financing.' },
+  { id: 'HMT-19283', name: 'Northline Commodities Plc', aliases: [], type: 'Entity', country: 'United Kingdom', flag: '🇬🇧', listSource: 'UK HMT', dateAdded: 'Nov 5, 2023', status: 'Removed', reason: 'Delisted following successful appeal and confirmation of no continuing risk.' },
+  { id: 'INT-44120', name: 'MV Sea Falcon', aliases: ['Sea Falcon II'], type: 'Vessel', country: 'Panama', flag: '🇵🇦', listSource: 'Interpol', dateAdded: 'Feb 21, 2024', status: 'Active', reason: 'Vessel flagged for suspected use in sanctions evasion shipping routes.' },
+  { id: 'UN-60192', name: 'Hassan Al-Maktoum', aliases: ['H. Al-Maktoum', 'Hassan M.'], type: 'Individual', country: 'UAE', flag: '🇦🇪', listSource: 'UN Consolidated', dateAdded: 'Apr 30, 2025', status: 'Active', reason: 'Added pending investigation into cross-border fund movement linked to designated network.' },
+  { id: 'EU-31002', name: 'Baltic Energy Trading', aliases: ['Baltic Energy Co.'], type: 'Entity', country: 'Belarus', flag: '🇧🇾', listSource: 'EU Sanctions', dateAdded: 'Jul 11, 2024', status: 'Active', reason: 'Sanctioned for involvement in restricted energy sector transactions.' },
+];
+
+// ── Screening Hits (customers matched against sanctions lists) ──
+export const sanctionScreeningHits: SanctionScreeningHit[] = [
+  { id: 'HIT-001', customerName: 'Hassan Al-Maktoum', customerId: 'CUS-10066', matchedEntity: 'Hassan Al-Maktoum (UN-60192)', matchScore: 96, listSource: 'UN Consolidated', transactionNo: 'TXN-2505124777', status: 'Confirmed Match', screenedAt: 'May 9, 2025 11:35 AM', reviewedBy: 'Imran Hossain' },
+  { id: 'HIT-002', customerName: 'Mohammad Aliyev', customerId: 'CUS-10081', matchedEntity: 'Aliyev Trading FZE (SDN-10234)', matchScore: 78, listSource: 'OFAC SDN', transactionNo: 'TXN-2505124795', status: 'Pending Review', screenedAt: 'May 12, 2025 9:20 AM', reviewedBy: null },
+  { id: 'HIT-003', customerName: 'James Okafor', customerId: 'CUS-10048', matchedEntity: 'J. Okafor (similar name, OFAC SDN list)', matchScore: 62, listSource: 'OFAC SDN', transactionNo: 'TXN-2505124777', status: 'False Positive', screenedAt: 'May 7, 2025 2:10 PM', reviewedBy: 'Kamrul Hasan' },
+  { id: 'HIT-004', customerName: 'Sara Bashir', customerId: 'CUS-10090', matchedEntity: 'Karim Al-Bashir (UN-58821) — surname match', matchScore: 55, listSource: 'UN Consolidated', transactionNo: null, status: 'Cleared', screenedAt: 'May 5, 2025 4:45 PM', reviewedBy: 'Arif Khan' },
+  { id: 'HIT-005', customerName: 'Northline Commodities (Customer Reference)', customerId: 'CUS-10095', matchedEntity: 'Northline Commodities Plc (HMT-19283) — delisted', matchScore: 88, listSource: 'UK HMT', transactionNo: 'TXN-2505124700', status: 'False Positive', screenedAt: 'May 11, 2025 8:15 AM', reviewedBy: 'Sarah Johnson' },
+  { id: 'HIT-006', customerName: 'Vostok Trading Bangladesh', customerId: 'CUS-10101', matchedEntity: 'Vostok Maritime Ltd. (EU-30214) — name similarity', matchScore: 71, listSource: 'EU Sanctions', transactionNo: 'TXN-2505124710', status: 'Pending Review', screenedAt: 'May 12, 2025 10:00 AM', reviewedBy: null },
+];
+
+
+
+
+
+
+// ============ KYC & COMPLIANCE — PEP LIST (standalone page) ============
+export type PepCategory = 'Head of State' | 'Government Official' | 'Judiciary' | 'Military Official' | 'Family Member' | 'Close Associate';
+export type PepRiskLevel = 'Low' | 'Medium' | 'High';
+export type PepEntryStatus = 'Active Monitoring' | 'Cleared' | 'Removed';
+export type PepMatchStatus = 'Pending Review' | 'Confirmed PEP' | 'False Positive' | 'Approved with EDD';
+
+export interface PepEntity {
+  id: string;
+  name: string;
+  position: string;
+  category: PepCategory;
+  country: string;
+  flag: string;
+  riskLevel: PepRiskLevel;
+  status: PepEntryStatus;
+  dateAdded: string;
+  notes: string;
+}
+
+export interface PepScreeningMatch {
+  id: string;
+  customerName: string;
+  customerId: string;
+  matchedPep: string;
+  relationship: string;
+  matchScore: number;
+  riskLevel: PepRiskLevel;
+  status: PepMatchStatus;
+  screenedAt: string;
+  reviewedBy: string | null;
+}
+
+// ── Stats ──
+export const pepListStats = {
+  totalPepEntities: 4218,
+  activeMonitoring: 2451,
+  pendingMatches: 7,
+  highRiskCount: 312,
+};
+
+// ── Filter options ──
+export const pepCategoryOptions = ['All Categories', 'Head of State', 'Government Official', 'Judiciary', 'Military Official', 'Family Member', 'Close Associate'];
+export const pepRiskLevelOptions = ['All Risk Levels', 'Low', 'Medium', 'High'];
+export const pepMatchStatusOptions = ['All Status', 'Pending Review', 'Confirmed PEP', 'False Positive', 'Approved with EDD'];
+
+// ── PEP Entities ──
+export const pepEntities: PepEntity[] = [
+  { id: 'PEP-10041', name: 'Mohammed Al-Rashid', position: 'Deputy Minister of Finance', category: 'Government Official', country: 'UAE', flag: '🇦🇪', riskLevel: 'High', status: 'Active Monitoring', dateAdded: 'Jan 15, 2023', notes: 'Senior government finance official with signing authority over public funds.' },
+  { id: 'PEP-10042', name: 'Lt. Gen. Faisal Ahmed', position: 'Chief of Army Staff', category: 'Military Official', country: 'Bangladesh', flag: '🇧🇩', riskLevel: 'High', status: 'Active Monitoring', dateAdded: 'Mar 2, 2023', notes: 'Senior military command position with significant institutional influence.' },
+  { id: 'PEP-10043', name: 'Justice Anwara Begum', position: 'Supreme Court Justice', category: 'Judiciary', country: 'Bangladesh', flag: '🇧🇩', riskLevel: 'Medium', status: 'Active Monitoring', dateAdded: 'Apr 18, 2023', notes: 'Sitting judiciary member, monitored per standard PEP judiciary category policy.' },
+  { id: 'PEP-10044', name: 'Amara Al-Rashid', position: 'Spouse of Deputy Minister of Finance', category: 'Family Member', country: 'UAE', flag: '🇦🇪', riskLevel: 'Medium', status: 'Active Monitoring', dateAdded: 'Jan 15, 2023', notes: 'Immediate family member of PEP-10041, monitored per family-member PEP policy.' },
+  { id: 'PEP-10045', name: 'Hassan Al-Maktoum', position: 'Former Royal Court Advisor', category: 'Close Associate', country: 'UAE', flag: '🇦🇪', riskLevel: 'High', status: 'Active Monitoring', dateAdded: 'Apr 30, 2025', notes: 'Close associate designation pending review of continuing institutional ties.' },
+  { id: 'PEP-10046', name: 'President Carlos Mendoza (Ret.)', position: 'Former Head of State', category: 'Head of State', country: 'Philippines', flag: '🇵🇭', riskLevel: 'High', status: 'Active Monitoring', dateAdded: 'Sep 10, 2022', notes: 'Former head of state — lifetime PEP monitoring per regulatory guidance.' },
+  { id: 'PEP-10047', name: 'Omar Sheikh', position: 'Provincial Governor', category: 'Government Official', country: 'Saudi Arabia', flag: '🇸🇦', riskLevel: 'Medium', status: 'Active Monitoring', dateAdded: 'May 6, 2025', notes: 'Recently appointed provincial governor, newly added to monitoring list.' },
+  { id: 'PEP-10048', name: 'Judge Patrick O\'Brien', position: 'Retired High Court Judge', category: 'Judiciary', country: 'United Kingdom', flag: '🇬🇧', riskLevel: 'Low', status: 'Removed', dateAdded: 'Feb 1, 2020', notes: 'Removed from active monitoring after 5-year post-office cooling period elapsed.' },
+];
+
+// ── PEP Screening Matches ──
+export const pepScreeningMatches: PepScreeningMatch[] = [
+  { id: 'PEPM-001', customerName: 'Omar Sheikh', customerId: 'CUS-10069', matchedPep: 'Omar Sheikh — Provincial Governor (PEP-10047)', relationship: 'Self', matchScore: 94, riskLevel: 'Medium', status: 'Approved with EDD', screenedAt: 'May 6, 2025 10:00 AM', reviewedBy: 'Nusrat Jahan' },
+  { id: 'PEPM-002', customerName: 'Mohammed Al-Rashid', customerId: 'CUS-10051', matchedPep: 'Mohammed Al-Rashid — Deputy Minister of Finance (PEP-10041)', relationship: 'Self', matchScore: 98, riskLevel: 'High', status: 'Confirmed PEP', screenedAt: 'May 4, 2025 2:15 PM', reviewedBy: 'Ahmed Khan' },
+  { id: 'PEPM-003', customerName: 'Amara Rashid', customerId: 'CUS-10102', matchedPep: 'Amara Al-Rashid — Spouse of Deputy Minister (PEP-10044)', relationship: 'Possible spouse match', matchScore: 81, riskLevel: 'Medium', status: 'Pending Review', screenedAt: 'May 12, 2025 9:40 AM', reviewedBy: null },
+  { id: 'PEPM-004', customerName: 'Hassan Al-Maktoum', customerId: 'CUS-10066', matchedPep: 'Hassan Al-Maktoum — Former Royal Court Advisor (PEP-10045)', relationship: 'Self', matchScore: 91, riskLevel: 'High', status: 'Pending Review', screenedAt: 'May 12, 2025 9:15 AM', reviewedBy: null },
+  { id: 'PEPM-005', customerName: 'Faisal Ahmed', customerId: 'CUS-10110', matchedPep: 'Lt. Gen. Faisal Ahmed — Chief of Army Staff (PEP-10042)', relationship: 'Name similarity only', matchScore: 58, riskLevel: 'Low', status: 'False Positive', screenedAt: 'May 8, 2025 4:30 PM', reviewedBy: 'Kamrul Hasan' },
+  { id: 'PEPM-006', customerName: 'Patrick OBrien', customerId: 'CUS-10118', matchedPep: 'Judge Patrick O\'Brien — Retired (PEP-10048, removed)', relationship: 'Name match — delisted PEP', matchScore: 76, riskLevel: 'Low', status: 'False Positive', screenedAt: 'May 3, 2025 11:00 AM', reviewedBy: 'Arif Khan' },
+  { id: 'PEPM-007', customerName: 'Carlos Mendoza Jr.', customerId: 'CUS-10125', matchedPep: 'President Carlos Mendoza (Ret.) — possible relative (PEP-10046)', relationship: 'Possible family match', matchScore: 69, riskLevel: 'Medium', status: 'Pending Review', screenedAt: 'May 11, 2025 1:50 PM', reviewedBy: null },
+];
+
+
+
+
+// ============================================================
+// REPORTS & ANALYTICS — OVERVIEW DASHBOARD — append to lib/data.ts
+// ============================================================
+
+export interface ReportsOverviewStat {
+  id: string;
+  label: string;
+  value: string;
+  change: number;
+  changeLabel: string;
+  trend: number[];
+  trendColor: string;
+}
+
+export const reportsOverviewStats: ReportsOverviewStat[] = [
+  { id: 'total-transactions', label: 'Total Transactions', value: '24,752', change: 12.5, changeLabel: 'vs last 7 days', trend: [4, 6, 5, 7, 6, 8, 7, 9, 8, 10], trendColor: '#3b82f6' },
+  { id: 'total-cash-pickups', label: 'Total Cash Pickups', value: '8,642', change: 8.3, changeLabel: 'vs last 7 days', trend: [5, 6, 5, 7, 6, 7, 8, 7, 9, 8], trendColor: '#f59e0b' },
+  { id: 'total-revenue-fees', label: 'Total Revenue (Fees)', value: '$425,780', change: 15.7, changeLabel: 'vs last 7 days', trend: [3, 5, 4, 6, 5, 7, 6, 8, 7, 9], trendColor: '#a855f7' },
+  { id: 'total-payouts', label: 'Total Payouts', value: '$4,256,540', change: 10.2, changeLabel: 'vs last 7 days', trend: [4, 5, 6, 5, 7, 6, 8, 7, 9, 8], trendColor: '#22c55e' },
+  { id: 'pending-transactions', label: 'Pending Transactions', value: '1,248', change: 5.2, changeLabel: 'vs last 7 days', trend: [6, 7, 6, 8, 7, 8, 7, 9, 8, 9], trendColor: '#f97316' },
+  { id: 'failed-transactions', label: 'Failed Transactions', value: '156', change: -3.1, changeLabel: 'vs last 7 days', trend: [8, 7, 8, 6, 7, 6, 5, 6, 5, 4], trendColor: '#ef4444' },
+  { id: 'active-users', label: 'Active Users', value: '12,856', change: 9.4, changeLabel: 'vs last 7 days', trend: [4, 5, 5, 6, 6, 7, 7, 8, 8, 9], trendColor: '#3b82f6' },
+  { id: 'active-agents', label: 'Active Agents', value: '214', change: 6.7, changeLabel: 'vs last 7 days', trend: [5, 6, 5, 7, 6, 7, 8, 7, 8, 9], trendColor: '#a855f7' },
+];
+
+export const dailyTransactionVolume = {
+  labels: ['May 6', 'May 7', 'May 8', 'May 9', 'May 10', 'May 11', 'May 12'],
+  values: [1800, 2900, 2400, 4100, 3200, 4600, 3900],
+};
+
+export const monthlyRevenueTrend = {
+  labels: ['Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May'],
+  values: [210000, 245000, 280000, 410000, 320000, 350000, 425780],
+};
+
+export const statusDistribution: { label: string; count: number; percent: number; color: string }[] = [
+  { label: 'Completed', count: 18752, percent: 75.8, color: '#22c55e' },
+  { label: 'Pending', count: 3124, percent: 12.6, color: '#f59e0b' },
+  { label: 'Failed', count: 1563, percent: 6.3, color: '#ef4444' },
+  { label: 'Refunded', count: 1313, percent: 5.3, color: '#3b82f6' },
+];
+export const statusDistributionTotal = 24752;
+
+export type ReportTxnStatus = 'Completed' | 'Pending' | 'Failed';
+
+export interface ReportTransaction {
+  id: string;
+  transactionNo: string;
+  sender: string;
+  recipient: string;
+  sendCountry: string;
+  sendCountryFlag: string;
+  receiveCountry: string;
+  receiveCountryFlag: string;
+  amount: string;
+  currency: string;
+  rate: string;
+  fee: string;
+  netPayout: string;
+  status: ReportTxnStatus;
+  dateTime: string;
+}
+
+export const reportTransactions: ReportTransaction[] = [
+  { id: 'rt-001', transactionNo: 'TXN-2505124789', sender: 'John Doe', recipient: 'Rahim Uddin', sendCountry: 'United Kingdom', sendCountryFlag: '🇬🇧', receiveCountry: 'Bangladesh', receiveCountryFlag: '🇧🇩', amount: '£500.00', currency: 'GBP', rate: '165.2500', fee: '£3.50', netPayout: '৳82,625.00', status: 'Completed', dateTime: 'May 12, 2025 10:30 AM' },
+  { id: 'rt-002', transactionNo: 'TXN-2505124788', sender: 'Ahmed Khan', recipient: 'Maria Santos', sendCountry: 'United States', sendCountryFlag: '🇺🇸', receiveCountry: 'Philippines', receiveCountryFlag: '🇵🇭', amount: '$300.00', currency: 'USD', rate: '122.2500', fee: '$2.50', netPayout: '₱36,675.00', status: 'Pending', dateTime: 'May 12, 2025 09:15 AM' },
+  { id: 'rt-003', transactionNo: 'TXN-2505124787', sender: 'Rashid Ahmed', recipient: 'Sabir Hossain', sendCountry: 'United Kingdom', sendCountryFlag: '🇬🇧', receiveCountry: 'Bangladesh', receiveCountryFlag: '🇧🇩', amount: '£750.00', currency: 'GBP', rate: '165.2500', fee: '£4.00', netPayout: '৳123,937.50', status: 'Completed', dateTime: 'May 12, 2025 08:45 AM' },
+  { id: 'rt-004', transactionNo: 'TXN-2505124786', sender: 'Imran Hossain', recipient: 'Mohammed Ali', sendCountry: 'Saudi Arabia', sendCountryFlag: '🇸🇦', receiveCountry: 'Bangladesh', receiveCountryFlag: '🇧🇩', amount: 'SAR 1,000.00', currency: 'SAR', rate: '28.5600', fee: 'SAR 8.00', netPayout: '৳30,560.00', status: 'Failed', dateTime: 'May 12, 2025 09:20 AM' },
+  { id: 'rt-005', transactionNo: 'TXN-2505124785', sender: 'Fatima Ali', recipient: 'Arif Khan', sendCountry: 'United Arab Emirates', sendCountryFlag: '🇦🇪', receiveCountry: 'Pakistan', receiveCountryFlag: '🇵🇰', amount: 'AED 1,250.00', currency: 'AED', rate: '33.2800', fee: 'AED 6.00', netPayout: 'Rs.102,100.00', status: 'Pending', dateTime: 'May 12, 2025 07:55 AM' },
+];
+export const reportTransactionsTotalCount = 24752;
+
+export const reportTxnCountryFilterOptions: string[] = [
+  'All Countries',
+  'United Kingdom',
+  'United States',
+  'Saudi Arabia',
+  'United Arab Emirates',
+];
+export const reportTxnCurrencyFilterOptions: string[] = ['All Currencies', 'GBP', 'USD', 'SAR', 'AED'];
+export const reportTxnStatusFilterOptions: string[] = ['All Status', 'Completed', 'Pending', 'Failed'];
+export const reportTxnAgentFilterOptions: string[] = ['All Agents', 'Abul Hasan', 'Kamal Hossain', 'Juan Dela Cruz', 'Amit Kumar', 'Rashed Alam'];
+
+export interface QuickReportLink {
+  id: string;
+  name: string;
+}
+
+export const quickReports: QuickReportLink[] = [
+  { id: 'qr-001', name: 'Transaction Report' },
+  { id: 'qr-002', name: 'Cash Pickup Report' },
+  { id: 'qr-003', name: 'Agent Performance Report' },
+  { id: 'qr-004', name: 'Revenue & Finance Report' },
+  { id: 'qr-005', name: 'Compliance Report' },
+  { id: 'qr-006', name: 'Customer Report' },
+  { id: 'qr-007', name: 'System Activity Report' },
+];
+
+export interface TopSendingCorridor {
+  id: string;
+  corridor: string;
+  fromFlag: string;
+  toFlag: string;
+  transactions: number;
+  totalVolume: string;
+}
+
+export const topSendingCorridors: TopSendingCorridor[] = [
+  { id: 'tsc-001', corridor: 'UK → Bangladesh', fromFlag: '🇬🇧', toFlag: '🇧🇩', transactions: 5248, totalVolume: '£2,456,780' },
+  { id: 'tsc-002', corridor: 'USA → Bangladesh', fromFlag: '🇺🇸', toFlag: '🇧🇩', transactions: 4125, totalVolume: '$1,856,230' },
+  { id: 'tsc-003', corridor: 'UAE → Pakistan', fromFlag: '🇦🇪', toFlag: '🇵🇰', transactions: 2856, totalVolume: 'AED 3,125,450' },
+  { id: 'tsc-004', corridor: 'Saudi Arabia → Bangladesh', fromFlag: '🇸🇦', toFlag: '🇧🇩', transactions: 1985, totalVolume: 'SAR 2,165,600' },
+  { id: 'tsc-005', corridor: 'Canada → India', fromFlag: '🇨🇦', toFlag: '🇮🇳', transactions: 1256, totalVolume: 'CAD 856,230' },
+];
+
+export interface TopAgentPerformance {
+  id: string;
+  name: string;
+  branch: string;
+  transactions: number;
+  completionRate: number;
+}
+
+export const topAgentsByTransactions: TopAgentPerformance[] = [
+  { id: 'tap-001', name: 'Abul Hasan', branch: 'Gulshan Branch', transactions: 1256, completionRate: 98.5 },
+  { id: 'tap-002', name: 'Kamal Hossain', branch: 'Uttara Branch', transactions: 985, completionRate: 97.2 },
+  { id: 'tap-003', name: 'Juan Dela Cruz', branch: 'Manila Branch', transactions: 874, completionRate: 96.1 },
+  { id: 'tap-004', name: 'Amit Kumar', branch: 'Mumbai Branch', transactions: 763, completionRate: 95.7 },
+  { id: 'tap-005', name: 'Rashed Alam', branch: 'Sylhet Branch', transactions: 654, completionRate: 95.4 },
+];
+
+export interface RevenueSummaryItem {
+  label: string;
+  value: string;
+}
+
+export const revenueSummaryThisMonth: RevenueSummaryItem[] = [
+  { label: 'Total Fees Collected', value: '$425,780' },
+  { label: 'Transaction Count', value: '24,752' },
+  { label: 'Average Fee per Transaction', value: '$17.20' },
+  { label: 'Total Payouts', value: '$4,256,540' },
+  { label: 'Net Revenue', value: '$425,780' },
+];
+
+export interface ReportSchedule {
+  id: string;
+  name: string;
+  cadence: string;
+  enabled: boolean;
+}
+
+export const reportSchedules: ReportSchedule[] = [
+  { id: 'rs-001', name: 'Daily Transaction Report', cadence: 'Every day at 08:00 AM', enabled: true },
+  { id: 'rs-002', name: 'Weekly Summary Report', cadence: 'Every Monday at 09:00 AM', enabled: true },
+  { id: 'rs-003', name: 'Monthly Revenue Report', cadence: '1st of every month at 10:00 AM', enabled: true },
+  { id: 'rs-004', name: 'Compliance Summary Report', cadence: 'Every Friday at 06:00 PM', enabled: false },
+];
+
+export type ExportFileType = 'xlsx' | 'pdf';
+
+export interface RecentExportItem {
+  id: string;
+  fileName: string;
+  fileType: ExportFileType;
+  exportedAt: string;
+}
+
+export const recentExports: RecentExportItem[] = [
+  { id: 're-001', fileName: 'Transaction_Report_May_12_2025.xlsx', fileType: 'xlsx', exportedAt: 'May 12, 2025 10:30 AM' },
+  { id: 're-002', fileName: 'Revenue_Report_April_2025.pdf', fileType: 'pdf', exportedAt: 'May 12, 2025 09:15 AM' },
+  { id: 're-003', fileName: 'Agent_Performance_May_2025.xlsx', fileType: 'xlsx', exportedAt: 'May 12, 2025 08:45 AM' },
+];
+
+// ============================================================
+// STANDALONE TRANSACTIONS PAGE
+// ============================================================
+
+export interface TransactionsPageStat {
+  id: string;
+  label: string;
+  value: string;
+  change: number;
+  changeLabel: string;
+}
+
+export const transactionsPageStats: TransactionsPageStat[] = [
+  { id: 'total-txns', label: 'Total Transactions', value: '24,752', change: 12.5, changeLabel: 'vs last 7 days' },
+  { id: 'completed-txns', label: 'Completed', value: '18,752', change: 14.1, changeLabel: 'vs last 7 days' },
+  { id: 'pending-txns', label: 'Pending', value: '3,124', change: 5.2, changeLabel: 'vs last 7 days' },
+  { id: 'failed-txns', label: 'Failed', value: '1,563', change: -3.1, changeLabel: 'vs last 7 days' },
+  { id: 'total-volume', label: 'Total Volume', value: '$4,682,320', change: 11.4, changeLabel: 'vs last 7 days' },
+];
+
+// ============================================================
+// STANDALONE CASH PICKUPS REPORT PAGE
+// ============================================================
+
+export interface CashPickupReportStat {
+  id: string;
+  label: string;
+  value: string;
+  change: number;
+  changeLabel: string;
+}
+
+export const cashPickupReportStats: CashPickupReportStat[] = [
+  { id: 'total-pickups', label: 'Total Cash Pickups', value: '8,642', change: 8.3, changeLabel: 'vs last 7 days' },
+  { id: 'completed-pickups', label: 'Completed', value: '7,218', change: 9.6, changeLabel: 'vs last 7 days' },
+  { id: 'pending-pickups', label: 'Pending', value: '1,108', change: 4.1, changeLabel: 'vs last 7 days' },
+  { id: 'expired-pickups', label: 'Expired', value: '316', change: -2.4, changeLabel: 'vs last 7 days' },
+  { id: 'avg-pickup-amount', label: 'Average Pickup Amount', value: '$184.50', change: 3.7, changeLabel: 'vs last 7 days' },
+];
+
+export type CashPickupReportStatus = 'Completed' | 'Pending' | 'Expired';
+
+export interface CashPickupReportRow {
+  id: string;
+  pickupId: string;
+  customerName: string;
+  agentName: string;
+  branch: string;
+  country: string;
+  countryFlag: string;
+  amount: string;
+  currency: string;
+  status: CashPickupReportStatus;
+  requestedDate: string;
+}
+
+export const cashPickupReportRows: CashPickupReportRow[] = [
+  { id: 'cpr-001', pickupId: 'CP-250512-001', customerName: 'Rahim Uddin', agentName: 'Abul Hasan', branch: 'Gulshan Branch', country: 'Bangladesh', countryFlag: '🇧🇩', amount: '25,000.00', currency: 'BDT', status: 'Completed', requestedDate: 'May 12, 2025 10:30 AM' },
+  { id: 'cpr-002', pickupId: 'CP-250512-002', customerName: 'Maria Santos', agentName: 'Juan Dela Cruz', branch: 'Manila Branch', country: 'Philippines', countryFlag: '🇵🇭', amount: '15,000.00', currency: 'PHP', status: 'Pending', requestedDate: 'May 12, 2025 09:15 AM' },
+  { id: 'cpr-003', pickupId: 'CP-250512-003', customerName: 'Sabir Hossain', agentName: 'Kamal Hossain', branch: 'Uttara Branch', country: 'Bangladesh', countryFlag: '🇧🇩', amount: '30,000.00', currency: 'BDT', status: 'Completed', requestedDate: 'May 12, 2025 08:45 AM' },
+  { id: 'cpr-004', pickupId: 'CP-250512-004', customerName: 'Mohammed Ali', agentName: 'Amit Kumar', branch: 'Mumbai Branch', country: 'India', countryFlag: '🇮🇳', amount: '12,500.00', currency: 'INR', status: 'Expired', requestedDate: 'May 11, 2025 04:20 PM' },
+  { id: 'cpr-005', pickupId: 'CP-250512-005', customerName: 'Arif Khan', agentName: 'Rashed Alam', branch: 'Sylhet Branch', country: 'Bangladesh', countryFlag: '🇧🇩', amount: '18,000.00', currency: 'BDT', status: 'Pending', requestedDate: 'May 12, 2025 07:55 AM' },
+];
+export const cashPickupReportTotalCount = 8642;
+
+export const cashPickupCountryFilterOptions: string[] = ['All Countries', 'Bangladesh', 'Philippines', 'India'];
+export const cashPickupStatusFilterOptions: string[] = ['All Status', 'Completed', 'Pending', 'Expired'];
+export const cashPickupAgentFilterOptions: string[] = ['All Agents', 'Abul Hasan', 'Kamal Hossain', 'Juan Dela Cruz', 'Amit Kumar', 'Rashed Alam'];
+
+
+// ============================================================
+// STANDALONE AGENTS PERFORMANCE REPORT PAGE
+// ============================================================
+ 
+export interface AgentPerformanceStat {
+  id: string;
+  label: string;
+  value: string;
+  change: number;
+  changeLabel: string;
+}
+ 
+export const agentPerformanceStats: AgentPerformanceStat[] = [
+  { id: 'active-agents', label: 'Active Agents', value: '214', change: 6.7, changeLabel: 'vs last 7 days' },
+  { id: 'avg-completion-rate', label: 'Avg. Completion Rate', value: '96.4%', change: 1.8, changeLabel: 'vs last 7 days' },
+  { id: 'total-txns-processed', label: 'Total Transactions Processed', value: '18,420', change: 9.1, changeLabel: 'vs last 7 days' },
+  { id: 'avg-processing-time', label: 'Avg. Processing Time', value: '4.2 min', change: -5.6, changeLabel: 'vs last 7 days' },
+];
+ 
+export type AgentPerformanceStatus = 'Active' | 'Inactive';
+ 
+export interface AgentPerformanceRow {
+  id: string;
+  agentName: string;
+  branch: string;
+  country: string;
+  countryFlag: string;
+  totalTransactions: number;
+  totalVolume: string;
+  completionRate: number;
+  avgProcessingTime: string;
+  rating: number;
+  status: AgentPerformanceStatus;
+}
+ 
+export const agentPerformanceRows: AgentPerformanceRow[] = [
+  { id: 'apr-001', agentName: 'Abul Hasan', branch: 'Gulshan Branch', country: 'Bangladesh', countryFlag: '🇧🇩', totalTransactions: 1256, totalVolume: '$245,680', completionRate: 98.5, avgProcessingTime: '3.2 min', rating: 4.9, status: 'Active' },
+  { id: 'apr-002', agentName: 'Kamal Hossain', branch: 'Uttara Branch', country: 'Bangladesh', countryFlag: '🇧🇩', totalTransactions: 985, totalVolume: '$185,620', completionRate: 97.2, avgProcessingTime: '3.8 min', rating: 4.7, status: 'Active' },
+  { id: 'apr-003', agentName: 'Juan Dela Cruz', branch: 'Manila Branch', country: 'Philippines', countryFlag: '🇵🇭', totalTransactions: 874, totalVolume: '$156,230', completionRate: 96.1, avgProcessingTime: '4.5 min', rating: 4.6, status: 'Active' },
+  { id: 'apr-004', agentName: 'Amit Kumar', branch: 'Mumbai Branch', country: 'India', countryFlag: '🇮🇳', totalTransactions: 763, totalVolume: '$132,540', completionRate: 95.7, avgProcessingTime: '4.9 min', rating: 4.5, status: 'Active' },
+  { id: 'apr-005', agentName: 'Rashed Alam', branch: 'Sylhet Branch', country: 'Bangladesh', countryFlag: '🇧🇩', totalTransactions: 654, totalVolume: '$98,750', completionRate: 95.4, avgProcessingTime: '5.1 min', rating: 4.4, status: 'Active' },
+  { id: 'apr-006', agentName: 'Sophie Martin', branch: 'Toronto Branch', country: 'Canada', countryFlag: '🇨🇦', totalTransactions: 412, totalVolume: '$76,340', completionRate: 92.8, avgProcessingTime: '6.0 min', rating: 4.1, status: 'Inactive' },
+];
+export const agentPerformanceTotalCount = 214;
+ 
+export const agentPerformanceCountryFilterOptions: string[] = ['All Countries', 'Bangladesh', 'Philippines', 'India', 'Canada'];
+export const agentPerformanceStatusFilterOptions: string[] = ['All Status', 'Active', 'Inactive'];
+
+
+
+// ============================================================
+// STANDALONE REVENUE & FINANCE REPORT PAGE
+// ============================================================
+ 
+export interface RevenueFinanceStat {
+  id: string;
+  label: string;
+  value: string;
+  change: number;
+  changeLabel: string;
+}
+ 
+export const revenueFinanceStats: RevenueFinanceStat[] = [
+  { id: 'total-revenue', label: 'Total Revenue (Fees)', value: '$425,780', change: 15.7, changeLabel: 'vs last 7 days' },
+  { id: 'total-payouts', label: 'Total Payouts', value: '$4,256,540', change: 10.2, changeLabel: 'vs last 7 days' },
+  { id: 'net-revenue', label: 'Net Revenue', value: '$425,780', change: 15.7, changeLabel: 'vs last 7 days' },
+  { id: 'avg-fee', label: 'Avg. Fee per Transaction', value: '$17.20', change: 2.4, changeLabel: 'vs last 7 days' },
+];
+ 
+export interface RevenueBreakdownRow {
+  id: string;
+  date: string;
+  transactions: number;
+  grossVolume: string;
+  feesCollected: string;
+  payouts: string;
+  netRevenue: string;
+}
+ 
+export const revenueBreakdownRows: RevenueBreakdownRow[] = [
+  { id: 'rb-001', date: 'May 12, 2025', transactions: 3842, grossVolume: '$682,450', feesCollected: '$64,230', payouts: '$618,220', netRevenue: '$64,230' },
+  { id: 'rb-002', date: 'May 11, 2025', transactions: 3615, grossVolume: '$645,120', feesCollected: '$60,810', payouts: '$584,310', netRevenue: '$60,810' },
+  { id: 'rb-003', date: 'May 10, 2025', transactions: 3920, grossVolume: '$701,860', feesCollected: '$66,540', payouts: '$635,320', netRevenue: '$66,540' },
+  { id: 'rb-004', date: 'May 9, 2025', transactions: 3104, grossVolume: '$558,310', feesCollected: '$52,680', payouts: '$505,630', netRevenue: '$52,680' },
+  { id: 'rb-005', date: 'May 8, 2025', transactions: 2918, grossVolume: '$521,940', feesCollected: '$49,210', payouts: '$472,730', netRevenue: '$49,210' },
+  { id: 'rb-006', date: 'May 7, 2025', transactions: 3654, grossVolume: '$652,780', feesCollected: '$61,520', payouts: '$591,260', netRevenue: '$61,520' },
+  { id: 'rb-007', date: 'May 6, 2025', transactions: 3699, grossVolume: '$659,870', feesCollected: '$62,310', payouts: '$597,560', netRevenue: '$62,310' },
+];
+export const revenueBreakdownTotalCount = 24752;
+ 
+export interface RevenueByCurrencyRow {
+  id: string;
+  currency: string;
+  transactions: number;
+  feesCollected: string;
+  percentOfTotal: number;
+}
+ 
+export const revenueByCurrency: RevenueByCurrencyRow[] = [
+  { id: 'rc-gbp', currency: 'GBP', transactions: 6240, feesCollected: '£32,450', percentOfTotal: 28.4 },
+  { id: 'rc-usd', currency: 'USD', transactions: 5860, feesCollected: '$28,920', percentOfTotal: 25.3 },
+  { id: 'rc-bdt', currency: 'BDT', transactions: 4920, feesCollected: '৳18,640', percentOfTotal: 16.3 },
+  { id: 'rc-aed', currency: 'AED', transactions: 3580, feesCollected: 'AED 14,210', percentOfTotal: 12.4 },
+  { id: 'rc-sar', currency: 'SAR', transactions: 2310, feesCollected: 'SAR 9,860', percentOfTotal: 8.6 },
+  { id: 'rc-cad', currency: 'CAD', transactions: 1842, feesCollected: 'CAD 7,420', percentOfTotal: 6.5 },
+];
+
+
+
+// ============================================================
+// STANDALONE COMPLIANCE REPORTS PAGE (Reports & Analytics)
+// ============================================================
+ 
+export interface ComplianceReportsStat {
+  id: string;
+  label: string;
+  value: string;
+  change: number;
+  changeLabel: string;
+}
+ 
+export const complianceReportsPageStats: ComplianceReportsStat[] = [
+  { id: 'total-reports', label: 'Total Reports Generated', value: '342', change: 9.8, changeLabel: 'vs last month' },
+  { id: 'pending-reviews', label: 'Pending Reviews', value: '18', change: 4.2, changeLabel: 'vs last month' },
+  { id: 'regulatory-filings', label: 'Regulatory Filings', value: '56', change: 11.6, changeLabel: 'vs last month' },
+  { id: 'overdue-reports', label: 'Overdue Reports', value: '3', change: -25.0, changeLabel: 'vs last month' },
+];
+ 
+export type ComplianceReportType = 'AML Summary' | 'Sanctions Filing' | 'Regulatory Submission' | 'Internal Audit' | 'Risk Assessment';
+export type ComplianceReportStatus = 'Filed' | 'Pending Review' | 'Overdue' | 'Draft';
+ 
+export interface ComplianceReportRow {
+  id: string;
+  reportName: string;
+  type: ComplianceReportType;
+  period: string;
+  generatedDate: string;
+  generatedBy: string;
+  status: ComplianceReportStatus;
+}
+ 
+export const complianceReportRows: ComplianceReportRow[] = [
+  { id: 'cr-001', reportName: 'Monthly AML Summary - April 2025', type: 'AML Summary', period: 'April 2025', generatedDate: 'May 2, 2025', generatedBy: 'Nusrat Jahan', status: 'Filed' },
+  { id: 'cr-002', reportName: 'Sanctions Screening Filing Q1', type: 'Sanctions Filing', period: 'Q1 2025', generatedDate: 'Apr 10, 2025', generatedBy: 'Arif Khan', status: 'Filed' },
+  { id: 'cr-003', reportName: 'Central Bank Regulatory Submission', type: 'Regulatory Submission', period: 'April 2025', generatedDate: 'May 5, 2025', generatedBy: 'Kamrul Hasan', status: 'Pending Review' },
+  { id: 'cr-004', reportName: 'Internal Audit Findings - March', type: 'Internal Audit', period: 'March 2025', generatedDate: 'Apr 28, 2025', generatedBy: 'Fatima Ali', status: 'Overdue' },
+  { id: 'cr-005', reportName: 'Quarterly Risk Assessment', type: 'Risk Assessment', period: 'Q1 2025', generatedDate: 'Apr 15, 2025', generatedBy: 'Nusrat Jahan', status: 'Filed' },
+  { id: 'cr-006', reportName: 'May AML Summary (Draft)', type: 'AML Summary', period: 'May 2025', generatedDate: 'May 12, 2025', generatedBy: 'Arif Khan', status: 'Draft' },
+];
+export const complianceReportRowsTotalCount = 342;
+ 
+export const complianceReportTypeFilterOptions: string[] = [
+  'All Types',
+  'AML Summary',
+  'Sanctions Filing',
+  'Regulatory Submission',
+  'Internal Audit',
+  'Risk Assessment',
+];
+export const complianceReportStatusFilterOptions: string[] = ['All Status', 'Filed', 'Pending Review', 'Overdue', 'Draft'];
+
+
+
+// ============================================================
+// STANDALONE CUSTOMER REPORTS PAGE (Reports & Analytics)
+// ============================================================
+ 
+export interface CustomerReportsStat {
+  id: string;
+  label: string;
+  value: string;
+  change: number;
+  changeLabel: string;
+}
+ 
+export const customerReportsPageStats: CustomerReportsStat[] = [
+  { id: 'total-customers', label: 'Total Customers', value: '48,620', change: 7.4, changeLabel: 'vs last 7 days' },
+  { id: 'new-customers', label: 'New Customers', value: '1,284', change: 18.6, changeLabel: 'vs last 7 days' },
+  { id: 'active-customers', label: 'Active Customers', value: '32,150', change: 5.9, changeLabel: 'vs last 7 days' },
+  { id: 'kyc-verified', label: 'KYC Verified', value: '44,980', change: 4.2, changeLabel: 'vs last 7 days' },
+];
+ 
+export type CustomerKycStatus = 'Verified' | 'Pending' | 'Unverified';
+export type CustomerSegment = 'New' | 'Regular' | 'VIP';
+ 
+export interface CustomerReportRow {
+  id: string;
+  customerId: string;
+  customerName: string;
+  country: string;
+  countryFlag: string;
+  totalTransactions: number;
+  totalVolume: string;
+  kycStatus: CustomerKycStatus;
+  segment: CustomerSegment;
+  registrationDate: string;
+}
+ 
+export const customerReportRows: CustomerReportRow[] = [
+  { id: 'cur-001', customerId: 'CUS-100245', customerName: 'John Doe', country: 'United Kingdom', countryFlag: '🇬🇧', totalTransactions: 86, totalVolume: '£12,450', kycStatus: 'Verified', segment: 'VIP', registrationDate: 'Jan 14, 2024' },
+  { id: 'cur-002', customerId: 'CUS-100246', customerName: 'Ahmed Khan', country: 'United States', countryFlag: '🇺🇸', totalTransactions: 42, totalVolume: '$8,620', kycStatus: 'Verified', segment: 'Regular', registrationDate: 'Mar 2, 2024' },
+  { id: 'cur-003', customerId: 'CUS-100247', customerName: 'Rashid Ahmed', country: 'United Kingdom', countryFlag: '🇬🇧', totalTransactions: 15, totalVolume: '£3,140', kycStatus: 'Verified', segment: 'Regular', registrationDate: 'Sep 18, 2024' },
+  { id: 'cur-004', customerId: 'CUS-100248', customerName: 'Imran Hossain', country: 'Saudi Arabia', countryFlag: '🇸🇦', totalTransactions: 5, totalVolume: 'SAR 4,800', kycStatus: 'Pending', segment: 'New', registrationDate: 'Apr 28, 2025' },
+  { id: 'cur-005', customerId: 'CUS-100249', customerName: 'Fatima Ali', country: 'United Arab Emirates', countryFlag: '🇦🇪', totalTransactions: 3, totalVolume: 'AED 2,150', kycStatus: 'Unverified', segment: 'New', registrationDate: 'May 9, 2025' },
+  { id: 'cur-006', customerId: 'CUS-100250', customerName: 'Sophie Martin', country: 'Canada', countryFlag: '🇨🇦', totalTransactions: 124, totalVolume: 'CAD 28,640', kycStatus: 'Verified', segment: 'VIP', registrationDate: 'Jun 5, 2023' },
+];
+export const customerReportRowsTotalCount = 48620;
+ 
+export const customerReportCountryFilterOptions: string[] = [
+  'All Countries',
+  'United Kingdom',
+  'United States',
+  'Saudi Arabia',
+  'United Arab Emirates',
+  'Canada',
+];
+export const customerReportKycFilterOptions: string[] = ['All KYC Status', 'Verified', 'Pending', 'Unverified'];
+export const customerReportSegmentFilterOptions: string[] = ['All Segments', 'New', 'Regular', 'VIP'];
+
+
+
+
+ 
+// ============================================================
+// STANDALONE SYSTEM ACTIVITY PAGE (Reports & Analytics)
+// ============================================================
+ 
+export interface SystemActivityStat {
+  id: string;
+  label: string;
+  value: string;
+  change: number;
+  changeLabel: string;
+}
+ 
+export const systemActivityStats: SystemActivityStat[] = [
+  { id: 'total-events-today', label: 'Total Events Today', value: '1,248', change: 22.8, changeLabel: 'vs yesterday' },
+  { id: 'active-sessions', label: 'Active Sessions', value: '186', change: 6.3, changeLabel: 'vs yesterday' },
+  { id: 'failed-logins', label: 'Failed Login Attempts', value: '14', change: -18.0, changeLabel: 'vs yesterday' },
+  { id: 'system-uptime', label: 'System Uptime', value: '99.98%', change: 0.02, changeLabel: 'vs last 30 days' },
+];
+ 
+export type SystemActivityResult = 'Success' | 'Failed';
+ 
+export interface SystemActivityRow {
+  id: string;
+  time: string;
+  user: string;
+  action: string;
+  module: string;
+  ipAddress: string;
+  result: SystemActivityResult;
+}
+ 
+export const systemActivityRows: SystemActivityRow[] = [
+  { id: 'sa-001', time: 'May 12, 2025 10:30 AM', user: 'Nusrat Jahan', action: 'Approve Transaction', module: 'Transactions', ipAddress: '192.168.1.45', result: 'Success' },
+  { id: 'sa-002', time: 'May 12, 2025 10:25 AM', user: 'Arif Khan', action: 'Update Exchange Rate', module: 'Exchange Rates', ipAddress: '192.168.1.32', result: 'Success' },
+  { id: 'sa-003', time: 'May 12, 2025 10:20 AM', user: 'Kamrul Hasan', action: 'Add Pickup Request', module: 'Pickup Requests', ipAddress: '192.168.1.28', result: 'Success' },
+  { id: 'sa-004', time: 'May 12, 2025 10:15 AM', user: 'Unknown', action: 'Login Attempt', module: 'Authentication', ipAddress: '203.0.113.54', result: 'Failed' },
+  { id: 'sa-005', time: 'May 12, 2025 10:10 AM', user: 'Fatima Ali', action: 'Login', module: 'Authentication', ipAddress: '192.168.1.45', result: 'Success' },
+  { id: 'sa-006', time: 'May 12, 2025 10:05 AM', user: 'Nusrat Jahan', action: 'Edit Customer', module: 'Customers', ipAddress: '192.168.1.45', result: 'Success' },
+  { id: 'sa-007', time: 'May 12, 2025 09:58 AM', user: 'System', action: 'Scheduled Backup', module: 'System', ipAddress: '127.0.0.1', result: 'Success' },
+];
+export const systemActivityRowsTotalCount = 1248;
+ 
+export const systemActivityModuleFilterOptions: string[] = [
+  'All Modules',
+  'Transactions',
+  'Exchange Rates',
+  'Pickup Requests',
+  'Authentication',
+  'Customers',
+  'System',
+];
+export const systemActivityResultFilterOptions: string[] = ['All Results', 'Success', 'Failed'];
+
+
+
+
+
+// ============================================================
+// STANDALONE CUSTOM REPORTS PAGE (Reports & Analytics)
+// ============================================================
+ 
+export interface CustomReportsStat {
+  id: string;
+  label: string;
+  value: string;
+  change: number;
+  changeLabel: string;
+}
+ 
+export const customReportsPageStats: CustomReportsStat[] = [
+  { id: 'total-custom-reports', label: 'Total Custom Reports', value: '36', change: 12.5, changeLabel: 'vs last month' },
+  { id: 'scheduled-reports', label: 'Scheduled Reports', value: '14', change: 7.7, changeLabel: 'vs last month' },
+  { id: 'shared-reports', label: 'Shared with Team', value: '21', change: 16.7, changeLabel: 'vs last month' },
+  { id: 'most-used', label: 'Most Used Report', value: 'Daily Revenue', change: 0, changeLabel: 'this month' },
+];
+ 
+export const customReportDataSources: string[] = [
+  'Transactions',
+  'Cash Pickups',
+  'Agents Performance',
+  'Revenue & Finance',
+  'Customers',
+  'Compliance',
+];
+ 
+export const customReportAvailableFields: Record<string, string[]> = {
+  Transactions: ['Transaction No.', 'Sender', 'Recipient', 'Amount', 'Currency', 'Status', 'Date'],
+  'Cash Pickups': ['Pickup ID', 'Customer', 'Agent', 'Branch', 'Amount', 'Status'],
+  'Agents Performance': ['Agent Name', 'Branch', 'Transactions', 'Completion Rate', 'Rating'],
+  'Revenue & Finance': ['Date', 'Gross Volume', 'Fees Collected', 'Payouts', 'Net Revenue'],
+  Customers: ['Customer ID', 'Customer Name', 'Country', 'KYC Status', 'Segment'],
+  Compliance: ['Report Name', 'Type', 'Period', 'Status', 'Generated By'],
+};
+ 
+export type CustomReportFrequency = 'One-time' | 'Daily' | 'Weekly' | 'Monthly';
+ 
+export interface CustomReportRow {
+  id: string;
+  reportName: string;
+  dataSource: string;
+  createdBy: string;
+  createdDate: string;
+  lastRun: string;
+  frequency: CustomReportFrequency;
+  shared: boolean;
+}
+ 
+export const customReportRows: CustomReportRow[] = [
+  { id: 'cur-001', reportName: 'Daily Revenue', dataSource: 'Revenue & Finance', createdBy: 'Nusrat Jahan', createdDate: 'Mar 2, 2025', lastRun: 'May 12, 2025 06:00 AM', frequency: 'Daily', shared: true },
+  { id: 'cur-002', reportName: 'High-Value Transactions (>$1000)', dataSource: 'Transactions', createdBy: 'Arif Khan', createdDate: 'Feb 18, 2025', lastRun: 'May 11, 2025 09:00 PM', frequency: 'Weekly', shared: true },
+  { id: 'cur-003', reportName: 'Top Performing Agents', dataSource: 'Agents Performance', createdBy: 'Kamrul Hasan', createdDate: 'Jan 25, 2025', lastRun: 'May 1, 2025 08:00 AM', frequency: 'Monthly', shared: false },
+  { id: 'cur-004', reportName: 'New Customer Signups', dataSource: 'Customers', createdBy: 'Fatima Ali', createdDate: 'Apr 5, 2025', lastRun: 'May 12, 2025 07:00 AM', frequency: 'Daily', shared: true },
+  { id: 'cur-005', reportName: 'Branch-wise Cash Pickup Volume', dataSource: 'Cash Pickups', createdBy: 'Nusrat Jahan', createdDate: 'Mar 28, 2025', lastRun: 'May 10, 2025 05:00 PM', frequency: 'Weekly', shared: false },
+  { id: 'cur-006', reportName: 'AML Filing Status Snapshot', dataSource: 'Compliance', createdBy: 'Arif Khan', createdDate: 'May 1, 2025', lastRun: 'May 9, 2025 10:00 AM', frequency: 'One-time', shared: false },
+];
+export const customReportRowsTotalCount = 36;
+ 
+export const customReportDataSourceFilterOptions: string[] = ['All Data Sources', ...customReportDataSources];
+export const customReportFrequencyFilterOptions: string[] = ['All Frequencies', 'One-time', 'Daily', 'Weekly', 'Monthly'];
+
+
+
+
+
+// ============================================================
+// STANDALONE SCHEDULED REPORTS PAGE (Reports & Analytics)
+// ============================================================
+ 
+export interface ScheduledReportsStat {
+  id: string;
+  label: string;
+  value: string;
+  change: number;
+  changeLabel: string;
+}
+ 
+export const scheduledReportsPageStats: ScheduledReportsStat[] = [
+  { id: 'total-scheduled', label: 'Total Scheduled Reports', value: '14', change: 7.7, changeLabel: 'vs last month' },
+  { id: 'active-schedules', label: 'Active Schedules', value: '11', change: 10.0, changeLabel: 'vs last month' },
+  { id: 'paused-schedules', label: 'Paused Schedules', value: '3', change: -14.3, changeLabel: 'vs last month' },
+  { id: 'running-today', label: 'Running Today', value: '5', change: 25.0, changeLabel: 'vs yesterday' },
+];
+ 
+export type ScheduledReportFrequency = 'Daily' | 'Weekly' | 'Monthly';
+ 
+export interface ScheduledReportRow {
+  id: string;
+  reportName: string;
+  dataSource: string;
+  frequency: ScheduledReportFrequency;
+  cadence: string;
+  nextRun: string;
+  recipients: string[];
+  enabled: boolean;
+}
+ 
+export const scheduledReportRows: ScheduledReportRow[] = [
+  { id: 'sch-001', reportName: 'Daily Transaction Report', dataSource: 'Transactions', frequency: 'Daily', cadence: 'Every day at 08:00 AM', nextRun: 'May 13, 2025 08:00 AM', recipients: ['Nusrat Jahan', 'Arif Khan'], enabled: true },
+  { id: 'sch-002', reportName: 'Weekly Summary Report', dataSource: 'Revenue & Finance', frequency: 'Weekly', cadence: 'Every Monday at 09:00 AM', nextRun: 'May 19, 2025 09:00 AM', recipients: ['Kamrul Hasan'], enabled: true },
+  { id: 'sch-003', reportName: 'Monthly Revenue Report', dataSource: 'Revenue & Finance', frequency: 'Monthly', cadence: '1st of every month at 10:00 AM', nextRun: 'Jun 1, 2025 10:00 AM', recipients: ['Nusrat Jahan', 'Fatima Ali'], enabled: true },
+  { id: 'sch-004', reportName: 'Compliance Summary Report', dataSource: 'Compliance', frequency: 'Weekly', cadence: 'Every Friday at 06:00 PM', nextRun: 'May 16, 2025 06:00 PM', recipients: ['Arif Khan'], enabled: false },
+  { id: 'sch-005', reportName: 'Agent Performance Digest', dataSource: 'Agents Performance', frequency: 'Weekly', cadence: 'Every Sunday at 07:00 AM', nextRun: 'May 18, 2025 07:00 AM', recipients: ['Kamrul Hasan', 'Rashed Alam'], enabled: true },
+  { id: 'sch-006', reportName: 'Customer Growth Report', dataSource: 'Customers', frequency: 'Monthly', cadence: '1st of every month at 09:00 AM', nextRun: 'Jun 1, 2025 09:00 AM', recipients: ['Fatima Ali'], enabled: false },
+];
+export const scheduledReportRowsTotalCount = 14;
+ 
+export const scheduledReportFrequencyFilterOptions: string[] = ['All Frequencies', 'Daily', 'Weekly', 'Monthly'];
+export const scheduledReportStatusFilterOptions: string[] = ['All Status', 'Active', 'Paused'];
