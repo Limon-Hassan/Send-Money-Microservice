@@ -237,18 +237,7 @@ const nav: NavGroup[] = [
           { href: "/support/categories", label: "Ticket Categories" },
         ],
       },
-      {
-        label: "CMS Management",
-        icon: MonitorCog,
-        sub: [
-          { href: "/cms", label: "Pages" },
-          { href: "/cms/banners", label: "Banners" },
-          { href: "/cms/notifications", label: "Notifications" },
-          { href: "/cms/email-templates", label: "Email Templates" },
-          { href: "/cms/sms-templates", label: "SMS Templates" },
-          { href: "/cms/promotions", label: "Promotions" },
-        ],
-      },
+
     ],
   },
   {
@@ -321,7 +310,7 @@ export default function Sidebar({ open, onClose }: { open: boolean; onClose: () 
       }
     } catch { }
 
-    
+
     const autoOpen: Record<string, boolean> = {};
     nav.forEach(group => {
       group.items.forEach(item => {
@@ -334,7 +323,7 @@ export default function Sidebar({ open, onClose }: { open: boolean; onClose: () 
       });
     });
     setExpanded(autoOpen);
-  }, []);  
+  }, []);
 
   const toggle = (label: string) =>
     setExpanded((prev) => {
