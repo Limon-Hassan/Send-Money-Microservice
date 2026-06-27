@@ -15,6 +15,8 @@ import {
     CheckCircle2,
     XCircle,
     TrendingUp,
+    X,
+    Check,
 } from 'lucide-react';
 import {
     bankCorridors,
@@ -26,6 +28,11 @@ import {
 } from '@/lib/data';
 
 const PAGE_SIZE_OPTIONS = [10, 25, 50];
+
+const COUNTRY_FLAGS: Record<string, string> = {
+    'United Kingdom': '🇬🇧', Bangladesh: '🇧🇩', India: '🇮🇳', Pakistan: '🇵🇰',
+    'United States': '🇺🇸', 'United Arab Emirates': '🇦🇪', Philippines: '🇵🇭', Nigeria: '🇳🇬',
+};
 
 function StatusBadge({ status }: { status: string }) {
     const isActive = status === 'Active';
@@ -39,7 +46,163 @@ function StatusBadge({ status }: { status: string }) {
     );
 }
 
+// ── Add New Corridor Modal ───────────────────────────────────────
+function AddCorridorModal({
+    onClose,
+    onSave,
+}: {
+    onClose: () => void;
+    onSave: (corridor: BankCorridor) => void;
+}) {
+    const countries = corridorCountryFilterOptions.filter((c) => c !== 'All Countries');
+    const currencies = corridorCurrencyFilterOptions.filter((c) => c !== 'All Currencies');
+
+    const [fromCountry, setFromCountry] = useState(countries[0] ?? '');
+    const [toCountry, setToCountry] = useState(countries[1] ?? countries[0] ?? '');
+    const [fromCurrency, setFromCurrency] = useState(currencies[0] ?? '');
+    const [toCurrency, setToCurrency] = useState(currencies[1] ?? currencies[0] ?? '');
+    const [settlementBank, setSettlementBank] = useState('');
+    const [feePercent, setFeePercent] = useState(1.0);
+    const [dailyVolumeLimit, setDailyVolumeLimit] = useState('');
+    const [isDefault, setIsDefault] = useState(false);
+    const [error, setError] = useState('');
+
+    const handleSave = () => {
+        if (!settlementBank.trim() || !fromCountry || !toCountry) {
+            setError('Settlement bank, from-country and to-country are required.');
+            return;
+        }
+        const newCorridor: BankCorridor = {
+            id: `corridor-${Date.now()}`,
+            fromCountry,
+            fromFlag: COUNTRY_FLAGS[fromCountry] ?? '🏳️',
+            toCountry,
+            toFlag: COUNTRY_FLAGS[toCountry] ?? '🏳️',
+            fromCurrency,
+            toCurrency,
+            settlementBank: settlementBank.trim(),
+            feePercent: Number(feePercent) || 0,
+            status: 'Active',
+            isDefault,
+            dailyVolumeLimit: dailyVolumeLimit.trim() || '—',
+        } as BankCorridor;
+        onSave(newCorridor);
+    };
+
+    return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+            <div className="w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-xl bg-white shadow-xl dark:bg-gray-800">
+                <div className="flex items-center justify-between border-b border-gray-100 px-5 py-4 dark:border-gray-700">
+                    <h2 className="text-sm font-semibold text-gray-900 dark:text-white">Add New Corridor</h2>
+                    <button onClick={onClose} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                        <X size={18} />
+                    </button>
+                </div>
+
+                <div className="space-y-4 p-5">
+                    {error && (
+                        <div className="rounded-lg bg-red-50 px-3 py-2 text-xs text-red-600 dark:bg-red-900/30 dark:text-red-400">
+                            {error}
+                        </div>
+                    )}
+
+                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                        <div>
+                            <label className="mb-1 block text-xs font-medium text-gray-500 dark:text-gray-400">From Country</label>
+                            <select
+                                value={fromCountry}
+                                onChange={(e) => setFromCountry(e.target.value)}
+                                className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-800 outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                            >
+                                {countries.map((c) => <option key={c} value={c}>{c}</option>)}
+                            </select>
+                        </div>
+                        <div>
+                            <label className="mb-1 block text-xs font-medium text-gray-500 dark:text-gray-400">To Country</label>
+                            <select
+                                value={toCountry}
+                                onChange={(e) => setToCountry(e.target.value)}
+                                className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-800 outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                            >
+                                {countries.map((c) => <option key={c} value={c}>{c}</option>)}
+                            </select>
+                        </div>
+                        <div>
+                            <label className="mb-1 block text-xs font-medium text-gray-500 dark:text-gray-400">From Currency</label>
+                            <select
+                                value={fromCurrency}
+                                onChange={(e) => setFromCurrency(e.target.value)}
+                                className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-800 outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                            >
+                                {currencies.map((c) => <option key={c} value={c}>{c}</option>)}
+                            </select>
+                        </div>
+                        <div>
+                            <label className="mb-1 block text-xs font-medium text-gray-500 dark:text-gray-400">To Currency</label>
+                            <select
+                                value={toCurrency}
+                                onChange={(e) => setToCurrency(e.target.value)}
+                                className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-800 outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                            >
+                                {currencies.map((c) => <option key={c} value={c}>{c}</option>)}
+                            </select>
+                        </div>
+                        <div className="sm:col-span-2">
+                            <label className="mb-1 block text-xs font-medium text-gray-500 dark:text-gray-400">Settlement Bank *</label>
+                            <input
+                                value={settlementBank}
+                                onChange={(e) => setSettlementBank(e.target.value)}
+                                placeholder="e.g. Barclays Bank"
+                                className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-800 outline-none focus:border-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                            />
+                        </div>
+                        <div>
+                            <label className="mb-1 block text-xs font-medium text-gray-500 dark:text-gray-400">Fee (%)</label>
+                            <input
+                                type="number"
+                                step="0.01"
+                                value={feePercent}
+                                onChange={(e) => setFeePercent(Number(e.target.value))}
+                                className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-800 outline-none focus:border-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                            />
+                        </div>
+                        <div>
+                            <label className="mb-1 block text-xs font-medium text-gray-500 dark:text-gray-400">Daily Volume Limit</label>
+                            <input
+                                value={dailyVolumeLimit}
+                                onChange={(e) => setDailyVolumeLimit(e.target.value)}
+                                placeholder="e.g. £1,000,000"
+                                className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-800 outline-none focus:border-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                            />
+                        </div>
+                        <div className="flex items-center gap-2 pt-6">
+                            <button
+                                type="button"
+                                onClick={() => setIsDefault(!isDefault)}
+                                className={`relative inline-flex h-5 w-9 items-center rounded-full transition ${isDefault ? 'bg-blue-600' : 'bg-gray-300 dark:bg-gray-700'}`}
+                            >
+                                <span className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition ${isDefault ? 'translate-x-5' : 'translate-x-1'}`} />
+                            </button>
+                            <span className="text-xs text-gray-600 dark:text-gray-300">Set as default for this pair</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="flex items-center justify-end gap-2 border-t border-gray-100 px-5 py-4 dark:border-gray-700">
+                    <button onClick={onClose} className="rounded-lg border border-gray-200 px-4 py-2 text-xs font-medium text-gray-600 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-700">
+                        Cancel
+                    </button>
+                    <button onClick={handleSave} className="flex items-center gap-1.5 rounded-lg bg-blue-600 px-4 py-2 text-xs font-medium text-white hover:bg-blue-700">
+                        <Check size={13} /> Add Corridor
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+}
+
 export default function BankCorridorsPage() {
+    const [corridors, setCorridors] = useState<BankCorridor[]>(bankCorridors);
     const [countryFilter, setCountryFilter] = useState('All Countries');
     const [currencyFilter, setCurrencyFilter] = useState('All Currencies');
     const [statusFilter, setStatusFilter] = useState('All Status');
@@ -47,9 +210,16 @@ export default function BankCorridorsPage() {
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const [openMenuId, setOpenMenuId] = useState<string | null>(null);
+    const [addOpen, setAddOpen] = useState(false);
+    const [toast, setToast] = useState<string | null>(null);
+
+    const showToast = (msg: string) => {
+        setToast(msg);
+        setTimeout(() => setToast(null), 2200);
+    };
 
     const filteredCorridors: BankCorridor[] = useMemo(() => {
-        return bankCorridors.filter((c) => {
+        return corridors.filter((c) => {
             const matchesCountry =
                 countryFilter === 'All Countries' || c.fromCountry === countryFilter || c.toCountry === countryFilter;
             const matchesCurrency =
@@ -62,18 +232,49 @@ export default function BankCorridorsPage() {
                 c.settlementBank.toLowerCase().includes(search.toLowerCase());
             return matchesCountry && matchesCurrency && matchesStatus && matchesSearch;
         });
-    }, [countryFilter, currencyFilter, statusFilter, search]);
+    }, [corridors, countryFilter, currencyFilter, statusFilter, search]);
 
     const totalPages = Math.max(1, Math.ceil(filteredCorridors.length / pageSize));
     const currentPage = Math.min(page, totalPages);
     const paginatedCorridors = filteredCorridors.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
-    const activeCount = bankCorridors.filter((c) => c.status === 'Active').length;
-    const inactiveCount = bankCorridors.filter((c) => c.status === 'Inactive').length;
-    const avgFee = (bankCorridors.reduce((sum, c) => sum + c.feePercent, 0) / bankCorridors.length).toFixed(1);
+    const activeCount = corridors.filter((c) => c.status === 'Active').length;
+    const inactiveCount = corridors.filter((c) => c.status === 'Inactive').length;
+    const avgFee = (corridors.reduce((sum, c) => sum + c.feePercent, 0) / corridors.length).toFixed(1);
+
+    const handleAddCorridor = (corridor: BankCorridor) => {
+        setCorridors((prev) => [corridor, ...prev]);
+        showToast(`Corridor ${corridor.fromCountry} → ${corridor.toCountry} added successfully`);
+        setAddOpen(false);
+    };
+
+    const handleSetDefault = (c: BankCorridor) => {
+        setCorridors((prev) =>
+            prev.map((x) =>
+                x.fromCurrency === c.fromCurrency && x.toCurrency === c.toCurrency ? { ...x, isDefault: x.id === c.id } : x
+            )
+        );
+        showToast(`Corridor ${c.fromCountry} → ${c.toCountry} set as default`);
+        setOpenMenuId(null);
+    };
+
+    const handleToggleStatus = (c: BankCorridor) => {
+        const nextStatus = c.status === 'Active' ? 'Inactive' : 'Active';
+        setCorridors((prev) => prev.map((x) => (x.id === c.id ? { ...x, status: nextStatus as BankCorridor['status'] } : x)));
+        showToast(`Corridor ${c.fromCountry} → ${c.toCountry} ${nextStatus === 'Active' ? 'activated' : 'deactivated'}`);
+        setOpenMenuId(null);
+    };
 
     return (
-        <div className="min-h-screen bg-gray-50 p-4 dark:bg-gray-900 sm:p-6">
+        <div className="min-h-screen bg-gray-50 p-4 dark:bg-gray-900 sm:p-6" onClick={() => setOpenMenuId(null)}>
+            {/* Toast */}
+            {toast && (
+                <div className="fixed top-6 right-6 z-50 flex items-center gap-2 rounded-lg bg-gray-900 px-4 py-2.5 text-sm text-white shadow-lg dark:bg-white dark:text-gray-900">
+                    <Check size={14} className="text-emerald-400 dark:text-emerald-600" />
+                    {toast}
+                </div>
+            )}
+
             {/* Header */}
             <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div>
@@ -82,7 +283,10 @@ export default function BankCorridorsPage() {
                         Manage international remittance corridors between countries and settlement banks.
                     </p>
                 </div>
-                <button className="flex items-center gap-1.5 rounded-lg bg-blue-600 px-3.5 py-2 text-sm font-medium text-white hover:bg-blue-700">
+                <button
+                    onClick={(e) => { e.stopPropagation(); setAddOpen(true); }}
+                    className="flex items-center gap-1.5 rounded-lg bg-blue-600 px-3.5 py-2 text-sm font-medium text-white hover:bg-blue-700"
+                >
                     <Plus size={15} /> Add New Corridor
                 </button>
             </div>
@@ -96,7 +300,7 @@ export default function BankCorridorsPage() {
                         </span>
                         <p className="text-sm text-gray-500 dark:text-gray-400">Total Corridors</p>
                     </div>
-                    <p className="mt-3 text-2xl font-semibold text-gray-900 dark:text-white">{corridorTotalCount}</p>
+                    <p className="mt-3 text-2xl font-semibold text-gray-900 dark:text-white">{corridors.length}</p>
                 </div>
                 <div className="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
                     <div className="flex items-center gap-2">
@@ -129,9 +333,17 @@ export default function BankCorridorsPage() {
 
             {/* Main table card */}
             <div className="mt-5 rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 sm:p-5">
-                <div className="flex items-center gap-2">
-                    <Landmark size={16} className="text-gray-400" />
-                    <h2 className="text-base font-semibold text-gray-900 dark:text-white">All Corridors</h2>
+                <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                        <Landmark size={16} className="text-gray-400" />
+                        <h2 className="text-base font-semibold text-gray-900 dark:text-white">All Corridors</h2>
+                    </div>
+                    <button
+                        onClick={(e) => { e.stopPropagation(); setAddOpen(true); }}
+                        className="flex items-center gap-1 text-xs font-medium text-blue-600 hover:underline dark:text-blue-400"
+                    >
+                        <Plus size={13} /> Add Corridor
+                    </button>
                 </div>
 
                 {/* Filter bar */}
@@ -190,17 +402,23 @@ export default function BankCorridorsPage() {
                             className="w-full rounded-lg border border-gray-300 bg-white py-2 pl-8 pr-3 text-sm text-gray-700 focus:border-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-900 dark:text-gray-200"
                         />
                     </div>
-                    <button className="flex items-center justify-center rounded-lg border border-gray-300 p-2 text-gray-500 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700">
+                    <button
+                        onClick={() => showToast('Advanced filters panel would open here')}
+                        className="flex items-center justify-center rounded-lg border border-gray-300 p-2 text-gray-500 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+                    >
                         <Filter size={15} />
                     </button>
-                    <button className="flex items-center justify-center gap-1.5 whitespace-nowrap rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700">
+                    <button
+                        onClick={() => showToast(`Exporting ${filteredCorridors.length} corridor record(s) as CSV`)}
+                        className="flex items-center justify-center gap-1.5 whitespace-nowrap rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+                    >
                         <Download size={14} /> Export
                     </button>
                 </div>
 
                 {/* Table */}
                 <div className="mt-4 overflow-x-auto">
-                    <table className="min-w-[820px] w-full text-left text-sm">
+                    <table className="min-w-205 w-full text-left text-sm">
                         <thead>
                             <tr className="border-b border-gray-200 text-xs uppercase text-gray-500 dark:border-gray-700 dark:text-gray-400">
                                 <th className="py-2 pr-4 font-medium">From</th>
@@ -247,11 +465,14 @@ export default function BankCorridorsPage() {
                                     <td className="py-2.5 pr-4 whitespace-nowrap">{c.dailyVolumeLimit}</td>
                                     <td className="relative py-2.5 pr-2 text-right">
                                         <div className="flex items-center justify-end gap-2">
-                                            <button className="text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">
+                                            <button
+                                                onClick={(e) => { e.stopPropagation(); showToast(`Editing corridor ${c.fromCountry} → ${c.toCountry}`); }}
+                                                className="text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
+                                            >
                                                 <Pencil size={14} />
                                             </button>
                                             <button
-                                                onClick={() => setOpenMenuId(openMenuId === c.id ? null : c.id)}
+                                                onClick={(e) => { e.stopPropagation(); setOpenMenuId(openMenuId === c.id ? null : c.id); }}
                                                 className="text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
                                             >
                                                 <MoreVertical size={14} />
@@ -262,14 +483,23 @@ export default function BankCorridorsPage() {
                                                 onClick={(e) => e.stopPropagation()}
                                                 className="absolute right-2 top-9 z-10 w-36 rounded-lg border border-gray-200 bg-white py-1 text-left shadow-lg dark:border-gray-700 dark:bg-gray-800"
                                             >
-                                                <button className="block w-full px-3 py-1.5 text-left text-xs text-gray-700 hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-700">
+                                                <button
+                                                    onClick={() => { showToast(`Viewing details for ${c.fromCountry} → ${c.toCountry}`); setOpenMenuId(null); }}
+                                                    className="block w-full px-3 py-1.5 text-left text-xs text-gray-700 hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-700"
+                                                >
                                                     View Details
                                                 </button>
-                                                <button className="block w-full px-3 py-1.5 text-left text-xs text-gray-700 hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-700">
+                                                <button
+                                                    onClick={() => handleSetDefault(c)}
+                                                    className="block w-full px-3 py-1.5 text-left text-xs text-gray-700 hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-700"
+                                                >
                                                     Set as Default
                                                 </button>
-                                                <button className="block w-full px-3 py-1.5 text-left text-xs text-red-600 hover:bg-gray-50 dark:hover:bg-gray-700">
-                                                    Deactivate
+                                                <button
+                                                    onClick={() => handleToggleStatus(c)}
+                                                    className="block w-full px-3 py-1.5 text-left text-xs text-red-600 hover:bg-gray-50 dark:hover:bg-gray-700"
+                                                >
+                                                    {c.status === 'Active' ? 'Deactivate' : 'Activate'}
                                                 </button>
                                             </div>
                                         )}
@@ -291,7 +521,7 @@ export default function BankCorridorsPage() {
                 <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                     <p className="text-xs text-gray-500 dark:text-gray-400">
                         Showing {filteredCorridors.length === 0 ? 0 : (currentPage - 1) * pageSize + 1} to{' '}
-                        {Math.min(currentPage * pageSize, filteredCorridors.length)} of {corridorTotalCount} corridors
+                        {Math.min(currentPage * pageSize, filteredCorridors.length)} of {corridors.length} corridors
                     </p>
                     <div className="flex items-center gap-1.5">
                         <button
@@ -306,8 +536,8 @@ export default function BankCorridorsPage() {
                                 key={p}
                                 onClick={() => setPage(p)}
                                 className={`flex h-7 w-7 items-center justify-center rounded-md text-xs font-medium ${currentPage === p
-                                        ? 'bg-blue-600 text-white'
-                                        : 'border border-gray-300 text-gray-600 dark:border-gray-600 dark:text-gray-300'
+                                    ? 'bg-blue-600 text-white'
+                                    : 'border border-gray-300 text-gray-600 dark:border-gray-600 dark:text-gray-300'
                                     }`}
                             >
                                 {p}
@@ -338,6 +568,13 @@ export default function BankCorridorsPage() {
                     </div>
                 </div>
             </div>
+
+            {/* Add New Corridor Modal */}
+            {addOpen && (
+                <div onClick={(e) => e.stopPropagation()}>
+                    <AddCorridorModal onClose={() => setAddOpen(false)} onSave={handleAddCorridor} />
+                </div>
+            )}
         </div>
     );
 }

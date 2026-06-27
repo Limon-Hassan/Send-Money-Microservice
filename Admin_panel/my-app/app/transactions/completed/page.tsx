@@ -9,7 +9,9 @@ import {
   completedTransactions, completedStats, CompletedTransaction,
 } from '@/lib/data';
 
-// ── helpers ───────────────────────────────────────────────────
+import { flagForCountryName } from '@/lib/countries_data';
+
+
 const avatarConfig: Record<string, string> = {
   blue: 'bg-blue-100   text-blue-700   dark:bg-blue-950   dark:text-blue-400',
   purple: 'bg-purple-100 text-purple-700 dark:bg-purple-950 dark:text-purple-400',
@@ -23,7 +25,18 @@ const avatarConfig: Record<string, string> = {
 const fmt = (n: number) =>
   `£${n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
-// ── Receipt Modal ─────────────────────────────────────────────
+function CountryFlag({ country, size = 'w-4 h-4' }: { country: string; size?: string }) {
+  return (
+    <img
+      src={flagForCountryName(country)}
+      alt={country}
+      className={`${size} rounded-full object-cover inline-block shrink-0`}
+    />
+  );
+}
+
+
+
 function ReceiptModal({ tx, onClose }: { tx: CompletedTransaction; onClose: () => void }) {
   return (
     <>
@@ -196,7 +209,9 @@ export default function CompletedTransactionsPage() {
               </div>
 
               <div>
-                <p className="text-[12px] font-medium text-gray-700 dark:text-gray-300">{tx.recipientFlag} {tx.recipient}</p>
+                <p className="text-[12px] font-medium text-gray-700 dark:text-gray-300 truncate inline-flex items-center gap-1.5">
+                  <CountryFlag country={tx.recipientCountry} /> {tx.recipient}
+                </p>
                 <p className="text-[10px] text-gray-400">{tx.recipientCountry}</p>
               </div>
 
@@ -244,7 +259,9 @@ export default function CompletedTransactionsPage() {
               </div>
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-[12px] text-gray-500 dark:text-gray-400">{tx.recipientFlag} {tx.recipient} · {tx.recipientCountry}</p>
+                  <p className="text-[12px] text-gray-500 dark:text-gray-400 inline-flex items-center gap-1.5">
+                    <CountryFlag country={tx.recipientCountry} /> {tx.recipient} · {tx.recipientCountry}
+                  </p>
                   <div className="flex items-center gap-2 mt-1">
                     <span className="text-[11px] text-gray-400 bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded">{tx.method}</span>
                     <span className="text-[11px] text-gray-400">{tx.completedAt.split('T')[0]}</span>

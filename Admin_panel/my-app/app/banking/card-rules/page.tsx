@@ -4,7 +4,6 @@ import { useState, useMemo } from 'react';
 import {
     FileText,
     CheckCircle2,
-    XCircle,
     ShieldCheck,
     Search,
     Filter,
@@ -15,10 +14,11 @@ import {
     ChevronRight,
     Plus,
     X,
+    Check,
+    Trash2,
 } from 'lucide-react';
 import {
     cardPaymentRules,
-    cardPaymentRulesTotalCount,
     cardPaymentRuleCurrencyFilterOptions,
     bankStatusFilterOptions,
     type CardPaymentRule,
@@ -38,7 +38,140 @@ function StatusBadge({ status }: { status: string }) {
     );
 }
 
+function AddRuleModal({ onClose, onSave }: { onClose: () => void; onSave: (rule: CardPaymentRule) => void }) {
+    const currencies = cardPaymentRuleCurrencyFilterOptions.filter((c) => c !== 'All Currencies');
+
+    const [currency, setCurrency] = useState(currencies[0] ?? '');
+    const [minLimit, setMinLimit] = useState('');
+    const [maxLimit, setMaxLimit] = useState('');
+    const [feePercent, setFeePercent] = useState(2.9);
+    const [fixedFee, setFixedFee] = useState('£0.20');
+    const [appliesToGateway, setAppliesToGateway] = useState('');
+    const [threeDsEnabled, setThreeDsEnabled] = useState(true);
+    const [error, setError] = useState('');
+
+    const handleSave = () => {
+        if (!minLimit.trim() || !maxLimit.trim() || !appliesToGateway.trim()) {
+            setError('Min limit, max limit and gateway are required.');
+            return;
+        }
+        const newRule: CardPaymentRule = {
+            id: `rule-${Date.now()}`,
+            currency,
+            minLimit: minLimit.trim(),
+            maxLimit: maxLimit.trim(),
+            feePercent: Number(feePercent) || 0,
+            fixedFee,
+            threeDsEnabled,
+            appliesToGateway: appliesToGateway.trim(),
+            status: 'Active',
+        } as CardPaymentRule;
+        onSave(newRule);
+    };
+
+    return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+            <div className="w-full max-w-md max-h-[90vh] overflow-y-auto rounded-xl bg-white shadow-xl dark:bg-gray-800">
+                <div className="flex items-center justify-between border-b border-gray-100 px-5 py-4 dark:border-gray-700">
+                    <h2 className="text-sm font-semibold text-gray-900 dark:text-white">Add New Payment Rule</h2>
+                    <button onClick={onClose} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                        <X size={18} />
+                    </button>
+                </div>
+
+                <div className="space-y-4 p-5">
+                    {error && (
+                        <div className="rounded-lg bg-red-50 px-3 py-2 text-xs text-red-600 dark:bg-red-900/30 dark:text-red-400">
+                            {error}
+                        </div>
+                    )}
+
+                    <div>
+                        <label className="mb-1 block text-xs font-medium text-gray-500 dark:text-gray-400">Currency</label>
+                        <select
+                            value={currency}
+                            onChange={(e) => setCurrency(e.target.value)}
+                            className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-800 outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                        >
+                            {currencies.map((c) => <option key={c} value={c}>{c}</option>)}
+                        </select>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                        <div>
+                            <label className="mb-1 block text-xs font-medium text-gray-500 dark:text-gray-400">Min Limit *</label>
+                            <input
+                                value={minLimit}
+                                onChange={(e) => setMinLimit(e.target.value)}
+                                placeholder="e.g. £1"
+                                className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-800 outline-none focus:border-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                            />
+                        </div>
+                        <div>
+                            <label className="mb-1 block text-xs font-medium text-gray-500 dark:text-gray-400">Max Limit *</label>
+                            <input
+                                value={maxLimit}
+                                onChange={(e) => setMaxLimit(e.target.value)}
+                                placeholder="e.g. £10,000"
+                                className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-800 outline-none focus:border-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                            />
+                        </div>
+                        <div>
+                            <label className="mb-1 block text-xs font-medium text-gray-500 dark:text-gray-400">Fee Percent (%)</label>
+                            <input
+                                type="number"
+                                step="0.01"
+                                value={feePercent}
+                                onChange={(e) => setFeePercent(Number(e.target.value))}
+                                className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-800 outline-none focus:border-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                            />
+                        </div>
+                        <div>
+                            <label className="mb-1 block text-xs font-medium text-gray-500 dark:text-gray-400">Fixed Fee</label>
+                            <input
+                                value={fixedFee}
+                                onChange={(e) => setFixedFee(e.target.value)}
+                                placeholder="e.g. £0.20"
+                                className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-800 outline-none focus:border-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                            />
+                        </div>
+                        <div className="col-span-2">
+                            <label className="mb-1 block text-xs font-medium text-gray-500 dark:text-gray-400">Applies to Gateway *</label>
+                            <input
+                                value={appliesToGateway}
+                                onChange={(e) => setAppliesToGateway(e.target.value)}
+                                placeholder="e.g. Stripe"
+                                className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-800 outline-none focus:border-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                            />
+                        </div>
+                    </div>
+
+                    <label className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-200">
+                        <input
+                            type="checkbox"
+                            checked={threeDsEnabled}
+                            onChange={(e) => setThreeDsEnabled(e.target.checked)}
+                            className="h-4 w-4 rounded"
+                        />
+                        Require 3D Secure
+                    </label>
+                </div>
+
+                <div className="flex items-center justify-end gap-2 border-t border-gray-100 px-5 py-4 dark:border-gray-700">
+                    <button onClick={onClose} className="rounded-lg border border-gray-200 px-4 py-2 text-xs font-medium text-gray-600 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-700">
+                        Cancel
+                    </button>
+                    <button onClick={handleSave} className="flex items-center gap-1.5 rounded-lg bg-blue-600 px-4 py-2 text-xs font-medium text-white hover:bg-blue-700">
+                        <Check size={13} /> Add Rule
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+}
+
 export default function CardPaymentRulesPage() {
+    const [rules, setRules] = useState<CardPaymentRule[]>(cardPaymentRules);
     const [currencyFilter, setCurrencyFilter] = useState('All Currencies');
     const [statusFilter, setStatusFilter] = useState('All Status');
     const [search, setSearch] = useState('');
@@ -46,9 +179,55 @@ export default function CardPaymentRulesPage() {
     const [pageSize, setPageSize] = useState(10);
     const [openMenuId, setOpenMenuId] = useState<string | null>(null);
     const [editingRule, setEditingRule] = useState<CardPaymentRule | null>(null);
+    const [addOpen, setAddOpen] = useState(false);
+    const [deleteTarget, setDeleteTarget] = useState<CardPaymentRule | null>(null);
+    const [toast, setToast] = useState<string | null>(null);
+
+    const [editMinLimit, setEditMinLimit] = useState('');
+    const [editMaxLimit, setEditMaxLimit] = useState('');
+    const [editFeePercent, setEditFeePercent] = useState('');
+    const [editFixedFee, setEditFixedFee] = useState('');
+    const [editGateway, setEditGateway] = useState('');
+    const [editThreeDs, setEditThreeDs] = useState(false);
+
+    const showToast = (msg: string) => {
+        setToast(msg);
+        setTimeout(() => setToast(null), 2200);
+    };
+
+    const openEdit = (rule: CardPaymentRule) => {
+        setEditingRule(rule);
+        setEditMinLimit(rule.minLimit);
+        setEditMaxLimit(rule.maxLimit);
+        setEditFeePercent(String(rule.feePercent));
+        setEditFixedFee(rule.fixedFee);
+        setEditGateway(rule.appliesToGateway);
+        setEditThreeDs(rule.threeDsEnabled);
+    };
+
+    const saveEdit = () => {
+        if (!editingRule) return;
+        setRules((prev) =>
+            prev.map((r) =>
+                r.id === editingRule.id
+                    ? {
+                        ...r,
+                        minLimit: editMinLimit,
+                        maxLimit: editMaxLimit,
+                        feePercent: Number(editFeePercent) || 0,
+                        fixedFee: editFixedFee,
+                        appliesToGateway: editGateway,
+                        threeDsEnabled: editThreeDs,
+                    }
+                    : r
+            )
+        );
+        showToast(`${editingRule.currency} payment rule updated`);
+        setEditingRule(null);
+    };
 
     const filteredRules: CardPaymentRule[] = useMemo(() => {
-        return cardPaymentRules.filter((r) => {
+        return rules.filter((r) => {
             const matchesCurrency = currencyFilter === 'All Currencies' || r.currency === currencyFilter;
             const matchesStatus = statusFilter === 'All Status' || r.status === statusFilter;
             const matchesSearch =
@@ -57,19 +236,52 @@ export default function CardPaymentRulesPage() {
                 r.appliesToGateway.toLowerCase().includes(search.toLowerCase());
             return matchesCurrency && matchesStatus && matchesSearch;
         });
-    }, [currencyFilter, statusFilter, search]);
+    }, [rules, currencyFilter, statusFilter, search]);
 
     const totalPages = Math.max(1, Math.ceil(filteredRules.length / pageSize));
     const currentPage = Math.min(page, totalPages);
     const paginatedRules = filteredRules.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
-    const activeCount = cardPaymentRules.filter((r) => r.status === 'Active').length;
-    const threeDsCount = cardPaymentRules.filter((r) => r.threeDsEnabled).length;
-    const avgFee = (cardPaymentRules.reduce((sum, r) => sum + r.feePercent, 0) / cardPaymentRules.length).toFixed(1);
+    const activeCount = rules.filter((r) => r.status === 'Active').length;
+    const threeDsCount = rules.filter((r) => r.threeDsEnabled).length;
+    const avgFee = rules.length > 0 ? (rules.reduce((sum, r) => sum + r.feePercent, 0) / rules.length).toFixed(1) : '0.0';
+
+    const handleAddRule = (rule: CardPaymentRule) => {
+        setRules((prev) => [rule, ...prev]);
+        showToast(`${rule.currency} payment rule added successfully`);
+        setAddOpen(false);
+    };
+
+    const handleDuplicate = (rule: CardPaymentRule) => {
+        const duplicate: CardPaymentRule = { ...rule, id: `rule-${Date.now()}` };
+        setRules((prev) => [duplicate, ...prev]);
+        showToast(`${rule.currency} rule duplicated`);
+        setOpenMenuId(null);
+    };
+
+    const handleToggleStatus = (rule: CardPaymentRule) => {
+        const nextStatus = rule.status === 'Active' ? 'Inactive' : 'Active';
+        setRules((prev) => prev.map((r) => (r.id === rule.id ? { ...r, status: nextStatus as CardPaymentRule['status'] } : r)));
+        showToast(`${rule.currency} rule ${nextStatus === 'Active' ? 'activated' : 'deactivated'}`);
+        setOpenMenuId(null);
+    };
+
+    const confirmDelete = () => {
+        if (!deleteTarget) return;
+        setRules((prev) => prev.filter((r) => r.id !== deleteTarget.id));
+        showToast(`${deleteTarget.currency} payment rule deleted`);
+        setDeleteTarget(null);
+    };
 
     return (
-        <div className="min-h-screen bg-gray-50 p-4 dark:bg-gray-900 sm:p-6">
-            {/* Header */}
+        <div className="min-h-screen bg-gray-50 p-4 dark:bg-gray-900 sm:p-6" onClick={() => setOpenMenuId(null)}>
+            {toast && (
+                <div className="fixed top-6 right-6 z-50 flex items-center gap-2 rounded-lg bg-gray-900 px-4 py-2.5 text-sm text-white shadow-lg dark:bg-white dark:text-gray-900">
+                    <Check size={14} className="text-emerald-400 dark:text-emerald-600" />
+                    {toast}
+                </div>
+            )}
+
             <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div>
                     <h1 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Card Payment Rules</h1>
@@ -77,12 +289,14 @@ export default function CardPaymentRulesPage() {
                         Set transaction limits, fees, and 3D Secure requirements by currency.
                     </p>
                 </div>
-                <button className="flex items-center gap-1.5 rounded-lg bg-blue-600 px-3.5 py-2 text-sm font-medium text-white hover:bg-blue-700">
+                <button
+                    onClick={(e) => { e.stopPropagation(); setAddOpen(true); }}
+                    className="flex items-center gap-1.5 rounded-lg bg-blue-600 px-3.5 py-2 text-sm font-medium text-white hover:bg-blue-700"
+                >
                     <Plus size={15} /> Add New Rule
                 </button>
             </div>
 
-            {/* Stat cards */}
             <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
                 <div className="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
                     <div className="flex items-center gap-2">
@@ -91,7 +305,7 @@ export default function CardPaymentRulesPage() {
                         </span>
                         <p className="text-sm text-gray-500 dark:text-gray-400">Total Rules</p>
                     </div>
-                    <p className="mt-3 text-2xl font-semibold text-gray-900 dark:text-white">{cardPaymentRulesTotalCount}</p>
+                    <p className="mt-3 text-2xl font-semibold text-gray-900 dark:text-white">{rules.length}</p>
                 </div>
                 <div className="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
                     <div className="flex items-center gap-2">
@@ -122,11 +336,17 @@ export default function CardPaymentRulesPage() {
                 </div>
             </div>
 
-            {/* Main table card */}
             <div className="mt-5 rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 sm:p-5">
-                <h2 className="text-base font-semibold text-gray-900 dark:text-white">All Payment Rules</h2>
+                <div className="flex items-center justify-between">
+                    <h2 className="text-base font-semibold text-gray-900 dark:text-white">All Payment Rules</h2>
+                    <button
+                        onClick={(e) => { e.stopPropagation(); setAddOpen(true); }}
+                        className="flex items-center gap-1 text-xs font-medium text-blue-600 hover:underline dark:text-blue-400"
+                    >
+                        <Plus size={13} /> Add Rule
+                    </button>
+                </div>
 
-                {/* Filter bar */}
                 <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-2">
                     <select
                         value={currencyFilter}
@@ -168,15 +388,20 @@ export default function CardPaymentRulesPage() {
                             className="w-full rounded-lg border border-gray-300 bg-white py-2 pl-8 pr-3 text-sm text-gray-700 focus:border-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-900 dark:text-gray-200"
                         />
                     </div>
-                    <button className="flex items-center justify-center rounded-lg border border-gray-300 p-2 text-gray-500 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700">
+                    <button
+                        onClick={() => showToast('Advanced filters panel would open here')}
+                        className="flex items-center justify-center rounded-lg border border-gray-300 p-2 text-gray-500 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+                    >
                         <Filter size={15} />
                     </button>
-                    <button className="flex items-center justify-center gap-1.5 whitespace-nowrap rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700">
+                    <button
+                        onClick={() => showToast(`Exporting ${filteredRules.length} payment rule(s) as CSV`)}
+                        className="flex items-center justify-center gap-1.5 whitespace-nowrap rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+                    >
                         <Download size={14} /> Export
                     </button>
                 </div>
 
-                {/* Table */}
                 <div className="mt-4 overflow-x-auto">
                     <table className="min-w-[860px] w-full text-left text-sm">
                         <thead>
@@ -215,13 +440,13 @@ export default function CardPaymentRulesPage() {
                                     <td className="relative py-2.5 pr-2 text-right">
                                         <div className="flex items-center justify-end gap-2">
                                             <button
-                                                onClick={() => setEditingRule(r)}
+                                                onClick={(e) => { e.stopPropagation(); openEdit(r); }}
                                                 className="text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
                                             >
                                                 <Pencil size={14} />
                                             </button>
                                             <button
-                                                onClick={() => setOpenMenuId(openMenuId === r.id ? null : r.id)}
+                                                onClick={(e) => { e.stopPropagation(); setOpenMenuId(openMenuId === r.id ? null : r.id); }}
                                                 className="text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
                                             >
                                                 <MoreVertical size={14} />
@@ -232,13 +457,22 @@ export default function CardPaymentRulesPage() {
                                                 onClick={(e) => e.stopPropagation()}
                                                 className="absolute right-2 top-9 z-10 w-36 rounded-lg border border-gray-200 bg-white py-1 text-left shadow-lg dark:border-gray-700 dark:bg-gray-800"
                                             >
-                                                <button className="block w-full px-3 py-1.5 text-left text-xs text-gray-700 hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-700">
+                                                <button
+                                                    onClick={() => handleDuplicate(r)}
+                                                    className="block w-full px-3 py-1.5 text-left text-xs text-gray-700 hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-700"
+                                                >
                                                     Duplicate Rule
                                                 </button>
-                                                <button className="block w-full px-3 py-1.5 text-left text-xs text-gray-700 hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-700">
+                                                <button
+                                                    onClick={() => handleToggleStatus(r)}
+                                                    className="block w-full px-3 py-1.5 text-left text-xs text-gray-700 hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-700"
+                                                >
                                                     {r.status === 'Active' ? 'Deactivate' : 'Activate'}
                                                 </button>
-                                                <button className="block w-full px-3 py-1.5 text-left text-xs text-red-600 hover:bg-gray-50 dark:hover:bg-gray-700">
+                                                <button
+                                                    onClick={() => { setDeleteTarget(r); setOpenMenuId(null); }}
+                                                    className="block w-full px-3 py-1.5 text-left text-xs text-red-600 hover:bg-gray-50 dark:hover:bg-gray-700"
+                                                >
                                                     Delete Rule
                                                 </button>
                                             </div>
@@ -257,11 +491,10 @@ export default function CardPaymentRulesPage() {
                     </table>
                 </div>
 
-                {/* Pagination */}
                 <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                     <p className="text-xs text-gray-500 dark:text-gray-400">
                         Showing {filteredRules.length === 0 ? 0 : (currentPage - 1) * pageSize + 1} to{' '}
-                        {Math.min(currentPage * pageSize, filteredRules.length)} of {cardPaymentRulesTotalCount} rules
+                        {Math.min(currentPage * pageSize, filteredRules.length)} of {rules.length} rules
                     </p>
                     <div className="flex items-center gap-1.5">
                         <button
@@ -276,8 +509,8 @@ export default function CardPaymentRulesPage() {
                                 key={p}
                                 onClick={() => setPage(p)}
                                 className={`flex h-7 w-7 items-center justify-center rounded-md text-xs font-medium ${currentPage === p
-                                        ? 'bg-blue-600 text-white'
-                                        : 'border border-gray-300 text-gray-600 dark:border-gray-600 dark:text-gray-300'
+                                    ? 'bg-blue-600 text-white'
+                                    : 'border border-gray-300 text-gray-600 dark:border-gray-600 dark:text-gray-300'
                                     }`}
                             >
                                 {p}
@@ -309,7 +542,12 @@ export default function CardPaymentRulesPage() {
                 </div>
             </div>
 
-            {/* Edit rule modal */}
+            {addOpen && (
+                <div onClick={(e) => e.stopPropagation()}>
+                    <AddRuleModal onClose={() => setAddOpen(false)} onSave={handleAddRule} />
+                </div>
+            )}
+
             {editingRule && (
                 <div
                     className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
@@ -335,40 +573,50 @@ export default function CardPaymentRulesPage() {
                             <div>
                                 <label className="mb-1 block text-xs text-gray-500 dark:text-gray-400">Min Limit</label>
                                 <input
-                                    defaultValue={editingRule.minLimit}
+                                    value={editMinLimit}
+                                    onChange={(e) => setEditMinLimit(e.target.value)}
                                     className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-700 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-200"
                                 />
                             </div>
                             <div>
                                 <label className="mb-1 block text-xs text-gray-500 dark:text-gray-400">Max Limit</label>
                                 <input
-                                    defaultValue={editingRule.maxLimit}
+                                    value={editMaxLimit}
+                                    onChange={(e) => setEditMaxLimit(e.target.value)}
                                     className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-700 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-200"
                                 />
                             </div>
                             <div>
                                 <label className="mb-1 block text-xs text-gray-500 dark:text-gray-400">Fee Percent</label>
                                 <input
-                                    defaultValue={editingRule.feePercent}
+                                    value={editFeePercent}
+                                    onChange={(e) => setEditFeePercent(e.target.value)}
                                     className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-700 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-200"
                                 />
                             </div>
                             <div>
                                 <label className="mb-1 block text-xs text-gray-500 dark:text-gray-400">Fixed Fee</label>
                                 <input
-                                    defaultValue={editingRule.fixedFee}
+                                    value={editFixedFee}
+                                    onChange={(e) => setEditFixedFee(e.target.value)}
                                     className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-700 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-200"
                                 />
                             </div>
                             <div className="col-span-2">
                                 <label className="mb-1 block text-xs text-gray-500 dark:text-gray-400">Applies To Gateway</label>
                                 <input
-                                    defaultValue={editingRule.appliesToGateway}
+                                    value={editGateway}
+                                    onChange={(e) => setEditGateway(e.target.value)}
                                     className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-700 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-200"
                                 />
                             </div>
                             <label className="col-span-2 flex items-center gap-2 text-sm text-gray-700 dark:text-gray-200">
-                                <input type="checkbox" defaultChecked={editingRule.threeDsEnabled} className="h-4 w-4 rounded" />
+                                <input
+                                    type="checkbox"
+                                    checked={editThreeDs}
+                                    onChange={(e) => setEditThreeDs(e.target.checked)}
+                                    className="h-4 w-4 rounded"
+                                />
                                 Require 3D Secure
                             </label>
                         </div>
@@ -381,10 +629,39 @@ export default function CardPaymentRulesPage() {
                                 Cancel
                             </button>
                             <button
-                                onClick={() => setEditingRule(null)}
+                                onClick={saveEdit}
                                 className="flex-1 rounded-lg bg-blue-600 py-2 text-sm font-medium text-white hover:bg-blue-700"
                             >
                                 Save Changes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {deleteTarget && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+                    <div className="w-full max-w-sm rounded-xl bg-white p-5 shadow-xl dark:bg-gray-800">
+                        <div className="flex items-center gap-2 mb-2">
+                            <Trash2 size={16} className="text-red-600 dark:text-red-400" />
+                            <h3 className="text-sm font-semibold text-gray-900 dark:text-white">Delete Payment Rule</h3>
+                        </div>
+                        <p className="mb-4 text-xs text-gray-500 dark:text-gray-400">
+                            Are you sure you want to delete the{' '}
+                            <span className="font-medium text-gray-700 dark:text-gray-200">{deleteTarget.currency}</span> payment rule? This cannot be undone.
+                        </p>
+                        <div className="flex items-center justify-end gap-2">
+                            <button
+                                onClick={() => setDeleteTarget(null)}
+                                className="rounded-lg border border-gray-200 px-4 py-2 text-xs font-medium text-gray-600 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-700"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                onClick={confirmDelete}
+                                className="rounded-lg bg-red-600 px-4 py-2 text-xs font-medium text-white hover:bg-red-700"
+                            >
+                                Delete
                             </button>
                         </div>
                     </div>

@@ -10,8 +10,8 @@ import {
   pendingTransactions, pendingStats,
   PendingTransaction, PriorityLevel, EscalationStatus,
 } from '@/lib/data';
+import { flagForCountryName } from '@/lib/countries_data';
 
-// ── helpers ───────────────────────────────────────────────────
 const priorityConfig: Record<PriorityLevel, { classes: string; Icon: React.ElementType; label: string }> = {
   Critical: { classes: 'bg-red-100    text-red-700    border-red-200    dark:bg-red-950    dark:text-red-400    dark:border-red-900', Icon: Flame, label: 'Critical' },
   High: { classes: 'bg-amber-100  text-amber-700  border-amber-200  dark:bg-amber-950  dark:text-amber-400  dark:border-amber-900', Icon: ArrowUpRight, label: 'High' },
@@ -38,6 +38,18 @@ const avatarConfig: Record<string, string> = {
 const fmt = (n: number, c = 'GBP') =>
   `${c === 'GBP' ? '£' : '$'}${n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
+
+
+function CountryFlag({ country, size = 'w-4 h-4' }: { country: string; size?: string }) {
+  return (
+    <img
+      src={flagForCountryName(country)}
+      alt={country}
+      className={`${size} rounded-full object-cover inline-block shrink-0`}
+    />
+  );
+}
+
 function WaitBadge({ mins }: { mins: number }) {
   const cls = mins > 90 ? 'text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950'
     : mins > 30 ? 'text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950'
@@ -50,7 +62,6 @@ function WaitBadge({ mins }: { mins: number }) {
   );
 }
 
-// ── Confirm Modal ─────────────────────────────────────────────
 function ConfirmModal({
   type, count, onConfirm, onCancel,
 }: { type: 'approve' | 'reject'; count: number; onConfirm: () => void; onCancel: () => void }) {
@@ -86,7 +97,6 @@ function ConfirmModal({
   );
 }
 
-// ── Escalate Modal ────────────────────────────────────────────
 function EscalateModal({ tx, onClose }: { tx: PendingTransaction; onClose: () => void }) {
   const [note, setNote] = useState('');
   return (
@@ -122,7 +132,6 @@ function EscalateModal({ tx, onClose }: { tx: PendingTransaction; onClose: () =>
   );
 }
 
-// ── Main Page ─────────────────────────────────────────────────
 export default function PendingTransactionsPage() {
   const [search, setSearch] = useState('');
   const [priorityFilter, setPriorityFilter] = useState<PriorityLevel | 'All'>('All');
@@ -149,7 +158,6 @@ export default function PendingTransactionsPage() {
 
   return (
     <div className="px-4 py-6">
-      {/* header */}
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
         <div>
           <div className="flex items-center gap-2 text-[13px] text-gray-400 dark:text-gray-500 mb-1">
@@ -261,7 +269,9 @@ export default function PendingTransactionsPage() {
 
                 {/* recipient */}
                 <div>
-                  <p className="text-[12px] font-medium text-gray-700 dark:text-gray-300 truncate">{tx.recipientFlag} {tx.recipient}</p>
+                  <p className="text-[12px] font-medium text-gray-700 dark:text-gray-300 truncate inline-flex items-center gap-1.5">
+                    <CountryFlag country={tx.recipientCountry} /> {tx.recipient}
+                  </p>
                   <p className="text-[10px] text-gray-400">{tx.recipientCountry} · {tx.method}</p>
                 </div>
 
@@ -325,7 +335,9 @@ export default function PendingTransactionsPage() {
                       <p className="text-[14px] font-bold text-gray-900 dark:text-white">{fmt(tx.amount)}</p>
                     </div>
                     <div className="flex items-center justify-between mb-2.5">
-                      <p className="text-[12px] text-gray-500 dark:text-gray-400">{tx.recipientFlag} {tx.recipient} · {tx.recipientCountry}</p>
+                      <p className="text-[12px] text-gray-500 dark:text-gray-400 inline-flex items-center gap-1.5">
+                        <CountryFlag country={tx.recipientCountry} /> {tx.recipient} · {tx.recipientCountry}
+                      </p>
                       <WaitBadge mins={tx.waitingMins} />
                     </div>
                     <div className="flex items-center gap-1.5 flex-wrap">

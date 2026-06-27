@@ -22,6 +22,8 @@ import {
     ArrowUpRight,
     ArrowDownRight,
     Globe,
+    X,
+    Check,
 } from 'lucide-react';
 import {
     Chart,
@@ -86,6 +88,7 @@ function StatCard({
     change,
     changeLabel,
     linkLabel,
+    onLinkClick,
 }: {
     icon: React.ReactNode;
     iconBg: string;
@@ -95,6 +98,7 @@ function StatCard({
     change: number;
     changeLabel: string;
     linkLabel: string;
+    onLinkClick: () => void;
 }) {
     const positive = change >= 0;
     return (
@@ -113,7 +117,7 @@ function StatCard({
                 {positive ? <ArrowUpRight size={12} /> : <ArrowDownRight size={12} />}
                 {Math.abs(change)}% {changeLabel}
             </p>
-            <button className="mt-3 flex items-center gap-1 text-xs font-medium text-blue-600 hover:underline dark:text-blue-400">
+            <button onClick={onLinkClick} className="mt-3 flex items-center gap-1 text-xs font-medium text-blue-600 hover:underline dark:text-blue-400">
                 {linkLabel} <ChevronRight size={12} />
             </button>
         </div>
@@ -157,11 +161,156 @@ function VerificationDonut() {
     }, []);
 
     return (
-        <div className="relative mx-auto h-[140px] w-[140px]">
+        <div className="relative mx-auto h-35 w-35">
             <canvas ref={canvasRef} />
             <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
                 <p className="text-xl font-semibold text-gray-900 dark:text-white">{bankVerificationTotal}</p>
                 <p className="text-[11px] text-gray-500 dark:text-gray-400">Total Banks</p>
+            </div>
+        </div>
+    );
+}
+
+// ── Add New Bank Modal ───────────────────────────────────────────
+function AddBankModal({
+    onClose,
+    onSave,
+}: {
+    onClose: () => void;
+    onSave: (bank: InternationalBankAccount) => void;
+}) {
+    const [bankName, setBankName] = useState('');
+    const [country, setCountry] = useState(countryFilterOptions.find((c) => c !== 'All Countries') ?? '');
+    const [swiftBic, setSwiftBic] = useState('');
+    const [currency, setCurrency] = useState(currencyFilterOptions.find((c) => c !== 'All Currencies') ?? '');
+    const [accountHolder, setAccountHolder] = useState('');
+    const [dailyLimit, setDailyLimit] = useState('');
+    const [isDefault, setIsDefault] = useState(false);
+    const [error, setError] = useState('');
+
+    const handleSave = () => {
+        if (!bankName.trim() || !accountHolder.trim() || !swiftBic.trim()) {
+            setError('Bank name, SWIFT/BIC and account holder are required.');
+            return;
+        }
+        const countryFlags: Record<string, string> = {
+            'United Kingdom': '🇬🇧', Bangladesh: '🇧🇩', India: '🇮🇳', Pakistan: '🇵🇰',
+            'United States': '🇺🇸', 'United Arab Emirates': '🇦🇪', Philippines: '🇵🇭', Nigeria: '🇳🇬',
+        };
+        const newBank: InternationalBankAccount = {
+            id: `bank-${Date.now()}`,
+            bankName: bankName.trim(),
+            country,
+            countryFlag: countryFlags[country] ?? '🏳️',
+            swiftBic: swiftBic.trim().toUpperCase(),
+            currency,
+            accountHolder: accountHolder.trim(),
+            status: 'Pending',
+            isDefault,
+            dailyLimit: dailyLimit.trim() || '—',
+        } as unknown as InternationalBankAccount;
+        onSave(newBank);
+    };
+
+    return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+            <div className="w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-xl bg-white shadow-xl dark:bg-gray-800">
+                <div className="flex items-center justify-between border-b border-gray-100 px-5 py-4 dark:border-gray-700">
+                    <h2 className="text-sm font-semibold text-gray-900 dark:text-white">Add New Bank</h2>
+                    <button onClick={onClose} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                        <X size={18} />
+                    </button>
+                </div>
+
+                <div className="space-y-4 p-5">
+                    {error && (
+                        <div className="rounded-lg bg-red-50 px-3 py-2 text-xs text-red-600 dark:bg-red-900/30 dark:text-red-400">
+                            {error}
+                        </div>
+                    )}
+
+                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                        <div>
+                            <label className="mb-1 block text-xs font-medium text-gray-500 dark:text-gray-400">Bank Name *</label>
+                            <input
+                                value={bankName}
+                                onChange={(e) => setBankName(e.target.value)}
+                                placeholder="e.g. Barclays Bank"
+                                className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-800 outline-none focus:border-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                            />
+                        </div>
+                        <div>
+                            <label className="mb-1 block text-xs font-medium text-gray-500 dark:text-gray-400">SWIFT / BIC *</label>
+                            <input
+                                value={swiftBic}
+                                onChange={(e) => setSwiftBic(e.target.value)}
+                                placeholder="e.g. BARCGB22"
+                                className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-800 outline-none focus:border-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                            />
+                        </div>
+                        <div>
+                            <label className="mb-1 block text-xs font-medium text-gray-500 dark:text-gray-400">Country</label>
+                            <select
+                                value={country}
+                                onChange={(e) => setCountry(e.target.value)}
+                                className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-800 outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                            >
+                                {countryFilterOptions.filter((c) => c !== 'All Countries').map((c) => (
+                                    <option key={c} value={c}>{c}</option>
+                                ))}
+                            </select>
+                        </div>
+                        <div>
+                            <label className="mb-1 block text-xs font-medium text-gray-500 dark:text-gray-400">Currency</label>
+                            <select
+                                value={currency}
+                                onChange={(e) => setCurrency(e.target.value)}
+                                className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-800 outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                            >
+                                {currencyFilterOptions.filter((c) => c !== 'All Currencies').map((c) => (
+                                    <option key={c} value={c}>{c}</option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="sm:col-span-2">
+                            <label className="mb-1 block text-xs font-medium text-gray-500 dark:text-gray-400">Account Holder *</label>
+                            <input
+                                value={accountHolder}
+                                onChange={(e) => setAccountHolder(e.target.value)}
+                                placeholder="e.g. FinTrack Financial Services Ltd."
+                                className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-800 outline-none focus:border-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                            />
+                        </div>
+                        <div>
+                            <label className="mb-1 block text-xs font-medium text-gray-500 dark:text-gray-400">Daily Limit</label>
+                            <input
+                                value={dailyLimit}
+                                onChange={(e) => setDailyLimit(e.target.value)}
+                                placeholder="e.g. £500,000"
+                                className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-800 outline-none focus:border-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                            />
+                        </div>
+                        <div className="flex items-center gap-2 pt-6">
+                            <button
+                                type="button"
+                                onClick={() => setIsDefault(!isDefault)}
+                                className={`relative inline-flex h-5 w-9 items-center rounded-full transition ${isDefault ? 'bg-blue-600' : 'bg-gray-300 dark:bg-gray-700'}`}
+                            >
+                                <span className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition ${isDefault ? 'translate-x-5' : 'translate-x-1'}`} />
+                            </button>
+                            <span className="text-xs text-gray-600 dark:text-gray-300">Set as default bank</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="flex items-center justify-end gap-2 border-t border-gray-100 px-5 py-4 dark:border-gray-700">
+                    <button onClick={onClose} className="rounded-lg border border-gray-200 px-4 py-2 text-xs font-medium text-gray-600 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-700">
+                        Cancel
+                    </button>
+                    <button onClick={handleSave} className="flex items-center gap-1.5 rounded-lg bg-blue-600 px-4 py-2 text-xs font-medium text-white hover:bg-blue-700">
+                        <Check size={13} /> Add Bank
+                    </button>
+                </div>
             </div>
         </div>
     );
@@ -178,7 +327,17 @@ export default function BankingCardPaymentManagementPage() {
     const [headerCountry, setHeaderCountry] = useState('All Countries');
     const [openMenuId, setOpenMenuId] = useState<string | null>(null);
 
+    const [banks, setBanks] = useState<InternationalBankAccount[]>(internationalBankAccounts);
+    const [addBankOpen, setAddBankOpen] = useState(false);
+    const [toast, setToast] = useState<string | null>(null);
+
+    const showToast = (msg: string) => {
+        setToast(msg);
+        setTimeout(() => setToast(null), 2200);
+    };
+
     // Bank Corridors tab state
+    const [corridors, setCorridors] = useState<BankCorridor[]>(bankCorridors);
     const [corridorCountryFilter, setCorridorCountryFilter] = useState('All Countries');
     const [corridorCurrencyFilter, setCorridorCurrencyFilter] = useState('All Currencies');
     const [corridorStatusFilter, setCorridorStatusFilter] = useState('All Status');
@@ -188,7 +347,7 @@ export default function BankingCardPaymentManagementPage() {
     const [openCorridorMenuId, setOpenCorridorMenuId] = useState<string | null>(null);
 
     const filteredBanks: InternationalBankAccount[] = useMemo(() => {
-        return internationalBankAccounts.filter((bank) => {
+        return banks.filter((bank) => {
             const matchesCountry = countryFilter === 'All Countries' || bank.country === countryFilter;
             const matchesCurrency = currencyFilter === 'All Currencies' || bank.currency === currencyFilter;
             const matchesStatus = statusFilter === 'All Status' || bank.status === statusFilter;
@@ -198,17 +357,15 @@ export default function BankingCardPaymentManagementPage() {
                 bank.accountHolder.toLowerCase().includes(search.toLowerCase());
             return matchesCountry && matchesCurrency && matchesStatus && matchesSearch;
         });
-    }, [countryFilter, currencyFilter, statusFilter, search]);
+    }, [banks, countryFilter, currencyFilter, statusFilter, search]);
 
-    // For display purposes we simulate a larger total (48 banks) like the design,
-    // while real pagination operates on the actual filtered fake-data array.
-    const totalBanksCount = 48;
+    const totalBanksCount = banks.length;
     const totalPages = Math.max(1, Math.ceil(filteredBanks.length / pageSize));
     const currentPage = Math.min(page, totalPages);
     const paginatedBanks = filteredBanks.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
     const filteredCorridors: BankCorridor[] = useMemo(() => {
-        return bankCorridors.filter((c) => {
+        return corridors.filter((c) => {
             const matchesCountry =
                 corridorCountryFilter === 'All Countries' ||
                 c.fromCountry === corridorCountryFilter ||
@@ -225,7 +382,7 @@ export default function BankingCardPaymentManagementPage() {
                 c.settlementBank.toLowerCase().includes(corridorSearch.toLowerCase());
             return matchesCountry && matchesCurrency && matchesStatus && matchesSearch;
         });
-    }, [corridorCountryFilter, corridorCurrencyFilter, corridorStatusFilter, corridorSearch]);
+    }, [corridors, corridorCountryFilter, corridorCurrencyFilter, corridorStatusFilter, corridorSearch]);
 
     const corridorTotalPages = Math.max(1, Math.ceil(filteredCorridors.length / corridorPageSize));
     const corridorCurrentPage = Math.min(corridorPage, corridorTotalPages);
@@ -243,8 +400,58 @@ export default function BankingCardPaymentManagementPage() {
         { icon: <Wallet size={16} />, bg: 'bg-violet-100 dark:bg-violet-900/40', color: 'text-violet-600 dark:text-violet-400' },
     ];
 
+    // Bank row actions
+    const handleAddBank = (bank: InternationalBankAccount) => {
+        setBanks((prev) => [bank, ...prev]);
+        showToast(`Bank "${bank.bankName}" added successfully`);
+        setAddBankOpen(false);
+    };
+
+    const handleSetDefaultBank = (bank: InternationalBankAccount) => {
+        setBanks((prev) =>
+            prev.map((b) =>
+                b.currency === bank.currency ? { ...b, isDefault: b.id === bank.id } : b
+            )
+        );
+        showToast(`"${bank.bankName}" set as default for ${bank.currency}`);
+        setOpenMenuId(null);
+    };
+
+    const handleToggleBankStatus = (bank: InternationalBankAccount) => {
+        const nextStatus = bank.status === 'Active' ? 'Inactive' : 'Active';
+        setBanks((prev) => prev.map((b) => (b.id === bank.id ? { ...b, status: nextStatus as InternationalBankAccount['status'] } : b)));
+        showToast(`"${bank.bankName}" ${nextStatus === 'Active' ? 'activated' : 'deactivated'}`);
+        setOpenMenuId(null);
+    };
+
+    // Corridor row actions
+    const handleSetDefaultCorridor = (c: BankCorridor) => {
+        setCorridors((prev) =>
+            prev.map((x) =>
+                x.fromCurrency === c.fromCurrency && x.toCurrency === c.toCurrency ? { ...x, isDefault: x.id === c.id } : x
+            )
+        );
+        showToast(`Corridor ${c.fromCountry} → ${c.toCountry} set as default`);
+        setOpenCorridorMenuId(null);
+    };
+
+    const handleToggleCorridorStatus = (c: BankCorridor) => {
+        const nextStatus = c.status === 'Active' ? 'Inactive' : 'Active';
+        setCorridors((prev) => prev.map((x) => (x.id === c.id ? { ...x, status: nextStatus as BankCorridor['status'] } : x)));
+        showToast(`Corridor ${c.fromCountry} → ${c.toCountry} ${nextStatus === 'Active' ? 'activated' : 'deactivated'}`);
+        setOpenCorridorMenuId(null);
+    };
+
     return (
-        <div className="min-h-screen bg-gray-50 p-4 dark:bg-gray-900 sm:p-6">
+        <div className="min-h-screen bg-gray-50 p-4 dark:bg-gray-900 sm:p-6" onClick={() => { setOpenMenuId(null); setOpenCorridorMenuId(null); }}>
+            {/* Toast */}
+            {toast && (
+                <div className="fixed top-6 right-6 z-50 flex items-center gap-2 rounded-lg bg-gray-900 px-4 py-2.5 text-sm text-white shadow-lg dark:bg-white dark:text-gray-900">
+                    <Check size={14} className="text-emerald-400 dark:text-emerald-600" />
+                    {toast}
+                </div>
+            )}
+
             {/* Header */}
             <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div>
@@ -271,7 +478,10 @@ export default function BankingCardPaymentManagementPage() {
                         <Globe size={14} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                         <ChevronDown size={14} className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400" />
                     </div>
-                    <button className="flex items-center gap-1.5 rounded-lg bg-blue-600 px-3.5 py-2 text-sm font-medium text-white hover:bg-blue-700">
+                    <button
+                        onClick={(e) => { e.stopPropagation(); setAddBankOpen(true); }}
+                        className="flex items-center gap-1.5 rounded-lg bg-blue-600 px-3.5 py-2 text-sm font-medium text-white hover:bg-blue-700"
+                    >
                         <Plus size={15} /> Add New Bank
                     </button>
                 </div>
@@ -290,6 +500,7 @@ export default function BankingCardPaymentManagementPage() {
                         change={stat.change}
                         changeLabel={stat.changeLabel}
                         linkLabel={stat.linkLabel}
+                        onLinkClick={() => showToast(`Opening "${stat.label}" details`)}
                     />
                 ))}
             </div>
@@ -301,8 +512,8 @@ export default function BankingCardPaymentManagementPage() {
                         key={tab}
                         onClick={() => setActiveTab(tab)}
                         className={`whitespace-nowrap border-b-2 pb-2.5 text-sm font-medium transition-colors ${activeTab === tab
-                                ? 'border-blue-600 text-blue-600 dark:border-blue-400 dark:text-blue-400'
-                                : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
+                            ? 'border-blue-600 text-blue-600 dark:border-blue-400 dark:text-blue-400'
+                            : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
                             }`}
                     >
                         {tab}
@@ -316,7 +527,15 @@ export default function BankingCardPaymentManagementPage() {
                 <div className="space-y-5 lg:col-span-2">
                     {activeTab === 'International Banks' && (
                         <div className="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 sm:p-5">
-                            <h2 className="text-base font-semibold text-gray-900 dark:text-white">International Bank Accounts</h2>
+                            <div className="flex items-center justify-between">
+                                <h2 className="text-base font-semibold text-gray-900 dark:text-white">International Bank Accounts</h2>
+                                <button
+                                    onClick={(e) => { e.stopPropagation(); setAddBankOpen(true); }}
+                                    className="flex items-center gap-1 text-xs font-medium text-blue-600 hover:underline dark:text-blue-400"
+                                >
+                                    <Plus size={13} /> Add Bank
+                                </button>
+                            </div>
 
                             {/* Filter bar */}
                             <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-2">
@@ -374,17 +593,23 @@ export default function BankingCardPaymentManagementPage() {
                                         className="w-full rounded-lg border border-gray-300 bg-white py-2 pl-8 pr-3 text-sm text-gray-700 focus:border-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-900 dark:text-gray-200"
                                     />
                                 </div>
-                                <button className="flex items-center justify-center rounded-lg border border-gray-300 p-2 text-gray-500 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700">
+                                <button
+                                    onClick={() => showToast('Advanced filters panel would open here')}
+                                    className="flex items-center justify-center rounded-lg border border-gray-300 p-2 text-gray-500 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+                                >
                                     <Filter size={15} />
                                 </button>
-                                <button className="flex items-center justify-center gap-1.5 whitespace-nowrap rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700">
+                                <button
+                                    onClick={() => showToast(`Exporting ${filteredBanks.length} bank record(s) as CSV`)}
+                                    className="flex items-center justify-center gap-1.5 whitespace-nowrap rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+                                >
                                     <Download size={14} /> Export
                                 </button>
                             </div>
 
                             {/* Table */}
                             <div className="mt-4 overflow-x-auto">
-                                <table className="min-w-[760px] w-full text-left text-sm">
+                                <table className="min-w-190 w-full text-left text-sm">
                                     <thead>
                                         <tr className="border-b border-gray-200 text-xs uppercase text-gray-500 dark:border-gray-700 dark:text-gray-400">
                                             <th className="py-2 pr-4 font-medium">Bank Name</th>
@@ -425,11 +650,14 @@ export default function BankingCardPaymentManagementPage() {
                                                 <td className="py-2.5 pr-4 whitespace-nowrap">{bank.dailyLimit}</td>
                                                 <td className="relative py-2.5 pr-2 text-right">
                                                     <div className="flex items-center justify-end gap-2">
-                                                        <button className="text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">
+                                                        <button
+                                                            onClick={(e) => { e.stopPropagation(); showToast(`Editing "${bank.bankName}"`); }}
+                                                            className="text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
+                                                        >
                                                             <Pencil size={14} />
                                                         </button>
                                                         <button
-                                                            onClick={() => setOpenMenuId(openMenuId === bank.id ? null : bank.id)}
+                                                            onClick={(e) => { e.stopPropagation(); setOpenMenuId(openMenuId === bank.id ? null : bank.id); }}
                                                             className="text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
                                                         >
                                                             <MoreVertical size={14} />
@@ -440,14 +668,23 @@ export default function BankingCardPaymentManagementPage() {
                                                             onClick={(e) => e.stopPropagation()}
                                                             className="absolute right-2 top-9 z-10 w-36 rounded-lg border border-gray-200 bg-white py-1 text-left shadow-lg dark:border-gray-700 dark:bg-gray-800"
                                                         >
-                                                            <button className="block w-full px-3 py-1.5 text-left text-xs text-gray-700 hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-700">
+                                                            <button
+                                                                onClick={() => { showToast(`Viewing details for "${bank.bankName}"`); setOpenMenuId(null); }}
+                                                                className="block w-full px-3 py-1.5 text-left text-xs text-gray-700 hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-700"
+                                                            >
                                                                 View Details
                                                             </button>
-                                                            <button className="block w-full px-3 py-1.5 text-left text-xs text-gray-700 hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-700">
+                                                            <button
+                                                                onClick={() => handleSetDefaultBank(bank)}
+                                                                className="block w-full px-3 py-1.5 text-left text-xs text-gray-700 hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-700"
+                                                            >
                                                                 Set as Default
                                                             </button>
-                                                            <button className="block w-full px-3 py-1.5 text-left text-xs text-red-600 hover:bg-gray-50 dark:hover:bg-gray-700">
-                                                                Deactivate
+                                                            <button
+                                                                onClick={() => handleToggleBankStatus(bank)}
+                                                                className="block w-full px-3 py-1.5 text-left text-xs text-red-600 hover:bg-gray-50 dark:hover:bg-gray-700"
+                                                            >
+                                                                {bank.status === 'Active' ? 'Deactivate' : 'Activate'}
                                                             </button>
                                                         </div>
                                                     )}
@@ -484,8 +721,8 @@ export default function BankingCardPaymentManagementPage() {
                                             key={p}
                                             onClick={() => setPage(p)}
                                             className={`flex h-7 w-7 items-center justify-center rounded-md text-xs font-medium ${currentPage === p
-                                                    ? 'bg-blue-600 text-white'
-                                                    : 'border border-gray-300 text-gray-600 dark:border-gray-600 dark:text-gray-300'
+                                                ? 'bg-blue-600 text-white'
+                                                : 'border border-gray-300 text-gray-600 dark:border-gray-600 dark:text-gray-300'
                                                 }`}
                                         >
                                             {p}
@@ -578,17 +815,23 @@ export default function BankingCardPaymentManagementPage() {
                                         className="w-full rounded-lg border border-gray-300 bg-white py-2 pl-8 pr-3 text-sm text-gray-700 focus:border-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-900 dark:text-gray-200"
                                     />
                                 </div>
-                                <button className="flex items-center justify-center rounded-lg border border-gray-300 p-2 text-gray-500 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700">
+                                <button
+                                    onClick={() => showToast('Advanced filters panel would open here')}
+                                    className="flex items-center justify-center rounded-lg border border-gray-300 p-2 text-gray-500 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+                                >
                                     <Filter size={15} />
                                 </button>
-                                <button className="flex items-center justify-center gap-1.5 whitespace-nowrap rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700">
+                                <button
+                                    onClick={() => showToast(`Exporting ${filteredCorridors.length} corridor record(s) as CSV`)}
+                                    className="flex items-center justify-center gap-1.5 whitespace-nowrap rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+                                >
                                     <Download size={14} /> Export
                                 </button>
                             </div>
 
                             {/* Table */}
                             <div className="mt-4 overflow-x-auto">
-                                <table className="min-w-[820px] w-full text-left text-sm">
+                                <table className="min-w-205 w-full text-left text-sm">
                                     <thead>
                                         <tr className="border-b border-gray-200 text-xs uppercase text-gray-500 dark:border-gray-700 dark:text-gray-400">
                                             <th className="py-2 pr-4 font-medium">From</th>
@@ -635,11 +878,14 @@ export default function BankingCardPaymentManagementPage() {
                                                 <td className="py-2.5 pr-4 whitespace-nowrap">{c.dailyVolumeLimit}</td>
                                                 <td className="relative py-2.5 pr-2 text-right">
                                                     <div className="flex items-center justify-end gap-2">
-                                                        <button className="text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">
+                                                        <button
+                                                            onClick={(e) => { e.stopPropagation(); showToast(`Editing corridor ${c.fromCountry} → ${c.toCountry}`); }}
+                                                            className="text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
+                                                        >
                                                             <Pencil size={14} />
                                                         </button>
                                                         <button
-                                                            onClick={() => setOpenCorridorMenuId(openCorridorMenuId === c.id ? null : c.id)}
+                                                            onClick={(e) => { e.stopPropagation(); setOpenCorridorMenuId(openCorridorMenuId === c.id ? null : c.id); }}
                                                             className="text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
                                                         >
                                                             <MoreVertical size={14} />
@@ -650,14 +896,23 @@ export default function BankingCardPaymentManagementPage() {
                                                             onClick={(e) => e.stopPropagation()}
                                                             className="absolute right-2 top-9 z-10 w-36 rounded-lg border border-gray-200 bg-white py-1 text-left shadow-lg dark:border-gray-700 dark:bg-gray-800"
                                                         >
-                                                            <button className="block w-full px-3 py-1.5 text-left text-xs text-gray-700 hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-700">
+                                                            <button
+                                                                onClick={() => { showToast(`Viewing details for ${c.fromCountry} → ${c.toCountry}`); setOpenCorridorMenuId(null); }}
+                                                                className="block w-full px-3 py-1.5 text-left text-xs text-gray-700 hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-700"
+                                                            >
                                                                 View Details
                                                             </button>
-                                                            <button className="block w-full px-3 py-1.5 text-left text-xs text-gray-700 hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-700">
+                                                            <button
+                                                                onClick={() => handleSetDefaultCorridor(c)}
+                                                                className="block w-full px-3 py-1.5 text-left text-xs text-gray-700 hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-700"
+                                                            >
                                                                 Set as Default
                                                             </button>
-                                                            <button className="block w-full px-3 py-1.5 text-left text-xs text-red-600 hover:bg-gray-50 dark:hover:bg-gray-700">
-                                                                Deactivate
+                                                            <button
+                                                                onClick={() => handleToggleCorridorStatus(c)}
+                                                                className="block w-full px-3 py-1.5 text-left text-xs text-red-600 hover:bg-gray-50 dark:hover:bg-gray-700"
+                                                            >
+                                                                {c.status === 'Active' ? 'Deactivate' : 'Activate'}
                                                             </button>
                                                         </div>
                                                     )}
@@ -694,8 +949,8 @@ export default function BankingCardPaymentManagementPage() {
                                             key={p}
                                             onClick={() => setCorridorPage(p)}
                                             className={`flex h-7 w-7 items-center justify-center rounded-md text-xs font-medium ${corridorCurrentPage === p
-                                                    ? 'bg-blue-600 text-white'
-                                                    : 'border border-gray-300 text-gray-600 dark:border-gray-600 dark:text-gray-300'
+                                                ? 'bg-blue-600 text-white'
+                                                : 'border border-gray-300 text-gray-600 dark:border-gray-600 dark:text-gray-300'
                                                 }`}
                                         >
                                             {p}
@@ -772,13 +1027,19 @@ export default function BankingCardPaymentManagementPage() {
                                             </span>
                                         </p>
                                     </div>
-                                    <button className="mt-3 rounded-lg border border-gray-300 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700">
+                                    <button
+                                        onClick={() => showToast(`Opening management panel for "${gw.name}"`)}
+                                        className="mt-3 rounded-lg border border-gray-300 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700"
+                                    >
                                         Manage
                                     </button>
                                 </div>
                             ))}
                         </div>
-                        <button className="mt-3 text-xs font-medium text-blue-600 hover:underline dark:text-blue-400">
+                        <button
+                            onClick={() => setActiveTab('Card Gateways')}
+                            className="mt-3 text-xs font-medium text-blue-600 hover:underline dark:text-blue-400"
+                        >
                             View All Gateways →
                         </button>
                     </div>
@@ -787,7 +1048,10 @@ export default function BankingCardPaymentManagementPage() {
                     <div className="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 sm:p-5">
                         <div className="flex items-center justify-between">
                             <h2 className="text-base font-semibold text-gray-900 dark:text-white">Top Bank Corridors</h2>
-                            <button className="text-xs font-medium text-blue-600 hover:underline dark:text-blue-400">
+                            <button
+                                onClick={() => setActiveTab('Bank Corridors')}
+                                className="text-xs font-medium text-blue-600 hover:underline dark:text-blue-400"
+                            >
                                 View All Corridors →
                             </button>
                         </div>
@@ -818,7 +1082,7 @@ export default function BankingCardPaymentManagementPage() {
                     <div className="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
                         <div className="flex items-center justify-between">
                             <h2 className="text-base font-semibold text-gray-900 dark:text-white">Bank Verification Status</h2>
-                            <button className="text-xs font-medium text-blue-600 hover:underline dark:text-blue-400">View All</button>
+                            <button onClick={() => showToast('Opening full verification list')} className="text-xs font-medium text-blue-600 hover:underline dark:text-blue-400">View All</button>
                         </div>
 
                         <VerificationDonut />
@@ -848,7 +1112,10 @@ export default function BankingCardPaymentManagementPage() {
                             ))}
                         </div>
 
-                        <button className="mt-3 text-xs font-medium text-blue-600 hover:underline dark:text-blue-400">
+                        <button
+                            onClick={() => showToast('Navigating to Bank Verification Center')}
+                            className="mt-3 text-xs font-medium text-blue-600 hover:underline dark:text-blue-400"
+                        >
                             Go to Verification →
                         </button>
                     </div>
@@ -858,13 +1125,14 @@ export default function BankingCardPaymentManagementPage() {
                         <h2 className="text-base font-semibold text-gray-900 dark:text-white">Quick Actions</h2>
                         <div className="mt-3 grid grid-cols-2 gap-2.5 sm:grid-cols-4">
                             {[
-                                { icon: <Building2 size={16} />, label: 'New Bank' },
-                                { icon: <ArrowLeftRight size={16} />, label: 'New Corridor' },
-                                { icon: <CreditCard size={16} />, label: 'New Gateway' },
-                                { icon: <FileText size={16} />, label: 'Create Rule' },
+                                { icon: <Building2 size={16} />, label: 'New Bank', onClick: () => setAddBankOpen(true) },
+                                { icon: <ArrowLeftRight size={16} />, label: 'New Corridor', onClick: () => showToast('New Corridor form would open here') },
+                                { icon: <CreditCard size={16} />, label: 'New Gateway', onClick: () => showToast('New Gateway form would open here') },
+                                { icon: <FileText size={16} />, label: 'Create Rule', onClick: () => showToast('Create Payment Rule form would open here') },
                             ].map((action) => (
                                 <button
                                     key={action.label}
+                                    onClick={action.onClick}
                                     className="flex flex-col items-center gap-1.5 rounded-lg border border-gray-200 p-3 text-center text-[11px] text-gray-600 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-700"
                                 >
                                     <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400">
@@ -880,7 +1148,12 @@ export default function BankingCardPaymentManagementPage() {
                     <div className="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
                         <div className="flex items-center justify-between">
                             <h2 className="text-base font-semibold text-gray-900 dark:text-white">Card Payment Rules Overview</h2>
-                            <button className="text-xs font-medium text-blue-600 hover:underline dark:text-blue-400">View All</button>
+                            <button
+                                onClick={() => setActiveTab('Card Payment Rules')}
+                                className="text-xs font-medium text-blue-600 hover:underline dark:text-blue-400"
+                            >
+                                View All
+                            </button>
                         </div>
                         <div className="mt-3 overflow-x-auto">
                             <table className="min-w-[320px] w-full text-left text-xs">
@@ -915,12 +1188,22 @@ export default function BankingCardPaymentManagementPage() {
                                 </tbody>
                             </table>
                         </div>
-                        <button className="mt-3 text-xs font-medium text-blue-600 hover:underline dark:text-blue-400">
+                        <button
+                            onClick={() => setActiveTab('Card Payment Rules')}
+                            className="mt-3 text-xs font-medium text-blue-600 hover:underline dark:text-blue-400"
+                        >
                             Manage Payment Rules →
                         </button>
                     </div>
                 </div>
             </div>
+
+            {/* Add New Bank Modal */}
+            {addBankOpen && (
+                <div onClick={(e) => e.stopPropagation()}>
+                    <AddBankModal onClose={() => setAddBankOpen(false)} onSave={handleAddBank} />
+                </div>
+            )}
         </div>
     );
 }

@@ -11,6 +11,33 @@ import {
     CustomerWallet, WalletCurrency, WalletStatus,
 } from '@/lib/data';
 
+import { flagForCountryName } from '@/lib/countries_data';
+
+
+const currencyCountryMap: Record<string, string> = {
+    GBP: 'United Kingdom',
+    USD: 'United States',
+    EUR: 'Europe',
+    BDT: 'Bangladesh',
+    PKR: 'Pakistan',
+    INR: 'India',
+    PHP: 'Philippines',
+    NGN: 'Nigeria',
+    NPR: 'Nepal',
+};
+
+function CurrencyFlag({ code, size = 'w-5 h-5' }: { code: string; size?: string }) {
+    const country = currencyCountryMap[code];
+    if (!country) return null;
+    return (
+        <img
+            src={flagForCountryName(country)}
+            alt={code}
+            className={`${size} rounded-full object-cover inline-block shrink-0`}
+        />
+    );
+}
+
 const statusConfig: Record<WalletStatus, { classes: string; Icon: React.ElementType; label: string }> = {
     Active: { classes: 'bg-emerald-100 text-emerald-700 border-emerald-200 dark:bg-emerald-950 dark:text-emerald-400 dark:border-emerald-900', Icon: CheckCircle, label: 'Active' },
     Frozen: { classes: 'bg-blue-100    text-blue-700    border-blue-200    dark:bg-blue-950    dark:text-blue-400    dark:border-blue-900', Icon: Snowflake, label: 'Frozen' },
@@ -83,7 +110,7 @@ function WalletModal({ customer, onClose }: { customer: CustomerWallet; onClose:
 
                     <div className="p-5 space-y-4">
                         {/* total balance card */}
-                        <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl p-4 sm:p-5 text-white">
+                        <div className="bg-linear-to-br from-blue-600 to-blue-700 rounded-xl p-4 sm:p-5 text-white">
                             <div className="flex items-center justify-between mb-1">
                                 <p className="text-[12px] font-medium opacity-80 uppercase tracking-wider">Total Balance</p>
                                 <button onClick={() => setHideBalance(!hideBalance)} className="opacity-70 hover:opacity-100">{hideBalance ? <EyeOff size={14} /> : <Eye size={14} />}</button>
@@ -117,10 +144,13 @@ function WalletModal({ customer, onClose }: { customer: CustomerWallet; onClose:
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
                                     <div>
                                         <label className="text-[11px] text-gray-400 dark:text-gray-500 mb-1 block">Select Wallet</label>
-                                        <select value={selectedWallet.code} onChange={(e) => setSelectedWallet(customer.wallets.find(w => w.code === e.target.value) ?? customer.wallets[0])}
-                                            className="w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg px-3 py-2 text-[13px] text-gray-700 dark:text-gray-200 outline-none">
-                                            {customer.wallets.map(w => <option key={w.code} value={w.code}>{w.flag} {w.code} — {fmt(w.balance, w.code)}</option>)}
-                                        </select>
+                                        <div className="flex items-center gap-2">
+                                            <CurrencyFlag code={selectedWallet.code} />
+                                            <select value={selectedWallet.code} onChange={(e) => setSelectedWallet(customer.wallets.find(w => w.code === e.target.value) ?? customer.wallets[0])}
+                                                className="w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg px-3 py-2 text-[13px] text-gray-700 dark:text-gray-200 outline-none">
+                                                {customer.wallets.map(w => <option key={w.code} value={w.code}>{w.code} — {fmt(w.balance, w.code)}</option>)}
+                                            </select>
+                                        </div>
                                     </div>
                                     <div>
                                         <label className="text-[11px] text-gray-400 dark:text-gray-500 mb-1 block">{actionConfig[activeAction].inputLabel}</label>
@@ -146,7 +176,7 @@ function WalletModal({ customer, onClose }: { customer: CustomerWallet; onClose:
                                     <div key={w.code} className="bg-gray-50 dark:bg-gray-700/40 border border-gray-200 dark:border-gray-700 rounded-xl p-3 sm:p-4">
                                         <div className="flex items-center justify-between mb-3">
                                             <div className="flex items-center gap-2.5">
-                                                <span className="text-xl">{w.flag}</span>
+                                                <CurrencyFlag code={w.code} size="w-7 h-7" />
                                                 <div>
                                                     <p className="text-[13px] font-semibold text-gray-900 dark:text-white">{w.name}</p>
                                                     <p className="text-[11px] text-gray-400">{w.code}</p>
@@ -259,7 +289,11 @@ export default function WalletBalancePage() {
                                     <p className="text-[11px] text-gray-400">GBP equivalent</p>
                                 </div>
                                 <div className="flex items-center gap-1 flex-wrap">
-                                    {c.wallets.map(w => <span key={w.code} title={`${w.name}: ${fmt(w.balance, w.code)}`} className="text-base leading-none">{w.flag}</span>)}
+                                    {c.wallets.map(w => (
+                                        <span key={w.code} title={`${w.name}: ${fmt(w.balance, w.code)}`}>
+                                            <CurrencyFlag code={w.code} size="w-5 h-5" />
+                                        </span>
+                                    ))}
                                     <span className="text-[11px] text-gray-400 ml-1">{c.wallets.length}w</span>
                                 </div>
                                 <div className="text-[12px] text-gray-500 dark:text-gray-400">{c.lastActivity}</div>
@@ -286,7 +320,7 @@ export default function WalletBalancePage() {
                                     <div>
                                         <p className="text-[14px] font-bold text-gray-900 dark:text-white">£{c.totalBalanceGBP.toLocaleString(undefined, { minimumFractionDigits: 2 })}</p>
                                         <div className="flex gap-1 mt-1">
-                                            {c.wallets.map(w => <span key={w.code} className="text-sm">{w.flag}</span>)}
+                                            {c.wallets.map(w => <CurrencyFlag key={w.code} code={w.code} size="w-5 h-5" />)}
                                             <span className="text-[11px] text-gray-400 ml-1">{c.lastActivity}</span>
                                         </div>
                                     </div>

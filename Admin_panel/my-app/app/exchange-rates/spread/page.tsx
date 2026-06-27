@@ -16,7 +16,43 @@ import {
     SpreadChangeLogEntry,
 } from '@/lib/data';
 
+
+import { flagForCountryName } from '@/lib/countries_data';
+
+
 // ── helpers ───────────────────────────────────────────────────
+
+const currencyCountryMap: Record<string, string> = {
+    GBP: 'United Kingdom',
+    USD: 'United States',
+    EUR: 'Europe',
+    BDT: 'Bangladesh',
+    AED: 'UAE',
+    INR: 'India',
+    PKR: 'Pakistan',
+    NGN: 'Nigeria',
+    CAD: 'Canada',
+    AUD: 'Australia',
+    PHP: 'Philippines',
+    SAR: 'Saudi Arabia',
+};
+
+function CurrencyFlag({ code, size = 'w-4 h-4' }: { code: string; size?: string }) {
+    const country = currencyCountryMap[code];
+    if (!country) return null;
+    return (
+        <img
+            src={flagForCountryName(country)}
+            alt={code}
+            className={`${size} rounded-full object-cover inline-block shrink-0`}
+        />
+    );
+}
+
+
+
+
+
 const statusClasses: Record<SpreadRuleStatus, string> = {
     Active: 'bg-emerald-50 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400',
     Inactive: 'bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-400',
@@ -143,7 +179,7 @@ function SpreadRulesTable({ rows, search, setSearch }: { rows: SpreadRule[]; sea
                                 <tr key={r.id} className="border-b border-gray-50 dark:border-gray-700/40 last:border-0 hover:bg-gray-50/60 dark:hover:bg-gray-700/30">
                                     <td className="px-4 py-2.5 whitespace-nowrap">
                                         <span className="inline-flex items-center gap-1.5 text-[13px] font-medium text-gray-800 dark:text-gray-100">
-                                            <span>{r.baseFlag}</span><span>{r.quoteFlag}</span>
+                                            <CurrencyFlag code={r.baseCurrency} /><CurrencyFlag code={r.quoteCurrency} />
                                             {r.baseCurrency} / {r.quoteCurrency}
                                         </span>
                                     </td>
@@ -271,8 +307,11 @@ function SpreadChangeLogPanel({ rows }: { rows: SpreadChangeLogEntry[] }) {
                             </span>
                             <div className="flex-1 min-w-0">
                                 <div className="flex items-center justify-between gap-2 mb-0.5 flex-wrap">
-                                    <p className="text-[12px] font-medium text-gray-800 dark:text-gray-100">
-                                        {log.pairFlags} {log.pairLabel}
+                                    <p className="text-[12px] font-medium text-gray-800 dark:text-gray-100 flex items-center gap-1.5 flex-wrap">
+                                        {log.pairLabel.split('/').map((code, i) => (
+                                            <CurrencyFlag key={i} code={code.trim()} />
+                                        ))}
+                                        {log.pairLabel}
                                         <span className={`ml-2 font-semibold ${increased ? 'text-red-500 dark:text-red-400' : 'text-emerald-500 dark:text-emerald-400'}`}>
                                             {log.fromPct.toFixed(2)}% → {log.toPct.toFixed(2)}%
                                         </span>

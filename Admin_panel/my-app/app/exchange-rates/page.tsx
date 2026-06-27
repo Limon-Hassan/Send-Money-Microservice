@@ -11,6 +11,10 @@ import {
   Tooltip as ChartTooltip, Filler, ChartOptions, TooltipItem,
 } from 'chart.js';
 import { Line as LineChartJS } from 'react-chartjs-2';
+import { flagForCountryName } from '@/lib/countries_data';
+
+
+
 import {
   currencyRates,
   exchangeRateStats,
@@ -32,6 +36,35 @@ import {
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, ChartTooltip, Filler);
 
 // ── helpers ───────────────────────────────────────────────────
+const currencyCountryMap: Record<string, string> = {
+  GBP: 'United Kingdom',
+  USD: 'United States',
+  EUR: 'Europe',
+  BDT: 'Bangladesh',
+  AED: 'UAE',
+  INR: 'India',
+  PKR: 'Pakistan',
+  NGN: 'Nigeria',
+  CAD: 'Canada',
+  AUD: 'Australia',
+  PHP: 'Philippines',
+  SAR: 'Saudi Arabia',
+};
+
+function CurrencyFlag({ code, size = 'w-4 h-4' }: { code: string; size?: string }) {
+  const country = currencyCountryMap[code];
+  if (!country) return null;
+  return (
+    <img
+      src={flagForCountryName(country)}
+      alt={code}
+      className={`${size} rounded-full object-cover inline-block shrink-0`}
+    />
+  );
+}
+
+
+
 const statusClasses: Record<RateStatus, string> = {
   Active: 'bg-emerald-50 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400',
   Inactive: 'bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-400',
@@ -117,7 +150,7 @@ function StatCards() {
 function FilterBar({ search, setSearch }: { search: string; setSearch: (v: string) => void }) {
   return (
     <div className="flex flex-wrap items-center gap-2 px-4 py-3 border-b border-gray-100 dark:border-gray-700/60">
-      <div className="flex items-center gap-2 flex-1 min-w-[160px] border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-1.5">
+      <div className="flex items-center gap-2 flex-1 min-w-40 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-1.5">
         <Search size={14} className="text-gray-400 dark:text-gray-500" />
         <input
           value={search}
@@ -179,7 +212,7 @@ function RatesTable({
               >
                 <td className="px-4 py-2.5 whitespace-nowrap">
                   <span className="inline-flex items-center gap-1.5 text-[13px] font-medium text-gray-800 dark:text-gray-100">
-                    <span>{r.baseFlag}</span><span>{r.quoteFlag}</span>
+                    <CurrencyFlag code={r.baseCurrency} /><CurrencyFlag code={r.quoteCurrency} />
                     {r.baseCurrency} / {r.quoteCurrency}
                   </span>
                 </td>
@@ -353,7 +386,7 @@ function RateDetailsPanel({ rate }: { rate: CurrencyRate }) {
 
       <div className="flex items-center justify-between mb-4">
         <span className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-gray-900 dark:text-white">
-          <span>{rate.baseFlag}</span><span>{rate.quoteFlag}</span>
+          <CurrencyFlag code={rate.baseCurrency} size="w-5 h-5" /><CurrencyFlag code={rate.quoteCurrency} size="w-5 h-5" />
           {rate.baseCurrency} / {rate.quoteCurrency}
         </span>
         <span className={`text-[11px] font-medium px-2 py-0.5 rounded ${statusClasses[rate.status]}`}>{rate.status}</span>
@@ -496,7 +529,7 @@ function CreateOverrideForm() {
           >
             {currencyRates.map(r => (
               <option key={r.id} value={r.id}>
-                {r.baseFlag} {r.baseCurrency} / {r.quoteFlag} {r.quoteCurrency}
+                {r.baseCurrency} / {r.quoteCurrency}
               </option>
             ))}
           </select>
@@ -604,7 +637,7 @@ function ActiveOverridesTable({ rows }: { rows: RateOverride[] }) {
               <tr key={r.id} className="border-b border-gray-50 dark:border-gray-700/40 last:border-0 hover:bg-gray-50/60 dark:hover:bg-gray-700/30">
                 <td className="px-4 py-2.5 whitespace-nowrap">
                   <span className="inline-flex items-center gap-1.5 text-[13px] font-medium text-gray-800 dark:text-gray-100">
-                    <span>{r.baseFlag}</span><span>{r.quoteFlag}</span>
+                    <CurrencyFlag code={r.baseCurrency} /><CurrencyFlag code={r.quoteCurrency} />
                     {r.baseCurrency} / {r.quoteCurrency}
                   </span>
                 </td>
@@ -663,7 +696,7 @@ function OverrideActivityLog({ rows }: { rows: OverrideLogEntry[] }) {
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between gap-2 mb-0.5 flex-wrap">
                 <p className="text-[12px] font-medium text-gray-800 dark:text-gray-100">
-                  {log.action} <span className="text-gray-400 dark:text-gray-500">·</span> {log.pairFlags} {log.pairLabel}
+                  {log.action} <span className="text-gray-400 dark:text-gray-500">·</span> {log.pairLabel}
                 </p>
                 <span className="text-[10px] text-gray-400 dark:text-gray-500 whitespace-nowrap">{fmtDateTime(log.timestamp)}</span>
               </div>

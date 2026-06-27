@@ -9,7 +9,15 @@ import {
     Chart as ChartJS, ArcElement, BarElement, CategoryScale, LinearScale,
     PointElement, LineElement, Tooltip as ChartTooltip, Filler,
 } from 'chart.js';
+
+
 import { Line as LineChartJS, Doughnut, Bar } from 'react-chartjs-2';
+
+import { flagForCountryName } from '@/lib/countries_data';
+
+
+
+
 import {
     cashPickupDashboardStats,
     cashPickupSparklines,
@@ -28,6 +36,19 @@ import {
 ChartJS.register(ArcElement, BarElement, CategoryScale, LinearScale, PointElement, LineElement, ChartTooltip, Filler);
 
 // ── helpers ───────────────────────────────────────────────────
+
+function CountryFlag({ country, size = 'w-4 h-4' }: { country: string; size?: string }) {
+    return (
+        <img
+            src={flagForCountryName(country)}
+            alt={country}
+            className={`${size} rounded-full object-cover inline-block shrink-0`}
+        />
+    );
+}
+
+
+
 const statusClasses: Record<CashPickupStatus, string> = {
     Pending: 'bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-400',
     Approved: 'bg-emerald-50 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400',
@@ -86,7 +107,7 @@ function StatCard({
             </div>
             <p className="text-xl font-bold text-gray-900 dark:text-white mb-1">{value.toLocaleString()}</p>
             <p className="text-[11px] text-emerald-500 dark:text-emerald-400 mb-2">+{changePct}% from last week</p>
-            <div className="h-[36px]">
+            <div className="h-9">
                 <LineChartJS data={sparklineData(sparkValues, sparkColor)} options={sparklineOptions} />
             </div>
         </div>
@@ -160,7 +181,7 @@ function RecentRequestsTable() {
             </div>
 
             <div className="flex flex-wrap items-center gap-2 px-4 py-3 border-b border-gray-100 dark:border-gray-700/60">
-                <div className="flex items-center gap-2 flex-1 min-w-[180px] border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-1.5">
+                <div className="flex items-center gap-2 flex-1 min-w-45 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-1.5">
                     <Search size={14} className="text-gray-400 dark:text-gray-500" />
                     <input
                         value={search}
@@ -187,7 +208,7 @@ function RecentRequestsTable() {
             </div>
 
             <div className="overflow-x-auto">
-                <table className="w-full text-left min-w-[920px]">
+                <table className="w-full text-left min-w-230">
                     <thead>
                         <tr className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500 border-b border-gray-100 dark:border-gray-700/60">
                             <th className="px-4 py-2.5 font-medium">Transaction Number</th>
@@ -210,7 +231,9 @@ function RecentRequestsTable() {
                                 <td className="px-2 py-2.5 text-[12px] text-gray-700 dark:text-gray-300 whitespace-nowrap">{r.senderName}</td>
                                 <td className="px-2 py-2.5 text-[12px] text-gray-700 dark:text-gray-300 whitespace-nowrap">{r.recipientName}</td>
                                 <td className="px-2 py-2.5 whitespace-nowrap">
-                                    <span className="inline-flex items-center gap-1.5 text-[12px] text-gray-600 dark:text-gray-300">{r.countryFlag} {r.country}</span>
+                                    <span className="inline-flex items-center gap-1.5 text-[12px] text-gray-600 dark:text-gray-300">
+                                        <CountryFlag country={r.country} /> {r.country}
+                                    </span>
                                 </td>
                                 <td className="px-2 py-2.5 text-[12px] text-gray-500 dark:text-gray-400 whitespace-nowrap">{r.city}</td>
                                 <td className="px-2 py-2.5 text-[12px] text-gray-500 dark:text-gray-400 whitespace-nowrap">{r.mobile}</td>
@@ -276,7 +299,7 @@ function RequestSummaryCard() {
     return (
         <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4">
             <h3 className="text-[13px] font-semibold text-gray-800 dark:text-gray-100 mb-3">Request Summary</h3>
-            <div className="relative h-[150px] mb-3">
+            <div className="relative h-37.5 mb-3">
                 <Doughnut data={data} options={options} />
                 <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                     <p className="text-lg font-bold text-gray-900 dark:text-white">{requestSummaryTotal.toLocaleString()}</p>
@@ -383,7 +406,7 @@ function RequestsOverviewChart() {
             </div>
             <p className="text-lg font-bold text-gray-900 dark:text-white mb-0.5">{requestsOverviewWeekly.values.at(-1)}</p>
             <p className="text-[11px] text-emerald-500 dark:text-emerald-400 mb-2">+{requestsOverviewWeekly.changePct}% from last week</p>
-            <div className="h-[160px]">
+            <div className="h-40">
                 <LineChartJS data={data} options={options} />
             </div>
         </div>
@@ -413,7 +436,7 @@ function RequestsByCountryChart() {
                     This Week <ChevronDown size={11} />
                 </button>
             </div>
-            <div className="relative h-[130px] mb-3">
+            <div className="relative h-32.5 mb-3">
                 <Doughnut data={data} options={options} />
                 <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                     <p className="text-base font-bold text-gray-900 dark:text-white">{requestsByCountryTotal.toLocaleString()}</p>
@@ -465,7 +488,7 @@ function RequestsByStatusChart() {
                     This Week <ChevronDown size={11} />
                 </button>
             </div>
-            <div className="h-[220px]">
+            <div className="h-55">
                 <Bar data={data} options={options} />
             </div>
         </div>

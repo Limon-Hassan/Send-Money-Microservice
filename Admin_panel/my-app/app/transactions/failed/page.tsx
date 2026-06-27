@@ -11,8 +11,9 @@ import {
   failedTransactions, failedStats,
   FailedTransaction, FailureReason,
 } from '@/lib/data';
+import { flagForCountryName } from '@/lib/countries_data';
 
-// ── helpers ───────────────────────────────────────────────────
+
 const reasonConfig: Record<FailureReason, { classes: string; Icon: React.ElementType }> = {
   'Insufficient Funds': { classes: 'bg-amber-100  text-amber-700  dark:bg-amber-950  dark:text-amber-400', Icon: DollarSign },
   'KYC Rejected': { classes: 'bg-red-100    text-red-700    dark:bg-red-950    dark:text-red-400', Icon: ShieldX },
@@ -38,7 +39,17 @@ const avatarConfig: Record<string, string> = {
 const fmt = (n: number) =>
   `£${n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
-// ── Detail Panel ──────────────────────────────────────────────
+
+function CountryFlag({ country, size = 'w-4 h-4' }: { country: string; size?: string }) {
+  return (
+    <img
+      src={flagForCountryName(country)}
+      alt={country}
+      className={`${size} rounded-full object-cover inline-block shrink-0`}
+    />
+  );
+}
+
 function FailedDetailPanel({ tx, onClose }: { tx: FailedTransaction; onClose: () => void }) {
   const rc = reasonConfig[tx.failureReason];
   const ReasonIcon = rc.Icon;
@@ -299,7 +310,9 @@ export default function FailedTransactionsPage() {
                 </div>
 
                 <div>
-                  <p className="text-[12px] font-medium text-gray-700 dark:text-gray-300">{tx.recipientFlag} {tx.recipient}</p>
+                  <p className="text-[12px] font-medium text-gray-700 dark:text-gray-300 truncate inline-flex items-center gap-1.5">
+                    <CountryFlag country={tx.recipientCountry} /> {tx.recipient}
+                  </p>
                   <p className="text-[10px] text-gray-400">{tx.recipientCountry}</p>
                 </div>
 
@@ -356,7 +369,9 @@ export default function FailedTransactionsPage() {
                   <p className="text-[14px] font-bold text-red-600 dark:text-red-400">{fmt(tx.amount)}</p>
                 </div>
                 <div className="flex items-center justify-between mb-2">
-                  <p className="text-[12px] text-gray-500 dark:text-gray-400">{tx.recipientFlag} {tx.recipient} · {tx.recipientCountry}</p>
+                  <p className="text-[12px] text-gray-500 dark:text-gray-400 inline-flex items-center gap-1.5">
+                    <CountryFlag country={tx.recipientCountry} /> {tx.recipient} · {tx.recipientCountry}
+                  </p>
                   <p className="text-[11px] text-gray-400">{tx.failedAt.split('T')[0]}</p>
                 </div>
                 <div className="flex items-center justify-between">

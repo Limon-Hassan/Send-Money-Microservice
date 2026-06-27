@@ -6,7 +6,21 @@ import {
   MoreVertical, Users, CheckCircle, AlertCircle, UserPlus,
 } from 'lucide-react';
 
-// ── Types ─────────────────────────────────────────────────────
+import { flagForCountryName } from '@/lib/countries_data';
+
+
+function CountryFlag({ country, size = 'w-4 h-4' }: { country: string; size?: string }) {
+  return (
+    <img
+      src={flagForCountryName(country)}
+      alt={country}
+      className={`${size} rounded-full object-cover inline-block shrink-0`}
+    />
+  );
+}
+
+
+
 type BeneficiaryStatus = 'Active' | 'Inactive' | 'Pending';
 
 interface Beneficiary {
@@ -77,7 +91,7 @@ function StatusBadge({ status }: { status: BeneficiaryStatus }) {
   );
 }
 
-function DR({ label, value }: { label: string; value: string }) {
+function DR({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div className="flex justify-between items-start gap-3 py-2 border-b border-gray-100 dark:border-gray-700/60 last:border-0">
       <span className="text-[12px] text-gray-400 dark:text-gray-500 shrink-0">{label}</span>
@@ -271,7 +285,7 @@ export default function BeneficiariesPage() {
                       </td>
                       <td className="px-3 py-3">
                         <div className="flex items-center gap-1.5">
-                          <span className="text-lg">{b.countryFlag}</span>
+                          <CountryFlag country={b.country} size="w-5 h-5" />
                           <span className="text-[13px] text-gray-700 dark:text-gray-300">{b.country}</span>
                         </div>
                       </td>
@@ -323,7 +337,9 @@ export default function BeneficiariesPage() {
                 </div>
                 <div className="flex items-center justify-between pl-11">
                   <div>
-                    <p className="text-[12px] text-gray-500 dark:text-gray-400">{b.countryFlag} {b.country} · {b.currency}</p>
+                    <p className="text-[12px] text-gray-500 dark:text-gray-400 inline-flex items-center gap-1.5">
+                      <CountryFlag country={b.country} /> {b.country} · {b.currency}
+                    </p>
                     <p className="text-[11px] text-gray-400 font-mono">{b.accountNumber}</p>
                   </div>
                   <p className="text-[11px] text-gray-400">{b.addedOn}</p>
@@ -435,7 +451,7 @@ function DetailContent({ ben, onClose }: { ben: Beneficiary; onClose: () => void
             More <ChevronDown size={11} />
           </button>
           {moreOpen && (
-            <div className="absolute top-9 right-0 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl shadow-lg z-20 min-w-[130px] overflow-hidden">
+            <div className="absolute top-9 right-0 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl shadow-lg z-20 min-w-32.5 overflow-hidden">
               {['View History', 'Duplicate', 'Export'].map(item => (
                 <button key={item} onClick={() => setMoreOpen(false)}
                   className="block w-full px-4 py-2.5 text-left text-[13px] text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer transition-colors">
@@ -452,7 +468,11 @@ function DetailContent({ ben, onClose }: { ben: Beneficiary; onClose: () => void
         <p className="text-[11px] uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-2">Basic Information</p>
         <DR label="Full Name" value={ben.name} />
         <DR label="Date of Birth" value={ben.dateOfBirth} />
-        <DR label="Country" value={`${ben.countryFlag} ${ben.country}`} />
+        <DR label="Country" value={
+          <span className="inline-flex items-center gap-1.5 justify-end">
+            <CountryFlag country={ben.country} /> {ben.country}
+          </span>
+        } />
         <DR label="Address" value={ben.address} />
       </div>
 

@@ -1056,6 +1056,620 @@ export const customersData: Customer[] = [
   },
 ];
 
+
+// ============================================================
+// CUSTOMERS — DOCUMENTS — DATA, TYPES & CONSTANTS
+// Append this block into lib/data.ts
+// ============================================================
+
+export type CustDocType = "National ID" | "Passport" | "Driving License" | "Proof of Address" | "Selfie Match" | "Source of Funds";
+export type CustDocStatus = "Verified" | "Pending Review" | "Rejected" | "Expired";
+
+export interface CustomerDocumentRecord {
+  id: string;
+  customerId: string;
+  customerName: string;
+  customerAvatar: string;
+  docType: CustDocType;
+  fileName: string;
+  fileSizeKb: number;
+  status: CustDocStatus;
+  uploadedAt: string;
+  reviewedBy: string | null;
+  expiresAt: string | null;
+  rejectionReason: string | null;
+}
+
+export const custDocStatusBadge: Record<CustDocStatus, string> = {
+  Verified: "bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400",
+  "Pending Review": "bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400",
+  Rejected: "bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400",
+  Expired: "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300",
+};
+
+export const custDocStatusDot: Record<CustDocStatus, string> = {
+  Verified: "bg-green-500",
+  "Pending Review": "bg-amber-500",
+  Rejected: "bg-red-500",
+  Expired: "bg-slate-400",
+};
+
+export const custDocTypeOptions: CustDocType[] = [
+  "National ID",
+  "Passport",
+  "Driving License",
+  "Proof of Address",
+  "Selfie Match",
+  "Source of Funds",
+];
+
+export const custDocStatusOptions: CustDocStatus[] = ["Verified", "Pending Review", "Rejected", "Expired"];
+
+export interface CustDocStat {
+  id: string;
+  label: string;
+  value: string;
+  icon: "total" | "verified" | "pending" | "rejected";
+}
+
+export const custDocStats: CustDocStat[] = [
+  { id: "doc-stat-total", label: "Total Documents", value: "1,284", icon: "total" },
+  { id: "doc-stat-verified", label: "Verified", value: "1,062", icon: "verified" },
+  { id: "doc-stat-pending", label: "Pending Review", value: "164", icon: "pending" },
+  { id: "doc-stat-rejected", label: "Rejected / Expired", value: "58", icon: "rejected" },
+];
+
+export const customerDocumentsData: CustomerDocumentRecord[] = [
+  {
+    id: "doc-1",
+    customerId: "CUST_4821",
+    customerName: "Kamal Hossain",
+    customerAvatar: "https://i.pravatar.cc/40?img=21",
+    docType: "National ID",
+    fileName: "nid_front_back.pdf",
+    fileSizeKb: 842,
+    status: "Verified",
+    uploadedAt: "May 10, 2025",
+    reviewedBy: "Admin Rahman",
+    expiresAt: null,
+    rejectionReason: null,
+  },
+  {
+    id: "doc-2",
+    customerId: "CUST_4821",
+    customerName: "Kamal Hossain",
+    customerAvatar: "https://i.pravatar.cc/40?img=21",
+    docType: "Selfie Match",
+    fileName: "selfie_verification.jpg",
+    fileSizeKb: 312,
+    status: "Verified",
+    uploadedAt: "May 10, 2025",
+    reviewedBy: "Admin Rahman",
+    expiresAt: null,
+    rejectionReason: null,
+  },
+  {
+    id: "doc-3",
+    customerId: "CUST_3390",
+    customerName: "Nusrat Jahan",
+    customerAvatar: "https://i.pravatar.cc/40?img=22",
+    docType: "Passport",
+    fileName: "passport_scan.pdf",
+    fileSizeKb: 1204,
+    status: "Pending Review",
+    uploadedAt: "May 12, 2025",
+    reviewedBy: null,
+    expiresAt: "Mar 2030",
+    rejectionReason: null,
+  },
+  {
+    id: "doc-4",
+    customerId: "CUST_3390",
+    customerName: "Nusrat Jahan",
+    customerAvatar: "https://i.pravatar.cc/40?img=22",
+    docType: "Proof of Address",
+    fileName: "utility_bill_april.pdf",
+    fileSizeKb: 540,
+    status: "Pending Review",
+    uploadedAt: "May 12, 2025",
+    reviewedBy: null,
+    expiresAt: null,
+    rejectionReason: null,
+  },
+  {
+    id: "doc-5",
+    customerId: "CUST_5512",
+    customerName: "Rahim Auto Parts Ltd.",
+    customerAvatar: "https://i.pravatar.cc/40?img=23",
+    docType: "Source of Funds",
+    fileName: "bank_statement_q1.pdf",
+    fileSizeKb: 2048,
+    status: "Rejected",
+    uploadedAt: "May 8, 2025",
+    reviewedBy: "Compliance Team",
+    expiresAt: null,
+    rejectionReason: "Document is blurry and account holder name does not match registered business name.",
+  },
+  {
+    id: "doc-6",
+    customerId: "CUST_2207",
+    customerName: "Sultana Begum",
+    customerAvatar: "https://i.pravatar.cc/40?img=24",
+    docType: "National ID",
+    fileName: "nid_card.jpg",
+    fileSizeKb: 488,
+    status: "Expired",
+    uploadedAt: "Jan 15, 2023",
+    reviewedBy: "System",
+    expiresAt: "Jan 15, 2025",
+    rejectionReason: null,
+  },
+  {
+    id: "doc-7",
+    customerId: "CUST_6650",
+    customerName: "Bashundhara Traders",
+    customerAvatar: "https://i.pravatar.cc/40?img=25",
+    docType: "Driving License",
+    fileName: "driving_license.pdf",
+    fileSizeKb: 690,
+    status: "Verified",
+    uploadedAt: "Apr 28, 2025",
+    reviewedBy: "Admin Rahman",
+    expiresAt: "Apr 2029",
+    rejectionReason: null,
+  },
+  {
+    id: "doc-8",
+    customerId: "CUST_8841",
+    customerName: "Tanvir Ahmed",
+    customerAvatar: "https://i.pravatar.cc/40?img=26",
+    docType: "Proof of Address",
+    fileName: "address_proof.pdf",
+    fileSizeKb: 720,
+    status: "Pending Review",
+    uploadedAt: "May 13, 2025",
+    reviewedBy: null,
+    expiresAt: null,
+    rejectionReason: null,
+  },
+];
+
+export const customerDocumentsTotalCount = 1284;
+
+
+
+
+
+// ============================================================
+// CUSTOMERS — NOTES — DATA, TYPES & CONSTANTS
+// Append this block into lib/data.ts
+// ============================================================
+
+export type CustNoteCategory = "General" | "Risk" | "Support" | "Compliance" | "Sales";
+
+export interface CustomerNoteRecord {
+  id: string;
+  customerId: string;
+  customerName: string;
+  customerAvatar: string;
+  category: CustNoteCategory;
+  content: string;
+  authorName: string;
+  authorAvatar: string;
+  isPinned: boolean;
+  createdAt: string;
+}
+
+export const custNoteCategoryBadge: Record<CustNoteCategory, string> = {
+  General: "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300",
+  Risk: "bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400",
+  Support: "bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400",
+  Compliance: "bg-purple-100 text-purple-700 dark:bg-purple-500/10 dark:text-purple-400",
+  Sales: "bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400",
+};
+
+export const custNoteCategoryOptions: CustNoteCategory[] = ["General", "Risk", "Support", "Compliance", "Sales"];
+
+export interface CustNoteStat {
+  id: string;
+  label: string;
+  value: string;
+  icon: "total" | "pinned" | "risk" | "customers";
+}
+
+export const custNoteStats: CustNoteStat[] = [
+  { id: "note-stat-total", label: "Total Notes", value: "342", icon: "total" },
+  { id: "note-stat-pinned", label: "Pinned Notes", value: "18", icon: "pinned" },
+  { id: "note-stat-risk", label: "Risk Flags", value: "12", icon: "risk" },
+  { id: "note-stat-customers", label: "Customers with Notes", value: "186", icon: "customers" },
+];
+
+export const customerNotesData: CustomerNoteRecord[] = [
+  {
+    id: "note-1",
+    customerId: "CUST_4821",
+    customerName: "Kamal Hossain",
+    customerAvatar: "https://i.pravatar.cc/40?img=21",
+    category: "Support",
+    content: "Customer called regarding a delayed transfer to a Dubai recipient. Issue was on the partner bank's side; resolved within 2 hours. Customer was satisfied with the follow-up call.",
+    authorName: "Admin Rahman",
+    authorAvatar: "https://i.pravatar.cc/40?img=12",
+    isPinned: false,
+    createdAt: "May 12, 2025 — 10:15 AM",
+  },
+  {
+    id: "note-2",
+    customerId: "CUST_3390",
+    customerName: "Nusrat Jahan",
+    customerAvatar: "https://i.pravatar.cc/40?img=22",
+    category: "Risk",
+    content: "Unusual transaction velocity detected — 6 transfers within 1 hour, each just under the manual review threshold. Flagged for AML monitoring. Customer profile does not indicate business use.",
+    authorName: "Compliance Team",
+    authorAvatar: "https://i.pravatar.cc/40?img=30",
+    isPinned: true,
+    createdAt: "May 11, 2025 — 4:42 PM",
+  },
+  {
+    id: "note-3",
+    customerId: "CUST_5512",
+    customerName: "Rahim Auto Parts Ltd.",
+    customerAvatar: "https://i.pravatar.cc/40?img=23",
+    category: "Compliance",
+    content: "Source of funds document rejected twice due to name mismatch. Customer has been asked to provide a document that matches their registered business name exactly.",
+    authorName: "Compliance Team",
+    authorAvatar: "https://i.pravatar.cc/40?img=30",
+    isPinned: true,
+    createdAt: "May 8, 2025 — 11:20 AM",
+  },
+  {
+    id: "note-4",
+    customerId: "CUST_2207",
+    customerName: "Sultana Begum",
+    customerAvatar: "https://i.pravatar.cc/40?img=24",
+    category: "General",
+    content: "Customer prefers communication in Bengali. Updated language preference on the account.",
+    authorName: "Admin Rahman",
+    authorAvatar: "https://i.pravatar.cc/40?img=12",
+    isPinned: false,
+    createdAt: "May 6, 2025 — 9:05 AM",
+  },
+  {
+    id: "note-5",
+    customerId: "CUST_6650",
+    customerName: "Bashundhara Traders",
+    customerAvatar: "https://i.pravatar.cc/40?img=25",
+    category: "Sales",
+    content: "High-volume merchant — averaging $45K in monthly transaction value. Reached out about upgrading to the Enhanced KYC tier for a higher transaction limit; awaiting response.",
+    authorName: "Operations",
+    authorAvatar: "https://i.pravatar.cc/40?img=16",
+    isPinned: false,
+    createdAt: "May 4, 2025 — 2:30 PM",
+  },
+  {
+    id: "note-6",
+    customerId: "CUST_8841",
+    customerName: "Tanvir Ahmed",
+    customerAvatar: "https://i.pravatar.cc/40?img=26",
+    category: "Risk",
+    content: "Customer disputed a card payment claiming it was unauthorized. Refund processed pending investigation. Monitoring account for further disputes.",
+    authorName: "Admin Rahman",
+    authorAvatar: "https://i.pravatar.cc/40?img=12",
+    isPinned: false,
+    createdAt: "May 2, 2025 — 5:55 PM",
+  },
+  {
+    id: "note-7",
+    customerId: "CUST_4821",
+    customerName: "Kamal Hossain",
+    customerAvatar: "https://i.pravatar.cc/40?img=21",
+    category: "General",
+    content: "Long-time customer (since 2021). Generally low-risk, consistent usage pattern, no prior incidents.",
+    authorName: "Operations",
+    authorAvatar: "https://i.pravatar.cc/40?img=16",
+    isPinned: false,
+    createdAt: "Apr 28, 2025 — 3:10 PM",
+  },
+];
+
+export const customerNotesTotalCount = 342;
+
+
+
+
+
+
+// ============================================================
+// CUSTOMERS — BLACKLIST — DATA, TYPES & CONSTANTS
+// Append this block into lib/data.ts
+// ============================================================
+
+export type BlacklistEntryType = "Customer Account" | "Phone Number" | "National ID" | "Device" | "Bank Account";
+export type BlacklistReason = "Fraud" | "AML / Sanctions Match" | "Chargeback Abuse" | "Multiple Accounts" | "Suspicious Activity" | "Other";
+export type BlacklistStatus = "Active" | "Under Review" | "Lifted";
+
+export interface BlacklistEntry {
+  id: string;
+  entryType: BlacklistEntryType;
+  identifier: string; // e.g. CUST_8841, +8801XXXXXXXXX, NID number
+  relatedCustomerName: string | null;
+  reason: BlacklistReason;
+  notes: string;
+  status: BlacklistStatus;
+  blacklistedBy: string;
+  blacklistedAt: string;
+  reviewDate: string | null;
+}
+
+export const blacklistStatusBadge: Record<BlacklistStatus, string> = {
+  Active: "bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400",
+  "Under Review": "bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400",
+  Lifted: "bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400",
+};
+
+export const blacklistStatusDot: Record<BlacklistStatus, string> = {
+  Active: "bg-red-500",
+  "Under Review": "bg-amber-500",
+  Lifted: "bg-green-500",
+};
+
+export const blacklistReasonBadge: Record<BlacklistReason, string> = {
+  Fraud: "bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400",
+  "AML / Sanctions Match": "bg-purple-50 text-purple-600 dark:bg-purple-500/10 dark:text-purple-400",
+  "Chargeback Abuse": "bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400",
+  "Multiple Accounts": "bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400",
+  "Suspicious Activity": "bg-orange-50 text-orange-600 dark:bg-orange-500/10 dark:text-orange-400",
+  Other: "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300",
+};
+
+export const blacklistEntryTypeOptions: BlacklistEntryType[] = [
+  "Customer Account",
+  "Phone Number",
+  "National ID",
+  "Device",
+  "Bank Account",
+];
+
+export const blacklistReasonOptions: BlacklistReason[] = [
+  "Fraud",
+  "AML / Sanctions Match",
+  "Chargeback Abuse",
+  "Multiple Accounts",
+  "Suspicious Activity",
+  "Other",
+];
+
+export const blacklistStatusOptions: BlacklistStatus[] = ["Active", "Under Review", "Lifted"];
+
+export interface BlacklistStat {
+  id: string;
+  label: string;
+  value: string;
+  icon: "total" | "active" | "review" | "lifted";
+}
+
+export const blacklistStats: BlacklistStat[] = [
+  { id: "bl-stat-total", label: "Total Entries", value: "47", icon: "total" },
+  { id: "bl-stat-active", label: "Active Blacklist", value: "38", icon: "active" },
+  { id: "bl-stat-review", label: "Under Review", value: "6", icon: "review" },
+  { id: "bl-stat-lifted", label: "Lifted", value: "3", icon: "lifted" },
+];
+
+export const blacklistData: BlacklistEntry[] = [
+  {
+    id: "bl-1",
+    entryType: "Customer Account",
+    identifier: "CUST_9921",
+    relatedCustomerName: "Jasim Uddin",
+    reason: "Fraud",
+    notes: "Used stolen card details to fund wallet on three separate occasions. Account permanently restricted.",
+    status: "Active",
+    blacklistedBy: "Compliance Team",
+    blacklistedAt: "Apr 22, 2025",
+    reviewDate: null,
+  },
+  {
+    id: "bl-2",
+    entryType: "Phone Number",
+    identifier: "+8801911223344",
+    relatedCustomerName: null,
+    reason: "Suspicious Activity",
+    notes: "Number associated with 14 failed OTP attempts across different accounts within 24 hours.",
+    status: "Active",
+    blacklistedBy: "System (Auto-flagged)",
+    blacklistedAt: "May 9, 2025",
+    reviewDate: "Jun 9, 2025",
+  },
+  {
+    id: "bl-3",
+    entryType: "National ID",
+    identifier: "1992XXXXXXXXX481",
+    relatedCustomerName: "Forhad Khan",
+    reason: "AML / Sanctions Match",
+    notes: "Name partially matched a watchlist entry. Confirmed after manual review — high confidence match.",
+    status: "Active",
+    blacklistedBy: "Compliance Team",
+    blacklistedAt: "Mar 30, 2025",
+    reviewDate: null,
+  },
+  {
+    id: "bl-4",
+    entryType: "Customer Account",
+    identifier: "CUST_7732",
+    relatedCustomerName: "Mehedi Hasan",
+    reason: "Chargeback Abuse",
+    notes: "Filed 5 chargebacks in 2 months, all disputed and ruled in merchant's favor. Pattern indicates abuse.",
+    status: "Under Review",
+    blacklistedBy: "Admin Rahman",
+    blacklistedAt: "May 5, 2025",
+    reviewDate: "May 20, 2025",
+  },
+  {
+    id: "bl-5",
+    entryType: "Device",
+    identifier: "DEVICE_a93f7c21",
+    relatedCustomerName: null,
+    reason: "Multiple Accounts",
+    notes: "Same device fingerprint used to register 8 different customer accounts within one week.",
+    status: "Active",
+    blacklistedBy: "System (Auto-flagged)",
+    blacklistedAt: "Apr 18, 2025",
+    reviewDate: null,
+  },
+  {
+    id: "bl-6",
+    entryType: "Bank Account",
+    identifier: "BANK_AC_4456****2210",
+    relatedCustomerName: "Liton Das",
+    reason: "Fraud",
+    notes: "Linked bank account flagged by partner bank for involvement in a prior fraud investigation.",
+    status: "Under Review",
+    blacklistedBy: "Compliance Team",
+    blacklistedAt: "May 1, 2025",
+    reviewDate: "May 15, 2025",
+  },
+  {
+    id: "bl-7",
+    entryType: "Phone Number",
+    identifier: "+8801755667788",
+    relatedCustomerName: "Shirin Akter",
+    reason: "Other",
+    notes: "Customer requested voluntary account closure and number blacklist after identity theft concern. Lifted after identity was re-verified.",
+    status: "Lifted",
+    blacklistedBy: "Admin Rahman",
+    blacklistedAt: "Feb 12, 2025",
+    reviewDate: null,
+  },
+  {
+    id: "bl-8",
+    entryType: "Customer Account",
+    identifier: "CUST_6603",
+    relatedCustomerName: "Anwar Ali",
+    reason: "Suspicious Activity",
+    notes: "Initial flag was a false positive from a velocity rule misconfiguration. Reviewed and cleared.",
+    status: "Lifted",
+    blacklistedBy: "System (Auto-flagged)",
+    blacklistedAt: "Jan 28, 2025",
+    reviewDate: null,
+  },
+];
+
+export const blacklistTotalCount = blacklistData.length;
+
+
+
+
+// ============================================================
+// CUSTOMERS — ADD CUSTOMER — DATA, TYPES & CONSTANTS
+// Standalone data for the Add Customer form (Customers section)
+// ============================================================
+
+export type AddCustKycTier = "Tier 1 (Basic)" | "Tier 2 (Standard)" | "Tier 3 (Enhanced)";
+export type AddCustIdType = "Passport" | "National ID" | "Driving License";
+export type AddCustAddressProofType = "Utility Bill" | "Bank Statement" | "Council Tax Bill" | "Tenancy Agreement";
+export type AddCustInitialStatus = "Active" | "Pending Verification" | "Restricted";
+
+export interface AddCustCountryOption {
+  code: string;
+  name: string;
+  flag: string;
+  dialCode: string;
+}
+
+export const addCustCountryOptions: AddCustCountryOption[] = [
+  { code: "GB", name: "United Kingdom", flag: "🇬🇧", dialCode: "+44" },
+  { code: "BD", name: "Bangladesh", flag: "🇧🇩", dialCode: "+880" },
+  { code: "IN", name: "India", flag: "🇮🇳", dialCode: "+91" },
+  { code: "PK", name: "Pakistan", flag: "🇵🇰", dialCode: "+92" },
+  { code: "US", name: "United States", flag: "🇺🇸", dialCode: "+1" },
+  { code: "AE", name: "United Arab Emirates", flag: "🇦🇪", dialCode: "+971" },
+  { code: "PH", name: "Philippines", flag: "🇵🇭", dialCode: "+63" },
+  { code: "NG", name: "Nigeria", flag: "🇳🇬", dialCode: "+234" },
+];
+
+export const addCustIdTypeOptions: AddCustIdType[] = ["Passport", "National ID", "Driving License"];
+export const addCustAddressProofOptions: AddCustAddressProofType[] = [
+  "Utility Bill",
+  "Bank Statement",
+  "Council Tax Bill",
+  "Tenancy Agreement",
+];
+
+export const addCustKycTierOptions: AddCustKycTier[] = ["Tier 1 (Basic)", "Tier 2 (Standard)", "Tier 3 (Enhanced)"];
+
+export const addCustKycTierDescription: Record<AddCustKycTier, string> = {
+  "Tier 1 (Basic)": "Phone verification only · Transaction limit: $500/month",
+  "Tier 2 (Standard)": "ID + Selfie verification · Transaction limit: $10,000/month",
+  "Tier 3 (Enhanced)": "Full document set + source of funds · Unlimited transactions",
+};
+
+export interface AddCustCurrencyOption {
+  code: string;
+  label: string;
+  flag: string;
+}
+
+export const addCustCurrencyOptions: AddCustCurrencyOption[] = [
+  { code: "GBP", label: "GBP Wallet", flag: "🇬🇧" },
+  { code: "USD", label: "USD Wallet", flag: "🇺🇸" },
+  { code: "EUR", label: "EUR Wallet", flag: "🇪🇺" },
+  { code: "BDT", label: "BDT Settlement", flag: "🇧🇩" },
+  { code: "INR", label: "INR Wallet", flag: "🇮🇳" },
+  { code: "PKR", label: "PKR Wallet", flag: "🇵🇰" },
+];
+
+export const addCustInitialStatusOptions: AddCustInitialStatus[] = ["Active", "Pending Verification", "Restricted"];
+
+export const addCustGenderOptions: string[] = ["Male", "Female", "Other", "Prefer not to say"];
+
+export const addCustReferralSourceOptions: string[] = [
+  "Friend / Family Referral",
+  "Social Media",
+  "Google Search",
+  "Agent / Branch",
+  "Advertisement",
+  "Other",
+];
+
+// ---------- Recently added customers (preview list at bottom of form) ----------
+
+export interface AddCustRecentEntry {
+  id: string;
+  name: string;
+  email: string;
+  country: string;
+  countryFlag: string;
+  kycTier: AddCustKycTier;
+  status: AddCustInitialStatus;
+  createdAt: string;
+}
+
+export const addCustRecentEntries: AddCustRecentEntry[] = [
+  {
+    id: "new-1",
+    name: "Yusuf Karim",
+    email: "yusuf.karim@example.com",
+    country: "United Kingdom",
+    countryFlag: "🇬🇧",
+    kycTier: "Tier 2 (Standard)",
+    status: "Pending Verification",
+    createdAt: "May 19, 2025 — 2:40 PM",
+  },
+  {
+    id: "new-2",
+    name: "Amara Chowdhury",
+    email: "amara.c@example.com",
+    country: "Bangladesh",
+    countryFlag: "🇧🇩",
+    kycTier: "Tier 1 (Basic)",
+    status: "Active",
+    createdAt: "May 19, 2025 — 11:05 AM",
+  },
+];
+
+
+
+
+
 //all transitions
 
 export type TxStatus = 'Completed' | 'Pending' | 'Failed' | 'Refunded';
@@ -3207,6 +3821,327 @@ export const BENEFICIARY_ACTIVE = 2156;
 export const BENEFICIARY_INACTIVE = 186;
 export const BENEFICIARY_WEEK_ADDED = 45;
 export const BENEFICIARY_PAGE_SIZE = 10;
+
+
+
+
+
+// ============================================================
+// BENEFICIARIES — SENDER — DATA, TYPES & CONSTANTS
+// New "Sender" section under Beneficiaries (alongside Receiver List / Add Beneficiary)
+// ============================================================
+
+export type SenderStatus = "Active" | "Suspended" | "Pending Verification";
+export type SenderKycStatus = "Verified" | "Pending" | "Rejected";
+
+export interface SenderLinkedBeneficiary {
+  id: string;
+  name: string;
+  relationship: string;
+  country: string;
+  countryFlag: string;
+  totalSent: string;
+  lastSentOn: string;
+}
+
+export interface SenderTransfer {
+  id: string;
+  beneficiaryName: string;
+  beneficiaryFlag: string;
+  amount: string;
+  fee: string;
+  status: "Completed" | "Pending" | "Failed";
+  date: string;
+}
+
+export interface SenderRecord {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  avatar: string;
+  customerId: string;
+  country: string;
+  countryFlag: string;
+  status: SenderStatus;
+  kycStatus: SenderKycStatus;
+  joinedDate: string;
+  lastSentOn: string;
+  totalBeneficiaries: number;
+  totalSent: string;
+  totalTransfers: number;
+  avgTransferAmount: string;
+  preferredCorridor: string; // e.g. "UK → Bangladesh"
+  linkedBeneficiaries: SenderLinkedBeneficiary[];
+  recentTransfers: SenderTransfer[];
+}
+
+// ---------- Badge style maps ----------
+
+export const senderStatusBadge: Record<SenderStatus, string> = {
+  Active: "bg-green-50 text-green-700 border border-green-200",
+  Suspended: "bg-red-50 text-red-700 border border-red-200",
+  "Pending Verification": "bg-yellow-50 text-yellow-700 border border-yellow-200",
+};
+
+export const senderKycBadge: Record<SenderKycStatus, string> = {
+  Verified: "bg-green-50 text-green-700 border border-green-200",
+  Pending: "bg-yellow-50 text-yellow-700 border border-yellow-200",
+  Rejected: "bg-red-50 text-red-700 border border-red-200",
+};
+
+export const senderTransferStatusBadge: Record<SenderTransfer["status"], string> = {
+  Completed: "bg-green-50 text-green-700 border border-green-200",
+  Pending: "bg-yellow-50 text-yellow-700 border border-yellow-200",
+  Failed: "bg-red-50 text-red-700 border border-red-200",
+};
+
+export const senderStatusOptions: SenderStatus[] = ["Active", "Suspended", "Pending Verification"];
+export const senderKycStatusOptions: SenderKycStatus[] = ["Verified", "Pending", "Rejected"];
+
+// ---------- Stat summary ----------
+
+export interface SenderStat {
+  id: string;
+  label: string;
+  value: string;
+  icon: "total" | "active" | "volume" | "avgBeneficiaries";
+}
+
+export const senderStats: SenderStat[] = [
+  { id: "sender-stat-total", label: "Total Senders", value: "1,486", icon: "total" },
+  { id: "sender-stat-active", label: "Active Senders", value: "1,312", icon: "active" },
+  { id: "sender-stat-volume", label: "Total Sent (This Month)", value: "£284,650", icon: "volume" },
+  { id: "sender-stat-avg", label: "Avg Beneficiaries / Sender", value: "2.4", icon: "avgBeneficiaries" },
+];
+
+// ---------- Main data ----------
+
+export const senderAvatarColors: string[] = [
+  "bg-blue-500", "bg-green-500", "bg-purple-500", "bg-orange-500",
+  "bg-pink-500", "bg-teal-500", "bg-indigo-500", "bg-rose-500",
+];
+
+export const sendersData: SenderRecord[] = [
+  {
+    id: "snd-1",
+    name: "John Rahman",
+    email: "john.rahman@example.com",
+    phone: "+44 7700 900123",
+    avatar: "JR",
+    customerId: "CUS-25051901",
+    country: "United Kingdom",
+    countryFlag: "🇬🇧",
+    status: "Active",
+    kycStatus: "Verified",
+    joinedDate: "May 19, 2025",
+    lastSentOn: "May 19, 2025",
+    totalBeneficiaries: 3,
+    totalSent: "£15,750.00",
+    totalTransfers: 24,
+    avgTransferAmount: "£656.25",
+    preferredCorridor: "UK → Bangladesh",
+    linkedBeneficiaries: [
+      { id: "ben-1", name: "Karim Rahman", relationship: "Father", country: "Bangladesh", countryFlag: "🇧🇩", totalSent: "£8,200.00", lastSentOn: "May 19, 2025" },
+      { id: "ben-2", name: "Anita Sharma", relationship: "Friend", country: "India", countryFlag: "🇮🇳", totalSent: "£4,550.00", lastSentOn: "May 18, 2025" },
+      { id: "ben-3", name: "Bilal Hussain", relationship: "Cousin", country: "Pakistan", countryFlag: "🇵🇰", totalSent: "£3,000.00", lastSentOn: "May 17, 2025" },
+    ],
+    recentTransfers: [
+      { id: "trf-1", beneficiaryName: "Karim Rahman", beneficiaryFlag: "🇧🇩", amount: "£520.00", fee: "£3.50", status: "Completed", date: "May 19, 2025" },
+      { id: "trf-2", beneficiaryName: "Anita Sharma", beneficiaryFlag: "🇮🇳", amount: "£750.00", fee: "£4.00", status: "Completed", date: "May 18, 2025" },
+      { id: "trf-3", beneficiaryName: "Bilal Hussain", beneficiaryFlag: "🇵🇰", amount: "£320.00", fee: "£2.50", status: "Completed", date: "May 17, 2025" },
+    ],
+  },
+  {
+    id: "snd-2",
+    name: "Priya Sharma",
+    email: "priya.sharma@example.com",
+    phone: "+44 7700 900124",
+    avatar: "PS",
+    customerId: "CUS-25051902",
+    country: "United Kingdom",
+    countryFlag: "🇬🇧",
+    status: "Pending Verification",
+    kycStatus: "Pending",
+    joinedDate: "May 18, 2025",
+    lastSentOn: "May 18, 2025",
+    totalBeneficiaries: 1,
+    totalSent: "£3,200.00",
+    totalTransfers: 8,
+    avgTransferAmount: "£400.00",
+    preferredCorridor: "UK → India",
+    linkedBeneficiaries: [
+      { id: "ben-4", name: "Rohan Sharma", relationship: "Brother", country: "India", countryFlag: "🇮🇳", totalSent: "£3,200.00", lastSentOn: "May 18, 2025" },
+    ],
+    recentTransfers: [
+      { id: "trf-4", beneficiaryName: "Rohan Sharma", beneficiaryFlag: "🇮🇳", amount: "£420.00", fee: "£3.00", status: "Pending", date: "May 18, 2025" },
+    ],
+  },
+  {
+    id: "snd-3",
+    name: "Ahmed Khan",
+    email: "ahmed.khan@example.com",
+    phone: "+44 7700 900125",
+    avatar: "AK",
+    customerId: "CUS-25051903",
+    country: "United Kingdom",
+    countryFlag: "🇬🇧",
+    status: "Active",
+    kycStatus: "Verified",
+    joinedDate: "May 15, 2025",
+    lastSentOn: "May 19, 2025",
+    totalBeneficiaries: 2,
+    totalSent: "£28,500.00",
+    totalTransfers: 42,
+    avgTransferAmount: "£678.57",
+    preferredCorridor: "UK → Pakistan",
+    linkedBeneficiaries: [
+      { id: "ben-5", name: "Imran Khan", relationship: "Father", country: "Pakistan", countryFlag: "🇵🇰", totalSent: "£18,400.00", lastSentOn: "May 19, 2025" },
+      { id: "ben-6", name: "Sadia Begum", relationship: "Sister", country: "Bangladesh", countryFlag: "🇧🇩", totalSent: "£10,100.00", lastSentOn: "May 18, 2025" },
+    ],
+    recentTransfers: [
+      { id: "trf-5", beneficiaryName: "Imran Khan", beneficiaryFlag: "🇵🇰", amount: "£1,200.00", fee: "£5.00", status: "Completed", date: "May 19, 2025" },
+      { id: "trf-6", beneficiaryName: "Sadia Begum", beneficiaryFlag: "🇧🇩", amount: "£680.00", fee: "£3.50", status: "Completed", date: "May 18, 2025" },
+    ],
+  },
+  {
+    id: "snd-4",
+    name: "Maria Santos",
+    email: "maria.santos@example.com",
+    phone: "+44 7700 900126",
+    avatar: "MS",
+    customerId: "CUS-25051904",
+    country: "United Kingdom",
+    countryFlag: "🇬🇧",
+    status: "Active",
+    kycStatus: "Verified",
+    joinedDate: "May 10, 2025",
+    lastSentOn: "May 19, 2025",
+    totalBeneficiaries: 2,
+    totalSent: "£18,200.00",
+    totalTransfers: 31,
+    avgTransferAmount: "£587.10",
+    preferredCorridor: "UK → Philippines",
+    linkedBeneficiaries: [
+      { id: "ben-7", name: "Carlos Santos", relationship: "Father", country: "Philippines", countryFlag: "🇵🇭", totalSent: "£12,500.00", lastSentOn: "May 19, 2025" },
+      { id: "ben-8", name: "Liza Santos", relationship: "Mother", country: "Philippines", countryFlag: "🇵🇭", totalSent: "£5,700.00", lastSentOn: "May 17, 2025" },
+    ],
+    recentTransfers: [
+      { id: "trf-7", beneficiaryName: "Carlos Santos", beneficiaryFlag: "🇵🇭", amount: "£950.00", fee: "£4.50", status: "Completed", date: "May 19, 2025" },
+      { id: "trf-8", beneficiaryName: "Liza Santos", beneficiaryFlag: "🇵🇭", amount: "£620.00", fee: "£3.50", status: "Failed", date: "May 17, 2025" },
+    ],
+  },
+  {
+    id: "snd-5",
+    name: "James Okafor",
+    email: "james.okafor@example.com",
+    phone: "+44 7700 900127",
+    avatar: "JO",
+    customerId: "CUS-25051905",
+    country: "United Kingdom",
+    countryFlag: "🇬🇧",
+    status: "Suspended",
+    kycStatus: "Rejected",
+    joinedDate: "May 8, 2025",
+    lastSentOn: "May 8, 2025",
+    totalBeneficiaries: 0,
+    totalSent: "£0.00",
+    totalTransfers: 0,
+    avgTransferAmount: "£0.00",
+    preferredCorridor: "—",
+    linkedBeneficiaries: [],
+    recentTransfers: [],
+  },
+  {
+    id: "snd-6",
+    name: "Fatima Ali",
+    email: "fatima.ali@example.com",
+    phone: "+44 7700 900128",
+    avatar: "FA",
+    customerId: "CUS-25051906",
+    country: "United Kingdom",
+    countryFlag: "🇬🇧",
+    status: "Pending Verification",
+    kycStatus: "Pending",
+    joinedDate: "May 17, 2025",
+    lastSentOn: "May 19, 2025",
+    totalBeneficiaries: 1,
+    totalSent: "£2,100.00",
+    totalTransfers: 5,
+    avgTransferAmount: "£420.00",
+    preferredCorridor: "UK → Bangladesh",
+    linkedBeneficiaries: [
+      { id: "ben-9", name: "Hasan Ali", relationship: "Husband", country: "Bangladesh", countryFlag: "🇧🇩", totalSent: "£2,100.00", lastSentOn: "May 19, 2025" },
+    ],
+    recentTransfers: [
+      { id: "trf-9", beneficiaryName: "Hasan Ali", beneficiaryFlag: "🇧🇩", amount: "£380.00", fee: "£2.50", status: "Pending", date: "May 19, 2025" },
+    ],
+  },
+  {
+    id: "snd-7",
+    name: "David Wilson",
+    email: "david.wilson@example.com",
+    phone: "+44 7700 900129",
+    avatar: "DW",
+    customerId: "CUS-25051907",
+    country: "United Kingdom",
+    countryFlag: "🇬🇧",
+    status: "Active",
+    kycStatus: "Verified",
+    joinedDate: "Apr 30, 2025",
+    lastSentOn: "May 19, 2025",
+    totalBeneficiaries: 3,
+    totalSent: "£52,300.00",
+    totalTransfers: 68,
+    avgTransferAmount: "£769.12",
+    preferredCorridor: "UK → India",
+    linkedBeneficiaries: [
+      { id: "ben-10", name: "Deepak Mehta", relationship: "Business Partner", country: "India", countryFlag: "🇮🇳", totalSent: "£28,000.00", lastSentOn: "May 19, 2025" },
+      { id: "ben-11", name: "Chidi Okonkwo", relationship: "Friend", country: "Nigeria", countryFlag: "🇳🇬", totalSent: "£15,300.00", lastSentOn: "May 18, 2025" },
+      { id: "ben-12", name: "Grace Wilson", relationship: "Sister", country: "United Kingdom", countryFlag: "🇬🇧", totalSent: "£9,000.00", lastSentOn: "May 17, 2025" },
+    ],
+    recentTransfers: [
+      { id: "trf-10", beneficiaryName: "Deepak Mehta", beneficiaryFlag: "🇮🇳", amount: "£2,000.00", fee: "£6.00", status: "Completed", date: "May 19, 2025" },
+      { id: "trf-11", beneficiaryName: "Chidi Okonkwo", beneficiaryFlag: "🇳🇬", amount: "£1,500.00", fee: "£5.50", status: "Completed", date: "May 18, 2025" },
+    ],
+  },
+  {
+    id: "snd-8",
+    name: "Sophie Martin",
+    email: "sophie.martin@example.com",
+    phone: "+44 7700 900130",
+    avatar: "SM",
+    customerId: "CUS-25051908",
+    country: "United Kingdom",
+    countryFlag: "🇬🇧",
+    status: "Active",
+    kycStatus: "Verified",
+    joinedDate: "May 5, 2025",
+    lastSentOn: "May 19, 2025",
+    totalBeneficiaries: 1,
+    totalSent: "£11,400.00",
+    totalTransfers: 19,
+    avgTransferAmount: "£600.00",
+    preferredCorridor: "UK → France",
+    linkedBeneficiaries: [
+      { id: "ben-13", name: "Lucie Martin", relationship: "Daughter", country: "France", countryFlag: "🇫🇷", totalSent: "£11,400.00", lastSentOn: "May 19, 2025" },
+    ],
+    recentTransfers: [
+      { id: "trf-12", beneficiaryName: "Lucie Martin", beneficiaryFlag: "🇫🇷", amount: "£780.00", fee: "£3.50", status: "Completed", date: "May 19, 2025" },
+    ],
+  },
+];
+
+export const sendersTotalCount = 1486;
+
+
+
+
+
+
+
+
+
 
 //here KYC fake data
 

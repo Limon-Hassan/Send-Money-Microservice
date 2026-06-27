@@ -1,6 +1,14 @@
 "use client";
 import { useState } from "react";
-
+import { flagForCountryName } from "@/lib/countries_data";
+import { MdOutlineAdminPanelSettings } from "react-icons/md";
+import { GrStatusGood } from "react-icons/gr";
+import { FaPassport, FaWallet } from "react-icons/fa";
+import { RiBillLine, RiHistoryFill } from "react-icons/ri";
+import { IoDocumentOutline } from "react-icons/io5";
+import { LuNotebookPen } from "react-icons/lu";
+import { HiDeviceTablet } from "react-icons/hi";
+import { TbUserPentagon } from "react-icons/tb";
 
 const customersData = [
   {
@@ -27,6 +35,11 @@ const customersData = [
       { title: "Utility Bill", type: "Address Proof", status: "Verified", uploadedOn: "May 19, 2025", icon: "bill" },
       { title: "Selfie", type: "Selfie Verification", status: "Verified", uploadedOn: "May 19, 2025", icon: "selfie" },
     ],
+    devices: [
+      { id: "dev-1", type: "Mobile", name: "iPhone 15 Pro · Safari", os: "iOS 18.1", ip: "82.45.120.3", location: "London, United Kingdom", lastActive: "Active now", isCurrent: true, trusted: true },
+      { id: "dev-2", type: "Desktop", name: "Chrome on Windows", os: "Windows 11", ip: "82.45.120.9", location: "London, United Kingdom", lastActive: "2 hours ago", isCurrent: false, trusted: true },
+      { id: "dev-3", type: "Mobile", name: "Samsung Galaxy S23 · Chrome", os: "Android 14", ip: "31.50.88.214", location: "Manchester, United Kingdom", lastActive: "5 days ago", isCurrent: false, trusted: false },
+    ],
   },
   {
     id: "2", name: "Priya Sharma", email: "priya.sharma@example.com", phone: "+44 7700 900124",
@@ -42,6 +55,9 @@ const customersData = [
     documents: [
       { title: "National ID", type: "ID Proof", status: "Pending", uploadedOn: "May 18, 2025", icon: "passport" },
       { title: "Bank Statement", type: "Address Proof", status: "Pending", uploadedOn: "May 18, 2025", icon: "bill" },
+    ],
+    devices: [
+      { id: "dev-4", type: "Mobile", name: "iPhone 14 · Safari", os: "iOS 17.5", ip: "90.198.44.12", location: "London, United Kingdom", lastActive: "Active now", isCurrent: true, trusted: true },
     ],
   },
   {
@@ -61,6 +77,10 @@ const customersData = [
       { title: "Council Tax Bill", type: "Address Proof", status: "Verified", uploadedOn: "May 15, 2025", icon: "bill" },
       { title: "Selfie", type: "Selfie Verification", status: "Verified", uploadedOn: "May 15, 2025", icon: "selfie" },
     ],
+    devices: [
+      { id: "dev-5", type: "Desktop", name: "Edge on Windows", os: "Windows 10", ip: "78.144.20.5", location: "Birmingham, United Kingdom", lastActive: "Active now", isCurrent: true, trusted: true },
+      { id: "dev-6", type: "Tablet", name: "iPad Air · Safari", os: "iPadOS 17", ip: "78.144.20.11", location: "Birmingham, United Kingdom", lastActive: "1 day ago", isCurrent: false, trusted: true },
+    ],
   },
   {
     id: "4", name: "Maria Santos", email: "maria.santos@example.com", phone: "+44 7700 900126",
@@ -79,6 +99,9 @@ const customersData = [
       { title: "Utility Bill", type: "Address Proof", status: "Verified", uploadedOn: "May 10, 2025", icon: "bill" },
       { title: "Selfie", type: "Selfie Verification", status: "Verified", uploadedOn: "May 10, 2025", icon: "selfie" },
     ],
+    devices: [
+      { id: "dev-7", type: "Mobile", name: "Pixel 8 · Chrome", os: "Android 14", ip: "94.10.55.2", location: "Leeds, United Kingdom", lastActive: "Active now", isCurrent: true, trusted: true },
+    ],
   },
   {
     id: "5", name: "James Okafor", email: "james.okafor@example.com", phone: "+44 7700 900127",
@@ -89,6 +112,9 @@ const customersData = [
     quickStats: { totalTransactions: 2, totalSent: "£0.00", totalReceived: "£0.00", averageTransaction: "£0.00", successRate: "0%" },
     recentTransactions: [{ id: "TXN-25051820", type: "Top Up", to: "GBP Wallet", toFlag: "🇬🇧", amount: "£100.00", fee: "£0.00", status: "Failed", date: "May 8, 2025" }],
     documents: [{ title: "Passport", type: "ID Proof", status: "Rejected", uploadedOn: "May 8, 2025", icon: "passport" }],
+    devices: [
+      { id: "dev-8", type: "Mobile", name: "Unknown Device · Chrome", os: "Android 12", ip: "185.220.101.45", location: "Unknown", lastActive: "7 days ago", isCurrent: false, trusted: false },
+    ],
   },
   {
     id: "6", name: "Fatima Ali", email: "fatima.ali@example.com", phone: "+44 7700 900128",
@@ -101,6 +127,10 @@ const customersData = [
     documents: [
       { title: "Passport", type: "ID Proof", status: "Verified", uploadedOn: "May 17, 2025", icon: "passport" },
       { title: "Utility Bill", type: "Address Proof", status: "Pending", uploadedOn: "May 17, 2025", icon: "bill" },
+    ],
+    devices: [
+      { id: "dev-9", type: "Mobile", name: "iPhone 13 · Safari", os: "iOS 17.2", ip: "62.30.18.77", location: "Bristol, United Kingdom", lastActive: "Active now", isCurrent: true, trusted: true },
+      { id: "dev-10", type: "Desktop", name: "Firefox on macOS", os: "macOS Sonoma", ip: "62.30.18.80", location: "Bristol, United Kingdom", lastActive: "3 hours ago", isCurrent: false, trusted: true },
     ],
   },
   {
@@ -120,6 +150,11 @@ const customersData = [
       { title: "Bank Statement", type: "Address Proof", status: "Verified", uploadedOn: "Apr 30, 2025", icon: "bill" },
       { title: "Selfie", type: "Selfie Verification", status: "Verified", uploadedOn: "Apr 30, 2025", icon: "selfie" },
     ],
+    devices: [
+      { id: "dev-11", type: "Desktop", name: "Chrome on Windows", os: "Windows 11", ip: "51.6.88.200", location: "Edinburgh, United Kingdom", lastActive: "Active now", isCurrent: true, trusted: true },
+      { id: "dev-12", type: "Mobile", name: "iPhone 15 · Safari", os: "iOS 18.0", ip: "51.6.88.204", location: "Edinburgh, United Kingdom", lastActive: "30 minutes ago", isCurrent: false, trusted: true },
+      { id: "dev-13", type: "Desktop", name: "Chrome on Linux", os: "Ubuntu 22.04", ip: "203.45.66.18", location: "Lagos, Nigeria", lastActive: "12 days ago", isCurrent: false, trusted: false },
+    ],
   },
   {
     id: "8", name: "Sophie Martin", email: "sophie.martin@example.com", phone: "+44 7700 900130",
@@ -137,8 +172,50 @@ const customersData = [
       { title: "Council Tax Bill", type: "Address Proof", status: "Verified", uploadedOn: "May 5, 2025", icon: "bill" },
       { title: "Selfie", type: "Selfie Verification", status: "Verified", uploadedOn: "May 5, 2025", icon: "selfie" },
     ],
+    devices: [
+      { id: "dev-14", type: "Mobile", name: "iPhone 14 Pro · Safari", os: "iOS 17.6", ip: "88.96.12.40", location: "Cardiff, United Kingdom", lastActive: "Active now", isCurrent: true, trusted: true },
+    ],
   },
 ];
+
+
+
+
+const countryNameMap: Record<string, string> = {
+  "United Kingdom": "United Kingdom",
+  Bangladesh: "Bangladesh",
+  India: "India",
+  Pakistan: "Pakistan",
+  Philippines: "Philippines",
+  Nigeria: "Nigeria",
+  France: "France",
+  "GBP Wallet": "United Kingdom",
+  "USD Wallet": "United States",
+  "EUR Wallet": "Europe",
+  "BDT Settlement": "Bangladesh",
+  "INR Wallet": "India",
+  "PKR Wallet": "Pakistan",
+  "PHP Wallet": "Philippines",
+};
+
+
+const FlagIcon = ({ name, size = "w-4 h-4" }: { name: string; size?: string }) => {
+  const mapped = countryNameMap[name];
+  if (mapped) {
+    return (
+      <img
+        src={flagForCountryName(mapped)}
+        alt={name}
+        className={`${size} rounded-full object-cover inline-block shrink-0`}
+      />
+    );
+  }
+  return (
+    <span className={`${size} inline-flex items-center justify-center text-xs shrink-0`}>
+      🏦
+    </span>
+  );
+};
 
 
 const statusBadge = (status: string) => {
@@ -164,30 +241,46 @@ const avatarColor = (initials: string) => {
 
 const docIcon = (icon: string) => {
   if (icon === "passport") return (
-    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-    </svg>
+    <FaPassport size={20}/>
+
   );
   if (icon === "bill") return (
+    <RiBillLine size={20}/>
+
+  );
+  return (
+    <TbUserPentagon size={20}/>
+  );
+};
+
+const deviceIcon = (type: string) => {
+  if (type === "Mobile") return (
     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z" />
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18h.01M8.5 21h7a2 2 0 002-2V5a2 2 0 00-2-2h-7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+    </svg>
+  );
+  if (type === "Tablet") return (
+    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 17h.01M6.5 21h11a2 2 0 002-2V5a2 2 0 00-2-2h-11a2 2 0 00-2 2v14a2 2 0 002 2z" />
     </svg>
   );
   return (
     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 17v2m6-2v2M4 6h16M5 6h14a1 1 0 011 1v8a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1zM2 19h20" />
     </svg>
   );
 };
 
 
-type TabKey = "Overview" | "KYC Status" | "Wallet Balance" | "Transaction History" | "Documents" | "Notes";
+type TabKey = "Overview" | "KYC Status" | "Wallet Balance" | "Transaction History" | "Documents" | "Notes" | "Devices";
 
 export default function Page() {
   const [selectedId, setSelectedId] = useState(customersData[0].id);
   const [activeTab, setActiveTab] = useState<TabKey>("Overview");
   const [search, setSearch] = useState("");
-  const [showDetail, setShowDetail] = useState(false); 
+  const [showDetail, setShowDetail] = useState(false);
+  const [revokedDeviceIds, setRevokedDeviceIds] = useState<string[]>([]);
+  const [toast, setToast] = useState<string | null>(null);
 
   const filtered = customersData.filter(c =>
     c.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -197,7 +290,7 @@ export default function Page() {
 
   const customer = customersData.find(c => c.id === selectedId) || customersData[0];
 
-  const tabs: TabKey[] = ["Overview", "KYC Status", "Wallet Balance", "Transaction History", "Documents", "Notes"];
+  const tabs: TabKey[] = ["Overview", "KYC Status", "Wallet Balance", "Transaction History", "Documents", "Notes", "Devices"];
 
   const handleSelectCustomer = (id: string) => {
     setSelectedId(id);
@@ -205,8 +298,27 @@ export default function Page() {
     setShowDetail(true);
   };
 
+  const showToast = (msg: string) => {
+    setToast(msg);
+    setTimeout(() => setToast(null), 2200);
+  };
+
+  const handleRevokeDevice = (deviceId: string, deviceName: string) => {
+    setRevokedDeviceIds(prev => [...prev, deviceId]);
+    showToast(`Signed out "${deviceName}"`);
+  };
+
+  const activeDevices = customer.devices.filter(d => !revokedDeviceIds.includes(d.id));
+
   return (
     <div className="space-y-4">
+      {/* Toast */}
+      {toast && (
+        <div className="fixed top-6 right-6 z-50 bg-gray-900 text-white text-sm px-4 py-2.5 rounded-lg shadow-lg">
+          {toast}
+        </div>
+      )}
+
       <div>
         <h1 className="text-xl font-bold text-gray-900 dark:text-white">Customers</h1>
         <p className="text-sm text-gray-500 dark:text-gray-400">Dashboard &gt; Customers</p>
@@ -214,7 +326,7 @@ export default function Page() {
 
       <div className="flex flex-col lg:flex-row gap-4 h-full">
 
-        <div className={`w-full lg:w-72 xl:w-80 flex-shrink-0 bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 flex flex-col ${showDetail ? "hidden lg:flex" : "flex"}`}>
+        <div className={`w-full lg:w-72 xl:w-80 shrink-0 bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 flex flex-col ${showDetail ? "hidden lg:flex" : "flex"}`}>
           {/* Search */}
           <div className="p-3 border-b border-gray-100 dark:border-gray-800">
             <div className="relative flex items-center gap-2">
@@ -252,7 +364,7 @@ export default function Page() {
                 onClick={() => handleSelectCustomer(c.id)}
                 className={`flex items-center gap-3 px-4 py-3 cursor-pointer border-b border-gray-50 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors ${selectedId === c.id ? "bg-blue-50 dark:bg-blue-900/20 border-l-2 border-l-blue-500" : ""}`}
               >
-                <div className={`w-9 h-9 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0 ${avatarColor(c.avatar)}`}>
+                <div className={`w-9 h-9 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0 ${avatarColor(c.avatar)}`}>
                   {c.avatar}
                 </div>
                 <div className="flex-1 min-w-0">
@@ -260,7 +372,7 @@ export default function Page() {
                   <div className="text-xs text-gray-400 truncate">{c.email}</div>
                   <div className="text-xs text-gray-400">{c.phone}</div>
                 </div>
-                <div className="flex items-center gap-1 flex-shrink-0">
+                <div className="flex items-center gap-1 shrink-0">
                   <span className={`px-2 py-0.5 text-xs font-medium rounded-full ${statusBadge(c.status)}`}>{c.status}</span>
                   {selectedId !== c.id && (
                     <svg className="w-4 h-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -322,7 +434,7 @@ export default function Page() {
                 </div>
               </div>
               {/* Actions */}
-              <div className="flex gap-2 flex-shrink-0">
+              <div className="flex gap-2 shrink-0">
                 <button className="px-3 py-1.5 text-sm font-medium border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200">
                   Edit Customer
                 </button>
@@ -340,7 +452,7 @@ export default function Page() {
               <div><span className="block text-gray-400 dark:text-gray-500">Customer ID</span><span className="font-medium text-gray-700 dark:text-gray-200">{customer.customerId}</span></div>
               <div><span className="block text-gray-400 dark:text-gray-500">Joined Date</span><span className="font-medium text-gray-700 dark:text-gray-200">{customer.joinedDate}</span></div>
               <div><span className="block text-gray-400 dark:text-gray-500">Last Login</span><span className="font-medium text-gray-700 dark:text-gray-200">{customer.lastLogin}</span></div>
-              <div><span className="block text-gray-400 dark:text-gray-500">Country</span><span className="font-medium text-gray-700 dark:text-gray-200">{customer.countryFlag} {customer.country}</span></div>
+              <div><span className="block text-gray-400 dark:text-gray-500">Country</span><span className="font-medium text-gray-700 dark:text-gray-200 inline-flex items-center gap-1.5"><FlagIcon name={customer.country} /> {customer.country}</span></div>
             </div>
 
             {/* Tabs */}
@@ -349,17 +461,18 @@ export default function Page() {
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`px-3 sm:px-4 py-2.5 text-xs sm:text-sm font-medium whitespace-nowrap transition-colors border-b-2 -mb-px ${activeTab === tab
+                  className={`flex items-center gap-1.5 px-3 sm:px-4 py-2.5 text-xs sm:text-sm font-medium whitespace-nowrap transition-colors border-b-2 -mb-px ${activeTab === tab
                     ? "border-green-600 text-green-600 dark:text-green-400"
                     : "border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
                     }`}
                 >
-                  {tab === "Overview" && <span className="hidden sm:inline mr-1">📋 </span>}
-                  {tab === "KYC Status" && <span className="hidden sm:inline mr-1">✅ </span>}
-                  {tab === "Wallet Balance" && <span className="hidden sm:inline mr-1">💳 </span>}
-                  {tab === "Transaction History" && <span className="hidden sm:inline mr-1">🔄 </span>}
-                  {tab === "Documents" && <span className="hidden sm:inline mr-1">📄 </span>}
-                  {tab === "Notes" && <span className="hidden sm:inline mr-1">📝 </span>}
+                  {tab === "Overview" && <span className="hidden sm:flex items-center mr-1"><MdOutlineAdminPanelSettings  size={20} /></span>}
+                  {tab === "KYC Status" && <span className="hidden sm:flex items-center mr-1"><GrStatusGood  size={20} /></span>}
+                  {tab === "Wallet Balance" && <span className="hidden sm:flex items-center mr-1"><FaWallet size={20}  /></span>}
+                  {tab === "Transaction History" && <span className="hidden sm:flex items-center mr-1"><RiHistoryFill  size={20} /></span>}
+                  {tab === "Documents" && <span className="hidden sm:flex items-center mr-1"><IoDocumentOutline size={20}  /></span>}
+                  {tab === "Notes" && <span className="hidden sm:flex items-center mr-1"><LuNotebookPen  size={20} /></span>}
+                  {tab === "Devices" && <span className="hidden sm:flex items-center mr-1"><HiDeviceTablet  size={20} /></span>}
                   {tab}
                 </button>
               ))}
@@ -385,7 +498,7 @@ export default function Page() {
                       { label: "AML Screening", value: customer.kyc.amlScreening },
                     ].map(item => (
                       <div key={item.label} className="flex items-center gap-2">
-                        <svg className="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <svg className="w-4 h-4 text-green-500 shrink-0" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                         </svg>
                         <span className="text-xs text-gray-500 dark:text-gray-400 w-32">{item.label}</span>
@@ -406,7 +519,7 @@ export default function Page() {
                     {customer.wallets.map(w => (
                       <div key={w.currency} className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                          <span className="text-lg">{w.flag}</span>
+                          <FlagIcon name={w.currency} size="w-6 h-6" />
                           <span className="text-sm text-gray-600 dark:text-gray-300">{w.currency}</span>
                         </div>
                         <span className="text-sm font-semibold text-gray-800 dark:text-white">{w.balance}</span>
@@ -459,7 +572,9 @@ export default function Page() {
                             <td className="py-2 pr-4 text-gray-500 dark:text-gray-400">{tx.id}</td>
                             <td className="py-2 pr-4 text-gray-700 dark:text-gray-200 font-medium">{tx.type}</td>
                             <td className="py-2 pr-4 text-gray-600 dark:text-gray-300">
-                              <span className="mr-1">{tx.toFlag}</span>{tx.to}
+                              <span className="inline-flex items-center gap-1.5">
+                                <FlagIcon name={tx.to} /> {tx.to}
+                              </span>
                             </td>
                             <td className="py-2 pr-4 font-semibold text-gray-800 dark:text-white">{tx.amount}</td>
                             <td className="py-2 pr-4 text-gray-500 dark:text-gray-400">{tx.fee}</td>
@@ -483,21 +598,21 @@ export default function Page() {
                   <div className="space-y-3">
                     {customer.documents.map((doc, i) => (
                       <div key={i} className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                        <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${doc.icon === "passport" ? "bg-blue-50 text-blue-600" :
-                          doc.icon === "bill" ? "bg-purple-50 text-purple-600" :
-                            "bg-orange-50 text-orange-600"
+                        <div className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${doc.icon === "passport" ? "bg-blue-100 text-blue-600" :
+                          doc.icon === "bill" ? "bg-purple-100 text-purple-600" :
+                            "bg-orange-100 text-orange-600"
                           }`}>
                           {docIcon(doc.icon)}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <div className="text-xs font-semibold text-gray-800 dark:text-white">{doc.title}</div>
+                          <div className="text-[14px] font-semibold text-gray-800 dark:text-white">{doc.title}</div>
                           <div className="text-xs text-gray-400">{doc.type}</div>
                           <div className="text-xs text-gray-400">Uploaded on {doc.uploadedOn}</div>
                         </div>
-                        <div className="flex items-center gap-2 flex-shrink-0">
+                        <div className="flex items-center gap-2 shrink-0">
                           <span className={`px-1.5 py-0.5 text-xs rounded-full ${statusBadge(doc.status)}`}>{doc.status}</span>
-                          <button className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <button className="text-blue-600 hover:text-gray-600 dark:hover:text-gray-200 cursor-pointer">
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                             </svg>
                           </button>
@@ -550,14 +665,14 @@ export default function Page() {
                           const isPending = item.value === "Pending" || item.value === "In Progress";
                           return (
                             <div key={item.label} className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
-                              <span className="text-lg flex-shrink-0">{item.icon}</span>
+                              <span className="text-lg shrink-0">{item.icon}</span>
                               <div className="flex-1 min-w-0">
                                 <p className="text-[10px] text-gray-400 uppercase tracking-wide">{item.label}</p>
                                 <p className={`text-xs font-semibold mt-0.5 ${isOk ? "text-green-600 dark:text-green-400" : isPending ? "text-yellow-600 dark:text-yellow-400" : "text-red-600 dark:text-red-400"}`}>
                                   {item.value}
                                 </p>
                               </div>
-                              <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${isOk ? "bg-green-100 dark:bg-green-900/40" : isPending ? "bg-yellow-100 dark:bg-yellow-900/40" : "bg-red-100 dark:bg-red-900/40"}`}>
+                              <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${isOk ? "bg-green-100 dark:bg-green-900/40" : isPending ? "bg-yellow-100 dark:bg-yellow-900/40" : "bg-red-100 dark:bg-red-900/40"}`}>
                                 {isOk ? (
                                   <svg className="w-3 h-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
                                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
@@ -693,7 +808,7 @@ export default function Page() {
                   {customer.wallets.map(w => (
                     <div key={w.currency} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
                       <div className="flex items-center gap-3">
-                        <span className="text-2xl">{w.flag}</span>
+                        <FlagIcon name={w.currency} size="w-8 h-8" />
                         <span className="text-sm font-medium text-gray-700 dark:text-gray-200">{w.currency}</span>
                       </div>
                       <span className="text-sm font-bold text-gray-900 dark:text-white">{w.balance}</span>
@@ -724,7 +839,11 @@ export default function Page() {
                         <tr key={tx.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
                           <td className="py-3 pr-4 text-gray-500 dark:text-gray-400">{tx.id}</td>
                           <td className="py-3 pr-4 font-medium text-gray-700 dark:text-gray-200">{tx.type}</td>
-                          <td className="py-3 pr-4 text-gray-600 dark:text-gray-300"><span className="mr-1">{tx.toFlag}</span>{tx.to}</td>
+                          <td className="py-3 pr-4 text-gray-600 dark:text-gray-300">
+                            <span className="inline-flex items-center gap-1.5">
+                              <FlagIcon name={tx.to} /> {tx.to}
+                            </span>
+                          </td>
                           <td className="py-3 pr-4 font-semibold text-gray-800 dark:text-white">{tx.amount}</td>
                           <td className="py-3 pr-4 text-gray-500 dark:text-gray-400">{tx.fee}</td>
                           <td className="py-3 pr-4"><span className={`px-1.5 py-0.5 rounded-full ${statusBadge(tx.status)}`}>{tx.status}</span></td>
@@ -743,19 +862,19 @@ export default function Page() {
                 <div className="space-y-3">
                   {customer.documents.map((doc, i) => (
                     <div key={i} className="flex items-center gap-4 p-3 border border-gray-100 dark:border-gray-800 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                      <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${doc.icon === "passport" ? "bg-blue-50 text-blue-600" :
-                        doc.icon === "bill" ? "bg-purple-50 text-purple-600" :
-                          "bg-orange-50 text-orange-600"
+                      <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${doc.icon === "passport" ? "bg-blue-100 text-blue-600" :
+                        doc.icon === "bill" ? "bg-purple-100 text-purple-600" :
+                          "bg-orange-100 text-orange-600"
                         }`}>
                         {docIcon(doc.icon)}
                       </div>
                       <div className="flex-1">
-                        <div className="text-sm font-semibold text-gray-800 dark:text-white">{doc.title}</div>
+                        <div className="text-[14px] font-semibold text-gray-800 dark:text-white">{doc.title}</div>
                         <div className="text-xs text-gray-400">{doc.type} · Uploaded on {doc.uploadedOn}</div>
                       </div>
                       <span className={`px-2 py-0.5 text-xs font-medium rounded-full ${statusBadge(doc.status)}`}>{doc.status}</span>
-                      <button className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <button className="text-blue-600 hover:text-gray-600 dark:hover:text-gray-200 cursor-pointer">
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                         </svg>
                       </button>
@@ -773,6 +892,79 @@ export default function Page() {
                 <button className="mt-4 px-4 py-1.5 text-xs font-medium bg-green-600 text-white rounded-lg hover:bg-green-700">
                   Add Note
                 </button>
+              </div>
+            )}
+
+            {activeTab === "Devices" && (
+              <div className="max-w-lg border border-gray-100 dark:border-gray-800 rounded-xl p-6">
+                <div className="flex items-center justify-between mb-1">
+                  <h3 className="text-base font-semibold text-gray-800 dark:text-white">Devices</h3>
+                  <span className="text-xs text-gray-400">{activeDevices.length} device{activeDevices.length !== 1 ? "s" : ""}</span>
+                </div>
+                <p className="text-xs text-gray-400 mb-5">Devices this customer has used to access their account.</p>
+
+                {activeDevices.length === 0 && (
+                  <div className="flex flex-col items-center justify-center text-center min-h-32">
+                    <div className="text-3xl mb-2">💻</div>
+                    <div className="text-sm font-semibold text-gray-700 dark:text-gray-300">No active devices</div>
+                    <div className="text-xs text-gray-400 mt-1">All sessions have been signed out.</div>
+                  </div>
+                )}
+
+                <div className="space-y-3">
+                  {activeDevices.map(device => (
+                    <div
+                      key={device.id}
+                      className={`flex items-start gap-3 p-3 border rounded-xl ${device.isCurrent
+                        ? "border-green-200 dark:border-green-800 bg-green-50/40 dark:bg-green-900/10"
+                        : "border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50"
+                        }`}
+                    >
+                      <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${device.trusted ? "bg-blue-50 text-blue-600" : "bg-yellow-50 text-yellow-600"
+                        }`}>
+                        {deviceIcon(device.type)}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="text-sm font-semibold text-gray-800 dark:text-white">{device.name}</span>
+                          {device.isCurrent && (
+                            <span className="px-1.5 py-0.5 text-[10px] font-medium rounded-full bg-green-50 text-green-700 border border-green-200">
+                              This device
+                            </span>
+                          )}
+                          {!device.trusted && (
+                            <span className="px-1.5 py-0.5 text-[10px] font-medium rounded-full bg-yellow-50 text-yellow-700 border border-yellow-200">
+                              Unrecognized
+                            </span>
+                          )}
+                        </div>
+                        <div className="text-xs text-gray-400 mt-0.5">{device.os}</div>
+                        <div className="text-xs text-gray-400">{device.ip} · {device.location}</div>
+                        <div className="text-xs text-gray-400">{device.lastActive}</div>
+                      </div>
+                      {!device.isCurrent && (
+                        <button
+                          onClick={() => handleRevokeDevice(device.id, device.name)}
+                          className="text-xs font-medium text-red-600 dark:text-red-400 border border-red-200 dark:border-red-900 rounded-lg px-2.5 py-1.5 hover:bg-red-50 dark:hover:bg-red-900/20 shrink-0"
+                        >
+                          Sign Out
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                </div>
+
+                {activeDevices.some(d => !d.isCurrent) && (
+                  <button
+                    onClick={() => {
+                      activeDevices.filter(d => !d.isCurrent).forEach(d => setRevokedDeviceIds(prev => [...prev, d.id]));
+                      showToast("Signed out all other devices");
+                    }}
+                    className="mt-4 w-full py-2 text-xs font-semibold rounded-lg border border-red-200 dark:border-red-900 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20"
+                  >
+                    Sign Out All Other Devices
+                  </button>
+                )}
               </div>
             )}
           </div>

@@ -12,7 +12,25 @@ import {
     CashPickupStatus,
 } from '@/lib/data';
 
+
+import { flagForCountryName } from '@/lib/countries_data';
+
+
 // ── helpers ───────────────────────────────────────────────────
+
+function CountryFlag({ country, size = 'w-4 h-4' }: { country: string; size?: string }) {
+    return (
+        <img
+            src={flagForCountryName(country)}
+            alt={country}
+            className={`${size} rounded-full object-cover inline-block shrink-0`}
+        />
+    );
+}
+
+
+
+
 const statusClasses: Record<CashPickupStatus, string> = {
     Pending: 'bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-400',
     Approved: 'bg-emerald-50 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400',
@@ -76,7 +94,7 @@ function StatusTabs({ active, setActive }: { active: string; setActive: (v: stri
 function FilterBar({ search, setSearch }: { search: string; setSearch: (v: string) => void }) {
     return (
         <div className="flex flex-wrap items-center gap-2 px-4 py-3 border-b border-gray-100 dark:border-gray-700/60">
-            <div className="flex items-center gap-2 flex-1 min-w-[180px] border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-1.5">
+            <div className="flex items-center gap-2 flex-1 min-w-45 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-1.5">
                 <Search size={14} className="text-gray-400 dark:text-gray-500" />
                 <input
                     value={search}
@@ -160,7 +178,7 @@ function RequestsTable({
             )}
 
             <div className="overflow-x-auto">
-                <table className="w-full text-left min-w-[980px]">
+                <table className="w-full text-left min-w-245">
                     <thead>
                         <tr className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500 border-b border-gray-100 dark:border-gray-700/60">
                             <th className="px-4 py-2.5 font-medium w-8">
@@ -192,7 +210,9 @@ function RequestsTable({
                                 <td className="px-2 py-2.5 text-[12px] text-gray-700 dark:text-gray-300 whitespace-nowrap">{r.senderName}</td>
                                 <td className="px-2 py-2.5 text-[12px] text-gray-700 dark:text-gray-300 whitespace-nowrap">{r.recipientName}</td>
                                 <td className="px-2 py-2.5 whitespace-nowrap">
-                                    <span className="inline-flex items-center gap-1.5 text-[12px] text-gray-600 dark:text-gray-300">{r.countryFlag} {r.country}</span>
+                                    <span className="inline-flex items-center gap-1.5 text-[12px] text-gray-600 dark:text-gray-300">
+                                        <CountryFlag country={r.country} /> {r.country}
+                                    </span>
                                 </td>
                                 <td className="px-2 py-2.5 text-[12px] text-gray-500 dark:text-gray-400 whitespace-nowrap">{r.city}</td>
                                 <td className="px-2 py-2.5 text-[12px] text-gray-500 dark:text-gray-400 whitespace-nowrap">{r.mobile}</td>

@@ -16,10 +16,43 @@ import {
   CorridorStatus,
 } from '@/lib/data';
 
-// ── helpers ───────────────────────────────────────────────────
+import { flagForCountryName } from '@/lib/countries_data';
+
+
 const currencySymbol: Record<string, string> = {
   GBP: '£', USD: '$', EUR: '€', BDT: '৳', PKR: '₨', INR: '₹', PHP: '₱', NGN: '₦', AED: 'AED ',
 };
+
+
+const currencyCountryMap: Record<string, string> = {
+  GBP: 'United Kingdom',
+  USD: 'United States',
+  EUR: 'Europe',
+  BDT: 'Bangladesh',
+  PKR: 'Pakistan',
+  INR: 'India',
+  PHP: 'Philippines',
+  NGN: 'Nigeria',
+  AED: 'UAE',
+};
+
+function CurrencyFlag({ code, size = 'text-2xl' }: { code: string; size?: string }) {
+  const country = currencyCountryMap[code];
+  if (!country) return null;
+  const dims = size.startsWith('text-') ? 'w-6 h-6' : size;
+  return (
+    <img
+      src={flagForCountryName(country)}
+      alt={code}
+      className={`${dims} rounded-full object-cover inline-block shrink-0`}
+    />
+  );
+}
+
+
+
+
+
 
 const sym = (code: string) => currencySymbol[code] ?? '';
 
@@ -64,7 +97,7 @@ function WalletCard({ acc }: { acc: CompanyWalletAccount }) {
     <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 flex flex-col">
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center gap-2">
-          <span className="text-2xl leading-none">{acc.flag}</span>
+          <CurrencyFlag code={acc.currency} size="w-7 h-7" />
           <span className="text-[13px] font-semibold text-gray-800 dark:text-gray-100">{acc.name}</span>
         </div>
         <span className={`text-[10px] font-medium px-2 py-0.5 rounded whitespace-nowrap ${statusBadge[acc.status]}`}>
@@ -158,7 +191,7 @@ function DepositTable({ rows }: { rows: CompanyDeposit[] }) {
   return (
     <>
       <div className="overflow-x-auto">
-        <table className="w-full text-left min-w-[760px]">
+        <table className="w-full text-left min-w-190">
           <thead>
             <tr className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500 border-b border-gray-100 dark:border-gray-700/60">
               <th className="px-4 py-2.5 font-medium">ID</th>
@@ -223,7 +256,7 @@ function WithdrawalTable({ rows }: { rows: CompanyWithdrawal[] }) {
   return (
     <>
       <div className="overflow-x-auto">
-        <table className="w-full text-left min-w-[760px]">
+        <table className="w-full text-left min-w-190">
           <thead>
             <tr className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500 border-b border-gray-100 dark:border-gray-700/60">
               <th className="px-4 py-2.5 font-medium">ID</th>
@@ -343,7 +376,7 @@ function RecentActivity() {
         {merged.map((item, idx) => {
           const { date, time } = dateTimeParts(item.at);
           return (
-            <div key={item.id} className="flex sm:flex-col items-center sm:items-center gap-3 sm:gap-2 sm:flex-1 relative shrink-0 sm:min-w-[120px]">
+            <div key={item.id} className="flex sm:flex-col items-center sm:items-center gap-3 sm:gap-2 sm:flex-1 relative shrink-0 sm:min-w-30">
               {idx !== 0 && (
                 <div className="hidden sm:block absolute top-4 right-1/2 w-full h-px bg-gray-100 dark:bg-gray-700 -z-10" />
               )}

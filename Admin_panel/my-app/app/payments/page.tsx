@@ -102,7 +102,7 @@ function MethodTabs({ active, setActive }: { active: string; setActive: (v: stri
 function FilterBar({ search, setSearch }: { search: string; setSearch: (v: string) => void }) {
     return (
         <div className="flex flex-wrap items-center gap-2 px-4 py-3 border-b border-gray-100 dark:border-gray-700/60">
-            <div className="flex items-center gap-2 flex-1 min-w-[160px] border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-1.5">
+            <div className="flex items-center gap-2 flex-1 min-w-40 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-1.5">
                 <Search size={14} className="text-gray-400 dark:text-gray-500" />
                 <input
                     value={search}
@@ -134,7 +134,7 @@ function MethodsTable({
     return (
         <>
             <div className="overflow-x-auto">
-                <table className="w-full text-left min-w-[820px]">
+                <table className="w-full text-left min-w-205">
                     <thead>
                         <tr className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500 border-b border-gray-100 dark:border-gray-700/60">
                             <th className="px-4 py-2.5 font-medium">Method Name</th>

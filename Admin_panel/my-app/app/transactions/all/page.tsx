@@ -14,8 +14,21 @@ import {
   TX_TOTAL,
   TX_PAGE_SIZE,
 } from "@/lib/data";
+import { flagForCountryName } from "@/lib/countries_data";
 
-// ── Status styles ─────────────────────────────────────────────
+
+function CountryFlag({ country, size = "w-5 h-5" }: { country: string; size?: string }) {
+  return (
+    <img
+      src={flagForCountryName(country)}
+      alt={country}
+      className={`${size} rounded-full object-cover inline-block shrink-0`}
+    />
+  );
+}
+
+
+
 const statusStyle: Record<TxStatus, { badge: string; dot: string }> = {
   Completed: { badge: "bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400", dot: "bg-emerald-500" },
   Pending: { badge: "bg-amber-100  text-amber-700  dark:bg-amber-950  dark:text-amber-400", dot: "bg-amber-400" },
@@ -23,7 +36,6 @@ const statusStyle: Record<TxStatus, { badge: string; dot: string }> = {
   Refunded: { badge: "bg-purple-100 text-purple-600 dark:bg-purple-950 dark:text-purple-400", dot: "bg-purple-400" },
 };
 
-// ── Sparkline ─────────────────────────────────────────────────
 function Sparkline({ points, color }: { points: number[]; color: string }) {
   const [hovered, setHovered] = useState<number | null>(null);
   const W = 120, H = 36, PAD = 6;
@@ -64,7 +76,6 @@ function Sparkline({ points, color }: { points: number[]; color: string }) {
   );
 }
 
-// ── Avatar ────────────────────────────────────────────────────
 function Avatar({ initials, size = "md" }: { initials: string; size?: "sm" | "md" }) {
   const palettes = [
     "bg-blue-100   text-blue-700   dark:bg-blue-950   dark:text-blue-400",
@@ -85,18 +96,26 @@ function Avatar({ initials, size = "md" }: { initials: string; size?: "sm" | "md
   );
 }
 
-// ── Method badge ──────────────────────────────────────────────
+
 function MethodBadge({ type, method }: { type: TxMethodType; method: TxMethod }) {
-  if (method === "Visa Card") return <span className="font-bold text-[10px] bg-blue-600  text-white px-1.5 py-0.5 rounded">VISA</span>;
-  if (method === "Mastercard") return <span className="font-bold text-[10px] bg-red-600   text-white px-1.5 py-0.5 rounded">MC</span>;
-  if (method === "bKash") return <span className="font-bold text-[10px] bg-pink-600  text-white px-1.5 py-0.5 rounded">bKash</span>;
-  if (method === "Nagad") return <span className="font-bold text-[10px] bg-orange-500 text-white px-1.5 py-0.5 rounded">Nagad</span>;
+  if (method === "Visa Card") return <span>
+    <img className="w-8 h-8" src="/bank/visa_card.png" alt="visa_card" />
+  </span>
+  if (method === "Mastercard") return <span>
+    <img className="w-8 h-8" src="/bank/master_card.png" alt="master_card" />
+  </span>
+  if (method === "bKash") return <span>
+    <img className="w-8 h-8" src="/bank/BKash.svg" alt="BKash" />
+  </span>
+  if (method === "Nagad") return <span>
+    <img className="w-8 h-8" src="/bank/Nagad.svg" alt="Nagad" />
+  </span>
   if (type === "bank") return <span className="text-base">🏦</span>;
   if (type === "cash") return <span className="text-base">💵</span>;
   return <span className="text-base">📱</span>;
 }
 
-// ── Status badge ──────────────────────────────────────────────
+
 function StatusBadge({ status }: { status: TxStatus }) {
   const s = statusStyle[status];
   return (
@@ -107,7 +126,6 @@ function StatusBadge({ status }: { status: TxStatus }) {
   );
 }
 
-// ── Detail panel content ──────────────────────────────────────
 function DetailContent({ tx }: { tx: AllTransaction }) {
   return (
     <div className="p-5 space-y-5">
@@ -147,7 +165,9 @@ function DetailContent({ tx }: { tx: AllTransaction }) {
             <div className="font-semibold text-gray-900 dark:text-white text-sm">{tx.sender.name}</div>
             <div className="text-xs text-gray-500 dark:text-gray-400">{tx.sender.email}</div>
             <div className="text-xs text-gray-500 dark:text-gray-400">{tx.sender.phone}</div>
-            <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{tx.sender.flag} {tx.sender.country}</div>
+            <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 inline-flex items-center gap-1.5">
+              <CountryFlag country={tx.sender.country} /> {tx.sender.country}
+            </div>
           </div>
         </div>
       </section>
@@ -155,11 +175,15 @@ function DetailContent({ tx }: { tx: AllTransaction }) {
       <section>
         <h3 className="font-semibold text-gray-800 dark:text-gray-200 text-sm mb-3">Receiver Information</h3>
         <div className="flex items-start gap-3 bg-gray-50 dark:bg-gray-700/50 rounded-xl p-3">
-          <div className="w-9 h-9 rounded-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center text-lg shrink-0">{tx.receiver.flag}</div>
+          <div className="w-9 h-9 rounded-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center shrink-0 overflow-hidden">
+            <Avatar initials={tx.sender.avatar} />
+          </div>
           <div>
             <div className="font-semibold text-gray-900 dark:text-white text-sm">{tx.receiver.name}</div>
             <div className="text-xs text-gray-500 dark:text-gray-400">{tx.receiver.phone}</div>
-            <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{tx.receiver.flag} {tx.receiver.country}</div>
+            <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 inline-flex items-center gap-1.5">
+              <CountryFlag country={tx.receiver.country} /> {tx.receiver.country}
+            </div>
           </div>
         </div>
       </section>
@@ -170,9 +194,9 @@ function DetailContent({ tx }: { tx: AllTransaction }) {
           {tx.timeline.map((step, i) => (
             <div key={i} className="relative">
               {i < tx.timeline.length - 1 && (
-                <div className="absolute left-[-12px] top-4 w-0.5 h-full bg-emerald-100 dark:bg-emerald-900" />
+                <div className="absolute -left-3 top-4 w-0.5 h-full bg-emerald-100 dark:bg-emerald-900" />
               )}
-              <div className="absolute left-[-16px] top-1 w-3 h-3 rounded-full bg-emerald-500 border-2 border-white dark:border-gray-800 shadow-sm" />
+              <div className="absolute -left-4 top-1 w-3 h-3 rounded-full bg-emerald-500 border-2 border-white dark:border-gray-800 shadow-sm" />
               <div className="flex justify-between items-start gap-2">
                 <span className="text-xs font-medium text-gray-700 dark:text-gray-300">{step.label}</span>
                 <span className="text-xs text-gray-400 dark:text-gray-500 whitespace-nowrap">{step.date} {step.time}</span>
@@ -193,7 +217,7 @@ function DetailContent({ tx }: { tx: AllTransaction }) {
   );
 }
 
-// ── Main page ─────────────────────────────────────────────────
+
 export default function AllTransactionsPage() {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("All Status");
@@ -350,7 +374,7 @@ export default function AllTransactionsPage() {
                       </td>
                       <td className="px-3 py-3 font-medium text-blue-600 dark:text-blue-400 whitespace-nowrap text-xs">{tx.id}</td>
                       <td className="px-3 py-3">
-                        <div className="flex items-center gap-2 min-w-[130px]">
+                        <div className="flex items-center gap-2 min-w-32.5">
                           <Avatar initials={tx.sender.avatar} size="sm" />
                           <div>
                             <div className="font-medium text-gray-800 dark:text-gray-200 text-xs leading-tight">{tx.sender.name}</div>
@@ -359,8 +383,8 @@ export default function AllTransactionsPage() {
                         </div>
                       </td>
                       <td className="px-3 py-3">
-                        <div className="flex items-center gap-1.5 min-w-[110px]">
-                          <span className="text-base">{tx.receiver.flag}</span>
+                        <div className="flex items-center gap-1.5 min-w-27.5">
+                          <CountryFlag country={tx.receiver.country} />
                           <div>
                             <div className="font-medium text-gray-800 dark:text-gray-200 text-xs leading-tight">{tx.receiver.name}</div>
                             <div className="text-gray-400 dark:text-gray-500 text-[11px]">{tx.receiver.country}</div>
@@ -412,7 +436,7 @@ export default function AllTransactionsPage() {
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-1.5">
-                    <span>{tx.receiver.flag}</span>
+                    <CountryFlag country={tx.receiver.country} />
                     <span className="text-[12px] text-gray-500 dark:text-gray-400">{tx.receiver.name} · {tx.receiver.country}</span>
                   </div>
                   <div className="text-right">

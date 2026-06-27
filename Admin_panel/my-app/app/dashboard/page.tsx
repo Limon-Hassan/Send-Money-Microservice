@@ -37,6 +37,7 @@ import {
   topCorridors,
   periodTotals,
 } from '@/lib/data';
+import { flagForCountryName } from '@/lib/countries_data';
 import StatsCards from '@/components/Dashboard/StatsCards';
 
 const TransactionVolumeChart = dynamic(
@@ -146,13 +147,22 @@ const quickActions = [
   { label: 'Generate Report', icon: FileText, color: "text-purple-600", href: '/reports' },
 ];
 
-const flagEmojis: Record<string, string> = {
-  USA: '🇺🇸',
-  UAE: '🇦🇪',
-  UK: '🇬🇧',
-  'Saudi Arabia': '🇸🇦',
-  Malaysia: '🇲🇾',
+
+const corridorCountryNameMap: Record<string, string> = {
+  USA: 'United States',
+  UK: 'United Kingdom',
+  UAE: 'UAE',
+  'Saudi Arabia': 'Saudi Arabia',
+  Malaysia: 'Malaysia',
+  BD: 'Bangladesh',
+  Bangladesh: 'Bangladesh',
 };
+
+const corridorFlag = (corridorName: string): string =>
+  flagForCountryName(corridorCountryNameMap[corridorName] ?? corridorName);
+
+
+
 
 export default function DashboardPage() {
   return (
@@ -357,7 +367,21 @@ export default function DashboardPage() {
                       {tx.user}
                     </td>
                     <td className="px-3 py-2.5 text-gray-600 dark:text-gray-400 whitespace-nowrap">
-                      {tx.from} → {tx.to}
+                      <span className="inline-flex items-center gap-1.5">
+                        <img
+                          src={corridorFlag(tx.from)}
+                          alt={tx.from}
+                          className="w-4 h-4 rounded-full object-cover shrink-0"
+                        />
+                        {tx.from}
+                        <span className="mx-0.5">→</span>
+                        <img
+                          src={corridorFlag(tx.to)}
+                          alt={tx.to}
+                          className="w-4 h-4 rounded-full object-cover shrink-0"
+                        />
+                        {tx.to}
+                      </span>
                     </td>
                     <td className="px-3 py-2.5 font-semibold text-gray-800 dark:text-gray-200 whitespace-nowrap">
                       {tx.amount}
@@ -584,9 +608,19 @@ export default function DashboardPage() {
             {topCorridors.map((c, i) => (
               <div key={i} className="px-4 py-2.5">
                 <div className="flex items-center justify-between mb-1">
-                  <span className="text-xs text-gray-700 dark:text-gray-300 flex items-center gap-1">
-                    {flagEmojis[c.from] || '🌍'} {c.from} →{' '}
-                    {flagEmojis['Bangladesh'] || '🇧🇩'} BD
+                  <span className="text-xs text-gray-700 dark:text-gray-300 flex items-center gap-1.5">
+                    <img
+                      src={corridorFlag(c.from)}
+                      alt={c.from}
+                      className="w-4 h-4 rounded-full object-cover shrink-0"
+                    />
+                    {c.from} →{' '}
+                    <img
+                      src={corridorFlag('Bangladesh')}
+                      alt="Bangladesh"
+                      className="w-4 h-4 rounded-full object-cover shrink-0"
+                    />
+                    BD
                   </span>
                   <span className="text-xs font-semibold text-gray-800 dark:text-gray-200">
                     {c.amount}

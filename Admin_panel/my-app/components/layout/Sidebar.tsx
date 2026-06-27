@@ -67,7 +67,7 @@ const nav: NavGroup[] = [
           { href: "/customers/transactions", label: "Transaction History" },
           { href: "/customers/documents", label: "Documents" },
           { href: "/customers/notes", label: "Notes" },
-          { href: "/customers/blacklist", label: "Blacklist" }, // new added
+          { href: "/customers/blacklist", label: "Blacklist" }, 
         ],
       },
       {
@@ -87,6 +87,7 @@ const nav: NavGroup[] = [
         icon: UserCheck,
         sub: [
           { href: "/beneficiaries", label: "Receiver List" },
+          { href: "/beneficiaries/senders", label: "Sender List" },
           { href: "/beneficiaries/add", label: "Add Beneficiary" },
         ],
       },
