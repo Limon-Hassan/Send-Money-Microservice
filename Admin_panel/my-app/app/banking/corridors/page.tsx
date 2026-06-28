@@ -20,12 +20,15 @@ import {
 } from 'lucide-react';
 import {
     bankCorridors,
-    corridorTotalCount,
     corridorCountryFilterOptions,
     corridorCurrencyFilterOptions,
     bankStatusFilterOptions,
     type BankCorridor,
 } from '@/lib/data';
+import { flagForCountryName } from '@/lib/countries_data';
+
+
+
 
 const PAGE_SIZE_OPTIONS = [10, 25, 50];
 
@@ -33,6 +36,19 @@ const COUNTRY_FLAGS: Record<string, string> = {
     'United Kingdom': '🇬🇧', Bangladesh: '🇧🇩', India: '🇮🇳', Pakistan: '🇵🇰',
     'United States': '🇺🇸', 'United Arab Emirates': '🇦🇪', Philippines: '🇵🇭', Nigeria: '🇳🇬',
 };
+
+function CountryFlag({ country, size = 'w-4 h-4' }: { country: string; size?: string }) {
+    return (
+        <img
+            src={flagForCountryName(country)}
+            alt={country}
+            className={`${size} rounded-full object-cover inline-block shrink-0`}
+        />
+    );
+}
+
+
+
 
 function StatusBadge({ status }: { status: string }) {
     const isActive = status === 'Active';
@@ -437,12 +453,12 @@ export default function BankCorridorsPage() {
                                 <tr key={c.id} className="text-gray-700 dark:text-gray-200">
                                     <td className="py-2.5 pr-4">
                                         <span className="flex items-center gap-1.5 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                            <span>{c.fromFlag}</span> {c.fromCountry}
+                                            <CountryFlag country={c.fromCountry} /> {c.fromCountry}
                                         </span>
                                     </td>
                                     <td className="py-2.5 pr-4">
                                         <span className="flex items-center gap-1.5 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                            <span>{c.toFlag}</span> {c.toCountry}
+                                            <CountryFlag country={c.toCountry} /> {c.toCountry}
                                         </span>
                                     </td>
                                     <td className="py-2.5 pr-4 whitespace-nowrap">

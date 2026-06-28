@@ -11,6 +11,8 @@ import {
     Tooltip as ChartTooltip, Filler, ChartOptions, TooltipItem,
 } from 'chart.js';
 import { Line as LineChartJS, Doughnut } from 'react-chartjs-2';
+
+
 import {
     agentPartnerStats,
     partnerAgents,
@@ -25,9 +27,23 @@ import {
     agentCommissionRows,
 } from '@/lib/data';
 
+import { flagForCountryName } from '@/lib/countries_data';
+
+
 ChartJS.register(ArcElement, CategoryScale, LinearScale, PointElement, LineElement, ChartTooltip, Filler);
 
 // ── helpers ───────────────────────────────────────────────────
+
+function CountryFlag({ country, size = 'w-4 h-4' }: { country: string; size?: string }) {
+    return (
+        <img
+            src={flagForCountryName(country)}
+            alt={country}
+            className={`${size} rounded-full object-cover inline-block shrink-0`}
+        />
+    );
+}
+
 const statusClasses: Record<PartnerAgentStatus, string> = {
     Active: 'bg-emerald-50 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400',
     Pending: 'bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-400',
@@ -103,7 +119,7 @@ function StatCards() {
 function FilterBar({ search, setSearch }: { search: string; setSearch: (v: string) => void }) {
     return (
         <div className="flex flex-wrap items-center gap-2 px-4 py-3 border-b border-gray-100 dark:border-gray-700/60">
-            <div className="flex items-center gap-2 flex-1 min-w-[180px] border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-1.5">
+            <div className="flex items-center gap-2 flex-1 min-w-45 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-1.5">
                 <Search size={14} className="text-gray-400 dark:text-gray-500" />
                 <input
                     value={search}
@@ -139,7 +155,7 @@ function AgentTable({ rows }: { rows: typeof partnerAgents }) {
     return (
         <>
             <div className="overflow-x-auto">
-                <table className="w-full text-left min-w-[920px]">
+                <table className="w-full text-left min-w-230">
                     <thead>
                         <tr className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500 border-b border-gray-100 dark:border-gray-700/60">
                             <th className="px-4 py-2.5 font-medium">Agent Name</th>
@@ -166,7 +182,9 @@ function AgentTable({ rows }: { rows: typeof partnerAgents }) {
                                 </td>
                                 <td className="px-2 py-2.5 text-[12px] text-blue-600 dark:text-blue-400 font-medium whitespace-nowrap">{a.code}</td>
                                 <td className="px-2 py-2.5 whitespace-nowrap">
-                                    <span className="inline-flex items-center gap-1.5 text-[12px] text-gray-600 dark:text-gray-300">{a.flag} {a.country}</span>
+                                    <span className="inline-flex items-center gap-1.5 text-[12px] text-gray-600 dark:text-gray-300">
+                                        <CountryFlag country={a.country} /> {a.country}
+                                    </span>
                                 </td>
                                 <td className="px-2 py-2.5 text-[12px] text-gray-500 dark:text-gray-400 whitespace-nowrap">{a.contact}</td>
                                 <td className="px-2 py-2.5 whitespace-nowrap">
@@ -258,7 +276,7 @@ function AddAgentPanel({ onAdd }: { onAdd: (name: string, email: string, phone: 
 function BranchesPanel() {
     return (
         <div className="overflow-x-auto">
-            <table className="w-full text-left min-w-[700px]">
+            <table className="w-full text-left min-w-175">
                 <thead>
                     <tr className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500 border-b border-gray-100 dark:border-gray-700/60">
                         <th className="px-4 py-2.5 font-medium">Branch Name</th>
@@ -275,7 +293,9 @@ function BranchesPanel() {
                             <td className="px-4 py-2.5 text-[13px] font-medium text-gray-800 dark:text-gray-100 whitespace-nowrap">{b.name}</td>
                             <td className="px-2 py-2.5 text-[12px] text-blue-600 dark:text-blue-400 font-medium whitespace-nowrap">{b.code}</td>
                             <td className="px-2 py-2.5 whitespace-nowrap">
-                                <span className="inline-flex items-center gap-1.5 text-[12px] text-gray-600 dark:text-gray-300">{b.flag} {b.country}</span>
+                                <span className="inline-flex items-center gap-1.5 text-[12px] text-gray-600 dark:text-gray-300">
+                                    <CountryFlag country={b.country} /> {b.country}
+                                </span>
                             </td>
                             <td className="px-2 py-2.5 text-[12px] text-gray-600 dark:text-gray-300 whitespace-nowrap">{b.manager}</td>
                             <td className="px-2 py-2.5 text-[12px] font-medium text-gray-900 dark:text-white whitespace-nowrap">{b.agentsCount}</td>
@@ -297,7 +317,7 @@ function BranchesPanel() {
 function PartnerListPanel() {
     return (
         <div className="overflow-x-auto">
-            <table className="w-full text-left min-w-[700px]">
+            <table className="w-full text-left min-w-175">
                 <thead>
                     <tr className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500 border-b border-gray-100 dark:border-gray-700/60">
                         <th className="px-4 py-2.5 font-medium">Partner Name</th>
@@ -313,7 +333,9 @@ function PartnerListPanel() {
                             <td className="px-4 py-2.5 text-[13px] font-medium text-gray-800 dark:text-gray-100 whitespace-nowrap">{p.name}</td>
                             <td className="px-2 py-2.5 text-[12px] text-gray-600 dark:text-gray-300 whitespace-nowrap">{p.type}</td>
                             <td className="px-2 py-2.5 whitespace-nowrap">
-                                <span className="inline-flex items-center gap-1.5 text-[12px] text-gray-600 dark:text-gray-300">{p.flag} {p.country}</span>
+                                <span className="inline-flex items-center gap-1.5 text-[12px] text-gray-600 dark:text-gray-300">
+                                    <CountryFlag country={p.country} /> {p.country}
+                                </span>
                             </td>
                             <td className="px-2 py-2.5 text-[12px] font-medium text-gray-900 dark:text-white whitespace-nowrap">{p.commissionRatePct}%</td>
                             <td className="px-2 py-2.5 whitespace-nowrap">
@@ -334,7 +356,7 @@ function PartnerListPanel() {
 function CommissionPanel() {
     return (
         <div className="overflow-x-auto">
-            <table className="w-full text-left min-w-[760px]">
+            <table className="w-full text-left min-w-190">
                 <thead>
                     <tr className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500 border-b border-gray-100 dark:border-gray-700/60">
                         <th className="px-4 py-2.5 font-medium">Agent</th>
@@ -476,7 +498,7 @@ function VolumeOverviewChart() {
                     This Month <ChevronDown size={11} />
                 </button>
             </div>
-            <div className="h-[200px]">
+            <div className="h-50">
                 <LineChartJS data={data} options={options} />
             </div>
         </div>
@@ -502,7 +524,7 @@ function CommissionOverviewChart() {
                     This Month <ChevronDown size={11} />
                 </button>
             </div>
-            <div className="relative h-[140px] mb-3">
+            <div className="relative h-35 mb-3">
                 <Doughnut data={data} options={options} />
                 <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                     <p className="text-base font-bold text-gray-900 dark:text-white">£{c.total.toLocaleString()}</p>
@@ -537,7 +559,7 @@ function AgentStatusChart() {
     return (
         <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4">
             <h3 className="text-[13px] font-semibold text-gray-800 dark:text-gray-100 mb-3">Agent Status</h3>
-            <div className="relative h-[140px] mb-3">
+            <div className="relative h-35 mb-3">
                 <Doughnut data={data} options={options} />
                 <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                     <p className="text-base font-bold text-gray-900 dark:text-white">{s.total}</p>

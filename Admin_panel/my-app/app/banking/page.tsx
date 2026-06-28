@@ -51,11 +51,25 @@ import {
     type InternationalBankAccount,
     type BankCorridor,
 } from '@/lib/data';
+import { flagForCountryName } from '@/lib/countries_data';
+
 
 Chart.register(ArcElement, Tooltip, Legend, DoughnutController);
 
 const TABS = ['International Banks', 'Bank Corridors', 'Card Gateways', 'Card Payment Rules'] as const;
 type Tab = (typeof TABS)[number];
+
+
+function CountryFlag({ country, size = 'w-4 h-4' }: { country: string; size?: string }) {
+    return (
+        <img
+            src={flagForCountryName(country)}
+            alt={country}
+            className={`${size} rounded-full object-cover inline-block shrink-0`}
+        />
+    );
+}
+
 
 const PAGE_SIZE_OPTIONS = [10, 25, 50];
 
@@ -193,15 +207,10 @@ function AddBankModal({
             setError('Bank name, SWIFT/BIC and account holder are required.');
             return;
         }
-        const countryFlags: Record<string, string> = {
-            'United Kingdom': '🇬🇧', Bangladesh: '🇧🇩', India: '🇮🇳', Pakistan: '🇵🇰',
-            'United States': '🇺🇸', 'United Arab Emirates': '🇦🇪', Philippines: '🇵🇭', Nigeria: '🇳🇬',
-        };
         const newBank: InternationalBankAccount = {
             id: `bank-${Date.now()}`,
             bankName: bankName.trim(),
             country,
-            countryFlag: countryFlags[country] ?? '🏳️',
             swiftBic: swiftBic.trim().toUpperCase(),
             currency,
             accountHolder: accountHolder.trim(),
@@ -629,7 +638,7 @@ export default function BankingCardPaymentManagementPage() {
                                                 <td className="py-2.5 pr-4 font-medium text-gray-900 dark:text-white">{bank.bankName}</td>
                                                 <td className="py-2.5 pr-4">
                                                     <span className="flex items-center gap-1.5 whitespace-nowrap">
-                                                        <span>{bank.countryFlag}</span> {bank.country}
+                                                        <CountryFlag country={bank.country} /> {bank.country}
                                                     </span>
                                                 </td>
                                                 <td className="py-2.5 pr-4">{bank.swiftBic}</td>
@@ -850,12 +859,12 @@ export default function BankingCardPaymentManagementPage() {
                                             <tr key={c.id} className="text-gray-700 dark:text-gray-200">
                                                 <td className="py-2.5 pr-4">
                                                     <span className="flex items-center gap-1.5 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                                        <span>{c.fromFlag}</span> {c.fromCountry}
+                                                        <CountryFlag country={c.fromCountry} /> {c.fromCountry}
                                                     </span>
                                                 </td>
                                                 <td className="py-2.5 pr-4">
                                                     <span className="flex items-center gap-1.5 whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                                        <span>{c.toFlag}</span> {c.toCountry}
+                                                        <CountryFlag country={c.toCountry} /> {c.toCountry}
                                                     </span>
                                                 </td>
                                                 <td className="py-2.5 pr-4 whitespace-nowrap">
@@ -1059,9 +1068,9 @@ export default function BankingCardPaymentManagementPage() {
                             {topBankCorridors.map((c) => (
                                 <div key={c.id} className="rounded-lg border border-gray-200 p-3 dark:border-gray-700">
                                     <p className="flex items-center gap-1 text-sm font-medium text-gray-900 dark:text-white">
-                                        <span>{c.fromFlag}</span>
+                                        <CountryFlag country={c.fromCountry} />
                                         {c.fromCountry} <ArrowLeftRight size={11} className="text-gray-400" /> {c.toCountry}{' '}
-                                        <span>{c.toFlag}</span>
+                                        <CountryFlag country={c.toCountry} />
                                     </p>
                                     <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
                                         {c.fromCurrency} → {c.toCurrency}
@@ -1105,7 +1114,7 @@ export default function BankingCardPaymentManagementPage() {
                             {bankVerificationList.map((b) => (
                                 <div key={b.id} className="flex items-center justify-between text-xs">
                                     <span className="flex items-center gap-1.5 text-gray-700 dark:text-gray-200">
-                                        <span>{b.countryFlag}</span> {b.bankName}
+                                        <CountryFlag country={b.country} /> {b.bankName}
                                     </span>
                                     <StatusBadge status={b.status} />
                                 </div>

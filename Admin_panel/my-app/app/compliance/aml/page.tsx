@@ -15,7 +15,21 @@ import {
   AlertStatus,
 } from '@/lib/data';
 
+import { flagForCountryName } from '@/lib/countries_data';
+
+
 // ── helpers ───────────────────────────────────────────────────
+function CountryFlag({ country, size = 'w-4 h-4' }: { country: string; size?: string }) {
+  return (
+    <img
+      src={flagForCountryName(country)}
+      alt={country}
+      className={`${size} rounded-full object-cover inline-block shrink-0`}
+    />
+  );
+}
+
+
 const riskLevelClasses: Record<AlertRiskLevel, string> = {
   Low: 'bg-emerald-50 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400',
   Medium: 'bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-400',
@@ -72,7 +86,7 @@ function FilterBar({
 }) {
   return (
     <div className="flex flex-wrap items-center gap-2 px-4 py-3 border-b border-gray-100 dark:border-gray-700/60">
-      <div className="flex items-center gap-2 flex-1 min-w-[180px] border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-1.5">
+      <div className="flex items-center gap-2 flex-1 min-w-45 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-1.5">
         <Search size={14} className="text-gray-400 dark:text-gray-500" />
         <input
           value={search}
@@ -111,7 +125,7 @@ function AlertsTable({ rows, onView }: { rows: AmlMonitoringAlert[]; onView: (a:
   return (
     <>
       <div className="overflow-x-auto">
-        <table className="w-full text-left min-w-[1080px]">
+        <table className="w-full text-left min-w-270">
           <thead>
             <tr className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500 border-b border-gray-100 dark:border-gray-700/60">
               <th className="px-4 py-2.5 font-medium">Alert ID</th>
@@ -137,7 +151,7 @@ function AlertsTable({ rows, onView }: { rows: AmlMonitoringAlert[]; onView: (a:
                   <p className="text-[10px] text-gray-400 dark:text-gray-500">{r.customerId}</p>
                 </td>
                 <td className="px-2 py-2.5 whitespace-nowrap">
-                  <span className="inline-flex items-center gap-1.5 text-[12px] text-gray-600 dark:text-gray-300">{r.flag} {r.country}</span>
+                  <span className="inline-flex items-center gap-1.5 text-[12px] text-gray-600 dark:text-gray-300"><CountryFlag country={r.country} /> {r.country}</span>
                 </td>
                 <td className="px-2 py-2.5 whitespace-nowrap">
                   <p className="text-[13px] font-semibold text-gray-900 dark:text-white">{sym(r.currency)}{r.amount.toLocaleString()}</p>

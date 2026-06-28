@@ -17,7 +17,22 @@ import {
     ManagedBranchStatus,
 } from '@/lib/data';
 
+import { flagForCountryName } from '@/lib/countries_data';
+
+
 // ── helpers ───────────────────────────────────────────────────
+function CountryFlag({ country, size = 'w-4 h-4' }: { country: string; size?: string }) {
+    return (
+        <img
+            src={flagForCountryName(country)}
+            alt={country}
+            className={`${size} rounded-full object-cover inline-block shrink-0`}
+        />
+    );
+}
+
+
+
 const agentStatusClasses: Record<ManagedAgentStatus, string> = {
     Active: 'bg-emerald-50 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400',
     Inactive: 'bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-400',
@@ -182,7 +197,9 @@ function AgentsTable({ rows, onToggleStatus }: { rows: ManagedAgent[]; onToggleS
                                 </td>
                                 <td className="px-2 py-2.5 text-[12px] text-gray-600 dark:text-gray-300 whitespace-nowrap">{a.branch}</td>
                                 <td className="px-2 py-2.5 whitespace-nowrap">
-                                    <span className="inline-flex items-center gap-1.5 text-[12px] text-gray-600 dark:text-gray-300">{a.flag} {a.country}</span>
+                                    <span className="inline-flex items-center gap-2 text-[13px] font-medium text-gray-800 dark:text-gray-100">
+                                        <CountryFlag country={a.country} size="w-5 h-5" /> {a.country}
+                                    </span>
                                 </td>
                                 <td className="px-2 py-2.5 text-[12px] text-gray-600 dark:text-gray-300 whitespace-nowrap">{a.commissionRatePct}%</td>
                                 <td className="px-2 py-2.5 text-[12px] font-medium text-gray-900 dark:text-white whitespace-nowrap">{a.totalTransactions.toLocaleString()}</td>
@@ -245,7 +262,9 @@ function BranchesTable({ rows, onToggleStatus }: { rows: ManagedBranch[]; onTogg
                                 <td className="px-4 py-2.5 text-[13px] font-medium text-gray-800 dark:text-gray-100 whitespace-nowrap">{b.name}</td>
                                 <td className="px-2 py-2.5 text-[12px] text-gray-500 dark:text-gray-400 whitespace-nowrap font-mono">{b.code}</td>
                                 <td className="px-2 py-2.5 whitespace-nowrap">
-                                    <span className="inline-flex items-center gap-1.5 text-[12px] text-gray-600 dark:text-gray-300">{b.flag} {b.city}, {b.country}</span>
+                                    <span className="inline-flex items-center gap-2 text-[13px] font-medium text-gray-800 dark:text-gray-100">
+                                        <CountryFlag country={b.country} size="w-5 h-5" /> {b.country}
+                                    </span>
                                 </td>
                                 <td className="px-2 py-2.5 text-[12px] text-gray-600 dark:text-gray-300 whitespace-nowrap">{b.manager}</td>
                                 <td className="px-2 py-2.5 text-[12px] text-gray-600 dark:text-gray-300 whitespace-nowrap">{b.type}</td>
@@ -319,7 +338,7 @@ function AddAgentModal({
                         <select value={branch} onChange={e => setBranch(e.target.value)}
                             className="w-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 rounded-lg px-3 py-2 text-[13px] text-gray-700 dark:text-gray-200 cursor-pointer">
                             <option value="">Select branch</option>
-                            {branches.map(b => <option key={b.id} value={b.name}>{b.flag} {b.name}</option>)}
+                            {branches.map(b => <option key={b.id} value={b.name}>{b.name}</option>)}
                         </select>
                     </div>
                     <div>

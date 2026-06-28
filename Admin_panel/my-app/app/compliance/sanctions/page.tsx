@@ -17,7 +17,22 @@ import {
     ScreeningHitStatus,
 } from '@/lib/data';
 
+import { flagForCountryName } from '@/lib/countries_data';
+
+
 // ── helpers ───────────────────────────────────────────────────
+
+function CountryFlag({ country, size = 'w-4 h-4' }: { country: string; size?: string }) {
+    return (
+        <img
+            src={flagForCountryName(country)}
+            alt={country}
+            className={`${size} rounded-full object-cover inline-block shrink-0`}
+        />
+    );
+}
+
+
 const entityStatusClasses: Record<SanctionEntryStatus, string> = {
     Active: 'bg-red-50 text-red-600 dark:bg-red-950 dark:text-red-400',
     Removed: 'bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-400',
@@ -82,8 +97,8 @@ function PageTabs({ active, setActive }: { active: string; setActive: (v: string
                         key={tab}
                         onClick={() => setActive(tab)}
                         className={`pb-2.5 text-[13px] font-medium border-b-2 -mb-px transition-colors cursor-pointer whitespace-nowrap ${active === tab
-                                ? 'border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400'
-                                : 'border-transparent text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300'
+                            ? 'border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400'
+                            : 'border-transparent text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300'
                             }`}
                     >
                         {tab}
@@ -185,7 +200,7 @@ function SanctionsDatabaseTable({
                                 </td>
                                 <td className="px-2 py-2.5 text-[12px] text-gray-600 dark:text-gray-300 whitespace-nowrap">{e.type}</td>
                                 <td className="px-2 py-2.5 whitespace-nowrap">
-                                    <span className="inline-flex items-center gap-1.5 text-[12px] text-gray-600 dark:text-gray-300">{e.flag} {e.country}</span>
+                                    <span className="inline-flex items-center gap-1.5 text-[12px] text-gray-600 dark:text-gray-300"><CountryFlag country={e.country} /> {e.country}</span>
                                 </td>
                                 <td className="px-2 py-2.5 whitespace-nowrap">
                                     <span className={`text-[11px] font-medium px-2 py-0.5 rounded ${listSourceClasses[e.listSource]}`}>{e.listSource}</span>

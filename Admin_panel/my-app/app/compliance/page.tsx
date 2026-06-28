@@ -35,9 +35,27 @@ import {
     FraudCaseStatus,
 } from '@/lib/data';
 
+import { flagForCountryName } from '@/lib/countries_data';
+
+
+
+
 ChartJS.register(ArcElement, CategoryScale, LinearScale, PointElement, LineElement, ChartTooltip, Filler);
 
 // ── helpers ───────────────────────────────────────────────────
+
+function CountryFlag({ country, size = 'w-4 h-4' }: { country: string; size?: string }) {
+    return (
+        <img
+            src={flagForCountryName(country)}
+            alt={country}
+            className={`${size} rounded-full object-cover inline-block shrink-0`}
+        />
+    );
+}
+
+
+
 const riskLevelClasses: Record<AlertRiskLevel, string> = {
     Low: 'bg-emerald-50 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400',
     Medium: 'bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-400',
@@ -119,7 +137,7 @@ function StatCardsRow() {
                             <ArrowUpRight size={10} className={isUp ? '' : 'rotate-90'} />
                             {isUp ? '+' : ''}{c.changePct}% vs last 7 days
                         </p>
-                        <div className="h-[32px]">
+                        <div className="h-8">
                             <LineChartJS data={sparklineData(c.spark, c.color)} options={sparklineOptions} />
                         </div>
                     </div>
@@ -146,7 +164,7 @@ function DonutCard({
                 </button>
             </div>
             <div className="flex items-center gap-4">
-                <div className="relative w-[110px] h-[110px] shrink-0">
+                <div className="relative w-27.5 h-27.5 shrink-0">
                     <Doughnut data={chartData} options={donutOptions} />
                     <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                         <p className="text-[15px] font-bold text-gray-900 dark:text-white">{total.toLocaleString()}</p>
@@ -211,7 +229,7 @@ function TabbedTable() {
 function AmlAlertsTable({ rows }: { rows: AmlAlertRow[] }) {
     return (
         <div className="overflow-x-auto">
-            <table className="w-full text-left min-w-[1000px]">
+            <table className="w-full text-left min-w-250">
                 <thead>
                     <tr className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500 border-b border-gray-100 dark:border-gray-700/60">
                         <th className="px-4 py-2.5 font-medium">Alert ID</th>
@@ -234,7 +252,7 @@ function AmlAlertsTable({ rows }: { rows: AmlAlertRow[] }) {
                             <td className="px-2 py-2.5 text-[12px] text-gray-600 dark:text-gray-300 whitespace-nowrap">{r.transactionNo}</td>
                             <td className="px-2 py-2.5 text-[12px] text-gray-700 dark:text-gray-300 whitespace-nowrap">{r.customerName}</td>
                             <td className="px-2 py-2.5 whitespace-nowrap">
-                                <span className="inline-flex items-center gap-1.5 text-[12px] text-gray-600 dark:text-gray-300">{r.flag} {r.country}</span>
+                                <span className="inline-flex items-center gap-1.5 text-[12px] text-gray-600 dark:text-gray-300"><CountryFlag country={r.country}  /> {r.country}</span>
                             </td>
                             <td className="px-2 py-2.5 whitespace-nowrap">
                                 <p className="text-[13px] font-semibold text-gray-900 dark:text-white">{sym(r.currency)}{r.amount.toLocaleString()}</p>
@@ -340,7 +358,7 @@ function RecentFraudCasesCard() {
                 <button className="text-[11px] text-blue-600 dark:text-blue-400 hover:underline cursor-pointer">View All</button>
             </div>
             <div className="overflow-x-auto">
-                <table className="w-full text-left min-w-[420px]">
+                <table className="w-full text-left min-w-105">
                     <thead>
                         <tr className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500 border-b border-gray-100 dark:border-gray-700/60">
                             <th className="py-2 font-medium">Case ID</th>
@@ -378,7 +396,7 @@ function RecentAuditLogsCard() {
                 <button className="text-[11px] text-blue-600 dark:text-blue-400 hover:underline cursor-pointer">View All</button>
             </div>
             <div className="overflow-x-auto">
-                <table className="w-full text-left min-w-[460px]">
+                <table className="w-full text-left min-w-115">
                     <thead>
                         <tr className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500 border-b border-gray-100 dark:border-gray-700/60">
                             <th className="py-2 font-medium">Time</th>
@@ -414,7 +432,7 @@ function RiskAssessmentSummaryCard() {
                 <button className="text-[11px] text-blue-600 dark:text-blue-400 hover:underline cursor-pointer">View All</button>
             </div>
             <div className="overflow-x-auto">
-                <table className="w-full text-left min-w-[360px]">
+                <table className="w-full text-left min-w-90">
                     <thead>
                         <tr className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500 border-b border-gray-100 dark:border-gray-700/60">
                             <th className="py-2 font-medium">Risk Category</th>

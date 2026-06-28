@@ -16,8 +16,56 @@ import {
     FeeRuleStatus,
     PromotionStatus,
 } from '@/lib/data';
+import { flagForCountryName } from '@/lib/countries_data';
+
+
+
+
 
 // ── helpers ───────────────────────────────────────────────────
+const corridorCountryNameMap: Record<string, string> = {
+    UK: 'United Kingdom',
+    USA: 'United States',
+    UAE: 'UAE',
+    Bangladesh: 'Bangladesh',
+    Pakistan: 'Pakistan',
+    India: 'India',
+    'Saudi Arabia': 'Saudi Arabia',
+    Philippines: 'Philippines',
+    Nigeria: 'Nigeria',
+    Canada: 'Canada',
+};
+
+function CountryFlag({ country, size = 'w-4 h-4' }: { country: string; size?: string }) {
+    const mapped = corridorCountryNameMap[country] ?? country;
+    return (
+        <img
+            src={flagForCountryName(mapped)}
+            alt={country}
+            className={`${size} rounded-full object-cover inline-block shrink-0`}
+        />
+    );
+}
+
+// Renders the two flags + label for a corridor string like "UK → Bangladesh".
+function CorridorFlags({ corridor }: { corridor: string }) {
+    const parts = corridor.split('→').map(s => s.trim());
+    if (parts.length !== 2) {
+        return <span className="text-[13px] font-medium text-gray-800 dark:text-gray-100">{corridor}</span>;
+    }
+    return (
+        <span className="inline-flex items-center gap-1.5 text-[13px] font-medium text-gray-800 dark:text-gray-100">
+            <CountryFlag country={parts[0]} /> <CountryFlag country={parts[1]} /> {corridor}
+        </span>
+    );
+}
+
+
+
+
+
+
+
 const feeStatusClasses: Record<FeeRuleStatus, string> = {
     Active: 'bg-emerald-50 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400',
     Inactive: 'bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-400',
@@ -161,7 +209,7 @@ function FeeRulesTable({ rows, onToggleStatus }: { rows: ManagedFeeRule[]; onTog
     return (
         <>
             <div className="overflow-x-auto">
-                <table className="w-full text-left min-w-[860px]">
+                <table className="w-full text-left min-w-215">
                     <thead>
                         <tr className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500 border-b border-gray-100 dark:border-gray-700/60">
                             <th className="px-4 py-2.5 font-medium">Corridor</th>
@@ -177,9 +225,7 @@ function FeeRulesTable({ rows, onToggleStatus }: { rows: ManagedFeeRule[]; onTog
                         {pageRows.map(f => (
                             <tr key={f.id} className="border-b border-gray-50 dark:border-gray-700/40 last:border-0 hover:bg-gray-50/60 dark:hover:bg-gray-700/30">
                                 <td className="px-4 py-2.5 whitespace-nowrap">
-                                    <span className="inline-flex items-center gap-1.5 text-[13px] font-medium text-gray-800 dark:text-gray-100">
-                                        {f.sendingFlag} {f.receivingFlag} {f.corridor}
-                                    </span>
+                                    <CorridorFlags corridor={f.corridor} />
                                 </td>
                                 <td className="px-2 py-2.5 text-[12px] text-gray-600 dark:text-gray-300 whitespace-nowrap">{f.chargeType}</td>
                                 <td className="px-2 py-2.5 text-[13px] font-semibold text-gray-900 dark:text-white whitespace-nowrap">
@@ -228,7 +274,7 @@ function PromotionsTable({ rows, onToggleStatus }: { rows: ManagedPromotion[]; o
     return (
         <>
             <div className="overflow-x-auto">
-                <table className="w-full text-left min-w-[920px]">
+                <table className="w-full text-left min-w-230">
                     <thead>
                         <tr className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500 border-b border-gray-100 dark:border-gray-700/60">
                             <th className="px-4 py-2.5 font-medium">Promotion</th>
@@ -247,12 +293,12 @@ function PromotionsTable({ rows, onToggleStatus }: { rows: ManagedPromotion[]; o
                                 <tr key={p.id} className="border-b border-gray-50 dark:border-gray-700/40 last:border-0 hover:bg-gray-50/60 dark:hover:bg-gray-700/30">
                                     <td className="px-4 py-2.5 whitespace-nowrap">
                                         <p className="text-[13px] font-medium text-gray-800 dark:text-gray-100">{p.title}</p>
-                                        <p className="text-[10px] text-gray-400 dark:text-gray-500 max-w-[220px] truncate">{p.description}</p>
+                                        <p className="text-[10px] text-gray-400 dark:text-gray-500 max-w-55 truncate">{p.description}</p>
                                     </td>
                                     <td className="px-2 py-2.5 text-[12px] text-gray-600 dark:text-gray-300 whitespace-nowrap">{p.corridor}</td>
                                     <td className="px-2 py-2.5 text-[13px] font-semibold text-emerald-600 dark:text-emerald-400 whitespace-nowrap">{p.discountPct}%</td>
                                     <td className="px-2 py-2.5 text-[12px] text-gray-500 dark:text-gray-400 whitespace-nowrap">{p.startDate} – {p.endDate}</td>
-                                    <td className="px-2 py-2.5 whitespace-nowrap min-w-[110px]">
+                                    <td className="px-2 py-2.5 whitespace-nowrap min-w-27.5">
                                         <p className="text-[11px] text-gray-500 dark:text-gray-400 mb-1">{p.usageCount.toLocaleString()} / {p.usageLimit.toLocaleString()}</p>
                                         <div className="h-1.5 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden w-24">
                                             <div className="h-full bg-blue-500 rounded-full" style={{ width: `${usagePct}%` }} />

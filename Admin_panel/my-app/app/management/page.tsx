@@ -20,6 +20,18 @@ import {
     managementSystemSummary,
 } from '@/lib/data';
 
+import { flagForCountryName } from '@/lib/countries_data';
+
+function CountryFlag({ country, size = 'w-4 h-4' }: { country: string; size?: string }) {
+    return (
+        <img
+            src={flagForCountryName(country)}
+            alt={country}
+            className={`${size} rounded-full object-cover inline-block shrink-0`}
+        />
+    );
+}
+
 const TABS = ['Countries & Corridors', 'Agents & Branches', 'Exchange Rates', 'Fees & Charges'] as const;
 
 const categoryIcon: Record<string, React.ElementType> = {
@@ -92,13 +104,13 @@ function ManagementTabs({ active, setActive }: { active: string; setActive: (v: 
 // ── Popular Corridors table ────────────────────────────────────
 function PopularCorridorsCard() {
     return (
-        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4">
+        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 min-h-147.5">
             <div className="flex items-center justify-between mb-3">
                 <h3 className="text-[13px] font-semibold text-gray-800 dark:text-gray-100">Popular Corridors</h3>
                 <button className="text-[12px] text-blue-600 dark:text-blue-400 hover:underline cursor-pointer">View All</button>
             </div>
             <div className="overflow-x-auto">
-                <table className="w-full text-left min-w-[500px]">
+                <table className="w-full text-left min-w-125">
                     <thead>
                         <tr className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500 border-b border-gray-100 dark:border-gray-700/60">
                             <th className="py-2 font-medium">Sending Country</th>
@@ -112,10 +124,14 @@ function PopularCorridorsCard() {
                         {popularCorridorsManagement.map((c, i) => (
                             <tr key={i} className="border-b border-gray-50 dark:border-gray-700/40 last:border-0">
                                 <td className="py-2.5 text-[12px] text-gray-700 dark:text-gray-300 whitespace-nowrap">
-                                    <span className="inline-flex items-center gap-1.5">{c.sendingFlag} {c.sendingCountry}</span>
+                                    <span className="inline-flex items-center gap-1.5">
+                                        <CountryFlag country={c.sendingCountry} /> {c.sendingCountry}
+                                    </span>
                                 </td>
                                 <td className="py-2.5 text-[12px] text-gray-700 dark:text-gray-300 whitespace-nowrap">
-                                    <span className="inline-flex items-center gap-1.5">{c.receivingFlag} {c.receivingCountry}</span>
+                                    <span className="inline-flex items-center gap-1.5">
+                                        <CountryFlag country={c.receivingCountry} /> {c.receivingCountry}
+                                    </span>
                                 </td>
                                 <td className="py-2.5 text-[12px] text-gray-600 dark:text-gray-300 whitespace-nowrap">{c.currencyPair}</td>
                                 <td className="py-2.5 text-[12px] font-medium text-gray-900 dark:text-white whitespace-nowrap">{c.transactions.toLocaleString()}</td>
@@ -175,11 +191,18 @@ function WorldMapWidget() {
                 ))}
 
                 {/* tooltip */}
+                {/* tooltip */}
                 {hovered && (
                     <g pointerEvents="none">
                         <rect x={tooltipX} y={tooltipY} width={150} height={42} rx={6} className="fill-gray-900 dark:fill-gray-100" opacity={0.95} />
-                        <text x={tooltipX + 10} y={tooltipY + 17} className="fill-white dark:fill-gray-900" style={{ fontSize: 12, fontWeight: 600 }}>
-                            {hovered.flag} {hovered.name}
+                        <image
+                            href={flagForCountryName(hovered.name)}
+                            x={tooltipX + 10} y={tooltipY + 7}
+                            width={14} height={14}
+                            clipPath="circle(7px)"
+                        />
+                        <text x={tooltipX + 28} y={tooltipY + 17} className="fill-white dark:fill-gray-900" style={{ fontSize: 12, fontWeight: 600 }}>
+                            {hovered.name}
                         </text>
                         <text x={tooltipX + 10} y={tooltipY + 32} className="fill-gray-300 dark:fill-gray-600" style={{ fontSize: 10 }}>
                             {hovered.transactions.toLocaleString()} transactions
@@ -226,7 +249,7 @@ function TopAgentsCard() {
                 <button className="text-[11px] text-blue-600 dark:text-blue-400 hover:underline cursor-pointer">View All</button>
             </div>
             <div className="overflow-x-auto">
-                <table className="w-full text-left min-w-[260px]">
+                <table className="w-full text-left min-w-65">
                     <thead>
                         <tr className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500 border-b border-gray-100 dark:border-gray-700/60">
                             <th className="py-2 font-medium">Agent Name</th>
@@ -258,7 +281,7 @@ function RecentRatesCard() {
                 <button className="text-[11px] text-blue-600 dark:text-blue-400 hover:underline cursor-pointer">View All</button>
             </div>
             <div className="overflow-x-auto">
-                <table className="w-full text-left min-w-[280px]">
+                <table className="w-full text-left min-w-70">
                     <thead>
                         <tr className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500 border-b border-gray-100 dark:border-gray-700/60">
                             <th className="py-2 font-medium">From</th>
@@ -294,7 +317,7 @@ function ActiveFeesCard() {
                 <button className="text-[11px] text-blue-600 dark:text-blue-400 hover:underline cursor-pointer">View All</button>
             </div>
             <div className="overflow-x-auto">
-                <table className="w-full text-left min-w-[260px]">
+                <table className="w-full text-left min-w-65">
                     <thead>
                         <tr className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500 border-b border-gray-100 dark:border-gray-700/60">
                             <th className="py-2 font-medium">Corridor</th>

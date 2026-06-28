@@ -1056,14 +1056,23 @@ export const customersData: Customer[] = [
   },
 ];
 
-
 // ============================================================
 // CUSTOMERS — DOCUMENTS — DATA, TYPES & CONSTANTS
 // Append this block into lib/data.ts
 // ============================================================
 
-export type CustDocType = "National ID" | "Passport" | "Driving License" | "Proof of Address" | "Selfie Match" | "Source of Funds";
-export type CustDocStatus = "Verified" | "Pending Review" | "Rejected" | "Expired";
+export type CustDocType =
+  | 'National ID'
+  | 'Passport'
+  | 'Driving License'
+  | 'Proof of Address'
+  | 'Selfie Match'
+  | 'Source of Funds';
+export type CustDocStatus =
+  | 'Verified'
+  | 'Pending Review'
+  | 'Rejected'
+  | 'Expired';
 
 export interface CustomerDocumentRecord {
   id: string;
@@ -1081,153 +1090,181 @@ export interface CustomerDocumentRecord {
 }
 
 export const custDocStatusBadge: Record<CustDocStatus, string> = {
-  Verified: "bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400",
-  "Pending Review": "bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400",
-  Rejected: "bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400",
-  Expired: "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300",
+  Verified:
+    'bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400',
+  'Pending Review':
+    'bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400',
+  Rejected: 'bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400',
+  Expired: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300',
 };
 
 export const custDocStatusDot: Record<CustDocStatus, string> = {
-  Verified: "bg-green-500",
-  "Pending Review": "bg-amber-500",
-  Rejected: "bg-red-500",
-  Expired: "bg-slate-400",
+  Verified: 'bg-green-500',
+  'Pending Review': 'bg-amber-500',
+  Rejected: 'bg-red-500',
+  Expired: 'bg-slate-400',
 };
 
 export const custDocTypeOptions: CustDocType[] = [
-  "National ID",
-  "Passport",
-  "Driving License",
-  "Proof of Address",
-  "Selfie Match",
-  "Source of Funds",
+  'National ID',
+  'Passport',
+  'Driving License',
+  'Proof of Address',
+  'Selfie Match',
+  'Source of Funds',
 ];
 
-export const custDocStatusOptions: CustDocStatus[] = ["Verified", "Pending Review", "Rejected", "Expired"];
+export const custDocStatusOptions: CustDocStatus[] = [
+  'Verified',
+  'Pending Review',
+  'Rejected',
+  'Expired',
+];
 
 export interface CustDocStat {
   id: string;
   label: string;
   value: string;
-  icon: "total" | "verified" | "pending" | "rejected";
+  icon: 'total' | 'verified' | 'pending' | 'rejected';
 }
 
 export const custDocStats: CustDocStat[] = [
-  { id: "doc-stat-total", label: "Total Documents", value: "1,284", icon: "total" },
-  { id: "doc-stat-verified", label: "Verified", value: "1,062", icon: "verified" },
-  { id: "doc-stat-pending", label: "Pending Review", value: "164", icon: "pending" },
-  { id: "doc-stat-rejected", label: "Rejected / Expired", value: "58", icon: "rejected" },
+  {
+    id: 'doc-stat-total',
+    label: 'Total Documents',
+    value: '1,284',
+    icon: 'total',
+  },
+  {
+    id: 'doc-stat-verified',
+    label: 'Verified',
+    value: '1,062',
+    icon: 'verified',
+  },
+  {
+    id: 'doc-stat-pending',
+    label: 'Pending Review',
+    value: '164',
+    icon: 'pending',
+  },
+  {
+    id: 'doc-stat-rejected',
+    label: 'Rejected / Expired',
+    value: '58',
+    icon: 'rejected',
+  },
 ];
 
 export const customerDocumentsData: CustomerDocumentRecord[] = [
   {
-    id: "doc-1",
-    customerId: "CUST_4821",
-    customerName: "Kamal Hossain",
-    customerAvatar: "https://i.pravatar.cc/40?img=21",
-    docType: "National ID",
-    fileName: "nid_front_back.pdf",
+    id: 'doc-1',
+    customerId: 'CUST_4821',
+    customerName: 'Kamal Hossain',
+    customerAvatar: 'https://i.pravatar.cc/40?img=21',
+    docType: 'National ID',
+    fileName: 'nid_front_back.pdf',
     fileSizeKb: 842,
-    status: "Verified",
-    uploadedAt: "May 10, 2025",
-    reviewedBy: "Admin Rahman",
+    status: 'Verified',
+    uploadedAt: 'May 10, 2025',
+    reviewedBy: 'Admin Rahman',
     expiresAt: null,
     rejectionReason: null,
   },
   {
-    id: "doc-2",
-    customerId: "CUST_4821",
-    customerName: "Kamal Hossain",
-    customerAvatar: "https://i.pravatar.cc/40?img=21",
-    docType: "Selfie Match",
-    fileName: "selfie_verification.jpg",
+    id: 'doc-2',
+    customerId: 'CUST_4821',
+    customerName: 'Kamal Hossain',
+    customerAvatar: 'https://i.pravatar.cc/40?img=21',
+    docType: 'Selfie Match',
+    fileName: 'selfie_verification.jpg',
     fileSizeKb: 312,
-    status: "Verified",
-    uploadedAt: "May 10, 2025",
-    reviewedBy: "Admin Rahman",
+    status: 'Verified',
+    uploadedAt: 'May 10, 2025',
+    reviewedBy: 'Admin Rahman',
     expiresAt: null,
     rejectionReason: null,
   },
   {
-    id: "doc-3",
-    customerId: "CUST_3390",
-    customerName: "Nusrat Jahan",
-    customerAvatar: "https://i.pravatar.cc/40?img=22",
-    docType: "Passport",
-    fileName: "passport_scan.pdf",
+    id: 'doc-3',
+    customerId: 'CUST_3390',
+    customerName: 'Nusrat Jahan',
+    customerAvatar: 'https://i.pravatar.cc/40?img=22',
+    docType: 'Passport',
+    fileName: 'passport_scan.pdf',
     fileSizeKb: 1204,
-    status: "Pending Review",
-    uploadedAt: "May 12, 2025",
+    status: 'Pending Review',
+    uploadedAt: 'May 12, 2025',
     reviewedBy: null,
-    expiresAt: "Mar 2030",
+    expiresAt: 'Mar 2030',
     rejectionReason: null,
   },
   {
-    id: "doc-4",
-    customerId: "CUST_3390",
-    customerName: "Nusrat Jahan",
-    customerAvatar: "https://i.pravatar.cc/40?img=22",
-    docType: "Proof of Address",
-    fileName: "utility_bill_april.pdf",
+    id: 'doc-4',
+    customerId: 'CUST_3390',
+    customerName: 'Nusrat Jahan',
+    customerAvatar: 'https://i.pravatar.cc/40?img=22',
+    docType: 'Proof of Address',
+    fileName: 'utility_bill_april.pdf',
     fileSizeKb: 540,
-    status: "Pending Review",
-    uploadedAt: "May 12, 2025",
+    status: 'Pending Review',
+    uploadedAt: 'May 12, 2025',
     reviewedBy: null,
     expiresAt: null,
     rejectionReason: null,
   },
   {
-    id: "doc-5",
-    customerId: "CUST_5512",
-    customerName: "Rahim Auto Parts Ltd.",
-    customerAvatar: "https://i.pravatar.cc/40?img=23",
-    docType: "Source of Funds",
-    fileName: "bank_statement_q1.pdf",
+    id: 'doc-5',
+    customerId: 'CUST_5512',
+    customerName: 'Rahim Auto Parts Ltd.',
+    customerAvatar: 'https://i.pravatar.cc/40?img=23',
+    docType: 'Source of Funds',
+    fileName: 'bank_statement_q1.pdf',
     fileSizeKb: 2048,
-    status: "Rejected",
-    uploadedAt: "May 8, 2025",
-    reviewedBy: "Compliance Team",
+    status: 'Rejected',
+    uploadedAt: 'May 8, 2025',
+    reviewedBy: 'Compliance Team',
     expiresAt: null,
-    rejectionReason: "Document is blurry and account holder name does not match registered business name.",
+    rejectionReason:
+      'Document is blurry and account holder name does not match registered business name.',
   },
   {
-    id: "doc-6",
-    customerId: "CUST_2207",
-    customerName: "Sultana Begum",
-    customerAvatar: "https://i.pravatar.cc/40?img=24",
-    docType: "National ID",
-    fileName: "nid_card.jpg",
+    id: 'doc-6',
+    customerId: 'CUST_2207',
+    customerName: 'Sultana Begum',
+    customerAvatar: 'https://i.pravatar.cc/40?img=24',
+    docType: 'National ID',
+    fileName: 'nid_card.jpg',
     fileSizeKb: 488,
-    status: "Expired",
-    uploadedAt: "Jan 15, 2023",
-    reviewedBy: "System",
-    expiresAt: "Jan 15, 2025",
+    status: 'Expired',
+    uploadedAt: 'Jan 15, 2023',
+    reviewedBy: 'System',
+    expiresAt: 'Jan 15, 2025',
     rejectionReason: null,
   },
   {
-    id: "doc-7",
-    customerId: "CUST_6650",
-    customerName: "Bashundhara Traders",
-    customerAvatar: "https://i.pravatar.cc/40?img=25",
-    docType: "Driving License",
-    fileName: "driving_license.pdf",
+    id: 'doc-7',
+    customerId: 'CUST_6650',
+    customerName: 'Bashundhara Traders',
+    customerAvatar: 'https://i.pravatar.cc/40?img=25',
+    docType: 'Driving License',
+    fileName: 'driving_license.pdf',
     fileSizeKb: 690,
-    status: "Verified",
-    uploadedAt: "Apr 28, 2025",
-    reviewedBy: "Admin Rahman",
-    expiresAt: "Apr 2029",
+    status: 'Verified',
+    uploadedAt: 'Apr 28, 2025',
+    reviewedBy: 'Admin Rahman',
+    expiresAt: 'Apr 2029',
     rejectionReason: null,
   },
   {
-    id: "doc-8",
-    customerId: "CUST_8841",
-    customerName: "Tanvir Ahmed",
-    customerAvatar: "https://i.pravatar.cc/40?img=26",
-    docType: "Proof of Address",
-    fileName: "address_proof.pdf",
+    id: 'doc-8',
+    customerId: 'CUST_8841',
+    customerName: 'Tanvir Ahmed',
+    customerAvatar: 'https://i.pravatar.cc/40?img=26',
+    docType: 'Proof of Address',
+    fileName: 'address_proof.pdf',
     fileSizeKb: 720,
-    status: "Pending Review",
-    uploadedAt: "May 13, 2025",
+    status: 'Pending Review',
+    uploadedAt: 'May 13, 2025',
     reviewedBy: null,
     expiresAt: null,
     rejectionReason: null,
@@ -1236,16 +1273,17 @@ export const customerDocumentsData: CustomerDocumentRecord[] = [
 
 export const customerDocumentsTotalCount = 1284;
 
-
-
-
-
 // ============================================================
 // CUSTOMERS — NOTES — DATA, TYPES & CONSTANTS
 // Append this block into lib/data.ts
 // ============================================================
 
-export type CustNoteCategory = "General" | "Risk" | "Support" | "Compliance" | "Sales";
+export type CustNoteCategory =
+  | 'General'
+  | 'Risk'
+  | 'Support'
+  | 'Compliance'
+  | 'Sales';
 
 export interface CustomerNoteRecord {
   id: string;
@@ -1261,131 +1299,161 @@ export interface CustomerNoteRecord {
 }
 
 export const custNoteCategoryBadge: Record<CustNoteCategory, string> = {
-  General: "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300",
-  Risk: "bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400",
-  Support: "bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400",
-  Compliance: "bg-purple-100 text-purple-700 dark:bg-purple-500/10 dark:text-purple-400",
-  Sales: "bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400",
+  General: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300',
+  Risk: 'bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400',
+  Support: 'bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400',
+  Compliance:
+    'bg-purple-100 text-purple-700 dark:bg-purple-500/10 dark:text-purple-400',
+  Sales: 'bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400',
 };
 
-export const custNoteCategoryOptions: CustNoteCategory[] = ["General", "Risk", "Support", "Compliance", "Sales"];
+export const custNoteCategoryOptions: CustNoteCategory[] = [
+  'General',
+  'Risk',
+  'Support',
+  'Compliance',
+  'Sales',
+];
 
 export interface CustNoteStat {
   id: string;
   label: string;
   value: string;
-  icon: "total" | "pinned" | "risk" | "customers";
+  icon: 'total' | 'pinned' | 'risk' | 'customers';
 }
 
 export const custNoteStats: CustNoteStat[] = [
-  { id: "note-stat-total", label: "Total Notes", value: "342", icon: "total" },
-  { id: "note-stat-pinned", label: "Pinned Notes", value: "18", icon: "pinned" },
-  { id: "note-stat-risk", label: "Risk Flags", value: "12", icon: "risk" },
-  { id: "note-stat-customers", label: "Customers with Notes", value: "186", icon: "customers" },
+  { id: 'note-stat-total', label: 'Total Notes', value: '342', icon: 'total' },
+  {
+    id: 'note-stat-pinned',
+    label: 'Pinned Notes',
+    value: '18',
+    icon: 'pinned',
+  },
+  { id: 'note-stat-risk', label: 'Risk Flags', value: '12', icon: 'risk' },
+  {
+    id: 'note-stat-customers',
+    label: 'Customers with Notes',
+    value: '186',
+    icon: 'customers',
+  },
 ];
 
 export const customerNotesData: CustomerNoteRecord[] = [
   {
-    id: "note-1",
-    customerId: "CUST_4821",
-    customerName: "Kamal Hossain",
-    customerAvatar: "https://i.pravatar.cc/40?img=21",
-    category: "Support",
-    content: "Customer called regarding a delayed transfer to a Dubai recipient. Issue was on the partner bank's side; resolved within 2 hours. Customer was satisfied with the follow-up call.",
-    authorName: "Admin Rahman",
-    authorAvatar: "https://i.pravatar.cc/40?img=12",
+    id: 'note-1',
+    customerId: 'CUST_4821',
+    customerName: 'Kamal Hossain',
+    customerAvatar: 'https://i.pravatar.cc/40?img=21',
+    category: 'Support',
+    content:
+      "Customer called regarding a delayed transfer to a Dubai recipient. Issue was on the partner bank's side; resolved within 2 hours. Customer was satisfied with the follow-up call.",
+    authorName: 'Admin Rahman',
+    authorAvatar: 'https://i.pravatar.cc/40?img=12',
     isPinned: false,
-    createdAt: "May 12, 2025 — 10:15 AM",
+    createdAt: 'May 12, 2025 — 10:15 AM',
   },
   {
-    id: "note-2",
-    customerId: "CUST_3390",
-    customerName: "Nusrat Jahan",
-    customerAvatar: "https://i.pravatar.cc/40?img=22",
-    category: "Risk",
-    content: "Unusual transaction velocity detected — 6 transfers within 1 hour, each just under the manual review threshold. Flagged for AML monitoring. Customer profile does not indicate business use.",
-    authorName: "Compliance Team",
-    authorAvatar: "https://i.pravatar.cc/40?img=30",
+    id: 'note-2',
+    customerId: 'CUST_3390',
+    customerName: 'Nusrat Jahan',
+    customerAvatar: 'https://i.pravatar.cc/40?img=22',
+    category: 'Risk',
+    content:
+      'Unusual transaction velocity detected — 6 transfers within 1 hour, each just under the manual review threshold. Flagged for AML monitoring. Customer profile does not indicate business use.',
+    authorName: 'Compliance Team',
+    authorAvatar: 'https://i.pravatar.cc/40?img=30',
     isPinned: true,
-    createdAt: "May 11, 2025 — 4:42 PM",
+    createdAt: 'May 11, 2025 — 4:42 PM',
   },
   {
-    id: "note-3",
-    customerId: "CUST_5512",
-    customerName: "Rahim Auto Parts Ltd.",
-    customerAvatar: "https://i.pravatar.cc/40?img=23",
-    category: "Compliance",
-    content: "Source of funds document rejected twice due to name mismatch. Customer has been asked to provide a document that matches their registered business name exactly.",
-    authorName: "Compliance Team",
-    authorAvatar: "https://i.pravatar.cc/40?img=30",
+    id: 'note-3',
+    customerId: 'CUST_5512',
+    customerName: 'Rahim Auto Parts Ltd.',
+    customerAvatar: 'https://i.pravatar.cc/40?img=23',
+    category: 'Compliance',
+    content:
+      'Source of funds document rejected twice due to name mismatch. Customer has been asked to provide a document that matches their registered business name exactly.',
+    authorName: 'Compliance Team',
+    authorAvatar: 'https://i.pravatar.cc/40?img=30',
     isPinned: true,
-    createdAt: "May 8, 2025 — 11:20 AM",
+    createdAt: 'May 8, 2025 — 11:20 AM',
   },
   {
-    id: "note-4",
-    customerId: "CUST_2207",
-    customerName: "Sultana Begum",
-    customerAvatar: "https://i.pravatar.cc/40?img=24",
-    category: "General",
-    content: "Customer prefers communication in Bengali. Updated language preference on the account.",
-    authorName: "Admin Rahman",
-    authorAvatar: "https://i.pravatar.cc/40?img=12",
+    id: 'note-4',
+    customerId: 'CUST_2207',
+    customerName: 'Sultana Begum',
+    customerAvatar: 'https://i.pravatar.cc/40?img=24',
+    category: 'General',
+    content:
+      'Customer prefers communication in Bengali. Updated language preference on the account.',
+    authorName: 'Admin Rahman',
+    authorAvatar: 'https://i.pravatar.cc/40?img=12',
     isPinned: false,
-    createdAt: "May 6, 2025 — 9:05 AM",
+    createdAt: 'May 6, 2025 — 9:05 AM',
   },
   {
-    id: "note-5",
-    customerId: "CUST_6650",
-    customerName: "Bashundhara Traders",
-    customerAvatar: "https://i.pravatar.cc/40?img=25",
-    category: "Sales",
-    content: "High-volume merchant — averaging $45K in monthly transaction value. Reached out about upgrading to the Enhanced KYC tier for a higher transaction limit; awaiting response.",
-    authorName: "Operations",
-    authorAvatar: "https://i.pravatar.cc/40?img=16",
+    id: 'note-5',
+    customerId: 'CUST_6650',
+    customerName: 'Bashundhara Traders',
+    customerAvatar: 'https://i.pravatar.cc/40?img=25',
+    category: 'Sales',
+    content:
+      'High-volume merchant — averaging $45K in monthly transaction value. Reached out about upgrading to the Enhanced KYC tier for a higher transaction limit; awaiting response.',
+    authorName: 'Operations',
+    authorAvatar: 'https://i.pravatar.cc/40?img=16',
     isPinned: false,
-    createdAt: "May 4, 2025 — 2:30 PM",
+    createdAt: 'May 4, 2025 — 2:30 PM',
   },
   {
-    id: "note-6",
-    customerId: "CUST_8841",
-    customerName: "Tanvir Ahmed",
-    customerAvatar: "https://i.pravatar.cc/40?img=26",
-    category: "Risk",
-    content: "Customer disputed a card payment claiming it was unauthorized. Refund processed pending investigation. Monitoring account for further disputes.",
-    authorName: "Admin Rahman",
-    authorAvatar: "https://i.pravatar.cc/40?img=12",
+    id: 'note-6',
+    customerId: 'CUST_8841',
+    customerName: 'Tanvir Ahmed',
+    customerAvatar: 'https://i.pravatar.cc/40?img=26',
+    category: 'Risk',
+    content:
+      'Customer disputed a card payment claiming it was unauthorized. Refund processed pending investigation. Monitoring account for further disputes.',
+    authorName: 'Admin Rahman',
+    authorAvatar: 'https://i.pravatar.cc/40?img=12',
     isPinned: false,
-    createdAt: "May 2, 2025 — 5:55 PM",
+    createdAt: 'May 2, 2025 — 5:55 PM',
   },
   {
-    id: "note-7",
-    customerId: "CUST_4821",
-    customerName: "Kamal Hossain",
-    customerAvatar: "https://i.pravatar.cc/40?img=21",
-    category: "General",
-    content: "Long-time customer (since 2021). Generally low-risk, consistent usage pattern, no prior incidents.",
-    authorName: "Operations",
-    authorAvatar: "https://i.pravatar.cc/40?img=16",
+    id: 'note-7',
+    customerId: 'CUST_4821',
+    customerName: 'Kamal Hossain',
+    customerAvatar: 'https://i.pravatar.cc/40?img=21',
+    category: 'General',
+    content:
+      'Long-time customer (since 2021). Generally low-risk, consistent usage pattern, no prior incidents.',
+    authorName: 'Operations',
+    authorAvatar: 'https://i.pravatar.cc/40?img=16',
     isPinned: false,
-    createdAt: "Apr 28, 2025 — 3:10 PM",
+    createdAt: 'Apr 28, 2025 — 3:10 PM',
   },
 ];
 
 export const customerNotesTotalCount = 342;
-
-
-
-
-
 
 // ============================================================
 // CUSTOMERS — BLACKLIST — DATA, TYPES & CONSTANTS
 // Append this block into lib/data.ts
 // ============================================================
 
-export type BlacklistEntryType = "Customer Account" | "Phone Number" | "National ID" | "Device" | "Bank Account";
-export type BlacklistReason = "Fraud" | "AML / Sanctions Match" | "Chargeback Abuse" | "Multiple Accounts" | "Suspicious Activity" | "Other";
-export type BlacklistStatus = "Active" | "Under Review" | "Lifted";
+export type BlacklistEntryType =
+  | 'Customer Account'
+  | 'Phone Number'
+  | 'National ID'
+  | 'Device'
+  | 'Bank Account';
+export type BlacklistReason =
+  | 'Fraud'
+  | 'AML / Sanctions Match'
+  | 'Chargeback Abuse'
+  | 'Multiple Accounts'
+  | 'Suspicious Activity'
+  | 'Other';
+export type BlacklistStatus = 'Active' | 'Under Review' | 'Lifted';
 
 export interface BlacklistEntry {
   id: string;
@@ -1401,172 +1469,202 @@ export interface BlacklistEntry {
 }
 
 export const blacklistStatusBadge: Record<BlacklistStatus, string> = {
-  Active: "bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400",
-  "Under Review": "bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400",
-  Lifted: "bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400",
+  Active: 'bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400',
+  'Under Review':
+    'bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400',
+  Lifted:
+    'bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400',
 };
 
 export const blacklistStatusDot: Record<BlacklistStatus, string> = {
-  Active: "bg-red-500",
-  "Under Review": "bg-amber-500",
-  Lifted: "bg-green-500",
+  Active: 'bg-red-500',
+  'Under Review': 'bg-amber-500',
+  Lifted: 'bg-green-500',
 };
 
 export const blacklistReasonBadge: Record<BlacklistReason, string> = {
-  Fraud: "bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400",
-  "AML / Sanctions Match": "bg-purple-50 text-purple-600 dark:bg-purple-500/10 dark:text-purple-400",
-  "Chargeback Abuse": "bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400",
-  "Multiple Accounts": "bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400",
-  "Suspicious Activity": "bg-orange-50 text-orange-600 dark:bg-orange-500/10 dark:text-orange-400",
-  Other: "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300",
+  Fraud: 'bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400',
+  'AML / Sanctions Match':
+    'bg-purple-50 text-purple-600 dark:bg-purple-500/10 dark:text-purple-400',
+  'Chargeback Abuse':
+    'bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400',
+  'Multiple Accounts':
+    'bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400',
+  'Suspicious Activity':
+    'bg-orange-50 text-orange-600 dark:bg-orange-500/10 dark:text-orange-400',
+  Other: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300',
 };
 
 export const blacklistEntryTypeOptions: BlacklistEntryType[] = [
-  "Customer Account",
-  "Phone Number",
-  "National ID",
-  "Device",
-  "Bank Account",
+  'Customer Account',
+  'Phone Number',
+  'National ID',
+  'Device',
+  'Bank Account',
 ];
 
 export const blacklistReasonOptions: BlacklistReason[] = [
-  "Fraud",
-  "AML / Sanctions Match",
-  "Chargeback Abuse",
-  "Multiple Accounts",
-  "Suspicious Activity",
-  "Other",
+  'Fraud',
+  'AML / Sanctions Match',
+  'Chargeback Abuse',
+  'Multiple Accounts',
+  'Suspicious Activity',
+  'Other',
 ];
 
-export const blacklistStatusOptions: BlacklistStatus[] = ["Active", "Under Review", "Lifted"];
+export const blacklistStatusOptions: BlacklistStatus[] = [
+  'Active',
+  'Under Review',
+  'Lifted',
+];
 
 export interface BlacklistStat {
   id: string;
   label: string;
   value: string;
-  icon: "total" | "active" | "review" | "lifted";
+  icon: 'total' | 'active' | 'review' | 'lifted';
 }
 
 export const blacklistStats: BlacklistStat[] = [
-  { id: "bl-stat-total", label: "Total Entries", value: "47", icon: "total" },
-  { id: "bl-stat-active", label: "Active Blacklist", value: "38", icon: "active" },
-  { id: "bl-stat-review", label: "Under Review", value: "6", icon: "review" },
-  { id: "bl-stat-lifted", label: "Lifted", value: "3", icon: "lifted" },
+  { id: 'bl-stat-total', label: 'Total Entries', value: '47', icon: 'total' },
+  {
+    id: 'bl-stat-active',
+    label: 'Active Blacklist',
+    value: '38',
+    icon: 'active',
+  },
+  { id: 'bl-stat-review', label: 'Under Review', value: '6', icon: 'review' },
+  { id: 'bl-stat-lifted', label: 'Lifted', value: '3', icon: 'lifted' },
 ];
 
 export const blacklistData: BlacklistEntry[] = [
   {
-    id: "bl-1",
-    entryType: "Customer Account",
-    identifier: "CUST_9921",
-    relatedCustomerName: "Jasim Uddin",
-    reason: "Fraud",
-    notes: "Used stolen card details to fund wallet on three separate occasions. Account permanently restricted.",
-    status: "Active",
-    blacklistedBy: "Compliance Team",
-    blacklistedAt: "Apr 22, 2025",
+    id: 'bl-1',
+    entryType: 'Customer Account',
+    identifier: 'CUST_9921',
+    relatedCustomerName: 'Jasim Uddin',
+    reason: 'Fraud',
+    notes:
+      'Used stolen card details to fund wallet on three separate occasions. Account permanently restricted.',
+    status: 'Active',
+    blacklistedBy: 'Compliance Team',
+    blacklistedAt: 'Apr 22, 2025',
     reviewDate: null,
   },
   {
-    id: "bl-2",
-    entryType: "Phone Number",
-    identifier: "+8801911223344",
+    id: 'bl-2',
+    entryType: 'Phone Number',
+    identifier: '+8801911223344',
     relatedCustomerName: null,
-    reason: "Suspicious Activity",
-    notes: "Number associated with 14 failed OTP attempts across different accounts within 24 hours.",
-    status: "Active",
-    blacklistedBy: "System (Auto-flagged)",
-    blacklistedAt: "May 9, 2025",
-    reviewDate: "Jun 9, 2025",
+    reason: 'Suspicious Activity',
+    notes:
+      'Number associated with 14 failed OTP attempts across different accounts within 24 hours.',
+    status: 'Active',
+    blacklistedBy: 'System (Auto-flagged)',
+    blacklistedAt: 'May 9, 2025',
+    reviewDate: 'Jun 9, 2025',
   },
   {
-    id: "bl-3",
-    entryType: "National ID",
-    identifier: "1992XXXXXXXXX481",
-    relatedCustomerName: "Forhad Khan",
-    reason: "AML / Sanctions Match",
-    notes: "Name partially matched a watchlist entry. Confirmed after manual review — high confidence match.",
-    status: "Active",
-    blacklistedBy: "Compliance Team",
-    blacklistedAt: "Mar 30, 2025",
+    id: 'bl-3',
+    entryType: 'National ID',
+    identifier: '1992XXXXXXXXX481',
+    relatedCustomerName: 'Forhad Khan',
+    reason: 'AML / Sanctions Match',
+    notes:
+      'Name partially matched a watchlist entry. Confirmed after manual review — high confidence match.',
+    status: 'Active',
+    blacklistedBy: 'Compliance Team',
+    blacklistedAt: 'Mar 30, 2025',
     reviewDate: null,
   },
   {
-    id: "bl-4",
-    entryType: "Customer Account",
-    identifier: "CUST_7732",
-    relatedCustomerName: "Mehedi Hasan",
-    reason: "Chargeback Abuse",
-    notes: "Filed 5 chargebacks in 2 months, all disputed and ruled in merchant's favor. Pattern indicates abuse.",
-    status: "Under Review",
-    blacklistedBy: "Admin Rahman",
-    blacklistedAt: "May 5, 2025",
-    reviewDate: "May 20, 2025",
+    id: 'bl-4',
+    entryType: 'Customer Account',
+    identifier: 'CUST_7732',
+    relatedCustomerName: 'Mehedi Hasan',
+    reason: 'Chargeback Abuse',
+    notes:
+      "Filed 5 chargebacks in 2 months, all disputed and ruled in merchant's favor. Pattern indicates abuse.",
+    status: 'Under Review',
+    blacklistedBy: 'Admin Rahman',
+    blacklistedAt: 'May 5, 2025',
+    reviewDate: 'May 20, 2025',
   },
   {
-    id: "bl-5",
-    entryType: "Device",
-    identifier: "DEVICE_a93f7c21",
+    id: 'bl-5',
+    entryType: 'Device',
+    identifier: 'DEVICE_a93f7c21',
     relatedCustomerName: null,
-    reason: "Multiple Accounts",
-    notes: "Same device fingerprint used to register 8 different customer accounts within one week.",
-    status: "Active",
-    blacklistedBy: "System (Auto-flagged)",
-    blacklistedAt: "Apr 18, 2025",
+    reason: 'Multiple Accounts',
+    notes:
+      'Same device fingerprint used to register 8 different customer accounts within one week.',
+    status: 'Active',
+    blacklistedBy: 'System (Auto-flagged)',
+    blacklistedAt: 'Apr 18, 2025',
     reviewDate: null,
   },
   {
-    id: "bl-6",
-    entryType: "Bank Account",
-    identifier: "BANK_AC_4456****2210",
-    relatedCustomerName: "Liton Das",
-    reason: "Fraud",
-    notes: "Linked bank account flagged by partner bank for involvement in a prior fraud investigation.",
-    status: "Under Review",
-    blacklistedBy: "Compliance Team",
-    blacklistedAt: "May 1, 2025",
-    reviewDate: "May 15, 2025",
+    id: 'bl-6',
+    entryType: 'Bank Account',
+    identifier: 'BANK_AC_4456****2210',
+    relatedCustomerName: 'Liton Das',
+    reason: 'Fraud',
+    notes:
+      'Linked bank account flagged by partner bank for involvement in a prior fraud investigation.',
+    status: 'Under Review',
+    blacklistedBy: 'Compliance Team',
+    blacklistedAt: 'May 1, 2025',
+    reviewDate: 'May 15, 2025',
   },
   {
-    id: "bl-7",
-    entryType: "Phone Number",
-    identifier: "+8801755667788",
-    relatedCustomerName: "Shirin Akter",
-    reason: "Other",
-    notes: "Customer requested voluntary account closure and number blacklist after identity theft concern. Lifted after identity was re-verified.",
-    status: "Lifted",
-    blacklistedBy: "Admin Rahman",
-    blacklistedAt: "Feb 12, 2025",
+    id: 'bl-7',
+    entryType: 'Phone Number',
+    identifier: '+8801755667788',
+    relatedCustomerName: 'Shirin Akter',
+    reason: 'Other',
+    notes:
+      'Customer requested voluntary account closure and number blacklist after identity theft concern. Lifted after identity was re-verified.',
+    status: 'Lifted',
+    blacklistedBy: 'Admin Rahman',
+    blacklistedAt: 'Feb 12, 2025',
     reviewDate: null,
   },
   {
-    id: "bl-8",
-    entryType: "Customer Account",
-    identifier: "CUST_6603",
-    relatedCustomerName: "Anwar Ali",
-    reason: "Suspicious Activity",
-    notes: "Initial flag was a false positive from a velocity rule misconfiguration. Reviewed and cleared.",
-    status: "Lifted",
-    blacklistedBy: "System (Auto-flagged)",
-    blacklistedAt: "Jan 28, 2025",
+    id: 'bl-8',
+    entryType: 'Customer Account',
+    identifier: 'CUST_6603',
+    relatedCustomerName: 'Anwar Ali',
+    reason: 'Suspicious Activity',
+    notes:
+      'Initial flag was a false positive from a velocity rule misconfiguration. Reviewed and cleared.',
+    status: 'Lifted',
+    blacklistedBy: 'System (Auto-flagged)',
+    blacklistedAt: 'Jan 28, 2025',
     reviewDate: null,
   },
 ];
 
 export const blacklistTotalCount = blacklistData.length;
 
-
-
-
 // ============================================================
 // CUSTOMERS — ADD CUSTOMER — DATA, TYPES & CONSTANTS
 // Standalone data for the Add Customer form (Customers section)
 // ============================================================
 
-export type AddCustKycTier = "Tier 1 (Basic)" | "Tier 2 (Standard)" | "Tier 3 (Enhanced)";
-export type AddCustIdType = "Passport" | "National ID" | "Driving License";
-export type AddCustAddressProofType = "Utility Bill" | "Bank Statement" | "Council Tax Bill" | "Tenancy Agreement";
-export type AddCustInitialStatus = "Active" | "Pending Verification" | "Restricted";
+export type AddCustKycTier =
+  | 'Tier 1 (Basic)'
+  | 'Tier 2 (Standard)'
+  | 'Tier 3 (Enhanced)';
+export type AddCustIdType = 'Passport' | 'National ID' | 'Driving License';
+export type AddCustAddressProofType =
+  | 'Utility Bill'
+  | 'Bank Statement'
+  | 'Council Tax Bill'
+  | 'Tenancy Agreement';
+export type AddCustInitialStatus =
+  | 'Active'
+  | 'Pending Verification'
+  | 'Restricted';
 
 export interface AddCustCountryOption {
   code: string;
@@ -1576,30 +1674,40 @@ export interface AddCustCountryOption {
 }
 
 export const addCustCountryOptions: AddCustCountryOption[] = [
-  { code: "GB", name: "United Kingdom", flag: "🇬🇧", dialCode: "+44" },
-  { code: "BD", name: "Bangladesh", flag: "🇧🇩", dialCode: "+880" },
-  { code: "IN", name: "India", flag: "🇮🇳", dialCode: "+91" },
-  { code: "PK", name: "Pakistan", flag: "🇵🇰", dialCode: "+92" },
-  { code: "US", name: "United States", flag: "🇺🇸", dialCode: "+1" },
-  { code: "AE", name: "United Arab Emirates", flag: "🇦🇪", dialCode: "+971" },
-  { code: "PH", name: "Philippines", flag: "🇵🇭", dialCode: "+63" },
-  { code: "NG", name: "Nigeria", flag: "🇳🇬", dialCode: "+234" },
+  { code: 'GB', name: 'United Kingdom', flag: '🇬🇧', dialCode: '+44' },
+  { code: 'BD', name: 'Bangladesh', flag: '🇧🇩', dialCode: '+880' },
+  { code: 'IN', name: 'India', flag: '🇮🇳', dialCode: '+91' },
+  { code: 'PK', name: 'Pakistan', flag: '🇵🇰', dialCode: '+92' },
+  { code: 'US', name: 'United States', flag: '🇺🇸', dialCode: '+1' },
+  { code: 'AE', name: 'United Arab Emirates', flag: '🇦🇪', dialCode: '+971' },
+  { code: 'PH', name: 'Philippines', flag: '🇵🇭', dialCode: '+63' },
+  { code: 'NG', name: 'Nigeria', flag: '🇳🇬', dialCode: '+234' },
 ];
 
-export const addCustIdTypeOptions: AddCustIdType[] = ["Passport", "National ID", "Driving License"];
+export const addCustIdTypeOptions: AddCustIdType[] = [
+  'Passport',
+  'National ID',
+  'Driving License',
+];
 export const addCustAddressProofOptions: AddCustAddressProofType[] = [
-  "Utility Bill",
-  "Bank Statement",
-  "Council Tax Bill",
-  "Tenancy Agreement",
+  'Utility Bill',
+  'Bank Statement',
+  'Council Tax Bill',
+  'Tenancy Agreement',
 ];
 
-export const addCustKycTierOptions: AddCustKycTier[] = ["Tier 1 (Basic)", "Tier 2 (Standard)", "Tier 3 (Enhanced)"];
+export const addCustKycTierOptions: AddCustKycTier[] = [
+  'Tier 1 (Basic)',
+  'Tier 2 (Standard)',
+  'Tier 3 (Enhanced)',
+];
 
 export const addCustKycTierDescription: Record<AddCustKycTier, string> = {
-  "Tier 1 (Basic)": "Phone verification only · Transaction limit: $500/month",
-  "Tier 2 (Standard)": "ID + Selfie verification · Transaction limit: $10,000/month",
-  "Tier 3 (Enhanced)": "Full document set + source of funds · Unlimited transactions",
+  'Tier 1 (Basic)': 'Phone verification only · Transaction limit: $500/month',
+  'Tier 2 (Standard)':
+    'ID + Selfie verification · Transaction limit: $10,000/month',
+  'Tier 3 (Enhanced)':
+    'Full document set + source of funds · Unlimited transactions',
 };
 
 export interface AddCustCurrencyOption {
@@ -1609,25 +1717,34 @@ export interface AddCustCurrencyOption {
 }
 
 export const addCustCurrencyOptions: AddCustCurrencyOption[] = [
-  { code: "GBP", label: "GBP Wallet", flag: "🇬🇧" },
-  { code: "USD", label: "USD Wallet", flag: "🇺🇸" },
-  { code: "EUR", label: "EUR Wallet", flag: "🇪🇺" },
-  { code: "BDT", label: "BDT Settlement", flag: "🇧🇩" },
-  { code: "INR", label: "INR Wallet", flag: "🇮🇳" },
-  { code: "PKR", label: "PKR Wallet", flag: "🇵🇰" },
+  { code: 'GBP', label: 'GBP Wallet', flag: '🇬🇧' },
+  { code: 'USD', label: 'USD Wallet', flag: '🇺🇸' },
+  { code: 'EUR', label: 'EUR Wallet', flag: '🇪🇺' },
+  { code: 'BDT', label: 'BDT Settlement', flag: '🇧🇩' },
+  { code: 'INR', label: 'INR Wallet', flag: '🇮🇳' },
+  { code: 'PKR', label: 'PKR Wallet', flag: '🇵🇰' },
 ];
 
-export const addCustInitialStatusOptions: AddCustInitialStatus[] = ["Active", "Pending Verification", "Restricted"];
+export const addCustInitialStatusOptions: AddCustInitialStatus[] = [
+  'Active',
+  'Pending Verification',
+  'Restricted',
+];
 
-export const addCustGenderOptions: string[] = ["Male", "Female", "Other", "Prefer not to say"];
+export const addCustGenderOptions: string[] = [
+  'Male',
+  'Female',
+  'Other',
+  'Prefer not to say',
+];
 
 export const addCustReferralSourceOptions: string[] = [
-  "Friend / Family Referral",
-  "Social Media",
-  "Google Search",
-  "Agent / Branch",
-  "Advertisement",
-  "Other",
+  'Friend / Family Referral',
+  'Social Media',
+  'Google Search',
+  'Agent / Branch',
+  'Advertisement',
+  'Other',
 ];
 
 // ---------- Recently added customers (preview list at bottom of form) ----------
@@ -1645,30 +1762,26 @@ export interface AddCustRecentEntry {
 
 export const addCustRecentEntries: AddCustRecentEntry[] = [
   {
-    id: "new-1",
-    name: "Yusuf Karim",
-    email: "yusuf.karim@example.com",
-    country: "United Kingdom",
-    countryFlag: "🇬🇧",
-    kycTier: "Tier 2 (Standard)",
-    status: "Pending Verification",
-    createdAt: "May 19, 2025 — 2:40 PM",
+    id: 'new-1',
+    name: 'Yusuf Karim',
+    email: 'yusuf.karim@example.com',
+    country: 'United Kingdom',
+    countryFlag: '🇬🇧',
+    kycTier: 'Tier 2 (Standard)',
+    status: 'Pending Verification',
+    createdAt: 'May 19, 2025 — 2:40 PM',
   },
   {
-    id: "new-2",
-    name: "Amara Chowdhury",
-    email: "amara.c@example.com",
-    country: "Bangladesh",
-    countryFlag: "🇧🇩",
-    kycTier: "Tier 1 (Basic)",
-    status: "Active",
-    createdAt: "May 19, 2025 — 11:05 AM",
+    id: 'new-2',
+    name: 'Amara Chowdhury',
+    email: 'amara.c@example.com',
+    country: 'Bangladesh',
+    countryFlag: '🇧🇩',
+    kycTier: 'Tier 1 (Basic)',
+    status: 'Active',
+    createdAt: 'May 19, 2025 — 11:05 AM',
   },
 ];
-
-
-
-
 
 //all transitions
 
@@ -3822,17 +3935,13 @@ export const BENEFICIARY_INACTIVE = 186;
 export const BENEFICIARY_WEEK_ADDED = 45;
 export const BENEFICIARY_PAGE_SIZE = 10;
 
-
-
-
-
 // ============================================================
 // BENEFICIARIES — SENDER — DATA, TYPES & CONSTANTS
 // New "Sender" section under Beneficiaries (alongside Receiver List / Add Beneficiary)
 // ============================================================
 
-export type SenderStatus = "Active" | "Suspended" | "Pending Verification";
-export type SenderKycStatus = "Verified" | "Pending" | "Rejected";
+export type SenderStatus = 'Active' | 'Suspended' | 'Pending Verification';
+export type SenderKycStatus = 'Verified' | 'Pending' | 'Rejected';
 
 export interface SenderLinkedBeneficiary {
   id: string;
@@ -3850,7 +3959,7 @@ export interface SenderTransfer {
   beneficiaryFlag: string;
   amount: string;
   fee: string;
-  status: "Completed" | "Pending" | "Failed";
+  status: 'Completed' | 'Pending' | 'Failed';
   date: string;
 }
 
@@ -3879,25 +3988,37 @@ export interface SenderRecord {
 // ---------- Badge style maps ----------
 
 export const senderStatusBadge: Record<SenderStatus, string> = {
-  Active: "bg-green-50 text-green-700 border border-green-200",
-  Suspended: "bg-red-50 text-red-700 border border-red-200",
-  "Pending Verification": "bg-yellow-50 text-yellow-700 border border-yellow-200",
+  Active: 'bg-green-50 text-green-700 border border-green-200',
+  Suspended: 'bg-red-50 text-red-700 border border-red-200',
+  'Pending Verification':
+    'bg-yellow-50 text-yellow-700 border border-yellow-200',
 };
 
 export const senderKycBadge: Record<SenderKycStatus, string> = {
-  Verified: "bg-green-50 text-green-700 border border-green-200",
-  Pending: "bg-yellow-50 text-yellow-700 border border-yellow-200",
-  Rejected: "bg-red-50 text-red-700 border border-red-200",
+  Verified: 'bg-green-50 text-green-700 border border-green-200',
+  Pending: 'bg-yellow-50 text-yellow-700 border border-yellow-200',
+  Rejected: 'bg-red-50 text-red-700 border border-red-200',
 };
 
-export const senderTransferStatusBadge: Record<SenderTransfer["status"], string> = {
-  Completed: "bg-green-50 text-green-700 border border-green-200",
-  Pending: "bg-yellow-50 text-yellow-700 border border-yellow-200",
-  Failed: "bg-red-50 text-red-700 border border-red-200",
+export const senderTransferStatusBadge: Record<
+  SenderTransfer['status'],
+  string
+> = {
+  Completed: 'bg-green-50 text-green-700 border border-green-200',
+  Pending: 'bg-yellow-50 text-yellow-700 border border-yellow-200',
+  Failed: 'bg-red-50 text-red-700 border border-red-200',
 };
 
-export const senderStatusOptions: SenderStatus[] = ["Active", "Suspended", "Pending Verification"];
-export const senderKycStatusOptions: SenderKycStatus[] = ["Verified", "Pending", "Rejected"];
+export const senderStatusOptions: SenderStatus[] = [
+  'Active',
+  'Suspended',
+  'Pending Verification',
+];
+export const senderKycStatusOptions: SenderKycStatus[] = [
+  'Verified',
+  'Pending',
+  'Rejected',
+];
 
 // ---------- Stat summary ----------
 
@@ -3905,243 +4026,460 @@ export interface SenderStat {
   id: string;
   label: string;
   value: string;
-  icon: "total" | "active" | "volume" | "avgBeneficiaries";
+  icon: 'total' | 'active' | 'volume' | 'avgBeneficiaries';
 }
 
 export const senderStats: SenderStat[] = [
-  { id: "sender-stat-total", label: "Total Senders", value: "1,486", icon: "total" },
-  { id: "sender-stat-active", label: "Active Senders", value: "1,312", icon: "active" },
-  { id: "sender-stat-volume", label: "Total Sent (This Month)", value: "£284,650", icon: "volume" },
-  { id: "sender-stat-avg", label: "Avg Beneficiaries / Sender", value: "2.4", icon: "avgBeneficiaries" },
+  {
+    id: 'sender-stat-total',
+    label: 'Total Senders',
+    value: '1,486',
+    icon: 'total',
+  },
+  {
+    id: 'sender-stat-active',
+    label: 'Active Senders',
+    value: '1,312',
+    icon: 'active',
+  },
+  {
+    id: 'sender-stat-volume',
+    label: 'Total Sent (This Month)',
+    value: '£284,650',
+    icon: 'volume',
+  },
+  {
+    id: 'sender-stat-avg',
+    label: 'Avg Beneficiaries / Sender',
+    value: '2.4',
+    icon: 'avgBeneficiaries',
+  },
 ];
 
 // ---------- Main data ----------
 
 export const senderAvatarColors: string[] = [
-  "bg-blue-500", "bg-green-500", "bg-purple-500", "bg-orange-500",
-  "bg-pink-500", "bg-teal-500", "bg-indigo-500", "bg-rose-500",
+  'bg-blue-500',
+  'bg-green-500',
+  'bg-purple-500',
+  'bg-orange-500',
+  'bg-pink-500',
+  'bg-teal-500',
+  'bg-indigo-500',
+  'bg-rose-500',
 ];
 
 export const sendersData: SenderRecord[] = [
   {
-    id: "snd-1",
-    name: "John Rahman",
-    email: "john.rahman@example.com",
-    phone: "+44 7700 900123",
-    avatar: "JR",
-    customerId: "CUS-25051901",
-    country: "United Kingdom",
-    countryFlag: "🇬🇧",
-    status: "Active",
-    kycStatus: "Verified",
-    joinedDate: "May 19, 2025",
-    lastSentOn: "May 19, 2025",
+    id: 'snd-1',
+    name: 'John Rahman',
+    email: 'john.rahman@example.com',
+    phone: '+44 7700 900123',
+    avatar: 'JR',
+    customerId: 'CUS-25051901',
+    country: 'United Kingdom',
+    countryFlag: '🇬🇧',
+    status: 'Active',
+    kycStatus: 'Verified',
+    joinedDate: 'May 19, 2025',
+    lastSentOn: 'May 19, 2025',
     totalBeneficiaries: 3,
-    totalSent: "£15,750.00",
+    totalSent: '£15,750.00',
     totalTransfers: 24,
-    avgTransferAmount: "£656.25",
-    preferredCorridor: "UK → Bangladesh",
+    avgTransferAmount: '£656.25',
+    preferredCorridor: 'UK → Bangladesh',
     linkedBeneficiaries: [
-      { id: "ben-1", name: "Karim Rahman", relationship: "Father", country: "Bangladesh", countryFlag: "🇧🇩", totalSent: "£8,200.00", lastSentOn: "May 19, 2025" },
-      { id: "ben-2", name: "Anita Sharma", relationship: "Friend", country: "India", countryFlag: "🇮🇳", totalSent: "£4,550.00", lastSentOn: "May 18, 2025" },
-      { id: "ben-3", name: "Bilal Hussain", relationship: "Cousin", country: "Pakistan", countryFlag: "🇵🇰", totalSent: "£3,000.00", lastSentOn: "May 17, 2025" },
+      {
+        id: 'ben-1',
+        name: 'Karim Rahman',
+        relationship: 'Father',
+        country: 'Bangladesh',
+        countryFlag: '🇧🇩',
+        totalSent: '£8,200.00',
+        lastSentOn: 'May 19, 2025',
+      },
+      {
+        id: 'ben-2',
+        name: 'Anita Sharma',
+        relationship: 'Friend',
+        country: 'India',
+        countryFlag: '🇮🇳',
+        totalSent: '£4,550.00',
+        lastSentOn: 'May 18, 2025',
+      },
+      {
+        id: 'ben-3',
+        name: 'Bilal Hussain',
+        relationship: 'Cousin',
+        country: 'Pakistan',
+        countryFlag: '🇵🇰',
+        totalSent: '£3,000.00',
+        lastSentOn: 'May 17, 2025',
+      },
     ],
     recentTransfers: [
-      { id: "trf-1", beneficiaryName: "Karim Rahman", beneficiaryFlag: "🇧🇩", amount: "£520.00", fee: "£3.50", status: "Completed", date: "May 19, 2025" },
-      { id: "trf-2", beneficiaryName: "Anita Sharma", beneficiaryFlag: "🇮🇳", amount: "£750.00", fee: "£4.00", status: "Completed", date: "May 18, 2025" },
-      { id: "trf-3", beneficiaryName: "Bilal Hussain", beneficiaryFlag: "🇵🇰", amount: "£320.00", fee: "£2.50", status: "Completed", date: "May 17, 2025" },
+      {
+        id: 'trf-1',
+        beneficiaryName: 'Karim Rahman',
+        beneficiaryFlag: '🇧🇩',
+        amount: '£520.00',
+        fee: '£3.50',
+        status: 'Completed',
+        date: 'May 19, 2025',
+      },
+      {
+        id: 'trf-2',
+        beneficiaryName: 'Anita Sharma',
+        beneficiaryFlag: '🇮🇳',
+        amount: '£750.00',
+        fee: '£4.00',
+        status: 'Completed',
+        date: 'May 18, 2025',
+      },
+      {
+        id: 'trf-3',
+        beneficiaryName: 'Bilal Hussain',
+        beneficiaryFlag: '🇵🇰',
+        amount: '£320.00',
+        fee: '£2.50',
+        status: 'Completed',
+        date: 'May 17, 2025',
+      },
     ],
   },
   {
-    id: "snd-2",
-    name: "Priya Sharma",
-    email: "priya.sharma@example.com",
-    phone: "+44 7700 900124",
-    avatar: "PS",
-    customerId: "CUS-25051902",
-    country: "United Kingdom",
-    countryFlag: "🇬🇧",
-    status: "Pending Verification",
-    kycStatus: "Pending",
-    joinedDate: "May 18, 2025",
-    lastSentOn: "May 18, 2025",
+    id: 'snd-2',
+    name: 'Priya Sharma',
+    email: 'priya.sharma@example.com',
+    phone: '+44 7700 900124',
+    avatar: 'PS',
+    customerId: 'CUS-25051902',
+    country: 'United Kingdom',
+    countryFlag: '🇬🇧',
+    status: 'Pending Verification',
+    kycStatus: 'Pending',
+    joinedDate: 'May 18, 2025',
+    lastSentOn: 'May 18, 2025',
     totalBeneficiaries: 1,
-    totalSent: "£3,200.00",
+    totalSent: '£3,200.00',
     totalTransfers: 8,
-    avgTransferAmount: "£400.00",
-    preferredCorridor: "UK → India",
+    avgTransferAmount: '£400.00',
+    preferredCorridor: 'UK → India',
     linkedBeneficiaries: [
-      { id: "ben-4", name: "Rohan Sharma", relationship: "Brother", country: "India", countryFlag: "🇮🇳", totalSent: "£3,200.00", lastSentOn: "May 18, 2025" },
+      {
+        id: 'ben-4',
+        name: 'Rohan Sharma',
+        relationship: 'Brother',
+        country: 'India',
+        countryFlag: '🇮🇳',
+        totalSent: '£3,200.00',
+        lastSentOn: 'May 18, 2025',
+      },
     ],
     recentTransfers: [
-      { id: "trf-4", beneficiaryName: "Rohan Sharma", beneficiaryFlag: "🇮🇳", amount: "£420.00", fee: "£3.00", status: "Pending", date: "May 18, 2025" },
+      {
+        id: 'trf-4',
+        beneficiaryName: 'Rohan Sharma',
+        beneficiaryFlag: '🇮🇳',
+        amount: '£420.00',
+        fee: '£3.00',
+        status: 'Pending',
+        date: 'May 18, 2025',
+      },
     ],
   },
   {
-    id: "snd-3",
-    name: "Ahmed Khan",
-    email: "ahmed.khan@example.com",
-    phone: "+44 7700 900125",
-    avatar: "AK",
-    customerId: "CUS-25051903",
-    country: "United Kingdom",
-    countryFlag: "🇬🇧",
-    status: "Active",
-    kycStatus: "Verified",
-    joinedDate: "May 15, 2025",
-    lastSentOn: "May 19, 2025",
+    id: 'snd-3',
+    name: 'Ahmed Khan',
+    email: 'ahmed.khan@example.com',
+    phone: '+44 7700 900125',
+    avatar: 'AK',
+    customerId: 'CUS-25051903',
+    country: 'United Kingdom',
+    countryFlag: '🇬🇧',
+    status: 'Active',
+    kycStatus: 'Verified',
+    joinedDate: 'May 15, 2025',
+    lastSentOn: 'May 19, 2025',
     totalBeneficiaries: 2,
-    totalSent: "£28,500.00",
+    totalSent: '£28,500.00',
     totalTransfers: 42,
-    avgTransferAmount: "£678.57",
-    preferredCorridor: "UK → Pakistan",
+    avgTransferAmount: '£678.57',
+    preferredCorridor: 'UK → Pakistan',
     linkedBeneficiaries: [
-      { id: "ben-5", name: "Imran Khan", relationship: "Father", country: "Pakistan", countryFlag: "🇵🇰", totalSent: "£18,400.00", lastSentOn: "May 19, 2025" },
-      { id: "ben-6", name: "Sadia Begum", relationship: "Sister", country: "Bangladesh", countryFlag: "🇧🇩", totalSent: "£10,100.00", lastSentOn: "May 18, 2025" },
+      {
+        id: 'ben-5',
+        name: 'Imran Khan',
+        relationship: 'Father',
+        country: 'Pakistan',
+        countryFlag: '🇵🇰',
+        totalSent: '£18,400.00',
+        lastSentOn: 'May 19, 2025',
+      },
+      {
+        id: 'ben-6',
+        name: 'Sadia Begum',
+        relationship: 'Sister',
+        country: 'Bangladesh',
+        countryFlag: '🇧🇩',
+        totalSent: '£10,100.00',
+        lastSentOn: 'May 18, 2025',
+      },
     ],
     recentTransfers: [
-      { id: "trf-5", beneficiaryName: "Imran Khan", beneficiaryFlag: "🇵🇰", amount: "£1,200.00", fee: "£5.00", status: "Completed", date: "May 19, 2025" },
-      { id: "trf-6", beneficiaryName: "Sadia Begum", beneficiaryFlag: "🇧🇩", amount: "£680.00", fee: "£3.50", status: "Completed", date: "May 18, 2025" },
+      {
+        id: 'trf-5',
+        beneficiaryName: 'Imran Khan',
+        beneficiaryFlag: '🇵🇰',
+        amount: '£1,200.00',
+        fee: '£5.00',
+        status: 'Completed',
+        date: 'May 19, 2025',
+      },
+      {
+        id: 'trf-6',
+        beneficiaryName: 'Sadia Begum',
+        beneficiaryFlag: '🇧🇩',
+        amount: '£680.00',
+        fee: '£3.50',
+        status: 'Completed',
+        date: 'May 18, 2025',
+      },
     ],
   },
   {
-    id: "snd-4",
-    name: "Maria Santos",
-    email: "maria.santos@example.com",
-    phone: "+44 7700 900126",
-    avatar: "MS",
-    customerId: "CUS-25051904",
-    country: "United Kingdom",
-    countryFlag: "🇬🇧",
-    status: "Active",
-    kycStatus: "Verified",
-    joinedDate: "May 10, 2025",
-    lastSentOn: "May 19, 2025",
+    id: 'snd-4',
+    name: 'Maria Santos',
+    email: 'maria.santos@example.com',
+    phone: '+44 7700 900126',
+    avatar: 'MS',
+    customerId: 'CUS-25051904',
+    country: 'United Kingdom',
+    countryFlag: '🇬🇧',
+    status: 'Active',
+    kycStatus: 'Verified',
+    joinedDate: 'May 10, 2025',
+    lastSentOn: 'May 19, 2025',
     totalBeneficiaries: 2,
-    totalSent: "£18,200.00",
+    totalSent: '£18,200.00',
     totalTransfers: 31,
-    avgTransferAmount: "£587.10",
-    preferredCorridor: "UK → Philippines",
+    avgTransferAmount: '£587.10',
+    preferredCorridor: 'UK → Philippines',
     linkedBeneficiaries: [
-      { id: "ben-7", name: "Carlos Santos", relationship: "Father", country: "Philippines", countryFlag: "🇵🇭", totalSent: "£12,500.00", lastSentOn: "May 19, 2025" },
-      { id: "ben-8", name: "Liza Santos", relationship: "Mother", country: "Philippines", countryFlag: "🇵🇭", totalSent: "£5,700.00", lastSentOn: "May 17, 2025" },
+      {
+        id: 'ben-7',
+        name: 'Carlos Santos',
+        relationship: 'Father',
+        country: 'Philippines',
+        countryFlag: '🇵🇭',
+        totalSent: '£12,500.00',
+        lastSentOn: 'May 19, 2025',
+      },
+      {
+        id: 'ben-8',
+        name: 'Liza Santos',
+        relationship: 'Mother',
+        country: 'Philippines',
+        countryFlag: '🇵🇭',
+        totalSent: '£5,700.00',
+        lastSentOn: 'May 17, 2025',
+      },
     ],
     recentTransfers: [
-      { id: "trf-7", beneficiaryName: "Carlos Santos", beneficiaryFlag: "🇵🇭", amount: "£950.00", fee: "£4.50", status: "Completed", date: "May 19, 2025" },
-      { id: "trf-8", beneficiaryName: "Liza Santos", beneficiaryFlag: "🇵🇭", amount: "£620.00", fee: "£3.50", status: "Failed", date: "May 17, 2025" },
+      {
+        id: 'trf-7',
+        beneficiaryName: 'Carlos Santos',
+        beneficiaryFlag: '🇵🇭',
+        amount: '£950.00',
+        fee: '£4.50',
+        status: 'Completed',
+        date: 'May 19, 2025',
+      },
+      {
+        id: 'trf-8',
+        beneficiaryName: 'Liza Santos',
+        beneficiaryFlag: '🇵🇭',
+        amount: '£620.00',
+        fee: '£3.50',
+        status: 'Failed',
+        date: 'May 17, 2025',
+      },
     ],
   },
   {
-    id: "snd-5",
-    name: "James Okafor",
-    email: "james.okafor@example.com",
-    phone: "+44 7700 900127",
-    avatar: "JO",
-    customerId: "CUS-25051905",
-    country: "United Kingdom",
-    countryFlag: "🇬🇧",
-    status: "Suspended",
-    kycStatus: "Rejected",
-    joinedDate: "May 8, 2025",
-    lastSentOn: "May 8, 2025",
+    id: 'snd-5',
+    name: 'James Okafor',
+    email: 'james.okafor@example.com',
+    phone: '+44 7700 900127',
+    avatar: 'JO',
+    customerId: 'CUS-25051905',
+    country: 'United Kingdom',
+    countryFlag: '🇬🇧',
+    status: 'Suspended',
+    kycStatus: 'Rejected',
+    joinedDate: 'May 8, 2025',
+    lastSentOn: 'May 8, 2025',
     totalBeneficiaries: 0,
-    totalSent: "£0.00",
+    totalSent: '£0.00',
     totalTransfers: 0,
-    avgTransferAmount: "£0.00",
-    preferredCorridor: "—",
+    avgTransferAmount: '£0.00',
+    preferredCorridor: '—',
     linkedBeneficiaries: [],
     recentTransfers: [],
   },
   {
-    id: "snd-6",
-    name: "Fatima Ali",
-    email: "fatima.ali@example.com",
-    phone: "+44 7700 900128",
-    avatar: "FA",
-    customerId: "CUS-25051906",
-    country: "United Kingdom",
-    countryFlag: "🇬🇧",
-    status: "Pending Verification",
-    kycStatus: "Pending",
-    joinedDate: "May 17, 2025",
-    lastSentOn: "May 19, 2025",
+    id: 'snd-6',
+    name: 'Fatima Ali',
+    email: 'fatima.ali@example.com',
+    phone: '+44 7700 900128',
+    avatar: 'FA',
+    customerId: 'CUS-25051906',
+    country: 'United Kingdom',
+    countryFlag: '🇬🇧',
+    status: 'Pending Verification',
+    kycStatus: 'Pending',
+    joinedDate: 'May 17, 2025',
+    lastSentOn: 'May 19, 2025',
     totalBeneficiaries: 1,
-    totalSent: "£2,100.00",
+    totalSent: '£2,100.00',
     totalTransfers: 5,
-    avgTransferAmount: "£420.00",
-    preferredCorridor: "UK → Bangladesh",
+    avgTransferAmount: '£420.00',
+    preferredCorridor: 'UK → Bangladesh',
     linkedBeneficiaries: [
-      { id: "ben-9", name: "Hasan Ali", relationship: "Husband", country: "Bangladesh", countryFlag: "🇧🇩", totalSent: "£2,100.00", lastSentOn: "May 19, 2025" },
+      {
+        id: 'ben-9',
+        name: 'Hasan Ali',
+        relationship: 'Husband',
+        country: 'Bangladesh',
+        countryFlag: '🇧🇩',
+        totalSent: '£2,100.00',
+        lastSentOn: 'May 19, 2025',
+      },
     ],
     recentTransfers: [
-      { id: "trf-9", beneficiaryName: "Hasan Ali", beneficiaryFlag: "🇧🇩", amount: "£380.00", fee: "£2.50", status: "Pending", date: "May 19, 2025" },
+      {
+        id: 'trf-9',
+        beneficiaryName: 'Hasan Ali',
+        beneficiaryFlag: '🇧🇩',
+        amount: '£380.00',
+        fee: '£2.50',
+        status: 'Pending',
+        date: 'May 19, 2025',
+      },
     ],
   },
   {
-    id: "snd-7",
-    name: "David Wilson",
-    email: "david.wilson@example.com",
-    phone: "+44 7700 900129",
-    avatar: "DW",
-    customerId: "CUS-25051907",
-    country: "United Kingdom",
-    countryFlag: "🇬🇧",
-    status: "Active",
-    kycStatus: "Verified",
-    joinedDate: "Apr 30, 2025",
-    lastSentOn: "May 19, 2025",
+    id: 'snd-7',
+    name: 'David Wilson',
+    email: 'david.wilson@example.com',
+    phone: '+44 7700 900129',
+    avatar: 'DW',
+    customerId: 'CUS-25051907',
+    country: 'United Kingdom',
+    countryFlag: '🇬🇧',
+    status: 'Active',
+    kycStatus: 'Verified',
+    joinedDate: 'Apr 30, 2025',
+    lastSentOn: 'May 19, 2025',
     totalBeneficiaries: 3,
-    totalSent: "£52,300.00",
+    totalSent: '£52,300.00',
     totalTransfers: 68,
-    avgTransferAmount: "£769.12",
-    preferredCorridor: "UK → India",
+    avgTransferAmount: '£769.12',
+    preferredCorridor: 'UK → India',
     linkedBeneficiaries: [
-      { id: "ben-10", name: "Deepak Mehta", relationship: "Business Partner", country: "India", countryFlag: "🇮🇳", totalSent: "£28,000.00", lastSentOn: "May 19, 2025" },
-      { id: "ben-11", name: "Chidi Okonkwo", relationship: "Friend", country: "Nigeria", countryFlag: "🇳🇬", totalSent: "£15,300.00", lastSentOn: "May 18, 2025" },
-      { id: "ben-12", name: "Grace Wilson", relationship: "Sister", country: "United Kingdom", countryFlag: "🇬🇧", totalSent: "£9,000.00", lastSentOn: "May 17, 2025" },
+      {
+        id: 'ben-10',
+        name: 'Deepak Mehta',
+        relationship: 'Business Partner',
+        country: 'India',
+        countryFlag: '🇮🇳',
+        totalSent: '£28,000.00',
+        lastSentOn: 'May 19, 2025',
+      },
+      {
+        id: 'ben-11',
+        name: 'Chidi Okonkwo',
+        relationship: 'Friend',
+        country: 'Nigeria',
+        countryFlag: '🇳🇬',
+        totalSent: '£15,300.00',
+        lastSentOn: 'May 18, 2025',
+      },
+      {
+        id: 'ben-12',
+        name: 'Grace Wilson',
+        relationship: 'Sister',
+        country: 'United Kingdom',
+        countryFlag: '🇬🇧',
+        totalSent: '£9,000.00',
+        lastSentOn: 'May 17, 2025',
+      },
     ],
     recentTransfers: [
-      { id: "trf-10", beneficiaryName: "Deepak Mehta", beneficiaryFlag: "🇮🇳", amount: "£2,000.00", fee: "£6.00", status: "Completed", date: "May 19, 2025" },
-      { id: "trf-11", beneficiaryName: "Chidi Okonkwo", beneficiaryFlag: "🇳🇬", amount: "£1,500.00", fee: "£5.50", status: "Completed", date: "May 18, 2025" },
+      {
+        id: 'trf-10',
+        beneficiaryName: 'Deepak Mehta',
+        beneficiaryFlag: '🇮🇳',
+        amount: '£2,000.00',
+        fee: '£6.00',
+        status: 'Completed',
+        date: 'May 19, 2025',
+      },
+      {
+        id: 'trf-11',
+        beneficiaryName: 'Chidi Okonkwo',
+        beneficiaryFlag: '🇳🇬',
+        amount: '£1,500.00',
+        fee: '£5.50',
+        status: 'Completed',
+        date: 'May 18, 2025',
+      },
     ],
   },
   {
-    id: "snd-8",
-    name: "Sophie Martin",
-    email: "sophie.martin@example.com",
-    phone: "+44 7700 900130",
-    avatar: "SM",
-    customerId: "CUS-25051908",
-    country: "United Kingdom",
-    countryFlag: "🇬🇧",
-    status: "Active",
-    kycStatus: "Verified",
-    joinedDate: "May 5, 2025",
-    lastSentOn: "May 19, 2025",
+    id: 'snd-8',
+    name: 'Sophie Martin',
+    email: 'sophie.martin@example.com',
+    phone: '+44 7700 900130',
+    avatar: 'SM',
+    customerId: 'CUS-25051908',
+    country: 'United Kingdom',
+    countryFlag: '🇬🇧',
+    status: 'Active',
+    kycStatus: 'Verified',
+    joinedDate: 'May 5, 2025',
+    lastSentOn: 'May 19, 2025',
     totalBeneficiaries: 1,
-    totalSent: "£11,400.00",
+    totalSent: '£11,400.00',
     totalTransfers: 19,
-    avgTransferAmount: "£600.00",
-    preferredCorridor: "UK → France",
+    avgTransferAmount: '£600.00',
+    preferredCorridor: 'UK → France',
     linkedBeneficiaries: [
-      { id: "ben-13", name: "Lucie Martin", relationship: "Daughter", country: "France", countryFlag: "🇫🇷", totalSent: "£11,400.00", lastSentOn: "May 19, 2025" },
+      {
+        id: 'ben-13',
+        name: 'Lucie Martin',
+        relationship: 'Daughter',
+        country: 'France',
+        countryFlag: '🇫🇷',
+        totalSent: '£11,400.00',
+        lastSentOn: 'May 19, 2025',
+      },
     ],
     recentTransfers: [
-      { id: "trf-12", beneficiaryName: "Lucie Martin", beneficiaryFlag: "🇫🇷", amount: "£780.00", fee: "£3.50", status: "Completed", date: "May 19, 2025" },
+      {
+        id: 'trf-12',
+        beneficiaryName: 'Lucie Martin',
+        beneficiaryFlag: '🇫🇷',
+        amount: '£780.00',
+        fee: '£3.50',
+        status: 'Completed',
+        date: 'May 19, 2025',
+      },
     ],
   },
 ];
 
 export const sendersTotalCount = 1486;
-
-
-
-
-
-
-
-
-
 
 //here KYC fake data
 
@@ -9729,6 +10067,60 @@ export const popularCorridorsManagement = [
     receivingFlag: '🇧🇩',
     currencyPair: 'AUD → BDT',
     transactions: 1987,
+    status: 'Active',
+  },
+  {
+    sendingCountry: 'Malaysia',
+    sendingFlag: '🇲🇾',
+    receivingCountry: 'Bangladesh',
+    receivingFlag: '🇧🇩',
+    currencyPair: 'MYR → BDT',
+    transactions: 1254,
+    status: 'Active',
+  },
+  {
+    sendingCountry: 'Japan',
+    sendingFlag: 'JP',
+    receivingCountry: 'Bangladesh',
+    receivingFlag: '🇧🇩',
+    currencyPair: 'MYR → BDT',
+    transactions: 1254,
+    status: 'Active',
+  },
+  {
+    sendingCountry: 'Malaysia',
+    sendingFlag: '🇲🇾',
+    receivingCountry: 'Bangladesh',
+    receivingFlag: '🇧🇩',
+    currencyPair: 'MYR → BDT',
+    transactions: 1254,
+    status: 'Active',
+  },
+  {
+    sendingCountry: 'Malaysia',
+    sendingFlag: '🇲🇾',
+    receivingCountry: 'Bangladesh',
+    receivingFlag: '🇧🇩',
+    currencyPair: 'MYR → BDT',
+    transactions: 1254,
+    status: 'Active',
+  },
+  {
+    sendingCountry: 'Malaysia',
+    sendingFlag: '🇲🇾',
+    receivingCountry: 'Bangladesh',
+    receivingFlag: '🇧🇩',
+    currencyPair: 'MYR → BDT',
+    transactions: 1254,
+    status: 'Active',
+  },
+  {
+    sendingCountry: 'Malaysia',
+    sendingFlag: '🇲🇾',
+    receivingCountry: 'Bangladesh',
+    receivingFlag: '🇧🇩',
+    currencyPair: 'MYR → BDT',
+    transactions: 1254,
     status: 'Active',
   },
   {
@@ -18726,10 +19118,6 @@ export const topPerformingSupportAgents: TopPerformingAgent[] = [
   },
 ];
 
-
-
-
-
 // ============================================================
 // SUPPORT — SUPPORT TICKETS PAGE — append to lib/data.ts
 // ============================================================
@@ -19086,8 +19474,7 @@ export const supportTicketAgentOptions: string[] = [
 // Color helpers (for badges) — used directly in the page component
 export const priorityBadgeStyles: Record<TicketPriority2, string> = {
   Low: 'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400',
-  Medium:
-    'bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400',
+  Medium: 'bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400',
   High: 'bg-orange-50 text-orange-600 dark:bg-orange-500/10 dark:text-orange-400',
   Critical: 'bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400',
 };
@@ -19100,13 +19487,8 @@ export const statusBadgeStyles: Record<TicketStatus2, string> = {
     'bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400',
   Resolved:
     'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400',
-  Closed:
-    'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400',
+  Closed: 'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400',
 };
-
-
-
-
 
 // ============================================================
 // SUPPORT — LIVE CHAT PAGE — append to lib/data.ts
@@ -19380,10 +19762,6 @@ export const quickReplySuggestions: string[] = [
   'Is there anything else I can help you with?',
 ];
 
-
-
-
-
 // ============================================================
 // SUPPORT — ANNOUNCEMENTS PAGE — append to lib/data.ts
 // ============================================================
@@ -19550,8 +19928,7 @@ export const announcementPriorityBadgeStyles: Record<
   string
 > = {
   Low: 'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400',
-  Medium:
-    'bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400',
+  Medium: 'bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400',
   High: 'bg-orange-50 text-orange-600 dark:bg-orange-500/10 dark:text-orange-400',
   Critical: 'bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400',
 };
@@ -19563,19 +19940,7 @@ export const announcementStatusBadgeStyles: Record<AnnouncementStatus, string> =
     Scheduled:
       'bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400',
     Draft: 'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400',
-};
-  
-
-
-
-
-
-
-
-
-
-
-
+  };
 
 // ============================================================
 // SUPPORT — KNOWLEDGE BASE PAGE — append to lib/data.ts
@@ -19597,8 +19962,7 @@ export const kbCategories: KbCategory[] = [
     name: 'Getting Started',
     icon: 'Rocket',
     articleCount: 12,
-    color:
-      'bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400',
+    color: 'bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400',
   },
   {
     id: 'cat-002',
@@ -19629,8 +19993,7 @@ export const kbCategories: KbCategory[] = [
     name: 'Payments & Refunds',
     icon: 'CreditCard',
     articleCount: 15,
-    color:
-      'bg-pink-50 text-pink-600 dark:bg-pink-500/10 dark:text-pink-400',
+    color: 'bg-pink-50 text-pink-600 dark:bg-pink-500/10 dark:text-pink-400',
   },
   {
     id: 'cat-006',
@@ -19789,8 +20152,7 @@ export const kbStatusBadgeStyles: Record<KbArticleStatus, string> = {
   Published:
     'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400',
   Draft: 'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400',
-  Archived:
-    'bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400',
+  Archived: 'bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400',
 };
 
 export const kbCategoryFilterOptions: string[] = [
@@ -19811,17 +20173,26 @@ export interface KbStat {
 }
 
 export const kbOverviewStats: KbStat[] = [
-  { label: 'Total Articles', value: '99', change: 6.2, changeLabel: 'vs last month' },
-  { label: 'Total Views', value: '38.9K', change: 14.8, changeLabel: 'vs last month' },
-  { label: 'Avg. Helpful Rate', value: '90%', change: 3.1, changeLabel: 'vs last month' },
+  {
+    label: 'Total Articles',
+    value: '99',
+    change: 6.2,
+    changeLabel: 'vs last month',
+  },
+  {
+    label: 'Total Views',
+    value: '38.9K',
+    change: 14.8,
+    changeLabel: 'vs last month',
+  },
+  {
+    label: 'Avg. Helpful Rate',
+    value: '90%',
+    change: 3.1,
+    changeLabel: 'vs last month',
+  },
   { label: 'Categories', value: '6', change: 0, changeLabel: 'No change' },
 ];
-
-
-
-
-
-
 
 // ============================================================
 // SUPPORT — QUICK REPLIES PAGE — append to lib/data.ts
@@ -19962,25 +20333,20 @@ export const quickReplyCategoryTabs: {
   { label: 'Closing', category: 'Closing', count: 5 },
 ];
 
-export const quickReplyCategoryBadgeStyles: Record<
-  QuickReplyCategory,
-  string
-> = {
-  Greetings:
-    'bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400',
-  Transactions:
-    'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400',
-  Verification:
-    'bg-purple-50 text-purple-600 dark:bg-purple-500/10 dark:text-purple-400',
-  Apology:
-    'bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400',
-  Escalation: 'bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400',
-  Closing:
-    'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400',
-};
-
-
-
+export const quickReplyCategoryBadgeStyles: Record<QuickReplyCategory, string> =
+  {
+    Greetings:
+      'bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400',
+    Transactions:
+      'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400',
+    Verification:
+      'bg-purple-50 text-purple-600 dark:bg-purple-500/10 dark:text-purple-400',
+    Apology:
+      'bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400',
+    Escalation: 'bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400',
+    Closing:
+      'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400',
+  };
 
 // ============================================================
 // SUPPORT — SLA MANAGEMENT PAGE — append to lib/data.ts
@@ -20107,14 +20473,12 @@ export const slaPolicies: SlaPolicy[] = [
   },
 ];
 
-export const slaPolicyPriorityBadgeStyles: Record<SlaPolicyPriority, string> =
-  {
-    Low: 'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400',
-    Medium:
-      'bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400',
-    High: 'bg-orange-50 text-orange-600 dark:bg-orange-500/10 dark:text-orange-400',
-    Critical: 'bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400',
-  };
+export const slaPolicyPriorityBadgeStyles: Record<SlaPolicyPriority, string> = {
+  Low: 'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400',
+  Medium: 'bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400',
+  High: 'bg-orange-50 text-orange-600 dark:bg-orange-500/10 dark:text-orange-400',
+  Critical: 'bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400',
+};
 
 export interface SlaBreachAlert {
   id: string;
@@ -20175,8 +20539,6 @@ export const slaTrendThisWeek = {
   met: [72, 74, 73, 76, 77, 79, 78],
   breached: [28, 26, 27, 24, 23, 21, 22],
 };
-
-
 
 // ============================================================
 // SUPPORT — SUPPORT AGENTS PAGE — append to lib/data.ts
@@ -20332,8 +20694,7 @@ export const agentStatusBadgeStyles: Record<AgentStatus, string> = {
   Online:
     'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400',
   Away: 'bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400',
-  Offline:
-    'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400',
+  Offline: 'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400',
 };
 
 export const agentStatusDotColor: Record<AgentStatus, string> = {
@@ -20368,18 +20729,26 @@ export interface SupportAgentOverviewStat {
 }
 
 export const supportAgentOverviewStats: SupportAgentOverviewStat[] = [
-  { label: 'Total Agents', value: '24', change: 4.3, changeLabel: 'vs last month' },
+  {
+    label: 'Total Agents',
+    value: '24',
+    change: 4.3,
+    changeLabel: 'vs last month',
+  },
   { label: 'Online Now', value: '14', change: 0, changeLabel: 'Live' },
-  { label: 'Avg. CSAT Score', value: '89%', change: 2.1, changeLabel: 'vs last month' },
-  { label: 'Avg. Response Time', value: '18m 24s', change: -5.3, changeLabel: 'vs last month' },
+  {
+    label: 'Avg. CSAT Score',
+    value: '89%',
+    change: 2.1,
+    changeLabel: 'vs last month',
+  },
+  {
+    label: 'Avg. Response Time',
+    value: '18m 24s',
+    change: -5.3,
+    changeLabel: 'vs last month',
+  },
 ];
-
-
-
-
-
-
-
 
 // ============================================================
 // SUPPORT — DEPARTMENTS PAGE — append to lib/data.ts
@@ -20464,7 +20833,9 @@ export const supportDepartments: SupportDepartment[] = [
     manager: 'Kamrul Hasan',
     managerAvatar: 'https://i.pravatar.cc/40?img=14',
     agentCount: 4,
-    agents: [{ name: 'Kamrul Hasan', avatar: 'https://i.pravatar.cc/40?img=14' }],
+    agents: [
+      { name: 'Kamrul Hasan', avatar: 'https://i.pravatar.cc/40?img=14' },
+    ],
     openTickets: 38,
     resolvedThisWeek: 154,
     avgResponseTime: '21m 35s',
@@ -20478,7 +20849,9 @@ export const supportDepartments: SupportDepartment[] = [
     manager: 'Nasir Uddin',
     managerAvatar: 'https://i.pravatar.cc/40?img=15',
     agentCount: 3,
-    agents: [{ name: 'Nasir Uddin', avatar: 'https://i.pravatar.cc/40?img=15' }],
+    agents: [
+      { name: 'Nasir Uddin', avatar: 'https://i.pravatar.cc/40?img=15' },
+    ],
     openTickets: 29,
     resolvedThisWeek: 120,
     avgResponseTime: '24m 18s',
@@ -20493,13 +20866,14 @@ export const supportDepartments: SupportDepartment[] = [
     manager: 'Tareq Anwar',
     managerAvatar: 'https://i.pravatar.cc/40?img=33',
     agentCount: 2,
-    agents: [{ name: 'Tareq Anwar', avatar: 'https://i.pravatar.cc/40?img=33' }],
+    agents: [
+      { name: 'Tareq Anwar', avatar: 'https://i.pravatar.cc/40?img=33' },
+    ],
     openTickets: 4,
     resolvedThisWeek: 12,
     avgResponseTime: '-',
     isActive: false,
-    color:
-      'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400',
+    color: 'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400',
   },
 ];
 
@@ -20513,19 +20887,31 @@ export interface DepartmentOverviewStat {
 }
 
 export const departmentOverviewStats: DepartmentOverviewStat[] = [
-  { label: 'Total Departments', value: '6', change: 0, changeLabel: 'No change' },
-  { label: 'Total Agents Assigned', value: '24', change: 4.3, changeLabel: 'vs last month' },
-  { label: 'Open Tickets', value: '252', change: -6.8, changeLabel: 'vs last week' },
-  { label: 'Resolved This Week', value: '905', change: 9.4, changeLabel: 'vs last week' },
+  {
+    label: 'Total Departments',
+    value: '6',
+    change: 0,
+    changeLabel: 'No change',
+  },
+  {
+    label: 'Total Agents Assigned',
+    value: '24',
+    change: 4.3,
+    changeLabel: 'vs last month',
+  },
+  {
+    label: 'Open Tickets',
+    value: '252',
+    change: -6.8,
+    changeLabel: 'vs last week',
+  },
+  {
+    label: 'Resolved This Week',
+    value: '905',
+    change: 9.4,
+    changeLabel: 'vs last week',
+  },
 ];
-
-
-
-
-
-
-
-
 
 // ============================================================
 // SUPPORT — TICKET CATEGORIES PAGE — append to lib/data.ts
@@ -20633,8 +21019,7 @@ export const ticketCategoriesFull: TicketCategoryFull[] = [
     name: 'General Inquiry',
     description: 'Miscellaneous questions not covered by other categories.',
     icon: 'HelpCircle',
-    color:
-      'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400',
+    color: 'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400',
     totalTickets: 64,
     openTickets: 7,
     avgResolutionTime: '10h 30m',
@@ -20654,10 +21039,30 @@ export interface TicketCategoryOverviewStat {
 }
 
 export const ticketCategoryOverviewStats: TicketCategoryOverviewStat[] = [
-  { label: 'Total Categories', value: '7', change: 0, changeLabel: 'No change' },
-  { label: 'Total Tickets', value: '1,404', change: 12.5, changeLabel: 'vs last month' },
-  { label: 'Open Tickets', value: '270', change: -4.2, changeLabel: 'vs last week' },
-  { label: 'Avg. Resolution Time', value: '5h 50m', change: -6.1, changeLabel: 'vs last week' },
+  {
+    label: 'Total Categories',
+    value: '7',
+    change: 0,
+    changeLabel: 'No change',
+  },
+  {
+    label: 'Total Tickets',
+    value: '1,404',
+    change: 12.5,
+    changeLabel: 'vs last month',
+  },
+  {
+    label: 'Open Tickets',
+    value: '270',
+    change: -4.2,
+    changeLabel: 'vs last week',
+  },
+  {
+    label: 'Avg. Resolution Time',
+    value: '5h 50m',
+    change: -6.1,
+    changeLabel: 'vs last week',
+  },
 ];
 
 export const ticketCategoryPriorityBadgeStyles: Record<
@@ -20665,22 +21070,10 @@ export const ticketCategoryPriorityBadgeStyles: Record<
   string
 > = {
   Low: 'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400',
-  Medium:
-    'bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400',
+  Medium: 'bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400',
   High: 'bg-orange-50 text-orange-600 dark:bg-orange-500/10 dark:text-orange-400',
   Critical: 'bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400',
 };
-
-
-
-
-
-
-
-
-
-
-
 
 // ============================================================
 // SYSTEM MANAGEMENT — SYSTEM OVERVIEW — append to lib/data.ts
@@ -20898,8 +21291,7 @@ export const adminUserRoleBadgeStyles: Record<AdminUserRole, string> = {
 export const adminUserStatusBadgeStyles: Record<AdminUserStatus, string> = {
   Active:
     'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400',
-  Inactive:
-    'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400',
+  Inactive: 'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400',
   Suspended: 'bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400',
 };
 
@@ -20990,11 +21382,26 @@ export interface TopApiEndpoint {
 }
 
 export const topApiEndpointsThisWeek: TopApiEndpoint[] = [
-  { method: 'POST', path: '/api/v1/transactions', requests: 8256, maxScale: 8256 },
+  {
+    method: 'POST',
+    path: '/api/v1/transactions',
+    requests: 8256,
+    maxScale: 8256,
+  },
   { method: 'GET', path: '/api/v1/customers', requests: 6425, maxScale: 8256 },
   { method: 'POST', path: '/api/v1/pickups', requests: 4812, maxScale: 8256 },
-  { method: 'GET', path: '/api/v1/exchange-rates', requests: 2985, maxScale: 8256 },
-  { method: 'POST', path: '/api/v1/auth/login', requests: 1245, maxScale: 8256 },
+  {
+    method: 'GET',
+    path: '/api/v1/exchange-rates',
+    requests: 2985,
+    maxScale: 8256,
+  },
+  {
+    method: 'POST',
+    path: '/api/v1/auth/login',
+    requests: 1245,
+    maxScale: 8256,
+  },
 ];
 
 export type SystemHealthStatus = 'Healthy' | 'Degraded' | 'Down' | 'Success';
@@ -21172,12 +21579,6 @@ export const systemAlertsRecent: SystemAlertItem[] = [
     timeAgo: '1 day ago',
   },
 ];
-
-
-
-
-
-
 
 // ============================================================
 // SYSTEM MANAGEMENT — ADMIN USERS PAGE — append to lib/data.ts
@@ -21399,13 +21800,14 @@ export const adminUserRoleBadgeStylesFull: Record<AdminUserRole2, string> = {
     'bg-pink-50 text-pink-600 dark:bg-pink-500/10 dark:text-pink-400',
 };
 
-export const adminUserStatusBadgeStylesFull: Record<AdminUserStatus2, string> = {
-  Active:
-    'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400',
-  Inactive:
-    'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400',
-  Suspended: 'bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400',
-};
+export const adminUserStatusBadgeStylesFull: Record<AdminUserStatus2, string> =
+  {
+    Active:
+      'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400',
+    Inactive:
+      'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400',
+    Suspended: 'bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400',
+  };
 
 export interface AdminUserOverviewStat {
   label: string;
@@ -21415,18 +21817,31 @@ export interface AdminUserOverviewStat {
 }
 
 export const adminUserOverviewStats: AdminUserOverviewStat[] = [
-  { label: 'Total Admin Users', value: '124', change: 8.7, changeLabel: 'vs last month' },
-  { label: 'Active Users', value: '102', change: 4.1, changeLabel: 'vs last month' },
-  { label: '2FA Enabled', value: '98', change: 12.3, changeLabel: 'vs last month' },
-  { label: 'Suspended Accounts', value: '8', change: -2.5, changeLabel: 'vs last month' },
+  {
+    label: 'Total Admin Users',
+    value: '124',
+    change: 8.7,
+    changeLabel: 'vs last month',
+  },
+  {
+    label: 'Active Users',
+    value: '102',
+    change: 4.1,
+    changeLabel: 'vs last month',
+  },
+  {
+    label: '2FA Enabled',
+    value: '98',
+    change: 12.3,
+    changeLabel: 'vs last month',
+  },
+  {
+    label: 'Suspended Accounts',
+    value: '8',
+    change: -2.5,
+    changeLabel: 'vs last month',
+  },
 ];
-
-
-
-
-
-
-
 
 // ============================================================
 // SYSTEM MANAGEMENT — ROLES & PERMISSIONS PAGE — append to lib/data.ts
@@ -21464,10 +21879,14 @@ export const systemRoles: SystemRole[] = [
     id: 'role-001',
     name: 'Super Admin',
     description: 'Full unrestricted access to all modules and settings.',
-    color: 'bg-purple-50 text-purple-600 dark:bg-purple-500/10 dark:text-purple-400',
+    color:
+      'bg-purple-50 text-purple-600 dark:bg-purple-500/10 dark:text-purple-400',
     userCount: 2,
     isSystemRole: true,
-    permissions: defaultModules.map((m) => ({ module: m, level: 'full' as const })),
+    permissions: defaultModules.map(m => ({
+      module: m,
+      level: 'full' as const,
+    })),
   },
   {
     id: 'role-002',
@@ -21569,7 +21988,11 @@ export const permissionLevelLabels: Record<PermissionLevel2, string> = {
   none: 'No Access',
 };
 
-export const permissionLevelOrder: PermissionLevel2[] = ['none', 'view', 'full'];
+export const permissionLevelOrder: PermissionLevel2[] = [
+  'none',
+  'view',
+  'full',
+];
 
 export interface RoleOverviewStat {
   label: string;
@@ -21579,18 +22002,26 @@ export interface RoleOverviewStat {
 }
 
 export const roleOverviewStats: RoleOverviewStat[] = [
-  { label: 'Total Roles', value: '18', change: 5.6, changeLabel: 'vs last month' },
+  {
+    label: 'Total Roles',
+    value: '18',
+    change: 5.6,
+    changeLabel: 'vs last month',
+  },
   { label: 'System Roles', value: '2', change: 0, changeLabel: 'Protected' },
-  { label: 'Custom Roles', value: '16', change: 8.1, changeLabel: 'vs last month' },
-  { label: 'Users Assigned', value: '124', change: 8.7, changeLabel: 'vs last month' },
+  {
+    label: 'Custom Roles',
+    value: '16',
+    change: 8.1,
+    changeLabel: 'vs last month',
+  },
+  {
+    label: 'Users Assigned',
+    value: '124',
+    change: 8.7,
+    changeLabel: 'vs last month',
+  },
 ];
-
-
-
-
-
-
-
 
 // ============================================================
 // SYSTEM MANAGEMENT — SYSTEM SETTINGS PAGE — append to lib/data.ts
@@ -21708,12 +22139,6 @@ export const regionalSettingsOptions = {
     'India',
   ],
 };
-
-
-
-
-
-
 
 // ============================================================
 // SYSTEM MANAGEMENT — SECURITY SETTINGS PAGE — append to lib/data.ts
@@ -21847,13 +22272,31 @@ export interface SecurityOverviewStat {
 }
 
 export const securityOverviewStats: SecurityOverviewStat[] = [
-  { label: '2FA Enabled', value: '98 / 124', change: 12.3, changeLabel: 'vs last month' },
-  { label: 'Active Sessions', value: '86', change: 4.5, changeLabel: 'vs yesterday' },
-  { label: 'Whitelisted IPs', value: '12', change: 0, changeLabel: 'No change' },
-  { label: 'Failed Logins (24h)', value: '24', change: -8.2, changeLabel: 'vs yesterday' },
+  {
+    label: '2FA Enabled',
+    value: '98 / 124',
+    change: 12.3,
+    changeLabel: 'vs last month',
+  },
+  {
+    label: 'Active Sessions',
+    value: '86',
+    change: 4.5,
+    changeLabel: 'vs yesterday',
+  },
+  {
+    label: 'Whitelisted IPs',
+    value: '12',
+    change: 0,
+    changeLabel: 'No change',
+  },
+  {
+    label: 'Failed Logins (24h)',
+    value: '24',
+    change: -8.2,
+    changeLabel: 'vs yesterday',
+  },
 ];
-
-
 
 // ============================================================
 // SYSTEM MANAGEMENT — NOTIFICATION SETTINGS PAGE — append to lib/data.ts
@@ -22012,8 +22455,7 @@ export const notificationCategoryBadgeStyles: Record<
   Security: 'bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400',
   Support:
     'bg-purple-50 text-purple-600 dark:bg-purple-500/10 dark:text-purple-400',
-  System:
-    'bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400',
+  System: 'bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400',
 };
 
 export interface NotificationOverviewStat {
@@ -22024,13 +22466,26 @@ export interface NotificationOverviewStat {
 }
 
 export const notificationOverviewStats: NotificationOverviewStat[] = [
-  { label: 'Active Channels', value: '3 / 4', change: 0, changeLabel: 'No change' },
+  {
+    label: 'Active Channels',
+    value: '3 / 4',
+    change: 0,
+    changeLabel: 'No change',
+  },
   { label: 'Event Rules', value: '10', change: 0, changeLabel: 'No change' },
-  { label: 'Sent Today', value: '4,820', change: 9.4, changeLabel: 'vs yesterday' },
-  { label: 'Delivery Success Rate', value: '98.6%', change: 0.4, changeLabel: 'vs last week' },
+  {
+    label: 'Sent Today',
+    value: '4,820',
+    change: 9.4,
+    changeLabel: 'vs yesterday',
+  },
+  {
+    label: 'Delivery Success Rate',
+    value: '98.6%',
+    change: 0.4,
+    changeLabel: 'vs last week',
+  },
 ];
-
-
 
 // ============================================================
 // SYSTEM MANAGEMENT — ACTIVITY LOGS PAGE — append to lib/data.ts
@@ -22265,13 +22720,31 @@ export interface ActivityLogOverviewStat {
 }
 
 export const activityLogOverviewStats: ActivityLogOverviewStat[] = [
-  { label: 'Total Events Today', value: '342', change: 6.8, changeLabel: 'vs yesterday' },
-  { label: 'Warning Events', value: '184', change: -3.1, changeLabel: 'vs last 7 days' },
-  { label: 'Critical Events', value: '36', change: 12.4, changeLabel: 'vs last 7 days' },
-  { label: 'Unique Active Users', value: '58', change: 4.2, changeLabel: 'vs yesterday' },
+  {
+    label: 'Total Events Today',
+    value: '342',
+    change: 6.8,
+    changeLabel: 'vs yesterday',
+  },
+  {
+    label: 'Warning Events',
+    value: '184',
+    change: -3.1,
+    changeLabel: 'vs last 7 days',
+  },
+  {
+    label: 'Critical Events',
+    value: '36',
+    change: 12.4,
+    changeLabel: 'vs last 7 days',
+  },
+  {
+    label: 'Unique Active Users',
+    value: '58',
+    change: 4.2,
+    changeLabel: 'vs yesterday',
+  },
 ];
-
-
 
 // ============================================================
 // SYSTEM MANAGEMENT — LOGIN ATTEMPTS PAGE — append to lib/data.ts
@@ -22465,12 +22938,14 @@ export const loginAttemptResultTabs: {
   { label: 'Blocked', result: 'Blocked', count: 36 },
 ];
 
-export const loginAttemptResultBadgeStyles: Record<LoginAttemptResult, string> = {
-  Success:
-    'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400',
-  Failed: 'bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400',
-  Blocked: 'bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400',
-};
+export const loginAttemptResultBadgeStyles: Record<LoginAttemptResult, string> =
+  {
+    Success:
+      'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400',
+    Failed:
+      'bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400',
+    Blocked: 'bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400',
+  };
 
 export interface LoginAttemptOverviewStat {
   label: string;
@@ -22480,14 +22955,31 @@ export interface LoginAttemptOverviewStat {
 }
 
 export const loginAttemptOverviewStats: LoginAttemptOverviewStat[] = [
-  { label: 'Total Attempts (24h)', value: '432', change: 5.4, changeLabel: 'vs yesterday' },
-  { label: 'Failed Attempts', value: '24', change: -8.2, changeLabel: 'vs yesterday' },
-  { label: 'Blocked IPs', value: '6', change: 20.0, changeLabel: 'vs yesterday' },
-  { label: 'Success Rate', value: '94.4%', change: 1.2, changeLabel: 'vs yesterday' },
+  {
+    label: 'Total Attempts (24h)',
+    value: '432',
+    change: 5.4,
+    changeLabel: 'vs yesterday',
+  },
+  {
+    label: 'Failed Attempts',
+    value: '24',
+    change: -8.2,
+    changeLabel: 'vs yesterday',
+  },
+  {
+    label: 'Blocked IPs',
+    value: '6',
+    change: 20.0,
+    changeLabel: 'vs yesterday',
+  },
+  {
+    label: 'Success Rate',
+    value: '94.4%',
+    change: 1.2,
+    changeLabel: 'vs yesterday',
+  },
 ];
-
-
-
 
 // ============================================================
 // SYSTEM MANAGEMENT — SYSTEM HEALTH PAGE — append to lib/data.ts
@@ -22691,13 +23183,26 @@ export interface SystemHealthOverviewStat {
 }
 
 export const systemHealthOverviewStats: SystemHealthOverviewStat[] = [
-  { label: 'Overall Uptime', value: '99.98%', change: 0.02, changeLabel: 'vs last 7 days' },
-  { label: 'Services Healthy', value: '7 / 8', change: 0, changeLabel: '1 degraded' },
-  { label: 'Avg. Response Time', value: '118ms', change: -4.5, changeLabel: 'vs last 7 days' },
+  {
+    label: 'Overall Uptime',
+    value: '99.98%',
+    change: 0.02,
+    changeLabel: 'vs last 7 days',
+  },
+  {
+    label: 'Services Healthy',
+    value: '7 / 8',
+    change: 0,
+    changeLabel: '1 degraded',
+  },
+  {
+    label: 'Avg. Response Time',
+    value: '118ms',
+    change: -4.5,
+    changeLabel: 'vs last 7 days',
+  },
   { label: 'Open Incidents', value: '1', change: 0, changeLabel: 'Monitoring' },
 ];
-
-
 
 // ============================================================
 // SYSTEM MANAGEMENT — BACKUP & RECOVERY PAGE — append to lib/data.ts
@@ -22853,10 +23358,34 @@ export interface RestorePoint {
 }
 
 export const availableRestorePoints: RestorePoint[] = [
-  { id: 'rp-001', label: 'May 12, 2025 — 2:00 AM', date: 'Today', sizeGb: 48.2, type: 'Full' },
-  { id: 'rp-002', label: 'May 11, 2025 — 11:30 PM', date: 'Yesterday', sizeGb: 12.5, type: 'Database Only' },
-  { id: 'rp-003', label: 'May 10, 2025 — 2:00 AM', date: '2 days ago', sizeGb: 47.6, type: 'Full' },
-  { id: 'rp-004', label: 'May 9, 2025 — 2:00 AM', date: '3 days ago', sizeGb: 46.9, type: 'Full' },
+  {
+    id: 'rp-001',
+    label: 'May 12, 2025 — 2:00 AM',
+    date: 'Today',
+    sizeGb: 48.2,
+    type: 'Full',
+  },
+  {
+    id: 'rp-002',
+    label: 'May 11, 2025 — 11:30 PM',
+    date: 'Yesterday',
+    sizeGb: 12.5,
+    type: 'Database Only',
+  },
+  {
+    id: 'rp-003',
+    label: 'May 10, 2025 — 2:00 AM',
+    date: '2 days ago',
+    sizeGb: 47.6,
+    type: 'Full',
+  },
+  {
+    id: 'rp-004',
+    label: 'May 9, 2025 — 2:00 AM',
+    date: '3 days ago',
+    sizeGb: 46.9,
+    type: 'Full',
+  },
 ];
 
 export interface BackupOverviewStat {
@@ -22868,13 +23397,25 @@ export interface BackupOverviewStat {
 
 export const backupOverviewStats: BackupOverviewStat[] = [
   { label: 'Last Backup', value: '8h ago', change: 0, changeLabel: 'Success' },
-  { label: 'Total Backups (30d)', value: '184', change: 4.2, changeLabel: 'vs last month' },
-  { label: 'Storage Used', value: '1.2 TB', change: 6.8, changeLabel: 'vs last month' },
-  { label: 'Failed Backups (30d)', value: '2', change: -50, changeLabel: 'vs last month' },
+  {
+    label: 'Total Backups (30d)',
+    value: '184',
+    change: 4.2,
+    changeLabel: 'vs last month',
+  },
+  {
+    label: 'Storage Used',
+    value: '1.2 TB',
+    change: 6.8,
+    changeLabel: 'vs last month',
+  },
+  {
+    label: 'Failed Backups (30d)',
+    value: '2',
+    change: -50,
+    changeLabel: 'vs last month',
+  },
 ];
-
-
-
 
 // ============================================================
 // API OVERVIEW — DATA, TYPES & CONSTANTS
@@ -22889,14 +23430,25 @@ export interface OverviewStatCard {
   sublabel: string;
   value: string;
   change: string;
-  changeDirection: "up" | "down";
-  changeTone: "good" | "bad"; // good = green, bad = red (independent of direction, e.g. failed requests down is good)
-  icon: "requests" | "success" | "failed" | "response" | "keys" | "blocked" | "webhook";
+  changeDirection: 'up' | 'down';
+  changeTone: 'good' | 'bad'; // good = green, bad = red (independent of direction, e.g. failed requests down is good)
+  icon:
+    | 'requests'
+    | 'success'
+    | 'failed'
+    | 'response'
+    | 'keys'
+    | 'blocked'
+    | 'webhook';
   sparkline: number[]; // 7-10 points, relative values
-  sparkColor: "blue" | "green" | "red" | "purple" | "indigo" | "amber" | "sky";
+  sparkColor: 'blue' | 'green' | 'red' | 'purple' | 'indigo' | 'amber' | 'sky';
 }
 
-export type OverviewVolumeRange = "This Week" | "This Month" | "Last 7 Days" | "Last 30 Days";
+export type OverviewVolumeRange =
+  | 'This Week'
+  | 'This Month'
+  | 'Last 7 Days'
+  | 'Last 30 Days';
 
 export interface OverviewVolumePoint {
   label: string; // e.g. "May 6"
@@ -22905,12 +23457,12 @@ export interface OverviewVolumePoint {
 
 export interface OverviewEndpointUsageItem {
   id: string;
-  method: "GET" | "POST" | "PUT" | "DELETE";
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE';
   path: string;
   count: number;
 }
 
-export type OverviewHealthStatus = "Healthy" | "Warning" | "Down";
+export type OverviewHealthStatus = 'Healthy' | 'Warning' | 'Down';
 
 export interface OverviewHealthItem {
   id: string;
@@ -22918,17 +23470,17 @@ export interface OverviewHealthItem {
   status: OverviewHealthStatus;
 }
 
-export type OverviewEnvLiveStatus = "Live" | "Test";
+export type OverviewEnvLiveStatus = 'Live' | 'Test';
 
 export interface OverviewEnvStatusItem {
   id: string;
-  name: "Production" | "Sandbox";
+  name: 'Production' | 'Sandbox';
   liveStatus: OverviewEnvLiveStatus;
   uptime: string;
 }
 
-export type OverviewKeyEnvironment = "Production" | "Sandbox";
-export type OverviewKeyStatus = "Active" | "Suspended" | "Revoked";
+export type OverviewKeyEnvironment = 'Production' | 'Sandbox';
+export type OverviewKeyStatus = 'Active' | 'Suspended' | 'Revoked';
 
 export interface OverviewRecentApiKey {
   id: string;
@@ -22942,13 +23494,17 @@ export interface OverviewRecentApiKey {
   createdAt: string;
 }
 
-export type OverviewLogTab = "API Logs" | "Failed Requests" | "Security Alerts" | "IP Activity";
+export type OverviewLogTab =
+  | 'API Logs'
+  | 'Failed Requests'
+  | 'Security Alerts'
+  | 'IP Activity';
 
 export interface OverviewLogEntry {
   id: string;
   requestId: string;
   dateTime: string;
-  method: "GET" | "POST" | "PUT" | "DELETE";
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE';
   endpoint: string;
   statusCode: number;
   responseTimeMs: number;
@@ -22956,7 +23512,7 @@ export interface OverviewLogEntry {
   apiKeyId: string;
 }
 
-export type OverviewWebhookStatus = "Delivered" | "Failed" | "Pending";
+export type OverviewWebhookStatus = 'Delivered' | 'Failed' | 'Pending';
 
 export interface OverviewRecentWebhookEvent {
   id: string;
@@ -22968,253 +23524,262 @@ export interface OverviewRecentWebhookEvent {
 export interface OverviewQuickAction {
   id: string;
   label: string;
-  icon: "generate-key" | "add-webhook" | "create-endpoint" | "view-logs";
+  icon: 'generate-key' | 'add-webhook' | 'create-endpoint' | 'view-logs';
 }
 
 // ---------- Badge style maps ----------
 
 export const overviewKeyStatusBadge: Record<OverviewKeyStatus, string> = {
-  Active: "bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400",
-  Suspended: "bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400",
-  Revoked: "bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300",
+  Active:
+    'bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400',
+  Suspended: 'bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400',
+  Revoked: 'bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300',
 };
 
 export const overviewKeyEnvBadge: Record<OverviewKeyEnvironment, string> = {
-  Production: "bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400",
-  Sandbox: "bg-purple-100 text-purple-700 dark:bg-purple-500/10 dark:text-purple-400",
+  Production:
+    'bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400',
+  Sandbox:
+    'bg-purple-100 text-purple-700 dark:bg-purple-500/10 dark:text-purple-400',
 };
 
 export const overviewHealthStatusBadge: Record<OverviewHealthStatus, string> = {
-  Healthy: "text-green-600 dark:text-green-400",
-  Warning: "text-amber-600 dark:text-amber-400",
-  Down: "text-red-600 dark:text-red-400",
+  Healthy: 'text-green-600 dark:text-green-400',
+  Warning: 'text-amber-600 dark:text-amber-400',
+  Down: 'text-red-600 dark:text-red-400',
 };
 
 export const overviewHealthDotColor: Record<OverviewHealthStatus, string> = {
-  Healthy: "bg-green-500",
-  Warning: "bg-amber-500",
-  Down: "bg-red-500",
+  Healthy: 'bg-green-500',
+  Warning: 'bg-amber-500',
+  Down: 'bg-red-500',
 };
 
-export const overviewWebhookStatusBadge: Record<OverviewWebhookStatus, string> = {
-  Delivered: "bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400",
-  Failed: "bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400",
-  Pending: "bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400",
-};
+export const overviewWebhookStatusBadge: Record<OverviewWebhookStatus, string> =
+  {
+    Delivered:
+      'bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400',
+    Failed: 'bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400',
+    Pending:
+      'bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400',
+  };
 
-export const overviewMethodBadge: Record<"GET" | "POST" | "PUT" | "DELETE", string> = {
-  GET: "bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400",
-  POST: "bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400",
-  PUT: "bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400",
-  DELETE: "bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400",
+export const overviewMethodBadge: Record<
+  'GET' | 'POST' | 'PUT' | 'DELETE',
+  string
+> = {
+  GET: 'bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400',
+  POST: 'bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400',
+  PUT: 'bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400',
+  DELETE: 'bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400',
 };
 
 export const overviewStatusCodeColor = (code: number): string => {
-  if (code >= 200 && code < 300) return "text-green-600 dark:text-green-400";
-  if (code >= 400 && code < 500) return "text-amber-600 dark:text-amber-400";
-  if (code >= 500) return "text-red-600 dark:text-red-400";
-  return "text-slate-600 dark:text-slate-300";
+  if (code >= 200 && code < 300) return 'text-green-600 dark:text-green-400';
+  if (code >= 400 && code < 500) return 'text-amber-600 dark:text-amber-400';
+  if (code >= 500) return 'text-red-600 dark:text-red-400';
+  return 'text-slate-600 dark:text-slate-300';
 };
 
 // ---------- Stat cards ----------
 
 export const overviewStatCards: OverviewStatCard[] = [
   {
-    id: "total-requests",
-    label: "Total API Requests",
-    sublabel: "Today",
-    value: "128,568",
-    change: "18.6%",
-    changeDirection: "up",
-    changeTone: "good",
-    icon: "requests",
+    id: 'total-requests',
+    label: 'Total API Requests',
+    sublabel: 'Today',
+    value: '128,568',
+    change: '18.6%',
+    changeDirection: 'up',
+    changeTone: 'good',
+    icon: 'requests',
     sparkline: [12, 18, 14, 22, 19, 28, 24, 32, 29, 38],
-    sparkColor: "blue",
+    sparkColor: 'blue',
   },
   {
-    id: "successful-requests",
-    label: "Successful Requests",
-    sublabel: "Today",
-    value: "117,256",
-    change: "17.2%",
-    changeDirection: "up",
-    changeTone: "good",
-    icon: "success",
+    id: 'successful-requests',
+    label: 'Successful Requests',
+    sublabel: 'Today',
+    value: '117,256',
+    change: '17.2%',
+    changeDirection: 'up',
+    changeTone: 'good',
+    icon: 'success',
     sparkline: [10, 16, 13, 20, 18, 26, 23, 30, 28, 36],
-    sparkColor: "green",
+    sparkColor: 'green',
   },
   {
-    id: "failed-requests",
-    label: "Failed Requests",
-    sublabel: "Today",
-    value: "11,312",
-    change: "8.4%",
-    changeDirection: "down",
-    changeTone: "good",
-    icon: "failed",
+    id: 'failed-requests',
+    label: 'Failed Requests',
+    sublabel: 'Today',
+    value: '11,312',
+    change: '8.4%',
+    changeDirection: 'down',
+    changeTone: 'good',
+    icon: 'failed',
     sparkline: [30, 26, 28, 22, 24, 18, 20, 14, 16, 10],
-    sparkColor: "red",
+    sparkColor: 'red',
   },
   {
-    id: "avg-response-time",
-    label: "Average Response Time",
-    sublabel: "Today",
-    value: "245 ms",
-    change: "12.9%",
-    changeDirection: "up",
-    changeTone: "bad",
-    icon: "response",
+    id: 'avg-response-time',
+    label: 'Average Response Time',
+    sublabel: 'Today',
+    value: '245 ms',
+    change: '12.9%',
+    changeDirection: 'up',
+    changeTone: 'bad',
+    icon: 'response',
     sparkline: [14, 18, 16, 22, 20, 26, 24, 30, 27, 32],
-    sparkColor: "purple",
+    sparkColor: 'purple',
   },
   {
-    id: "active-api-keys",
-    label: "Active API Keys",
-    sublabel: "Total",
-    value: "86",
-    change: "6.2%",
-    changeDirection: "up",
-    changeTone: "good",
-    icon: "keys",
+    id: 'active-api-keys',
+    label: 'Active API Keys',
+    sublabel: 'Total',
+    value: '86',
+    change: '6.2%',
+    changeDirection: 'up',
+    changeTone: 'good',
+    icon: 'keys',
     sparkline: [20, 22, 21, 24, 23, 26, 25, 28, 27, 30],
-    sparkColor: "indigo",
+    sparkColor: 'indigo',
   },
   {
-    id: "blocked-ips",
-    label: "Blocked IPs",
-    sublabel: "Total",
-    value: "24",
-    change: "11.7%",
-    changeDirection: "down",
-    changeTone: "good",
-    icon: "blocked",
+    id: 'blocked-ips',
+    label: 'Blocked IPs',
+    sublabel: 'Total',
+    value: '24',
+    change: '11.7%',
+    changeDirection: 'down',
+    changeTone: 'good',
+    icon: 'blocked',
     sparkline: [32, 30, 28, 26, 24, 22, 20, 18, 16, 14],
-    sparkColor: "amber",
+    sparkColor: 'amber',
   },
   {
-    id: "webhook-events",
-    label: "Webhook Events",
-    sublabel: "Triggered Today",
-    value: "7,856",
-    change: "21.3%",
-    changeDirection: "up",
-    changeTone: "good",
-    icon: "webhook",
+    id: 'webhook-events',
+    label: 'Webhook Events',
+    sublabel: 'Triggered Today',
+    value: '7,856',
+    change: '21.3%',
+    changeDirection: 'up',
+    changeTone: 'good',
+    icon: 'webhook',
     sparkline: [14, 20, 17, 24, 21, 28, 25, 32, 29, 36],
-    sparkColor: "sky",
+    sparkColor: 'sky',
   },
 ];
 
 // ---------- Request volume (line chart) ----------
 
 export const overviewVolumeData: OverviewVolumePoint[] = [
-  { label: "May 6", value: 18000 },
-  { label: "May 7", value: 32000 },
-  { label: "May 8", value: 22000 },
-  { label: "May 9", value: 26000 },
-  { label: "May 10", value: 21000 },
-  { label: "May 11", value: 34000 },
-  { label: "May 12", value: 40000 },
+  { label: 'May 6', value: 18000 },
+  { label: 'May 7', value: 32000 },
+  { label: 'May 8', value: 22000 },
+  { label: 'May 9', value: 26000 },
+  { label: 'May 10', value: 21000 },
+  { label: 'May 11', value: 34000 },
+  { label: 'May 12', value: 40000 },
 ];
 
 // ---------- Success vs Failure (donut) ----------
 
 export const overviewSuccessCount = 117256;
 export const overviewFailedCount = 11312;
-export const overviewSuccessRate = "91.2%";
+export const overviewSuccessRate = '91.2%';
 
 // ---------- Endpoint usage (top 10) ----------
 
 export const overviewEndpointUsageData: OverviewEndpointUsageItem[] = [
-  { id: "eu-1", method: "POST", path: "/transactions/create", count: 24568 },
-  { id: "eu-2", method: "GET", path: "/transactions/{id}", count: 18265 },
-  { id: "eu-3", method: "POST", path: "/card/payment", count: 15324 },
-  { id: "eu-4", method: "GET", path: "/banks/payout", count: 9856 },
-  { id: "eu-5", method: "GET", path: "/customers", count: 8456 },
-  { id: "eu-6", method: "POST", path: "/auth/login", count: 7245 },
-  { id: "eu-7", method: "GET", path: "/reports/summary", count: 6534 },
-  { id: "eu-8", method: "GET", path: "/pickup/assign", count: 5632 },
-  { id: "eu-9", method: "PUT", path: "/transactions/status", count: 4856 },
-  { id: "eu-10", method: "GET", path: "/agents", count: 3842 },
+  { id: 'eu-1', method: 'POST', path: '/transactions/create', count: 24568 },
+  { id: 'eu-2', method: 'GET', path: '/transactions/{id}', count: 18265 },
+  { id: 'eu-3', method: 'POST', path: '/card/payment', count: 15324 },
+  { id: 'eu-4', method: 'GET', path: '/banks/payout', count: 9856 },
+  { id: 'eu-5', method: 'GET', path: '/customers', count: 8456 },
+  { id: 'eu-6', method: 'POST', path: '/auth/login', count: 7245 },
+  { id: 'eu-7', method: 'GET', path: '/reports/summary', count: 6534 },
+  { id: 'eu-8', method: 'GET', path: '/pickup/assign', count: 5632 },
+  { id: 'eu-9', method: 'PUT', path: '/transactions/status', count: 4856 },
+  { id: 'eu-10', method: 'GET', path: '/agents', count: 3842 },
 ];
 
 // ---------- System health ----------
 
 export const overviewHealthData: OverviewHealthItem[] = [
-  { id: "sh-1", name: "API Server", status: "Healthy" },
-  { id: "sh-2", name: "Database", status: "Healthy" },
-  { id: "sh-3", name: "Gateway Service", status: "Healthy" },
-  { id: "sh-4", name: "Queue Service", status: "Warning" },
-  { id: "sh-5", name: "Webhook Service", status: "Healthy" },
-  { id: "sh-6", name: "Monitoring", status: "Healthy" },
+  { id: 'sh-1', name: 'API Server', status: 'Healthy' },
+  { id: 'sh-2', name: 'Database', status: 'Healthy' },
+  { id: 'sh-3', name: 'Gateway Service', status: 'Healthy' },
+  { id: 'sh-4', name: 'Queue Service', status: 'Warning' },
+  { id: 'sh-5', name: 'Webhook Service', status: 'Healthy' },
+  { id: 'sh-6', name: 'Monitoring', status: 'Healthy' },
 ];
 
 // ---------- Environment status ----------
 
 export const overviewEnvStatusData: OverviewEnvStatusItem[] = [
-  { id: "env-prod", name: "Production", liveStatus: "Live", uptime: "99.98%" },
-  { id: "env-sandbox", name: "Sandbox", liveStatus: "Test", uptime: "99.12%" },
+  { id: 'env-prod', name: 'Production', liveStatus: 'Live', uptime: '99.98%' },
+  { id: 'env-sandbox', name: 'Sandbox', liveStatus: 'Test', uptime: '99.12%' },
 ];
 
-export const overviewEnvLastUpdated = "May 12, 2025 10:30 AM";
+export const overviewEnvLastUpdated = 'May 12, 2025 10:30 AM';
 
 // ---------- Recent API keys ----------
 
 export const overviewRecentApiKeysData: OverviewRecentApiKey[] = [
   {
-    id: "key-1",
-    keyId: "KEY_8f3a9b2d1c",
-    keyName: "Transaction Service",
-    owner: "System",
-    moduleAccess: "Transactions",
-    environment: "Production",
-    status: "Active",
-    rateLimit: "100/min",
-    createdAt: "May 12, 2025",
+    id: 'key-1',
+    keyId: 'KEY_8f3a9b2d1c',
+    keyName: 'Transaction Service',
+    owner: 'System',
+    moduleAccess: 'Transactions',
+    environment: 'Production',
+    status: 'Active',
+    rateLimit: '100/min',
+    createdAt: 'May 12, 2025',
   },
   {
-    id: "key-2",
-    keyId: "KEY_7c2b4e9a3f",
-    keyName: "Banking Integration",
-    owner: "Admin Rahman",
-    moduleAccess: "Banking, Payouts",
-    environment: "Production",
-    status: "Active",
-    rateLimit: "80/min",
-    createdAt: "May 10, 2025",
+    id: 'key-2',
+    keyId: 'KEY_7c2b4e9a3f',
+    keyName: 'Banking Integration',
+    owner: 'Admin Rahman',
+    moduleAccess: 'Banking, Payouts',
+    environment: 'Production',
+    status: 'Active',
+    rateLimit: '80/min',
+    createdAt: 'May 10, 2025',
   },
   {
-    id: "key-3",
-    keyId: "KEY_5d6e7f1a9b",
-    keyName: "Card Payment Gateway",
-    owner: "Finance Team",
-    moduleAccess: "Cards, Payments",
-    environment: "Production",
-    status: "Active",
-    rateLimit: "120/min",
-    createdAt: "May 9, 2025",
+    id: 'key-3',
+    keyId: 'KEY_5d6e7f1a9b',
+    keyName: 'Card Payment Gateway',
+    owner: 'Finance Team',
+    moduleAccess: 'Cards, Payments',
+    environment: 'Production',
+    status: 'Active',
+    rateLimit: '120/min',
+    createdAt: 'May 9, 2025',
   },
   {
-    id: "key-4",
-    keyId: "KEY_2a4b6c8d3e",
-    keyName: "Reports Service",
-    owner: "System",
-    moduleAccess: "Reports",
-    environment: "Sandbox",
-    status: "Active",
-    rateLimit: "50/min",
-    createdAt: "May 8, 2025",
+    id: 'key-4',
+    keyId: 'KEY_2a4b6c8d3e',
+    keyName: 'Reports Service',
+    owner: 'System',
+    moduleAccess: 'Reports',
+    environment: 'Sandbox',
+    status: 'Active',
+    rateLimit: '50/min',
+    createdAt: 'May 8, 2025',
   },
   {
-    id: "key-5",
-    keyId: "KEY_1e3f5a7b9c",
-    keyName: "Customer Sync",
-    owner: "Operations",
-    moduleAccess: "Customers",
-    environment: "Sandbox",
-    status: "Suspended",
-    rateLimit: "60/min",
-    createdAt: "May 5, 2025",
+    id: 'key-5',
+    keyId: 'KEY_1e3f5a7b9c',
+    keyName: 'Customer Sync',
+    owner: 'Operations',
+    moduleAccess: 'Customers',
+    environment: 'Sandbox',
+    status: 'Suspended',
+    rateLimit: '60/min',
+    createdAt: 'May 5, 2025',
   },
 ];
 
@@ -23222,59 +23787,59 @@ export const overviewRecentApiKeysData: OverviewRecentApiKey[] = [
 
 export const overviewLogsData: OverviewLogEntry[] = [
   {
-    id: "log-1",
-    requestId: "REQ_9f8a7b6c5d",
-    dateTime: "May 12, 2025 10:30:14 AM",
-    method: "POST",
-    endpoint: "/api/v1/transactions/create",
+    id: 'log-1',
+    requestId: 'REQ_9f8a7b6c5d',
+    dateTime: 'May 12, 2025 10:30:14 AM',
+    method: 'POST',
+    endpoint: '/api/v1/transactions/create',
     statusCode: 200,
     responseTimeMs: 245,
-    ipAddress: "192.168.1.45",
-    apiKeyId: "KEY_8f3a9b2d1c",
+    ipAddress: '192.168.1.45',
+    apiKeyId: 'KEY_8f3a9b2d1c',
   },
   {
-    id: "log-2",
-    requestId: "REQ_7e6d5c4b3a",
-    dateTime: "May 12, 2025 10:30:10 AM",
-    method: "GET",
-    endpoint: "/api/v1/transactions/12345",
+    id: 'log-2',
+    requestId: 'REQ_7e6d5c4b3a',
+    dateTime: 'May 12, 2025 10:30:10 AM',
+    method: 'GET',
+    endpoint: '/api/v1/transactions/12345',
     statusCode: 200,
     responseTimeMs: 120,
-    ipAddress: "192.168.1.22",
-    apiKeyId: "KEY_8f3a9b2d1c",
+    ipAddress: '192.168.1.22',
+    apiKeyId: 'KEY_8f3a9b2d1c',
   },
   {
-    id: "log-3",
-    requestId: "REQ_5b4a3c2d1e",
-    dateTime: "May 12, 2025 10:30:08 AM",
-    method: "POST",
-    endpoint: "/api/v1/card/payment",
+    id: 'log-3',
+    requestId: 'REQ_5b4a3c2d1e',
+    dateTime: 'May 12, 2025 10:30:08 AM',
+    method: 'POST',
+    endpoint: '/api/v1/card/payment',
     statusCode: 400,
     responseTimeMs: 310,
-    ipAddress: "203.0.113.25",
-    apiKeyId: "KEY_5d6e7f1a9b",
+    ipAddress: '203.0.113.25',
+    apiKeyId: 'KEY_5d6e7f1a9b',
   },
   {
-    id: "log-4",
-    requestId: "REQ_2d1c3b4a5f",
-    dateTime: "May 12, 2025 10:30:06 AM",
-    method: "GET",
-    endpoint: "/api/v1/reports/summary",
+    id: 'log-4',
+    requestId: 'REQ_2d1c3b4a5f',
+    dateTime: 'May 12, 2025 10:30:06 AM',
+    method: 'GET',
+    endpoint: '/api/v1/reports/summary',
     statusCode: 200,
     responseTimeMs: 180,
-    ipAddress: "192.168.1.78",
-    apiKeyId: "KEY_2a4b6c8d3e",
+    ipAddress: '192.168.1.78',
+    apiKeyId: 'KEY_2a4b6c8d3e',
   },
   {
-    id: "log-5",
-    requestId: "REQ_1a2b3c4d5e",
-    dateTime: "May 12, 2025 10:30:04 AM",
-    method: "POST",
-    endpoint: "/api/v1/banks/payout",
+    id: 'log-5',
+    requestId: 'REQ_1a2b3c4d5e',
+    dateTime: 'May 12, 2025 10:30:04 AM',
+    method: 'POST',
+    endpoint: '/api/v1/banks/payout',
     statusCode: 500,
     responseTimeMs: 890,
-    ipAddress: "198.51.100.14",
-    apiKeyId: "KEY_7c2b4e9a3f",
+    ipAddress: '198.51.100.14',
+    apiKeyId: 'KEY_7c2b4e9a3f',
   },
 ];
 
@@ -23283,36 +23848,61 @@ export const overviewLogsTotalCount = 1250;
 // ---------- Recent webhook events ----------
 
 export const overviewRecentWebhookEventsData: OverviewRecentWebhookEvent[] = [
-  { id: "wh-1", eventName: "transaction.completed", timestamp: "May 12, 2025 10:29 AM", status: "Delivered" },
-  { id: "wh-2", eventName: "pickup.approved", timestamp: "May 12, 2025 10:29 AM", status: "Delivered" },
-  { id: "wh-3", eventName: "card.payment.success", timestamp: "May 12, 2025 10:28 AM", status: "Delivered" },
-  { id: "wh-4", eventName: "aml.alert.created", timestamp: "May 12, 2025 10:27 AM", status: "Failed" },
-  { id: "wh-5", eventName: "transaction.failed", timestamp: "May 12, 2025 10:27 AM", status: "Delivered" },
+  {
+    id: 'wh-1',
+    eventName: 'transaction.completed',
+    timestamp: 'May 12, 2025 10:29 AM',
+    status: 'Delivered',
+  },
+  {
+    id: 'wh-2',
+    eventName: 'pickup.approved',
+    timestamp: 'May 12, 2025 10:29 AM',
+    status: 'Delivered',
+  },
+  {
+    id: 'wh-3',
+    eventName: 'card.payment.success',
+    timestamp: 'May 12, 2025 10:28 AM',
+    status: 'Delivered',
+  },
+  {
+    id: 'wh-4',
+    eventName: 'aml.alert.created',
+    timestamp: 'May 12, 2025 10:27 AM',
+    status: 'Failed',
+  },
+  {
+    id: 'wh-5',
+    eventName: 'transaction.failed',
+    timestamp: 'May 12, 2025 10:27 AM',
+    status: 'Delivered',
+  },
 ];
 
 // ---------- Quick actions ----------
 
 export const overviewQuickActionsData: OverviewQuickAction[] = [
-  { id: "qa-1", label: "Generate API Key", icon: "generate-key" },
-  { id: "qa-2", label: "Add Webhook", icon: "add-webhook" },
-  { id: "qa-3", label: "Create Endpoint", icon: "create-endpoint" },
-  { id: "qa-4", label: "View Logs", icon: "view-logs" },
+  { id: 'qa-1', label: 'Generate API Key', icon: 'generate-key' },
+  { id: 'qa-2', label: 'Add Webhook', icon: 'add-webhook' },
+  { id: 'qa-3', label: 'Create Endpoint', icon: 'create-endpoint' },
+  { id: 'qa-4', label: 'View Logs', icon: 'view-logs' },
 ];
 
-export const overviewLogTabs: OverviewLogTab[] = ["API Logs", "Failed Requests", "Security Alerts", "IP Activity"];
-
-
-
-
-
+export const overviewLogTabs: OverviewLogTab[] = [
+  'API Logs',
+  'Failed Requests',
+  'Security Alerts',
+  'IP Activity',
+];
 
 // ============================================================
 // API KEYS — DATA, TYPES & CONSTANTS
 // Append this block into lib/data.ts
 // ============================================================
 
-export type ApiKeysEnvironment = "Production" | "Sandbox";
-export type ApiKeysStatus = "Active" | "Suspended" | "Revoked";
+export type ApiKeysEnvironment = 'Production' | 'Sandbox';
+export type ApiKeysStatus = 'Active' | 'Suspended' | 'Revoked';
 
 export interface ApiKeysModuleScope {
   id: string;
@@ -23340,45 +23930,49 @@ export interface ApiKeyRecord {
 // ---------- Badge style maps ----------
 
 export const apiKeysStatusBadge: Record<ApiKeysStatus, string> = {
-  Active: "bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400",
-  Suspended: "bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400",
-  Revoked: "bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400",
+  Active:
+    'bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400',
+  Suspended:
+    'bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400',
+  Revoked: 'bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400',
 };
 
 export const apiKeysEnvBadge: Record<ApiKeysEnvironment, string> = {
-  Production: "bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400",
-  Sandbox: "bg-purple-100 text-purple-700 dark:bg-purple-500/10 dark:text-purple-400",
+  Production:
+    'bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400',
+  Sandbox:
+    'bg-purple-100 text-purple-700 dark:bg-purple-500/10 dark:text-purple-400',
 };
 
 export const apiKeysStatusDot: Record<ApiKeysStatus, string> = {
-  Active: "bg-green-500",
-  Suspended: "bg-amber-500",
-  Revoked: "bg-red-500",
+  Active: 'bg-green-500',
+  Suspended: 'bg-amber-500',
+  Revoked: 'bg-red-500',
 };
 
 // ---------- Available module scopes (for Generate/Edit key form) ----------
 
 export const apiKeysAvailableModules: ApiKeysModuleScope[] = [
-  { id: "mod-1", name: "Transactions" },
-  { id: "mod-2", name: "Payouts" },
-  { id: "mod-3", name: "Banking" },
-  { id: "mod-4", name: "Cards" },
-  { id: "mod-5", name: "Payments" },
-  { id: "mod-6", name: "Customers" },
-  { id: "mod-7", name: "Reports" },
-  { id: "mod-8", name: "Agents" },
-  { id: "mod-9", name: "Pickup" },
-  { id: "mod-10", name: "Webhooks" },
+  { id: 'mod-1', name: 'Transactions' },
+  { id: 'mod-2', name: 'Payouts' },
+  { id: 'mod-3', name: 'Banking' },
+  { id: 'mod-4', name: 'Cards' },
+  { id: 'mod-5', name: 'Payments' },
+  { id: 'mod-6', name: 'Customers' },
+  { id: 'mod-7', name: 'Reports' },
+  { id: 'mod-8', name: 'Agents' },
+  { id: 'mod-9', name: 'Pickup' },
+  { id: 'mod-10', name: 'Webhooks' },
 ];
 
 export const apiKeysRateLimitOptions: string[] = [
-  "30/min",
-  "50/min",
-  "60/min",
-  "80/min",
-  "100/min",
-  "120/min",
-  "200/min",
+  '30/min',
+  '50/min',
+  '60/min',
+  '80/min',
+  '100/min',
+  '120/min',
+  '200/min',
 ];
 
 // ---------- Stat summary ----------
@@ -23387,180 +23981,181 @@ export interface ApiKeysStat {
   id: string;
   label: string;
   value: string;
-  icon: "total" | "active" | "production" | "sandbox";
+  icon: 'total' | 'active' | 'production' | 'sandbox';
 }
 
 export const apiKeysStats: ApiKeysStat[] = [
-  { id: "stat-total", label: "Total API Keys", value: "86", icon: "total" },
-  { id: "stat-active", label: "Active Keys", value: "71", icon: "active" },
-  { id: "stat-production", label: "Production Keys", value: "52", icon: "production" },
-  { id: "stat-sandbox", label: "Sandbox Keys", value: "34", icon: "sandbox" },
+  { id: 'stat-total', label: 'Total API Keys', value: '86', icon: 'total' },
+  { id: 'stat-active', label: 'Active Keys', value: '71', icon: 'active' },
+  {
+    id: 'stat-production',
+    label: 'Production Keys',
+    value: '52',
+    icon: 'production',
+  },
+  { id: 'stat-sandbox', label: 'Sandbox Keys', value: '34', icon: 'sandbox' },
 ];
 
 // ---------- Main data ----------
 
 export const apiKeysData: ApiKeyRecord[] = [
   {
-    id: "akr-1",
-    keyId: "KEY_8f3a9b2d1c",
-    keyName: "Transaction Service",
-    owner: "System",
-    ownerAvatar: "https://i.pravatar.cc/40?img=11",
-    moduleAccess: ["Transactions"],
-    environment: "Production",
-    status: "Active",
-    rateLimit: "100/min",
-    lastUsed: "2 minutes ago",
-    createdAt: "May 12, 2025",
+    id: 'akr-1',
+    keyId: 'KEY_8f3a9b2d1c',
+    keyName: 'Transaction Service',
+    owner: 'System',
+    ownerAvatar: 'https://i.pravatar.cc/40?img=11',
+    moduleAccess: ['Transactions'],
+    environment: 'Production',
+    status: 'Active',
+    rateLimit: '100/min',
+    lastUsed: '2 minutes ago',
+    createdAt: 'May 12, 2025',
     expiresAt: null,
-    secretPreview: "sk_live_••••••••••••a1c2",
-    secretFull: "sk_live_8f3a9b2d1c4e7f6a9b0c1d2e3f4a5b6c7d8e9f0a1c2",
+    secretPreview: 'sk_live_••••••••••••a1c2',
+    secretFull: 'sk_live_8f3a9b2d1c4e7f6a9b0c1d2e3f4a5b6c7d8e9f0a1c2',
     totalRequests: 482190,
   },
   {
-    id: "akr-2",
-    keyId: "KEY_7c2b4e9a3f",
-    keyName: "Banking Integration",
-    owner: "Admin Rahman",
-    ownerAvatar: "https://i.pravatar.cc/40?img=12",
-    moduleAccess: ["Banking", "Payouts"],
-    environment: "Production",
-    status: "Active",
-    rateLimit: "80/min",
-    lastUsed: "10 minutes ago",
-    createdAt: "May 10, 2025",
-    expiresAt: "May 10, 2026",
-    secretPreview: "sk_live_••••••••••••9f3a",
-    secretFull: "sk_live_7c2b4e9a3f6d8e1a2b3c4d5e6f7a8b9c0d1e2f9f3a",
+    id: 'akr-2',
+    keyId: 'KEY_7c2b4e9a3f',
+    keyName: 'Banking Integration',
+    owner: 'Admin Rahman',
+    ownerAvatar: 'https://i.pravatar.cc/40?img=12',
+    moduleAccess: ['Banking', 'Payouts'],
+    environment: 'Production',
+    status: 'Active',
+    rateLimit: '80/min',
+    lastUsed: '10 minutes ago',
+    createdAt: 'May 10, 2025',
+    expiresAt: 'May 10, 2026',
+    secretPreview: 'sk_live_••••••••••••9f3a',
+    secretFull: 'sk_live_7c2b4e9a3f6d8e1a2b3c4d5e6f7a8b9c0d1e2f9f3a',
     totalRequests: 215430,
   },
   {
-    id: "akr-3",
-    keyId: "KEY_5d6e7f1a9b",
-    keyName: "Card Payment Gateway",
-    owner: "Finance Team",
-    ownerAvatar: "https://i.pravatar.cc/40?img=13",
-    moduleAccess: ["Cards", "Payments"],
-    environment: "Production",
-    status: "Active",
-    rateLimit: "120/min",
-    lastUsed: "1 hour ago",
-    createdAt: "May 9, 2025",
+    id: 'akr-3',
+    keyId: 'KEY_5d6e7f1a9b',
+    keyName: 'Card Payment Gateway',
+    owner: 'Finance Team',
+    ownerAvatar: 'https://i.pravatar.cc/40?img=13',
+    moduleAccess: ['Cards', 'Payments'],
+    environment: 'Production',
+    status: 'Active',
+    rateLimit: '120/min',
+    lastUsed: '1 hour ago',
+    createdAt: 'May 9, 2025',
     expiresAt: null,
-    secretPreview: "sk_live_••••••••••••7b21",
-    secretFull: "sk_live_5d6e7f1a9b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7b21",
+    secretPreview: 'sk_live_••••••••••••7b21',
+    secretFull: 'sk_live_5d6e7f1a9b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7b21',
     totalRequests: 396712,
   },
   {
-    id: "akr-4",
-    keyId: "KEY_2a4b6c8d3e",
-    keyName: "Reports Service",
-    owner: "System",
-    ownerAvatar: "https://i.pravatar.cc/40?img=14",
-    moduleAccess: ["Reports"],
-    environment: "Sandbox",
-    status: "Active",
-    rateLimit: "50/min",
-    lastUsed: "3 hours ago",
-    createdAt: "May 8, 2025",
-    expiresAt: "Aug 8, 2025",
-    secretPreview: "sk_test_••••••••••••4d8e",
-    secretFull: "sk_test_2a4b6c8d3e5f6a7b8c9d0e1f2a3b4c5d6e7f4d8e",
+    id: 'akr-4',
+    keyId: 'KEY_2a4b6c8d3e',
+    keyName: 'Reports Service',
+    owner: 'System',
+    ownerAvatar: 'https://i.pravatar.cc/40?img=14',
+    moduleAccess: ['Reports'],
+    environment: 'Sandbox',
+    status: 'Active',
+    rateLimit: '50/min',
+    lastUsed: '3 hours ago',
+    createdAt: 'May 8, 2025',
+    expiresAt: 'Aug 8, 2025',
+    secretPreview: 'sk_test_••••••••••••4d8e',
+    secretFull: 'sk_test_2a4b6c8d3e5f6a7b8c9d0e1f2a3b4c5d6e7f4d8e',
     totalRequests: 18230,
   },
   {
-    id: "akr-5",
-    keyId: "KEY_1e3f5a7b9c",
-    keyName: "Customer Sync",
-    owner: "Operations",
-    ownerAvatar: "https://i.pravatar.cc/40?img=15",
-    moduleAccess: ["Customers"],
-    environment: "Sandbox",
-    status: "Suspended",
-    rateLimit: "60/min",
-    lastUsed: "2 days ago",
-    createdAt: "May 5, 2025",
+    id: 'akr-5',
+    keyId: 'KEY_1e3f5a7b9c',
+    keyName: 'Customer Sync',
+    owner: 'Operations',
+    ownerAvatar: 'https://i.pravatar.cc/40?img=15',
+    moduleAccess: ['Customers'],
+    environment: 'Sandbox',
+    status: 'Suspended',
+    rateLimit: '60/min',
+    lastUsed: '2 days ago',
+    createdAt: 'May 5, 2025',
     expiresAt: null,
-    secretPreview: "sk_test_••••••••••••c3f1",
-    secretFull: "sk_test_1e3f5a7b9c2d4e6f8a0b1c2d3e4f5a6b7c8d9c3f1",
+    secretPreview: 'sk_test_••••••••••••c3f1',
+    secretFull: 'sk_test_1e3f5a7b9c2d4e6f8a0b1c2d3e4f5a6b7c8d9c3f1',
     totalRequests: 7421,
   },
   {
-    id: "akr-6",
-    keyId: "KEY_9b1c3d5e7f",
-    keyName: "Agent Mobile App",
-    owner: "Mobile Team",
-    ownerAvatar: "https://i.pravatar.cc/40?img=16",
-    moduleAccess: ["Agents", "Pickup"],
-    environment: "Production",
-    status: "Active",
-    rateLimit: "100/min",
-    lastUsed: "30 minutes ago",
-    createdAt: "May 3, 2025",
+    id: 'akr-6',
+    keyId: 'KEY_9b1c3d5e7f',
+    keyName: 'Agent Mobile App',
+    owner: 'Mobile Team',
+    ownerAvatar: 'https://i.pravatar.cc/40?img=16',
+    moduleAccess: ['Agents', 'Pickup'],
+    environment: 'Production',
+    status: 'Active',
+    rateLimit: '100/min',
+    lastUsed: '30 minutes ago',
+    createdAt: 'May 3, 2025',
     expiresAt: null,
-    secretPreview: "sk_live_••••••••••••b5e9",
-    secretFull: "sk_live_9b1c3d5e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5e9",
+    secretPreview: 'sk_live_••••••••••••b5e9',
+    secretFull: 'sk_live_9b1c3d5e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5e9',
     totalRequests: 154892,
   },
   {
-    id: "akr-7",
-    keyId: "KEY_4f6a8b0c2d",
-    keyName: "Legacy Webhook Relay",
-    owner: "DevOps",
-    ownerAvatar: "https://i.pravatar.cc/40?img=17",
-    moduleAccess: ["Webhooks"],
-    environment: "Production",
-    status: "Revoked",
-    rateLimit: "30/min",
-    lastUsed: "45 days ago",
-    createdAt: "Feb 14, 2025",
-    expiresAt: "May 1, 2025",
-    secretPreview: "sk_live_••••••••••••e0a4",
-    secretFull: "sk_live_4f6a8b0c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6e0a4",
+    id: 'akr-7',
+    keyId: 'KEY_4f6a8b0c2d',
+    keyName: 'Legacy Webhook Relay',
+    owner: 'DevOps',
+    ownerAvatar: 'https://i.pravatar.cc/40?img=17',
+    moduleAccess: ['Webhooks'],
+    environment: 'Production',
+    status: 'Revoked',
+    rateLimit: '30/min',
+    lastUsed: '45 days ago',
+    createdAt: 'Feb 14, 2025',
+    expiresAt: 'May 1, 2025',
+    secretPreview: 'sk_live_••••••••••••e0a4',
+    secretFull: 'sk_live_4f6a8b0c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6e0a4',
     totalRequests: 92103,
   },
   {
-    id: "akr-8",
-    keyId: "KEY_3c5e7a9b1d",
-    keyName: "Internal Analytics",
-    owner: "Data Team",
-    ownerAvatar: "https://i.pravatar.cc/40?img=18",
-    moduleAccess: ["Reports", "Transactions"],
-    environment: "Sandbox",
-    status: "Active",
-    rateLimit: "50/min",
-    lastUsed: "5 hours ago",
-    createdAt: "Apr 28, 2025",
-    expiresAt: "Oct 28, 2025",
-    secretPreview: "sk_test_••••••••••••d7c6",
-    secretFull: "sk_test_3c5e7a9b1d2e3f4a5b6c7d8e9f0a1b2c3d4e5d7c6",
+    id: 'akr-8',
+    keyId: 'KEY_3c5e7a9b1d',
+    keyName: 'Internal Analytics',
+    owner: 'Data Team',
+    ownerAvatar: 'https://i.pravatar.cc/40?img=18',
+    moduleAccess: ['Reports', 'Transactions'],
+    environment: 'Sandbox',
+    status: 'Active',
+    rateLimit: '50/min',
+    lastUsed: '5 hours ago',
+    createdAt: 'Apr 28, 2025',
+    expiresAt: 'Oct 28, 2025',
+    secretPreview: 'sk_test_••••••••••••d7c6',
+    secretFull: 'sk_test_3c5e7a9b1d2e3f4a5b6c7d8e9f0a1b2c3d4e5d7c6',
     totalRequests: 4109,
   },
 ];
 
 export const apiKeysTotalCount = apiKeysData.length;
 
-
-
-
-
 // ============================================================
 // ACCESS SCOPES — DATA, TYPES & CONSTANTS
 // Append this block into lib/data.ts
 // ============================================================
 
-export type ScopesPermissionLevel = "Read" | "Write" | "Full Access";
+export type ScopesPermissionLevel = 'Read' | 'Write' | 'Full Access';
 export type ScopesModuleName =
-  | "Transactions"
-  | "Payouts"
-  | "Banking"
-  | "Cards"
-  | "Payments"
-  | "Customers"
-  | "Reports"
-  | "Agents"
-  | "Webhooks"
-  | "Settings";
+  | 'Transactions'
+  | 'Payouts'
+  | 'Banking'
+  | 'Cards'
+  | 'Payments'
+  | 'Customers'
+  | 'Reports'
+  | 'Agents'
+  | 'Webhooks'
+  | 'Settings';
 
 export interface AccessScopeRecord {
   id: string;
@@ -23577,38 +24172,48 @@ export interface AccessScopeRecord {
 // ---------- Badge style maps ----------
 
 export const scopesPermissionBadge: Record<ScopesPermissionLevel, string> = {
-  Read: "bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400",
-  Write: "bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400",
-  "Full Access": "bg-purple-100 text-purple-700 dark:bg-purple-500/10 dark:text-purple-400",
+  Read: 'bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400',
+  Write: 'bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400',
+  'Full Access':
+    'bg-purple-100 text-purple-700 dark:bg-purple-500/10 dark:text-purple-400',
 };
 
 export const scopesModuleColor: Record<ScopesModuleName, string> = {
-  Transactions: "bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400",
-  Payouts: "bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400",
-  Banking: "bg-indigo-50 text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-400",
-  Cards: "bg-pink-50 text-pink-600 dark:bg-pink-500/10 dark:text-pink-400",
-  Payments: "bg-teal-50 text-teal-600 dark:bg-teal-500/10 dark:text-teal-400",
-  Customers: "bg-orange-50 text-orange-600 dark:bg-orange-500/10 dark:text-orange-400",
-  Reports: "bg-cyan-50 text-cyan-600 dark:bg-cyan-500/10 dark:text-cyan-400",
-  Agents: "bg-violet-50 text-violet-600 dark:bg-violet-500/10 dark:text-violet-400",
-  Webhooks: "bg-sky-50 text-sky-600 dark:bg-sky-500/10 dark:text-sky-400",
-  Settings: "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300",
+  Transactions:
+    'bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400',
+  Payouts:
+    'bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400',
+  Banking:
+    'bg-indigo-50 text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-400',
+  Cards: 'bg-pink-50 text-pink-600 dark:bg-pink-500/10 dark:text-pink-400',
+  Payments: 'bg-teal-50 text-teal-600 dark:bg-teal-500/10 dark:text-teal-400',
+  Customers:
+    'bg-orange-50 text-orange-600 dark:bg-orange-500/10 dark:text-orange-400',
+  Reports: 'bg-cyan-50 text-cyan-600 dark:bg-cyan-500/10 dark:text-cyan-400',
+  Agents:
+    'bg-violet-50 text-violet-600 dark:bg-violet-500/10 dark:text-violet-400',
+  Webhooks: 'bg-sky-50 text-sky-600 dark:bg-sky-500/10 dark:text-sky-400',
+  Settings: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300',
 };
 
 export const scopesModuleOptions: ScopesModuleName[] = [
-  "Transactions",
-  "Payouts",
-  "Banking",
-  "Cards",
-  "Payments",
-  "Customers",
-  "Reports",
-  "Agents",
-  "Webhooks",
-  "Settings",
+  'Transactions',
+  'Payouts',
+  'Banking',
+  'Cards',
+  'Payments',
+  'Customers',
+  'Reports',
+  'Agents',
+  'Webhooks',
+  'Settings',
 ];
 
-export const scopesPermissionOptions: ScopesPermissionLevel[] = ["Read", "Write", "Full Access"];
+export const scopesPermissionOptions: ScopesPermissionLevel[] = [
+  'Read',
+  'Write',
+  'Full Access',
+];
 
 // ---------- Stat summary ----------
 
@@ -23616,266 +24221,264 @@ export interface AccessScopesStat {
   id: string;
   label: string;
   value: string;
-  icon: "total" | "read" | "write" | "full";
+  icon: 'total' | 'read' | 'write' | 'full';
 }
 
 export const accessScopesStats: AccessScopesStat[] = [
-  { id: "as-stat-total", label: "Total Scopes", value: "24", icon: "total" },
-  { id: "as-stat-read", label: "Read Scopes", value: "10", icon: "read" },
-  { id: "as-stat-write", label: "Write Scopes", value: "9", icon: "write" },
-  { id: "as-stat-full", label: "Full Access Scopes", value: "5", icon: "full" },
+  { id: 'as-stat-total', label: 'Total Scopes', value: '24', icon: 'total' },
+  { id: 'as-stat-read', label: 'Read Scopes', value: '10', icon: 'read' },
+  { id: 'as-stat-write', label: 'Write Scopes', value: '9', icon: 'write' },
+  { id: 'as-stat-full', label: 'Full Access Scopes', value: '5', icon: 'full' },
 ];
 
 // ---------- Main data ----------
 
 export const accessScopesData: AccessScopeRecord[] = [
   {
-    id: "scope-1",
-    scopeKey: "transactions:read",
-    name: "View Transactions",
-    description: "Allows reading transaction records, statuses, and history.",
-    module: "Transactions",
-    permissionLevel: "Read",
+    id: 'scope-1',
+    scopeKey: 'transactions:read',
+    name: 'View Transactions',
+    description: 'Allows reading transaction records, statuses, and history.',
+    module: 'Transactions',
+    permissionLevel: 'Read',
     isSystemScope: true,
     assignedKeysCount: 18,
-    createdAt: "Jan 10, 2025",
+    createdAt: 'Jan 10, 2025',
   },
   {
-    id: "scope-2",
-    scopeKey: "transactions:write",
-    name: "Create Transactions",
-    description: "Allows creating and updating transaction records.",
-    module: "Transactions",
-    permissionLevel: "Write",
+    id: 'scope-2',
+    scopeKey: 'transactions:write',
+    name: 'Create Transactions',
+    description: 'Allows creating and updating transaction records.',
+    module: 'Transactions',
+    permissionLevel: 'Write',
     isSystemScope: true,
     assignedKeysCount: 9,
-    createdAt: "Jan 10, 2025",
+    createdAt: 'Jan 10, 2025',
   },
   {
-    id: "scope-3",
-    scopeKey: "transactions:full",
-    name: "Full Transaction Access",
-    description: "Complete control over transactions including void and refund.",
-    module: "Transactions",
-    permissionLevel: "Full Access",
+    id: 'scope-3',
+    scopeKey: 'transactions:full',
+    name: 'Full Transaction Access',
+    description:
+      'Complete control over transactions including void and refund.',
+    module: 'Transactions',
+    permissionLevel: 'Full Access',
     isSystemScope: false,
     assignedKeysCount: 3,
-    createdAt: "Feb 2, 2025",
+    createdAt: 'Feb 2, 2025',
   },
   {
-    id: "scope-4",
-    scopeKey: "payouts:read",
-    name: "View Payouts",
-    description: "Allows reading payout batches and statuses.",
-    module: "Payouts",
-    permissionLevel: "Read",
+    id: 'scope-4',
+    scopeKey: 'payouts:read',
+    name: 'View Payouts',
+    description: 'Allows reading payout batches and statuses.',
+    module: 'Payouts',
+    permissionLevel: 'Read',
     isSystemScope: true,
     assignedKeysCount: 12,
-    createdAt: "Jan 12, 2025",
+    createdAt: 'Jan 12, 2025',
   },
   {
-    id: "scope-5",
-    scopeKey: "payouts:write",
-    name: "Initiate Payouts",
-    description: "Allows creating and scheduling payout batches.",
-    module: "Payouts",
-    permissionLevel: "Write",
+    id: 'scope-5',
+    scopeKey: 'payouts:write',
+    name: 'Initiate Payouts',
+    description: 'Allows creating and scheduling payout batches.',
+    module: 'Payouts',
+    permissionLevel: 'Write',
     isSystemScope: true,
     assignedKeysCount: 6,
-    createdAt: "Jan 12, 2025",
+    createdAt: 'Jan 12, 2025',
   },
   {
-    id: "scope-6",
-    scopeKey: "banking:read",
-    name: "View Bank Accounts",
-    description: "Allows reading linked bank account details.",
-    module: "Banking",
-    permissionLevel: "Read",
+    id: 'scope-6',
+    scopeKey: 'banking:read',
+    name: 'View Bank Accounts',
+    description: 'Allows reading linked bank account details.',
+    module: 'Banking',
+    permissionLevel: 'Read',
     isSystemScope: true,
     assignedKeysCount: 8,
-    createdAt: "Jan 14, 2025",
+    createdAt: 'Jan 14, 2025',
   },
   {
-    id: "scope-7",
-    scopeKey: "banking:write",
-    name: "Manage Bank Accounts",
-    description: "Allows adding, updating, or removing linked bank accounts.",
-    module: "Banking",
-    permissionLevel: "Write",
+    id: 'scope-7',
+    scopeKey: 'banking:write',
+    name: 'Manage Bank Accounts',
+    description: 'Allows adding, updating, or removing linked bank accounts.',
+    module: 'Banking',
+    permissionLevel: 'Write',
     isSystemScope: false,
     assignedKeysCount: 4,
-    createdAt: "Feb 18, 2025",
+    createdAt: 'Feb 18, 2025',
   },
   {
-    id: "scope-8",
-    scopeKey: "cards:read",
-    name: "View Cards",
-    description: "Allows reading card metadata (masked card numbers only).",
-    module: "Cards",
-    permissionLevel: "Read",
+    id: 'scope-8',
+    scopeKey: 'cards:read',
+    name: 'View Cards',
+    description: 'Allows reading card metadata (masked card numbers only).',
+    module: 'Cards',
+    permissionLevel: 'Read',
     isSystemScope: true,
     assignedKeysCount: 11,
-    createdAt: "Jan 16, 2025",
+    createdAt: 'Jan 16, 2025',
   },
   {
-    id: "scope-9",
-    scopeKey: "cards:write",
-    name: "Issue & Manage Cards",
-    description: "Allows issuing new cards and updating card settings.",
-    module: "Cards",
-    permissionLevel: "Write",
+    id: 'scope-9',
+    scopeKey: 'cards:write',
+    name: 'Issue & Manage Cards',
+    description: 'Allows issuing new cards and updating card settings.',
+    module: 'Cards',
+    permissionLevel: 'Write',
     isSystemScope: false,
     assignedKeysCount: 2,
-    createdAt: "Mar 1, 2025",
+    createdAt: 'Mar 1, 2025',
   },
   {
-    id: "scope-10",
-    scopeKey: "payments:read",
-    name: "View Payments",
-    description: "Allows reading payment records and receipts.",
-    module: "Payments",
-    permissionLevel: "Read",
+    id: 'scope-10',
+    scopeKey: 'payments:read',
+    name: 'View Payments',
+    description: 'Allows reading payment records and receipts.',
+    module: 'Payments',
+    permissionLevel: 'Read',
     isSystemScope: true,
     assignedKeysCount: 15,
-    createdAt: "Jan 18, 2025",
+    createdAt: 'Jan 18, 2025',
   },
   {
-    id: "scope-11",
-    scopeKey: "payments:full",
-    name: "Full Payment Access",
-    description: "Complete control over payments including capture and reversal.",
-    module: "Payments",
-    permissionLevel: "Full Access",
+    id: 'scope-11',
+    scopeKey: 'payments:full',
+    name: 'Full Payment Access',
+    description:
+      'Complete control over payments including capture and reversal.',
+    module: 'Payments',
+    permissionLevel: 'Full Access',
     isSystemScope: false,
     assignedKeysCount: 3,
-    createdAt: "Mar 5, 2025",
+    createdAt: 'Mar 5, 2025',
   },
   {
-    id: "scope-12",
-    scopeKey: "customers:read",
-    name: "View Customers",
-    description: "Allows reading customer profiles and KYC status.",
-    module: "Customers",
-    permissionLevel: "Read",
+    id: 'scope-12',
+    scopeKey: 'customers:read',
+    name: 'View Customers',
+    description: 'Allows reading customer profiles and KYC status.',
+    module: 'Customers',
+    permissionLevel: 'Read',
     isSystemScope: true,
     assignedKeysCount: 14,
-    createdAt: "Jan 20, 2025",
+    createdAt: 'Jan 20, 2025',
   },
   {
-    id: "scope-13",
-    scopeKey: "customers:write",
-    name: "Manage Customers",
-    description: "Allows creating, updating, or suspending customer profiles.",
-    module: "Customers",
-    permissionLevel: "Write",
+    id: 'scope-13',
+    scopeKey: 'customers:write',
+    name: 'Manage Customers',
+    description: 'Allows creating, updating, or suspending customer profiles.',
+    module: 'Customers',
+    permissionLevel: 'Write',
     isSystemScope: false,
     assignedKeysCount: 5,
-    createdAt: "Feb 22, 2025",
+    createdAt: 'Feb 22, 2025',
   },
   {
-    id: "scope-14",
-    scopeKey: "reports:read",
-    name: "View Reports",
-    description: "Allows reading generated reports and analytics summaries.",
-    module: "Reports",
-    permissionLevel: "Read",
+    id: 'scope-14',
+    scopeKey: 'reports:read',
+    name: 'View Reports',
+    description: 'Allows reading generated reports and analytics summaries.',
+    module: 'Reports',
+    permissionLevel: 'Read',
     isSystemScope: true,
     assignedKeysCount: 10,
-    createdAt: "Jan 22, 2025",
+    createdAt: 'Jan 22, 2025',
   },
   {
-    id: "scope-15",
-    scopeKey: "agents:read",
-    name: "View Agents",
-    description: "Allows reading agent profiles and pickup assignment data.",
-    module: "Agents",
-    permissionLevel: "Read",
+    id: 'scope-15',
+    scopeKey: 'agents:read',
+    name: 'View Agents',
+    description: 'Allows reading agent profiles and pickup assignment data.',
+    module: 'Agents',
+    permissionLevel: 'Read',
     isSystemScope: true,
     assignedKeysCount: 7,
-    createdAt: "Jan 24, 2025",
+    createdAt: 'Jan 24, 2025',
   },
   {
-    id: "scope-16",
-    scopeKey: "agents:write",
-    name: "Manage Agents",
-    description: "Allows creating and updating agent assignments and territories.",
-    module: "Agents",
-    permissionLevel: "Write",
+    id: 'scope-16',
+    scopeKey: 'agents:write',
+    name: 'Manage Agents',
+    description:
+      'Allows creating and updating agent assignments and territories.',
+    module: 'Agents',
+    permissionLevel: 'Write',
     isSystemScope: false,
     assignedKeysCount: 2,
-    createdAt: "Mar 8, 2025",
+    createdAt: 'Mar 8, 2025',
   },
   {
-    id: "scope-17",
-    scopeKey: "webhooks:read",
-    name: "View Webhooks",
-    description: "Allows reading webhook configurations and delivery logs.",
-    module: "Webhooks",
-    permissionLevel: "Read",
+    id: 'scope-17',
+    scopeKey: 'webhooks:read',
+    name: 'View Webhooks',
+    description: 'Allows reading webhook configurations and delivery logs.',
+    module: 'Webhooks',
+    permissionLevel: 'Read',
     isSystemScope: true,
     assignedKeysCount: 9,
-    createdAt: "Jan 26, 2025",
+    createdAt: 'Jan 26, 2025',
   },
   {
-    id: "scope-18",
-    scopeKey: "webhooks:write",
-    name: "Manage Webhooks",
-    description: "Allows creating, updating, and deleting webhook endpoints.",
-    module: "Webhooks",
-    permissionLevel: "Write",
+    id: 'scope-18',
+    scopeKey: 'webhooks:write',
+    name: 'Manage Webhooks',
+    description: 'Allows creating, updating, and deleting webhook endpoints.',
+    module: 'Webhooks',
+    permissionLevel: 'Write',
     isSystemScope: false,
     assignedKeysCount: 6,
-    createdAt: "Feb 28, 2025",
+    createdAt: 'Feb 28, 2025',
   },
   {
-    id: "scope-19",
-    scopeKey: "settings:read",
-    name: "View Settings",
-    description: "Allows reading system and integration settings.",
-    module: "Settings",
-    permissionLevel: "Read",
+    id: 'scope-19',
+    scopeKey: 'settings:read',
+    name: 'View Settings',
+    description: 'Allows reading system and integration settings.',
+    module: 'Settings',
+    permissionLevel: 'Read',
     isSystemScope: true,
     assignedKeysCount: 5,
-    createdAt: "Jan 28, 2025",
+    createdAt: 'Jan 28, 2025',
   },
   {
-    id: "scope-20",
-    scopeKey: "settings:full",
-    name: "Full Settings Access",
-    description: "Complete control over system configuration and integrations.",
-    module: "Settings",
-    permissionLevel: "Full Access",
+    id: 'scope-20',
+    scopeKey: 'settings:full',
+    name: 'Full Settings Access',
+    description: 'Complete control over system configuration and integrations.',
+    module: 'Settings',
+    permissionLevel: 'Full Access',
     isSystemScope: true,
     assignedKeysCount: 1,
-    createdAt: "Jan 28, 2025",
+    createdAt: 'Jan 28, 2025',
   },
 ];
 
 export const accessScopesTotalCount = accessScopesData.length;
-
-
-
-
-
 
 // ============================================================
 // ENDPOINTS — DATA, TYPES & CONSTANTS
 // Append this block into lib/data.ts
 // ============================================================
 
-export type EndpointsMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
-export type EndpointsStatus = "Active" | "Beta" | "Deprecated";
+export type EndpointsMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+export type EndpointsStatus = 'Active' | 'Beta' | 'Deprecated';
 export type EndpointsModuleName =
-  | "Transactions"
-  | "Payouts"
-  | "Banking"
-  | "Cards"
-  | "Payments"
-  | "Customers"
-  | "Reports"
-  | "Agents"
-  | "Webhooks"
-  | "Auth";
+  | 'Transactions'
+  | 'Payouts'
+  | 'Banking'
+  | 'Cards'
+  | 'Payments'
+  | 'Customers'
+  | 'Reports'
+  | 'Agents'
+  | 'Webhooks'
+  | 'Auth';
 
 export interface EndpointRecord {
   id: string;
@@ -23896,40 +24499,59 @@ export interface EndpointRecord {
 // ---------- Badge style maps ----------
 
 export const endpointsMethodBadge: Record<EndpointsMethod, string> = {
-  GET: "bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400",
-  POST: "bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400",
-  PUT: "bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400",
-  PATCH: "bg-indigo-100 text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-400",
-  DELETE: "bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400",
+  GET: 'bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400',
+  POST: 'bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400',
+  PUT: 'bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400',
+  PATCH:
+    'bg-indigo-100 text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-400',
+  DELETE: 'bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400',
 };
 
 export const endpointsStatusBadge: Record<EndpointsStatus, string> = {
-  Active: "bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400",
-  Beta: "bg-purple-100 text-purple-700 dark:bg-purple-500/10 dark:text-purple-400",
-  Deprecated: "bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400",
+  Active:
+    'bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400',
+  Beta: 'bg-purple-100 text-purple-700 dark:bg-purple-500/10 dark:text-purple-400',
+  Deprecated: 'bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400',
 };
 
 export const endpointsStatusDot: Record<EndpointsStatus, string> = {
-  Active: "bg-green-500",
-  Beta: "bg-purple-500",
-  Deprecated: "bg-red-500",
+  Active: 'bg-green-500',
+  Beta: 'bg-purple-500',
+  Deprecated: 'bg-red-500',
 };
 
-export const endpointsMethodOptions: EndpointsMethod[] = ["GET", "POST", "PUT", "PATCH", "DELETE"];
-export const endpointsStatusOptions: EndpointsStatus[] = ["Active", "Beta", "Deprecated"];
-export const endpointsModuleOptions: EndpointsModuleName[] = [
-  "Transactions",
-  "Payouts",
-  "Banking",
-  "Cards",
-  "Payments",
-  "Customers",
-  "Reports",
-  "Agents",
-  "Webhooks",
-  "Auth",
+export const endpointsMethodOptions: EndpointsMethod[] = [
+  'GET',
+  'POST',
+  'PUT',
+  'PATCH',
+  'DELETE',
 ];
-export const endpointsRateLimitOptions: string[] = ["30/min", "50/min", "60/min", "80/min", "100/min", "120/min"];
+export const endpointsStatusOptions: EndpointsStatus[] = [
+  'Active',
+  'Beta',
+  'Deprecated',
+];
+export const endpointsModuleOptions: EndpointsModuleName[] = [
+  'Transactions',
+  'Payouts',
+  'Banking',
+  'Cards',
+  'Payments',
+  'Customers',
+  'Reports',
+  'Agents',
+  'Webhooks',
+  'Auth',
+];
+export const endpointsRateLimitOptions: string[] = [
+  '30/min',
+  '50/min',
+  '60/min',
+  '80/min',
+  '100/min',
+  '120/min',
+];
 
 // ---------- Stat summary ----------
 
@@ -23937,295 +24559,303 @@ export interface EndpointsStat {
   id: string;
   label: string;
   value: string;
-  icon: "total" | "active" | "beta" | "deprecated";
+  icon: 'total' | 'active' | 'beta' | 'deprecated';
 }
 
 export const endpointsStats: EndpointsStat[] = [
-  { id: "ep-stat-total", label: "Total Endpoints", value: "48", icon: "total" },
-  { id: "ep-stat-active", label: "Active Endpoints", value: "39", icon: "active" },
-  { id: "ep-stat-beta", label: "Beta Endpoints", value: "6", icon: "beta" },
-  { id: "ep-stat-deprecated", label: "Deprecated", value: "3", icon: "deprecated" },
+  { id: 'ep-stat-total', label: 'Total Endpoints', value: '48', icon: 'total' },
+  {
+    id: 'ep-stat-active',
+    label: 'Active Endpoints',
+    value: '39',
+    icon: 'active',
+  },
+  { id: 'ep-stat-beta', label: 'Beta Endpoints', value: '6', icon: 'beta' },
+  {
+    id: 'ep-stat-deprecated',
+    label: 'Deprecated',
+    value: '3',
+    icon: 'deprecated',
+  },
 ];
 
 // ---------- Main data ----------
 
 export const endpointsData: EndpointRecord[] = [
   {
-    id: "ep-1",
-    method: "POST",
-    path: "/api/v1/transactions/create",
-    name: "Create Transaction",
-    description: "Initiates a new remittance transaction between sender and recipient.",
-    module: "Transactions",
-    status: "Active",
-    requiredScope: "transactions:write",
-    rateLimit: "100/min",
+    id: 'ep-1',
+    method: 'POST',
+    path: '/api/v1/transactions/create',
+    name: 'Create Transaction',
+    description:
+      'Initiates a new remittance transaction between sender and recipient.',
+    module: 'Transactions',
+    status: 'Active',
+    requiredScope: 'transactions:write',
+    rateLimit: '100/min',
     avgResponseMs: 245,
     callsToday: 24568,
-    lastCalled: "2 minutes ago",
-    versionTag: "v1",
+    lastCalled: '2 minutes ago',
+    versionTag: 'v1',
   },
   {
-    id: "ep-2",
-    method: "GET",
-    path: "/api/v1/transactions/{id}",
-    name: "Get Transaction",
-    description: "Retrieves the full details and status of a single transaction.",
-    module: "Transactions",
-    status: "Active",
-    requiredScope: "transactions:read",
-    rateLimit: "120/min",
+    id: 'ep-2',
+    method: 'GET',
+    path: '/api/v1/transactions/{id}',
+    name: 'Get Transaction',
+    description:
+      'Retrieves the full details and status of a single transaction.',
+    module: 'Transactions',
+    status: 'Active',
+    requiredScope: 'transactions:read',
+    rateLimit: '120/min',
     avgResponseMs: 120,
     callsToday: 18265,
-    lastCalled: "5 minutes ago",
-    versionTag: "v1",
+    lastCalled: '5 minutes ago',
+    versionTag: 'v1',
   },
   {
-    id: "ep-3",
-    method: "PUT",
-    path: "/api/v1/transactions/status",
-    name: "Update Transaction Status",
-    description: "Updates the lifecycle status of an existing transaction.",
-    module: "Transactions",
-    status: "Active",
-    requiredScope: "transactions:write",
-    rateLimit: "100/min",
+    id: 'ep-3',
+    method: 'PUT',
+    path: '/api/v1/transactions/status',
+    name: 'Update Transaction Status',
+    description: 'Updates the lifecycle status of an existing transaction.',
+    module: 'Transactions',
+    status: 'Active',
+    requiredScope: 'transactions:write',
+    rateLimit: '100/min',
     avgResponseMs: 180,
     callsToday: 4856,
-    lastCalled: "12 minutes ago",
-    versionTag: "v1",
+    lastCalled: '12 minutes ago',
+    versionTag: 'v1',
   },
   {
-    id: "ep-4",
-    method: "POST",
-    path: "/api/v1/card/payment",
-    name: "Card Payment",
-    description: "Processes a card payment against a transaction.",
-    module: "Cards",
-    status: "Active",
-    requiredScope: "cards:write",
-    rateLimit: "80/min",
+    id: 'ep-4',
+    method: 'POST',
+    path: '/api/v1/card/payment',
+    name: 'Card Payment',
+    description: 'Processes a card payment against a transaction.',
+    module: 'Cards',
+    status: 'Active',
+    requiredScope: 'cards:write',
+    rateLimit: '80/min',
     avgResponseMs: 310,
     callsToday: 15324,
-    lastCalled: "1 minute ago",
-    versionTag: "v1",
+    lastCalled: '1 minute ago',
+    versionTag: 'v1',
   },
   {
-    id: "ep-5",
-    method: "GET",
-    path: "/api/v1/banks/payout",
-    name: "List Payouts",
-    description: "Returns a paginated list of payout batches.",
-    module: "Payouts",
-    status: "Active",
-    requiredScope: "payouts:read",
-    rateLimit: "60/min",
+    id: 'ep-5',
+    method: 'GET',
+    path: '/api/v1/banks/payout',
+    name: 'List Payouts',
+    description: 'Returns a paginated list of payout batches.',
+    module: 'Payouts',
+    status: 'Active',
+    requiredScope: 'payouts:read',
+    rateLimit: '60/min',
     avgResponseMs: 890,
     callsToday: 9856,
-    lastCalled: "8 minutes ago",
-    versionTag: "v1",
+    lastCalled: '8 minutes ago',
+    versionTag: 'v1',
   },
   {
-    id: "ep-6",
-    method: "GET",
-    path: "/api/v1/customers",
-    name: "List Customers",
-    description: "Returns a paginated list of customer profiles.",
-    module: "Customers",
-    status: "Active",
-    requiredScope: "customers:read",
-    rateLimit: "100/min",
+    id: 'ep-6',
+    method: 'GET',
+    path: '/api/v1/customers',
+    name: 'List Customers',
+    description: 'Returns a paginated list of customer profiles.',
+    module: 'Customers',
+    status: 'Active',
+    requiredScope: 'customers:read',
+    rateLimit: '100/min',
     avgResponseMs: 150,
     callsToday: 8456,
-    lastCalled: "3 minutes ago",
-    versionTag: "v1",
+    lastCalled: '3 minutes ago',
+    versionTag: 'v1',
   },
   {
-    id: "ep-7",
-    method: "POST",
-    path: "/api/v1/auth/login",
-    name: "Authenticate",
-    description: "Exchanges credentials for an access token.",
-    module: "Auth",
-    status: "Active",
-    requiredScope: "auth:write",
-    rateLimit: "30/min",
+    id: 'ep-7',
+    method: 'POST',
+    path: '/api/v1/auth/login',
+    name: 'Authenticate',
+    description: 'Exchanges credentials for an access token.',
+    module: 'Auth',
+    status: 'Active',
+    requiredScope: 'auth:write',
+    rateLimit: '30/min',
     avgResponseMs: 95,
     callsToday: 7245,
-    lastCalled: "Just now",
-    versionTag: "v1",
+    lastCalled: 'Just now',
+    versionTag: 'v1',
   },
   {
-    id: "ep-8",
-    method: "GET",
-    path: "/api/v1/reports/summary",
-    name: "Reports Summary",
-    description: "Returns aggregated summary metrics for a given date range.",
-    module: "Reports",
-    status: "Active",
-    requiredScope: "reports:read",
-    rateLimit: "50/min",
+    id: 'ep-8',
+    method: 'GET',
+    path: '/api/v1/reports/summary',
+    name: 'Reports Summary',
+    description: 'Returns aggregated summary metrics for a given date range.',
+    module: 'Reports',
+    status: 'Active',
+    requiredScope: 'reports:read',
+    rateLimit: '50/min',
     avgResponseMs: 410,
     callsToday: 6534,
-    lastCalled: "20 minutes ago",
-    versionTag: "v1",
+    lastCalled: '20 minutes ago',
+    versionTag: 'v1',
   },
   {
-    id: "ep-9",
-    method: "GET",
-    path: "/api/v1/pickup/assign",
-    name: "Assign Pickup",
-    description: "Assigns a pending cash-pickup transaction to a field agent.",
-    module: "Agents",
-    status: "Active",
-    requiredScope: "agents:write",
-    rateLimit: "60/min",
+    id: 'ep-9',
+    method: 'GET',
+    path: '/api/v1/pickup/assign',
+    name: 'Assign Pickup',
+    description: 'Assigns a pending cash-pickup transaction to a field agent.',
+    module: 'Agents',
+    status: 'Active',
+    requiredScope: 'agents:write',
+    rateLimit: '60/min',
     avgResponseMs: 200,
     callsToday: 5632,
-    lastCalled: "15 minutes ago",
-    versionTag: "v1",
+    lastCalled: '15 minutes ago',
+    versionTag: 'v1',
   },
   {
-    id: "ep-10",
-    method: "GET",
-    path: "/api/v1/agents",
-    name: "List Agents",
-    description: "Returns a list of field agents and their current status.",
-    module: "Agents",
-    status: "Active",
-    requiredScope: "agents:read",
-    rateLimit: "100/min",
+    id: 'ep-10',
+    method: 'GET',
+    path: '/api/v1/agents',
+    name: 'List Agents',
+    description: 'Returns a list of field agents and their current status.',
+    module: 'Agents',
+    status: 'Active',
+    requiredScope: 'agents:read',
+    rateLimit: '100/min',
     avgResponseMs: 140,
     callsToday: 3842,
-    lastCalled: "30 minutes ago",
-    versionTag: "v1",
+    lastCalled: '30 minutes ago',
+    versionTag: 'v1',
   },
   {
-    id: "ep-11",
-    method: "POST",
-    path: "/api/v2/transactions/bulk-create",
-    name: "Bulk Create Transactions",
-    description: "Creates multiple transactions in a single batched request.",
-    module: "Transactions",
-    status: "Beta",
-    requiredScope: "transactions:write",
-    rateLimit: "30/min",
+    id: 'ep-11',
+    method: 'POST',
+    path: '/api/v2/transactions/bulk-create',
+    name: 'Bulk Create Transactions',
+    description: 'Creates multiple transactions in a single batched request.',
+    module: 'Transactions',
+    status: 'Beta',
+    requiredScope: 'transactions:write',
+    rateLimit: '30/min',
     avgResponseMs: 620,
     callsToday: 412,
-    lastCalled: "2 hours ago",
-    versionTag: "v2",
+    lastCalled: '2 hours ago',
+    versionTag: 'v2',
   },
   {
-    id: "ep-12",
-    method: "POST",
-    path: "/api/v2/payments/instant-settle",
-    name: "Instant Settlement",
-    description: "Triggers an instant settlement flow for eligible payment partners.",
-    module: "Payments",
-    status: "Beta",
-    requiredScope: "payments:full",
-    rateLimit: "30/min",
+    id: 'ep-12',
+    method: 'POST',
+    path: '/api/v2/payments/instant-settle',
+    name: 'Instant Settlement',
+    description:
+      'Triggers an instant settlement flow for eligible payment partners.',
+    module: 'Payments',
+    status: 'Beta',
+    requiredScope: 'payments:full',
+    rateLimit: '30/min',
     avgResponseMs: 540,
     callsToday: 189,
-    lastCalled: "4 hours ago",
-    versionTag: "v2",
+    lastCalled: '4 hours ago',
+    versionTag: 'v2',
   },
   {
-    id: "ep-13",
-    method: "PATCH",
-    path: "/api/v2/customers/{id}/risk-flag",
-    name: "Update Risk Flag",
-    description: "Updates the AML/risk flag classification on a customer profile.",
-    module: "Customers",
-    status: "Beta",
-    requiredScope: "customers:write",
-    rateLimit: "50/min",
+    id: 'ep-13',
+    method: 'PATCH',
+    path: '/api/v2/customers/{id}/risk-flag',
+    name: 'Update Risk Flag',
+    description:
+      'Updates the AML/risk flag classification on a customer profile.',
+    module: 'Customers',
+    status: 'Beta',
+    requiredScope: 'customers:write',
+    rateLimit: '50/min',
     avgResponseMs: 175,
     callsToday: 92,
-    lastCalled: "6 hours ago",
-    versionTag: "v2",
+    lastCalled: '6 hours ago',
+    versionTag: 'v2',
   },
   {
-    id: "ep-14",
-    method: "DELETE",
-    path: "/api/v1/cards/{id}",
-    name: "Deactivate Card",
-    description: "Permanently deactivates a card and revokes all associated tokens.",
-    module: "Cards",
-    status: "Active",
-    requiredScope: "cards:write",
-    rateLimit: "60/min",
+    id: 'ep-14',
+    method: 'DELETE',
+    path: '/api/v1/cards/{id}',
+    name: 'Deactivate Card',
+    description:
+      'Permanently deactivates a card and revokes all associated tokens.',
+    module: 'Cards',
+    status: 'Active',
+    requiredScope: 'cards:write',
+    rateLimit: '60/min',
     avgResponseMs: 130,
     callsToday: 256,
-    lastCalled: "1 hour ago",
-    versionTag: "v1",
+    lastCalled: '1 hour ago',
+    versionTag: 'v1',
   },
   {
-    id: "ep-15",
-    method: "GET",
-    path: "/api/v0/transactions/legacy-list",
-    name: "Legacy Transaction List",
-    description: "Deprecated listing endpoint kept for backward compatibility only.",
-    module: "Transactions",
-    status: "Deprecated",
-    requiredScope: "transactions:read",
-    rateLimit: "20/min",
+    id: 'ep-15',
+    method: 'GET',
+    path: '/api/v0/transactions/legacy-list',
+    name: 'Legacy Transaction List',
+    description:
+      'Deprecated listing endpoint kept for backward compatibility only.',
+    module: 'Transactions',
+    status: 'Deprecated',
+    requiredScope: 'transactions:read',
+    rateLimit: '20/min',
     avgResponseMs: 980,
     callsToday: 38,
-    lastCalled: "3 days ago",
-    versionTag: "v0",
+    lastCalled: '3 days ago',
+    versionTag: 'v0',
   },
   {
-    id: "ep-16",
-    method: "GET",
-    path: "/api/v0/banks/payout-status",
-    name: "Legacy Payout Status",
-    description: "Deprecated payout status check, replaced by /api/v1/banks/payout.",
-    module: "Payouts",
-    status: "Deprecated",
-    requiredScope: "payouts:read",
-    rateLimit: "20/min",
+    id: 'ep-16',
+    method: 'GET',
+    path: '/api/v0/banks/payout-status',
+    name: 'Legacy Payout Status',
+    description:
+      'Deprecated payout status check, replaced by /api/v1/banks/payout.',
+    module: 'Payouts',
+    status: 'Deprecated',
+    requiredScope: 'payouts:read',
+    rateLimit: '20/min',
     avgResponseMs: 760,
     callsToday: 14,
-    lastCalled: "9 days ago",
-    versionTag: "v0",
+    lastCalled: '9 days ago',
+    versionTag: 'v0',
   },
   {
-    id: "ep-17",
-    method: "POST",
-    path: "/api/v0/webhooks/register",
-    name: "Legacy Webhook Registration",
-    description: "Deprecated webhook registration flow, replaced by Webhooks module UI.",
-    module: "Webhooks",
-    status: "Deprecated",
-    requiredScope: "webhooks:write",
-    rateLimit: "10/min",
+    id: 'ep-17',
+    method: 'POST',
+    path: '/api/v0/webhooks/register',
+    name: 'Legacy Webhook Registration',
+    description:
+      'Deprecated webhook registration flow, replaced by Webhooks module UI.',
+    module: 'Webhooks',
+    status: 'Deprecated',
+    requiredScope: 'webhooks:write',
+    rateLimit: '10/min',
     avgResponseMs: 410,
     callsToday: 3,
-    lastCalled: "21 days ago",
-    versionTag: "v0",
+    lastCalled: '21 days ago',
+    versionTag: 'v0',
   },
 ];
 
 export const endpointsTotalCount = endpointsData.length;
-
-
-
-
-
-
-
-
-
-
 
 // ============================================================
 // WEBHOOKS — DATA, TYPES & CONSTANTS
 // Append this block into lib/data.ts
 // ============================================================
 
-export type WebhooksStatus = "Active" | "Paused" | "Failing";
-export type WebhooksEnvironment = "Production" | "Sandbox";
+export type WebhooksStatus = 'Active' | 'Paused' | 'Failing';
+export type WebhooksEnvironment = 'Production' | 'Sandbox';
 
 export interface WebhookDeliveryLog {
   id: string;
@@ -24258,45 +24888,57 @@ export interface WebhookRecord {
 // ---------- Badge style maps ----------
 
 export const webhooksStatusBadge: Record<WebhooksStatus, string> = {
-  Active: "bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400",
-  Paused: "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300",
-  Failing: "bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400",
+  Active:
+    'bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400',
+  Paused: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300',
+  Failing: 'bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400',
 };
 
 export const webhooksStatusDot: Record<WebhooksStatus, string> = {
-  Active: "bg-green-500",
-  Paused: "bg-slate-400",
-  Failing: "bg-red-500",
+  Active: 'bg-green-500',
+  Paused: 'bg-slate-400',
+  Failing: 'bg-red-500',
 };
 
 export const webhooksEnvBadge: Record<WebhooksEnvironment, string> = {
-  Production: "bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400",
-  Sandbox: "bg-purple-100 text-purple-700 dark:bg-purple-500/10 dark:text-purple-400",
+  Production:
+    'bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400',
+  Sandbox:
+    'bg-purple-100 text-purple-700 dark:bg-purple-500/10 dark:text-purple-400',
 };
 
 export const webhooksDeliveryStatusColor = (success: boolean): string =>
-  success ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400";
+  success
+    ? 'text-green-600 dark:text-green-400'
+    : 'text-red-600 dark:text-red-400';
 
 // ---------- Available events (for create/edit form) ----------
 
 export const webhooksAvailableEvents: string[] = [
-  "transaction.created",
-  "transaction.completed",
-  "transaction.failed",
-  "payout.initiated",
-  "payout.completed",
-  "payout.failed",
-  "card.payment.success",
-  "card.payment.failed",
-  "customer.created",
-  "customer.updated",
-  "pickup.assigned",
-  "pickup.approved",
-  "aml.alert.created",
+  'transaction.created',
+  'transaction.completed',
+  'transaction.failed',
+  'payout.initiated',
+  'payout.completed',
+  'payout.failed',
+  'card.payment.success',
+  'card.payment.failed',
+  'customer.created',
+  'customer.updated',
+  'pickup.assigned',
+  'pickup.approved',
+  'aml.alert.created',
 ];
 
-export const webhooksEnvOptions: WebhooksEnvironment[] = ["Production", "Sandbox"];
-export const webhooksStatusOptions: WebhooksStatus[] = ["Active", "Paused", "Failing"];
+export const webhooksEnvOptions: WebhooksEnvironment[] = [
+  'Production',
+  'Sandbox',
+];
+export const webhooksStatusOptions: WebhooksStatus[] = [
+  'Active',
+  'Paused',
+  'Failing',
+];
 
 // ---------- Stat summary ----------
 
@@ -24304,183 +24946,290 @@ export interface WebhooksStat {
   id: string;
   label: string;
   value: string;
-  icon: "total" | "active" | "failing" | "rate";
+  icon: 'total' | 'active' | 'failing' | 'rate';
 }
 
 export const webhooksStats: WebhooksStat[] = [
-  { id: "wh-stat-total", label: "Total Webhooks", value: "16", icon: "total" },
-  { id: "wh-stat-active", label: "Active Webhooks", value: "12", icon: "active" },
-  { id: "wh-stat-failing", label: "Failing Webhooks", value: "2", icon: "failing" },
-  { id: "wh-stat-rate", label: "Avg Success Rate", value: "97.4%", icon: "rate" },
+  { id: 'wh-stat-total', label: 'Total Webhooks', value: '16', icon: 'total' },
+  {
+    id: 'wh-stat-active',
+    label: 'Active Webhooks',
+    value: '12',
+    icon: 'active',
+  },
+  {
+    id: 'wh-stat-failing',
+    label: 'Failing Webhooks',
+    value: '2',
+    icon: 'failing',
+  },
+  {
+    id: 'wh-stat-rate',
+    label: 'Avg Success Rate',
+    value: '97.4%',
+    icon: 'rate',
+  },
 ];
 
 // ---------- Main data ----------
 
 export const webhooksData: WebhookRecord[] = [
   {
-    id: "wh-1",
-    name: "Core Transaction Sync",
-    url: "https://hooks.fintrack.io/v1/transactions",
-    description: "Notifies the internal ledger service of every transaction lifecycle change.",
-    events: ["transaction.created", "transaction.completed", "transaction.failed"],
-    environment: "Production",
-    status: "Active",
-    secretPreview: "whsec_••••••••••••a1c2",
-    secretFull: "whsec_8f3a9b2d1c4e7f6a9b0c1d2e3f4a5b6c7d8e9f0a1c2",
+    id: 'wh-1',
+    name: 'Core Transaction Sync',
+    url: 'https://hooks.fintrack.io/v1/transactions',
+    description:
+      'Notifies the internal ledger service of every transaction lifecycle change.',
+    events: [
+      'transaction.created',
+      'transaction.completed',
+      'transaction.failed',
+    ],
+    environment: 'Production',
+    status: 'Active',
+    secretPreview: 'whsec_••••••••••••a1c2',
+    secretFull: 'whsec_8f3a9b2d1c4e7f6a9b0c1d2e3f4a5b6c7d8e9f0a1c2',
     successRate: 99.6,
     totalDeliveries: 48210,
     failedDeliveries: 193,
-    lastTriggered: "2 minutes ago",
-    createdAt: "Mar 2, 2025",
+    lastTriggered: '2 minutes ago',
+    createdAt: 'Mar 2, 2025',
     retryEnabled: true,
     recentDeliveries: [
-      { id: "d-1", eventName: "transaction.completed", timestamp: "May 12, 2025 10:29 AM", statusCode: 200, success: true, responseTimeMs: 145 },
-      { id: "d-2", eventName: "transaction.created", timestamp: "May 12, 2025 10:28 AM", statusCode: 200, success: true, responseTimeMs: 132 },
-      { id: "d-3", eventName: "transaction.failed", timestamp: "May 12, 2025 10:27 AM", statusCode: 200, success: true, responseTimeMs: 158 },
+      {
+        id: 'd-1',
+        eventName: 'transaction.completed',
+        timestamp: 'May 12, 2025 10:29 AM',
+        statusCode: 200,
+        success: true,
+        responseTimeMs: 145,
+      },
+      {
+        id: 'd-2',
+        eventName: 'transaction.created',
+        timestamp: 'May 12, 2025 10:28 AM',
+        statusCode: 200,
+        success: true,
+        responseTimeMs: 132,
+      },
+      {
+        id: 'd-3',
+        eventName: 'transaction.failed',
+        timestamp: 'May 12, 2025 10:27 AM',
+        statusCode: 200,
+        success: true,
+        responseTimeMs: 158,
+      },
     ],
   },
   {
-    id: "wh-2",
-    name: "Payout Notifier",
-    url: "https://api.partnerbank.com/webhooks/payouts",
-    description: "Sends payout status updates to the partner banking integration.",
-    events: ["payout.initiated", "payout.completed", "payout.failed"],
-    environment: "Production",
-    status: "Active",
-    secretPreview: "whsec_••••••••••••9f3a",
-    secretFull: "whsec_7c2b4e9a3f6d8e1a2b3c4d5e6f7a8b9c0d1e2f9f3a",
+    id: 'wh-2',
+    name: 'Payout Notifier',
+    url: 'https://api.partnerbank.com/webhooks/payouts',
+    description:
+      'Sends payout status updates to the partner banking integration.',
+    events: ['payout.initiated', 'payout.completed', 'payout.failed'],
+    environment: 'Production',
+    status: 'Active',
+    secretPreview: 'whsec_••••••••••••9f3a',
+    secretFull: 'whsec_7c2b4e9a3f6d8e1a2b3c4d5e6f7a8b9c0d1e2f9f3a',
     successRate: 98.1,
     totalDeliveries: 12480,
     failedDeliveries: 237,
-    lastTriggered: "8 minutes ago",
-    createdAt: "Mar 5, 2025",
+    lastTriggered: '8 minutes ago',
+    createdAt: 'Mar 5, 2025',
     retryEnabled: true,
     recentDeliveries: [
-      { id: "d-4", eventName: "payout.completed", timestamp: "May 12, 2025 10:22 AM", statusCode: 200, success: true, responseTimeMs: 210 },
-      { id: "d-5", eventName: "payout.initiated", timestamp: "May 12, 2025 10:10 AM", statusCode: 200, success: true, responseTimeMs: 198 },
+      {
+        id: 'd-4',
+        eventName: 'payout.completed',
+        timestamp: 'May 12, 2025 10:22 AM',
+        statusCode: 200,
+        success: true,
+        responseTimeMs: 210,
+      },
+      {
+        id: 'd-5',
+        eventName: 'payout.initiated',
+        timestamp: 'May 12, 2025 10:10 AM',
+        statusCode: 200,
+        success: true,
+        responseTimeMs: 198,
+      },
     ],
   },
   {
-    id: "wh-3",
-    name: "AML Alert Forwarder",
-    url: "https://compliance.fintrack.io/hooks/aml",
-    description: "Forwards AML risk alerts to the compliance monitoring system.",
-    events: ["aml.alert.created"],
-    environment: "Production",
-    status: "Failing",
-    secretPreview: "whsec_••••••••••••e0a4",
-    secretFull: "whsec_4f6a8b0c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6e0a4",
+    id: 'wh-3',
+    name: 'AML Alert Forwarder',
+    url: 'https://compliance.fintrack.io/hooks/aml',
+    description:
+      'Forwards AML risk alerts to the compliance monitoring system.',
+    events: ['aml.alert.created'],
+    environment: 'Production',
+    status: 'Failing',
+    secretPreview: 'whsec_••••••••••••e0a4',
+    secretFull: 'whsec_4f6a8b0c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6e0a4',
     successRate: 64.2,
     totalDeliveries: 980,
     failedDeliveries: 351,
-    lastTriggered: "27 minutes ago",
-    createdAt: "Apr 18, 2025",
+    lastTriggered: '27 minutes ago',
+    createdAt: 'Apr 18, 2025',
     retryEnabled: true,
     recentDeliveries: [
-      { id: "d-6", eventName: "aml.alert.created", timestamp: "May 12, 2025 10:03 AM", statusCode: 503, success: false, responseTimeMs: 5200 },
-      { id: "d-7", eventName: "aml.alert.created", timestamp: "May 12, 2025 09:58 AM", statusCode: 503, success: false, responseTimeMs: 5100 },
-      { id: "d-8", eventName: "aml.alert.created", timestamp: "May 12, 2025 09:40 AM", statusCode: 200, success: true, responseTimeMs: 310 },
+      {
+        id: 'd-6',
+        eventName: 'aml.alert.created',
+        timestamp: 'May 12, 2025 10:03 AM',
+        statusCode: 503,
+        success: false,
+        responseTimeMs: 5200,
+      },
+      {
+        id: 'd-7',
+        eventName: 'aml.alert.created',
+        timestamp: 'May 12, 2025 09:58 AM',
+        statusCode: 503,
+        success: false,
+        responseTimeMs: 5100,
+      },
+      {
+        id: 'd-8',
+        eventName: 'aml.alert.created',
+        timestamp: 'May 12, 2025 09:40 AM',
+        statusCode: 200,
+        success: true,
+        responseTimeMs: 310,
+      },
     ],
   },
   {
-    id: "wh-4",
-    name: "Card Payment Receipts",
-    url: "https://receipts.fintrack.io/webhooks/cards",
-    description: "Triggers receipt generation when a card payment succeeds or fails.",
-    events: ["card.payment.success", "card.payment.failed"],
-    environment: "Production",
-    status: "Active",
-    secretPreview: "whsec_••••••••••••b5e9",
-    secretFull: "whsec_9b1c3d5e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5e9",
+    id: 'wh-4',
+    name: 'Card Payment Receipts',
+    url: 'https://receipts.fintrack.io/webhooks/cards',
+    description:
+      'Triggers receipt generation when a card payment succeeds or fails.',
+    events: ['card.payment.success', 'card.payment.failed'],
+    environment: 'Production',
+    status: 'Active',
+    secretPreview: 'whsec_••••••••••••b5e9',
+    secretFull: 'whsec_9b1c3d5e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5e9',
     successRate: 99.9,
     totalDeliveries: 31290,
     failedDeliveries: 31,
-    lastTriggered: "1 minute ago",
-    createdAt: "Feb 27, 2025",
+    lastTriggered: '1 minute ago',
+    createdAt: 'Feb 27, 2025',
     retryEnabled: true,
     recentDeliveries: [
-      { id: "d-9", eventName: "card.payment.success", timestamp: "May 12, 2025 10:30 AM", statusCode: 200, success: true, responseTimeMs: 120 },
+      {
+        id: 'd-9',
+        eventName: 'card.payment.success',
+        timestamp: 'May 12, 2025 10:30 AM',
+        statusCode: 200,
+        success: true,
+        responseTimeMs: 120,
+      },
     ],
   },
   {
-    id: "wh-5",
-    name: "Customer CRM Sync",
-    url: "https://crm.fintrack.io/api/hooks/customers",
-    description: "Keeps customer profile changes in sync with the CRM platform.",
-    events: ["customer.created", "customer.updated"],
-    environment: "Production",
-    status: "Active",
-    secretPreview: "whsec_••••••••••••c3f1",
-    secretFull: "whsec_1e3f5a7b9c2d4e6f8a0b1c2d3e4f5a6b7c8d9c3f1",
+    id: 'wh-5',
+    name: 'Customer CRM Sync',
+    url: 'https://crm.fintrack.io/api/hooks/customers',
+    description:
+      'Keeps customer profile changes in sync with the CRM platform.',
+    events: ['customer.created', 'customer.updated'],
+    environment: 'Production',
+    status: 'Active',
+    secretPreview: 'whsec_••••••••••••c3f1',
+    secretFull: 'whsec_1e3f5a7b9c2d4e6f8a0b1c2d3e4f5a6b7c8d9c3f1',
     successRate: 97.8,
     totalDeliveries: 9650,
     failedDeliveries: 212,
-    lastTriggered: "15 minutes ago",
-    createdAt: "Jan 30, 2025",
+    lastTriggered: '15 minutes ago',
+    createdAt: 'Jan 30, 2025',
     retryEnabled: false,
     recentDeliveries: [
-      { id: "d-10", eventName: "customer.updated", timestamp: "May 12, 2025 10:15 AM", statusCode: 200, success: true, responseTimeMs: 175 },
+      {
+        id: 'd-10',
+        eventName: 'customer.updated',
+        timestamp: 'May 12, 2025 10:15 AM',
+        statusCode: 200,
+        success: true,
+        responseTimeMs: 175,
+      },
     ],
   },
   {
-    id: "wh-6",
-    name: "Agent Pickup Dispatcher",
-    url: "https://dispatch.fintrack.io/hooks/pickup",
-    description: "Notifies the agent mobile app dispatcher when a pickup is assigned or approved.",
-    events: ["pickup.assigned", "pickup.approved"],
-    environment: "Production",
-    status: "Active",
-    secretPreview: "whsec_••••••••••••d7c6",
-    secretFull: "whsec_3c5e7a9b1d2e3f4a5b6c7d8e9f0a1b2c3d4e5d7c6",
+    id: 'wh-6',
+    name: 'Agent Pickup Dispatcher',
+    url: 'https://dispatch.fintrack.io/hooks/pickup',
+    description:
+      'Notifies the agent mobile app dispatcher when a pickup is assigned or approved.',
+    events: ['pickup.assigned', 'pickup.approved'],
+    environment: 'Production',
+    status: 'Active',
+    secretPreview: 'whsec_••••••••••••d7c6',
+    secretFull: 'whsec_3c5e7a9b1d2e3f4a5b6c7d8e9f0a1b2c3d4e5d7c6',
     successRate: 99.2,
     totalDeliveries: 14820,
     failedDeliveries: 118,
-    lastTriggered: "4 minutes ago",
-    createdAt: "Apr 5, 2025",
+    lastTriggered: '4 minutes ago',
+    createdAt: 'Apr 5, 2025',
     retryEnabled: true,
     recentDeliveries: [
-      { id: "d-11", eventName: "pickup.assigned", timestamp: "May 12, 2025 10:26 AM", statusCode: 200, success: true, responseTimeMs: 140 },
+      {
+        id: 'd-11',
+        eventName: 'pickup.assigned',
+        timestamp: 'May 12, 2025 10:26 AM',
+        statusCode: 200,
+        success: true,
+        responseTimeMs: 140,
+      },
     ],
   },
   {
-    id: "wh-7",
-    name: "Staging Test Hook",
-    url: "https://webhook.site/staging-test-endpoint",
-    description: "Used by the QA team to verify webhook payload formats before release.",
-    events: ["transaction.completed", "payout.completed"],
-    environment: "Sandbox",
-    status: "Paused",
-    secretPreview: "whsec_••••••••••••f2a8",
-    secretFull: "whsec_2a4b6c8d3e5f6a7b8c9d0e1f2a3b4c5d6e7f4d8e",
+    id: 'wh-7',
+    name: 'Staging Test Hook',
+    url: 'https://webhook.site/staging-test-endpoint',
+    description:
+      'Used by the QA team to verify webhook payload formats before release.',
+    events: ['transaction.completed', 'payout.completed'],
+    environment: 'Sandbox',
+    status: 'Paused',
+    secretPreview: 'whsec_••••••••••••f2a8',
+    secretFull: 'whsec_2a4b6c8d3e5f6a7b8c9d0e1f2a3b4c5d6e7f4d8e',
     successRate: 100,
     totalDeliveries: 312,
     failedDeliveries: 0,
-    lastTriggered: "6 days ago",
-    createdAt: "May 1, 2025",
+    lastTriggered: '6 days ago',
+    createdAt: 'May 1, 2025',
     retryEnabled: false,
     recentDeliveries: [
-      { id: "d-12", eventName: "transaction.completed", timestamp: "May 6, 2025 02:14 PM", statusCode: 200, success: true, responseTimeMs: 95 },
+      {
+        id: 'd-12',
+        eventName: 'transaction.completed',
+        timestamp: 'May 6, 2025 02:14 PM',
+        statusCode: 200,
+        success: true,
+        responseTimeMs: 95,
+      },
     ],
   },
 ];
 
 export const webhooksTotalCount = webhooksData.length;
 
-
-
-
-
-
-
-
 // ============================================================
 // RATE LIMITING — DATA, TYPES & CONSTANTS
 // Append this block into lib/data.ts
 // ============================================================
 
-export type RateLimitTargetType = "API Key" | "Endpoint" | "Module" | "Global";
-export type RateLimitWindow = "Per Second" | "Per Minute" | "Per Hour" | "Per Day";
-export type RateLimitStatus = "Active" | "Paused";
+export type RateLimitTargetType = 'API Key' | 'Endpoint' | 'Module' | 'Global';
+export type RateLimitWindow =
+  | 'Per Second'
+  | 'Per Minute'
+  | 'Per Hour'
+  | 'Per Day';
+export type RateLimitStatus = 'Active' | 'Paused';
 
 export interface RateLimitRule {
   id: string;
@@ -24499,30 +25248,43 @@ export interface RateLimitRule {
 // ---------- Badge style maps ----------
 
 export const rateLimitStatusBadge: Record<RateLimitStatus, string> = {
-  Active: "bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400",
-  Paused: "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300",
+  Active:
+    'bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400',
+  Paused: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300',
 };
 
 export const rateLimitStatusDot: Record<RateLimitStatus, string> = {
-  Active: "bg-green-500",
-  Paused: "bg-slate-400",
+  Active: 'bg-green-500',
+  Paused: 'bg-slate-400',
 };
 
 export const rateLimitTargetBadge: Record<RateLimitTargetType, string> = {
-  "API Key": "bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400",
-  Endpoint: "bg-purple-100 text-purple-700 dark:bg-purple-500/10 dark:text-purple-400",
-  Module: "bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400",
-  Global: "bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400",
+  'API Key': 'bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400',
+  Endpoint:
+    'bg-purple-100 text-purple-700 dark:bg-purple-500/10 dark:text-purple-400',
+  Module:
+    'bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400',
+  Global: 'bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400',
 };
 
 export const rateLimitUtilizationColor = (pct: number): string => {
-  if (pct >= 90) return "bg-red-500";
-  if (pct >= 70) return "bg-amber-500";
-  return "bg-green-500";
+  if (pct >= 90) return 'bg-red-500';
+  if (pct >= 70) return 'bg-amber-500';
+  return 'bg-green-500';
 };
 
-export const rateLimitTargetTypeOptions: RateLimitTargetType[] = ["API Key", "Endpoint", "Module", "Global"];
-export const rateLimitWindowOptions: RateLimitWindow[] = ["Per Second", "Per Minute", "Per Hour", "Per Day"];
+export const rateLimitTargetTypeOptions: RateLimitTargetType[] = [
+  'API Key',
+  'Endpoint',
+  'Module',
+  'Global',
+];
+export const rateLimitWindowOptions: RateLimitWindow[] = [
+  'Per Second',
+  'Per Minute',
+  'Per Hour',
+  'Per Day',
+];
 
 // ---------- Stat summary ----------
 
@@ -24530,166 +25292,170 @@ export interface RateLimitStat {
   id: string;
   label: string;
   value: string;
-  icon: "total" | "active" | "throttled" | "utilization";
+  icon: 'total' | 'active' | 'throttled' | 'utilization';
 }
 
 export const rateLimitStats: RateLimitStat[] = [
-  { id: "rl-stat-total", label: "Total Rules", value: "14", icon: "total" },
-  { id: "rl-stat-active", label: "Active Rules", value: "12", icon: "active" },
-  { id: "rl-stat-throttled", label: "Throttled Requests Today", value: "1,284", icon: "throttled" },
-  { id: "rl-stat-utilization", label: "Avg Utilization", value: "58%", icon: "utilization" },
+  { id: 'rl-stat-total', label: 'Total Rules', value: '14', icon: 'total' },
+  { id: 'rl-stat-active', label: 'Active Rules', value: '12', icon: 'active' },
+  {
+    id: 'rl-stat-throttled',
+    label: 'Throttled Requests Today',
+    value: '1,284',
+    icon: 'throttled',
+  },
+  {
+    id: 'rl-stat-utilization',
+    label: 'Avg Utilization',
+    value: '58%',
+    icon: 'utilization',
+  },
 ];
 
 // ---------- Main data ----------
 
 export const rateLimitRulesData: RateLimitRule[] = [
   {
-    id: "rl-1",
-    name: "Transaction Service Key Limit",
-    targetType: "API Key",
-    targetLabel: "KEY_8f3a9b2d1c · Transaction Service",
+    id: 'rl-1',
+    name: 'Transaction Service Key Limit',
+    targetType: 'API Key',
+    targetLabel: 'KEY_8f3a9b2d1c · Transaction Service',
     limit: 100,
-    window: "Per Minute",
+    window: 'Per Minute',
     burstAllowance: 20,
     currentUsage: 78,
-    status: "Active",
+    status: 'Active',
     throttledToday: 142,
-    createdAt: "May 12, 2025",
+    createdAt: 'May 12, 2025',
   },
   {
-    id: "rl-2",
-    name: "Banking Integration Key Limit",
-    targetType: "API Key",
-    targetLabel: "KEY_7c2b4e9a3f · Banking Integration",
+    id: 'rl-2',
+    name: 'Banking Integration Key Limit',
+    targetType: 'API Key',
+    targetLabel: 'KEY_7c2b4e9a3f · Banking Integration',
     limit: 80,
-    window: "Per Minute",
+    window: 'Per Minute',
     burstAllowance: 15,
     currentUsage: 62,
-    status: "Active",
+    status: 'Active',
     throttledToday: 38,
-    createdAt: "May 10, 2025",
+    createdAt: 'May 10, 2025',
   },
   {
-    id: "rl-3",
-    name: "Card Payment Endpoint Limit",
-    targetType: "Endpoint",
-    targetLabel: "POST /api/v1/card/payment",
+    id: 'rl-3',
+    name: 'Card Payment Endpoint Limit',
+    targetType: 'Endpoint',
+    targetLabel: 'POST /api/v1/card/payment',
     limit: 120,
-    window: "Per Minute",
+    window: 'Per Minute',
     burstAllowance: 30,
     currentUsage: 109,
-    status: "Active",
+    status: 'Active',
     throttledToday: 415,
-    createdAt: "Apr 28, 2025",
+    createdAt: 'Apr 28, 2025',
   },
   {
-    id: "rl-4",
-    name: "Auth Login Throttle",
-    targetType: "Endpoint",
-    targetLabel: "POST /api/v1/auth/login",
+    id: 'rl-4',
+    name: 'Auth Login Throttle',
+    targetType: 'Endpoint',
+    targetLabel: 'POST /api/v1/auth/login',
     limit: 30,
-    window: "Per Minute",
+    window: 'Per Minute',
     burstAllowance: 5,
     currentUsage: 29,
-    status: "Active",
+    status: 'Active',
     throttledToday: 612,
-    createdAt: "Jan 20, 2025",
+    createdAt: 'Jan 20, 2025',
   },
   {
-    id: "rl-5",
-    name: "Reports Module Limit",
-    targetType: "Module",
-    targetLabel: "Reports",
+    id: 'rl-5',
+    name: 'Reports Module Limit',
+    targetType: 'Module',
+    targetLabel: 'Reports',
     limit: 50,
-    window: "Per Minute",
+    window: 'Per Minute',
     burstAllowance: 10,
     currentUsage: 11,
-    status: "Active",
+    status: 'Active',
     throttledToday: 2,
-    createdAt: "Mar 14, 2025",
+    createdAt: 'Mar 14, 2025',
   },
   {
-    id: "rl-6",
-    name: "Customer Sync Sandbox Limit",
-    targetType: "API Key",
-    targetLabel: "KEY_1e3f5a7b9c · Customer Sync",
+    id: 'rl-6',
+    name: 'Customer Sync Sandbox Limit',
+    targetType: 'API Key',
+    targetLabel: 'KEY_1e3f5a7b9c · Customer Sync',
     limit: 60,
-    window: "Per Minute",
+    window: 'Per Minute',
     burstAllowance: 10,
     currentUsage: 4,
-    status: "Paused",
+    status: 'Paused',
     throttledToday: 0,
-    createdAt: "May 5, 2025",
+    createdAt: 'May 5, 2025',
   },
   {
-    id: "rl-7",
-    name: "Webhooks Module Limit",
-    targetType: "Module",
-    targetLabel: "Webhooks",
+    id: 'rl-7',
+    name: 'Webhooks Module Limit',
+    targetType: 'Module',
+    targetLabel: 'Webhooks',
     limit: 200,
-    window: "Per Minute",
+    window: 'Per Minute',
     burstAllowance: 40,
     currentUsage: 64,
-    status: "Active",
+    status: 'Active',
     throttledToday: 0,
-    createdAt: "Feb 10, 2025",
+    createdAt: 'Feb 10, 2025',
   },
   {
-    id: "rl-8",
-    name: "Global Default Limit",
-    targetType: "Global",
-    targetLabel: "All Unassigned Traffic",
+    id: 'rl-8',
+    name: 'Global Default Limit',
+    targetType: 'Global',
+    targetLabel: 'All Unassigned Traffic',
     limit: 1000,
-    window: "Per Minute",
+    window: 'Per Minute',
     burstAllowance: 100,
     currentUsage: 412,
-    status: "Active",
+    status: 'Active',
     throttledToday: 75,
-    createdAt: "Jan 1, 2025",
+    createdAt: 'Jan 1, 2025',
   },
   {
-    id: "rl-9",
-    name: "Agent Mobile App Burst Limit",
-    targetType: "API Key",
-    targetLabel: "KEY_9b1c3d5e7f · Agent Mobile App",
+    id: 'rl-9',
+    name: 'Agent Mobile App Burst Limit',
+    targetType: 'API Key',
+    targetLabel: 'KEY_9b1c3d5e7f · Agent Mobile App',
     limit: 100,
-    window: "Per Minute",
+    window: 'Per Minute',
     burstAllowance: 25,
     currentUsage: 96,
-    status: "Active",
+    status: 'Active',
     throttledToday: 0,
-    createdAt: "May 3, 2025",
+    createdAt: 'May 3, 2025',
   },
   {
-    id: "rl-10",
-    name: "Payout Endpoint Daily Cap",
-    targetType: "Endpoint",
-    targetLabel: "GET /api/v1/banks/payout",
+    id: 'rl-10',
+    name: 'Payout Endpoint Daily Cap',
+    targetType: 'Endpoint',
+    targetLabel: 'GET /api/v1/banks/payout',
     limit: 5000,
-    window: "Per Day",
+    window: 'Per Day',
     burstAllowance: 200,
     currentUsage: 1840,
-    status: "Active",
+    status: 'Active',
     throttledToday: 0,
-    createdAt: "Mar 22, 2025",
+    createdAt: 'Mar 22, 2025',
   },
 ];
 
 export const rateLimitTotalCount = rateLimitRulesData.length;
-
-
-
-
-
-
 
 // ============================================================
 // LOGS & MONITORING — DATA, TYPES & CONSTANTS
 // Append this block into lib/data.ts
 // ============================================================
 
-export type MonitorLogLevel = "Info" | "Warning" | "Error" | "Critical";
-export type MonitorLogMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+export type MonitorLogLevel = 'Info' | 'Warning' | 'Error' | 'Critical';
+export type MonitorLogMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
 export interface MonitorLogEntry {
   id: string;
@@ -24721,36 +25487,49 @@ export interface MonitorResponseBucket {
 // ---------- Badge style maps ----------
 
 export const monitorLevelBadge: Record<MonitorLogLevel, string> = {
-  Info: "bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400",
-  Warning: "bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400",
-  Error: "bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400",
-  Critical: "bg-red-200 text-red-800 dark:bg-red-500/20 dark:text-red-300",
+  Info: 'bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400',
+  Warning:
+    'bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400',
+  Error: 'bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400',
+  Critical: 'bg-red-200 text-red-800 dark:bg-red-500/20 dark:text-red-300',
 };
 
 export const monitorLevelDot: Record<MonitorLogLevel, string> = {
-  Info: "bg-blue-500",
-  Warning: "bg-amber-500",
-  Error: "bg-red-500",
-  Critical: "bg-red-700",
+  Info: 'bg-blue-500',
+  Warning: 'bg-amber-500',
+  Error: 'bg-red-500',
+  Critical: 'bg-red-700',
 };
 
 export const monitorMethodBadge: Record<MonitorLogMethod, string> = {
-  GET: "bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400",
-  POST: "bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400",
-  PUT: "bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400",
-  PATCH: "bg-indigo-100 text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-400",
-  DELETE: "bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400",
+  GET: 'bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400',
+  POST: 'bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400',
+  PUT: 'bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400',
+  PATCH:
+    'bg-indigo-100 text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-400',
+  DELETE: 'bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400',
 };
 
 export const monitorStatusCodeColor = (code: number): string => {
-  if (code >= 200 && code < 300) return "text-green-600 dark:text-green-400";
-  if (code >= 400 && code < 500) return "text-amber-600 dark:text-amber-400";
-  if (code >= 500) return "text-red-600 dark:text-red-400";
-  return "text-slate-600 dark:text-slate-300";
+  if (code >= 200 && code < 300) return 'text-green-600 dark:text-green-400';
+  if (code >= 400 && code < 500) return 'text-amber-600 dark:text-amber-400';
+  if (code >= 500) return 'text-red-600 dark:text-red-400';
+  return 'text-slate-600 dark:text-slate-300';
 };
 
-export const monitorLevelOptions: MonitorLogLevel[] = ["Info", "Warning", "Error", "Critical"];
-export const monitorMethodOptions: MonitorLogMethod[] = ["GET", "POST", "PUT", "PATCH", "DELETE"];
+export const monitorLevelOptions: MonitorLogLevel[] = [
+  'Info',
+  'Warning',
+  'Error',
+  'Critical',
+];
+export const monitorMethodOptions: MonitorLogMethod[] = [
+  'GET',
+  'POST',
+  'PUT',
+  'PATCH',
+  'DELETE',
+];
 
 // ---------- Stat summary ----------
 
@@ -24759,224 +25538,259 @@ export interface MonitorStat {
   label: string;
   value: string;
   change: string;
-  changeDirection: "up" | "down";
-  changeTone: "good" | "bad";
-  icon: "logs" | "errorRate" | "responseTime" | "alerts";
+  changeDirection: 'up' | 'down';
+  changeTone: 'good' | 'bad';
+  icon: 'logs' | 'errorRate' | 'responseTime' | 'alerts';
 }
 
 export const monitorStats: MonitorStat[] = [
   {
-    id: "mon-stat-logs",
-    label: "Total Logs Today",
-    value: "128,568",
-    change: "18.6%",
-    changeDirection: "up",
-    changeTone: "good",
-    icon: "logs",
+    id: 'mon-stat-logs',
+    label: 'Total Logs Today',
+    value: '128,568',
+    change: '18.6%',
+    changeDirection: 'up',
+    changeTone: 'good',
+    icon: 'logs',
   },
   {
-    id: "mon-stat-error-rate",
-    label: "Error Rate",
-    value: "8.8%",
-    change: "2.1%",
-    changeDirection: "down",
-    changeTone: "good",
-    icon: "errorRate",
+    id: 'mon-stat-error-rate',
+    label: 'Error Rate',
+    value: '8.8%',
+    change: '2.1%',
+    changeDirection: 'down',
+    changeTone: 'good',
+    icon: 'errorRate',
   },
   {
-    id: "mon-stat-response-time",
-    label: "Avg Response Time",
-    value: "245 ms",
-    change: "12.9%",
-    changeDirection: "up",
-    changeTone: "bad",
-    icon: "responseTime",
+    id: 'mon-stat-response-time',
+    label: 'Avg Response Time',
+    value: '245 ms',
+    change: '12.9%',
+    changeDirection: 'up',
+    changeTone: 'bad',
+    icon: 'responseTime',
   },
   {
-    id: "mon-stat-alerts",
-    label: "Active Alerts",
-    value: "3",
-    change: "1",
-    changeDirection: "up",
-    changeTone: "bad",
-    icon: "alerts",
+    id: 'mon-stat-alerts',
+    label: 'Active Alerts',
+    value: '3',
+    change: '1',
+    changeDirection: 'up',
+    changeTone: 'bad',
+    icon: 'alerts',
   },
 ];
 
 // ---------- Traffic & error chart (24h) ----------
 
 export const monitorTrafficData: MonitorTrafficPoint[] = [
-  { label: "12 AM", requests: 3200, errors: 180 },
-  { label: "3 AM", requests: 2100, errors: 95 },
-  { label: "6 AM", requests: 2800, errors: 130 },
-  { label: "9 AM", requests: 7400, errors: 410 },
-  { label: "12 PM", requests: 9800, errors: 520 },
-  { label: "3 PM", requests: 11200, errors: 980 },
-  { label: "6 PM", requests: 8600, errors: 460 },
-  { label: "9 PM", requests: 5400, errors: 290 },
+  { label: '12 AM', requests: 3200, errors: 180 },
+  { label: '3 AM', requests: 2100, errors: 95 },
+  { label: '6 AM', requests: 2800, errors: 130 },
+  { label: '9 AM', requests: 7400, errors: 410 },
+  { label: '12 PM', requests: 9800, errors: 520 },
+  { label: '3 PM', requests: 11200, errors: 980 },
+  { label: '6 PM', requests: 8600, errors: 460 },
+  { label: '9 PM', requests: 5400, errors: 290 },
 ];
 
 // ---------- Response time distribution ----------
 
 export const monitorResponseDistribution: MonitorResponseBucket[] = [
-  { label: "0-100ms", count: 48210 },
-  { label: "100-250ms", count: 39850 },
-  { label: "250-500ms", count: 22640 },
-  { label: "500-1000ms", count: 11920 },
-  { label: "1000ms+", count: 5948 },
+  { label: '0-100ms', count: 48210 },
+  { label: '100-250ms', count: 39850 },
+  { label: '250-500ms', count: 22640 },
+  { label: '500-1000ms', count: 11920 },
+  { label: '1000ms+', count: 5948 },
 ];
 
 // ---------- Main log entries ----------
 
 export const monitorLogsData: MonitorLogEntry[] = [
   {
-    id: "mlog-1",
-    requestId: "REQ_9f8a7b6c5d",
-    timestamp: "May 12, 2025 10:30:14 AM",
-    level: "Info",
-    method: "POST",
-    endpoint: "/api/v1/transactions/create",
+    id: 'mlog-1',
+    requestId: 'REQ_9f8a7b6c5d',
+    timestamp: 'May 12, 2025 10:30:14 AM',
+    level: 'Info',
+    method: 'POST',
+    endpoint: '/api/v1/transactions/create',
     statusCode: 200,
     responseTimeMs: 245,
-    ipAddress: "192.168.1.45",
-    apiKeyId: "KEY_8f3a9b2d1c",
-    message: "Transaction created successfully.",
-    requestHeaders: { "Content-Type": "application/json", "X-Api-Version": "v1", Authorization: "Bearer ••••a1c2" },
-    responseBodyPreview: '{ "status": "success", "transaction_id": "TXN_5021..." }',
+    ipAddress: '192.168.1.45',
+    apiKeyId: 'KEY_8f3a9b2d1c',
+    message: 'Transaction created successfully.',
+    requestHeaders: {
+      'Content-Type': 'application/json',
+      'X-Api-Version': 'v1',
+      Authorization: 'Bearer ••••a1c2',
+    },
+    responseBodyPreview:
+      '{ "status": "success", "transaction_id": "TXN_5021..." }',
   },
   {
-    id: "mlog-2",
-    requestId: "REQ_5b4a3c2d1e",
-    timestamp: "May 12, 2025 10:30:08 AM",
-    level: "Warning",
-    method: "POST",
-    endpoint: "/api/v1/card/payment",
+    id: 'mlog-2',
+    requestId: 'REQ_5b4a3c2d1e',
+    timestamp: 'May 12, 2025 10:30:08 AM',
+    level: 'Warning',
+    method: 'POST',
+    endpoint: '/api/v1/card/payment',
     statusCode: 400,
     responseTimeMs: 310,
-    ipAddress: "203.0.113.25",
-    apiKeyId: "KEY_5d6e7f1a9b",
+    ipAddress: '203.0.113.25',
+    apiKeyId: 'KEY_5d6e7f1a9b',
     message: "Validation failed: missing required field 'card_token'.",
-    requestHeaders: { "Content-Type": "application/json", "X-Api-Version": "v1" },
-    responseBodyPreview: '{ "error": "validation_error", "field": "card_token" }',
+    requestHeaders: {
+      'Content-Type': 'application/json',
+      'X-Api-Version': 'v1',
+    },
+    responseBodyPreview:
+      '{ "error": "validation_error", "field": "card_token" }',
   },
   {
-    id: "mlog-3",
-    requestId: "REQ_1a2b3c4d5e",
-    timestamp: "May 12, 2025 10:30:04 AM",
-    level: "Error",
-    method: "POST",
-    endpoint: "/api/v1/banks/payout",
+    id: 'mlog-3',
+    requestId: 'REQ_1a2b3c4d5e',
+    timestamp: 'May 12, 2025 10:30:04 AM',
+    level: 'Error',
+    method: 'POST',
+    endpoint: '/api/v1/banks/payout',
     statusCode: 500,
     responseTimeMs: 890,
-    ipAddress: "198.51.100.14",
-    apiKeyId: "KEY_7c2b4e9a3f",
-    message: "Upstream banking partner timeout while processing payout.",
-    requestHeaders: { "Content-Type": "application/json", "X-Api-Version": "v1" },
+    ipAddress: '198.51.100.14',
+    apiKeyId: 'KEY_7c2b4e9a3f',
+    message: 'Upstream banking partner timeout while processing payout.',
+    requestHeaders: {
+      'Content-Type': 'application/json',
+      'X-Api-Version': 'v1',
+    },
     responseBodyPreview: '{ "error": "upstream_timeout", "retry_after": 30 }',
   },
   {
-    id: "mlog-4",
-    requestId: "REQ_3c2d1e9f8a",
-    timestamp: "May 12, 2025 10:29:55 AM",
-    level: "Critical",
-    method: "POST",
-    endpoint: "/api/v1/aml/screen",
+    id: 'mlog-4',
+    requestId: 'REQ_3c2d1e9f8a',
+    timestamp: 'May 12, 2025 10:29:55 AM',
+    level: 'Critical',
+    method: 'POST',
+    endpoint: '/api/v1/aml/screen',
     statusCode: 503,
     responseTimeMs: 5200,
-    ipAddress: "10.0.4.12",
-    apiKeyId: "KEY_4f6a8b0c2d",
-    message: "AML screening service unreachable after 3 retries.",
-    requestHeaders: { "Content-Type": "application/json", "X-Api-Version": "v1" },
+    ipAddress: '10.0.4.12',
+    apiKeyId: 'KEY_4f6a8b0c2d',
+    message: 'AML screening service unreachable after 3 retries.',
+    requestHeaders: {
+      'Content-Type': 'application/json',
+      'X-Api-Version': 'v1',
+    },
     responseBodyPreview: '{ "error": "service_unavailable" }',
   },
   {
-    id: "mlog-5",
-    requestId: "REQ_7e6d5c4b3a",
-    timestamp: "May 12, 2025 10:29:48 AM",
-    level: "Info",
-    method: "GET",
-    endpoint: "/api/v1/transactions/12345",
+    id: 'mlog-5',
+    requestId: 'REQ_7e6d5c4b3a',
+    timestamp: 'May 12, 2025 10:29:48 AM',
+    level: 'Info',
+    method: 'GET',
+    endpoint: '/api/v1/transactions/12345',
     statusCode: 200,
     responseTimeMs: 120,
-    ipAddress: "192.168.1.22",
-    apiKeyId: "KEY_8f3a9b2d1c",
-    message: "Transaction fetched successfully.",
-    requestHeaders: { "Content-Type": "application/json", "X-Api-Version": "v1" },
+    ipAddress: '192.168.1.22',
+    apiKeyId: 'KEY_8f3a9b2d1c',
+    message: 'Transaction fetched successfully.',
+    requestHeaders: {
+      'Content-Type': 'application/json',
+      'X-Api-Version': 'v1',
+    },
     responseBodyPreview: '{ "status": "completed", "amount": 250.00 }',
   },
   {
-    id: "mlog-6",
-    requestId: "REQ_2d1c3b4a5f",
-    timestamp: "May 12, 2025 10:29:40 AM",
-    level: "Info",
-    method: "GET",
-    endpoint: "/api/v1/reports/summary",
+    id: 'mlog-6',
+    requestId: 'REQ_2d1c3b4a5f',
+    timestamp: 'May 12, 2025 10:29:40 AM',
+    level: 'Info',
+    method: 'GET',
+    endpoint: '/api/v1/reports/summary',
     statusCode: 200,
     responseTimeMs: 180,
-    ipAddress: "192.168.1.78",
-    apiKeyId: "KEY_2a4b6c8d3e",
-    message: "Report summary generated.",
-    requestHeaders: { "Content-Type": "application/json", "X-Api-Version": "v1" },
-    responseBodyPreview: '{ "total_transactions": 24568, "success_rate": 91.2 }',
+    ipAddress: '192.168.1.78',
+    apiKeyId: 'KEY_2a4b6c8d3e',
+    message: 'Report summary generated.',
+    requestHeaders: {
+      'Content-Type': 'application/json',
+      'X-Api-Version': 'v1',
+    },
+    responseBodyPreview:
+      '{ "total_transactions": 24568, "success_rate": 91.2 }',
   },
   {
-    id: "mlog-7",
-    requestId: "REQ_6f5e4d3c2b",
-    timestamp: "May 12, 2025 10:29:31 AM",
-    level: "Warning",
-    method: "GET",
-    endpoint: "/api/v1/customers",
+    id: 'mlog-7',
+    requestId: 'REQ_6f5e4d3c2b',
+    timestamp: 'May 12, 2025 10:29:31 AM',
+    level: 'Warning',
+    method: 'GET',
+    endpoint: '/api/v1/customers',
     statusCode: 429,
     responseTimeMs: 45,
-    ipAddress: "203.0.113.88",
-    apiKeyId: "KEY_9b1c3d5e7f",
-    message: "Rate limit exceeded for this API key.",
-    requestHeaders: { "Content-Type": "application/json", "X-Api-Version": "v1" },
-    responseBodyPreview: '{ "error": "rate_limit_exceeded", "retry_after": 12 }',
+    ipAddress: '203.0.113.88',
+    apiKeyId: 'KEY_9b1c3d5e7f',
+    message: 'Rate limit exceeded for this API key.',
+    requestHeaders: {
+      'Content-Type': 'application/json',
+      'X-Api-Version': 'v1',
+    },
+    responseBodyPreview:
+      '{ "error": "rate_limit_exceeded", "retry_after": 12 }',
   },
   {
-    id: "mlog-8",
-    requestId: "REQ_8a9b0c1d2e",
-    timestamp: "May 12, 2025 10:29:22 AM",
-    level: "Error",
-    method: "POST",
-    endpoint: "/api/v1/auth/login",
+    id: 'mlog-8',
+    requestId: 'REQ_8a9b0c1d2e',
+    timestamp: 'May 12, 2025 10:29:22 AM',
+    level: 'Error',
+    method: 'POST',
+    endpoint: '/api/v1/auth/login',
     statusCode: 401,
     responseTimeMs: 88,
-    ipAddress: "203.0.113.91",
-    apiKeyId: "KEY_3c5e7a9b1d",
-    message: "Authentication failed: invalid credentials.",
-    requestHeaders: { "Content-Type": "application/json", "X-Api-Version": "v1" },
+    ipAddress: '203.0.113.91',
+    apiKeyId: 'KEY_3c5e7a9b1d',
+    message: 'Authentication failed: invalid credentials.',
+    requestHeaders: {
+      'Content-Type': 'application/json',
+      'X-Api-Version': 'v1',
+    },
     responseBodyPreview: '{ "error": "invalid_credentials" }',
   },
   {
-    id: "mlog-9",
-    requestId: "REQ_4d5e6f7a8b",
-    timestamp: "May 12, 2025 10:29:15 AM",
-    level: "Info",
-    method: "GET",
-    endpoint: "/api/v1/agents",
+    id: 'mlog-9',
+    requestId: 'REQ_4d5e6f7a8b',
+    timestamp: 'May 12, 2025 10:29:15 AM',
+    level: 'Info',
+    method: 'GET',
+    endpoint: '/api/v1/agents',
     statusCode: 200,
     responseTimeMs: 140,
-    ipAddress: "192.168.1.31",
-    apiKeyId: "KEY_9b1c3d5e7f",
-    message: "Agent list fetched successfully.",
-    requestHeaders: { "Content-Type": "application/json", "X-Api-Version": "v1" },
+    ipAddress: '192.168.1.31',
+    apiKeyId: 'KEY_9b1c3d5e7f',
+    message: 'Agent list fetched successfully.',
+    requestHeaders: {
+      'Content-Type': 'application/json',
+      'X-Api-Version': 'v1',
+    },
     responseBodyPreview: '{ "agents_count": 142 }',
   },
   {
-    id: "mlog-10",
-    requestId: "REQ_0e1f2a3b4c",
-    timestamp: "May 12, 2025 10:29:02 AM",
-    level: "Critical",
-    method: "PUT",
-    endpoint: "/api/v1/transactions/status",
+    id: 'mlog-10',
+    requestId: 'REQ_0e1f2a3b4c',
+    timestamp: 'May 12, 2025 10:29:02 AM',
+    level: 'Critical',
+    method: 'PUT',
+    endpoint: '/api/v1/transactions/status',
     statusCode: 500,
     responseTimeMs: 1340,
-    ipAddress: "10.0.4.19",
-    apiKeyId: "KEY_8f3a9b2d1c",
-    message: "Database deadlock detected while updating transaction status.",
-    requestHeaders: { "Content-Type": "application/json", "X-Api-Version": "v1" },
+    ipAddress: '10.0.4.19',
+    apiKeyId: 'KEY_8f3a9b2d1c',
+    message: 'Database deadlock detected while updating transaction status.',
+    requestHeaders: {
+      'Content-Type': 'application/json',
+      'X-Api-Version': 'v1',
+    },
     responseBodyPreview: '{ "error": "internal_server_error" }',
   },
 ];
@@ -24985,7 +25799,7 @@ export const monitorLogsTotalCount = 84210;
 
 // ---------- Active alerts ----------
 
-export type MonitorAlertSeverity = "Warning" | "Critical";
+export type MonitorAlertSeverity = 'Warning' | 'Critical';
 
 export interface MonitorAlert {
   id: string;
@@ -24997,40 +25811,50 @@ export interface MonitorAlert {
 
 export const monitorAlertsData: MonitorAlert[] = [
   {
-    id: "alert-1",
-    title: "Elevated error rate on AML screening",
-    description: "Error rate for /api/v1/aml/screen has exceeded 15% over the last 10 minutes.",
-    severity: "Critical",
-    triggeredAt: "5 minutes ago",
+    id: 'alert-1',
+    title: 'Elevated error rate on AML screening',
+    description:
+      'Error rate for /api/v1/aml/screen has exceeded 15% over the last 10 minutes.',
+    severity: 'Critical',
+    triggeredAt: '5 minutes ago',
   },
   {
-    id: "alert-2",
-    title: "High response time on payout endpoint",
-    description: "Average response time for /api/v1/banks/payout is above 800ms.",
-    severity: "Warning",
-    triggeredAt: "18 minutes ago",
+    id: 'alert-2',
+    title: 'High response time on payout endpoint',
+    description:
+      'Average response time for /api/v1/banks/payout is above 800ms.',
+    severity: 'Warning',
+    triggeredAt: '18 minutes ago',
   },
   {
-    id: "alert-3",
-    title: "Repeated 429s from a single API key",
-    description: "KEY_9b1c3d5e7f has triggered rate limit responses 40+ times in the last hour.",
-    severity: "Warning",
-    triggeredAt: "42 minutes ago",
+    id: 'alert-3',
+    title: 'Repeated 429s from a single API key',
+    description:
+      'KEY_9b1c3d5e7f has triggered rate limit responses 40+ times in the last hour.',
+    severity: 'Warning',
+    triggeredAt: '42 minutes ago',
   },
 ];
-
-
-
-
 
 // ============================================================
 // API SECURITY SETTINGS — DATA, TYPES & CONSTANTS
 // Append this block into lib/data.ts
 // ============================================================
 
-export type ApiSecurityTabId = "General" | "Authentication" | "IP Access" | "Webhook Security" | "Audit & Compliance";
+export type ApiSecurityTabId =
+  | 'General'
+  | 'Authentication'
+  | 'IP Access'
+  | 'Webhook Security'
+  | 'Audit & Compliance';
 
-export const apiSecurityTabs: ApiSecurityTabId[] = ["General", "Authentication", "IP Access", "Webhook Security", "Audit & Compliance"];
+export const apiSecurityTabs: ApiSecurityTabId[] = [
+  'General',
+  'Authentication',
+  'IP Access',
+  'Webhook Security',
+  'Audit & Compliance',
+];
 
 // ---------- General security toggles ----------
 
@@ -25044,36 +25868,39 @@ export interface ApiSecurityToggleSetting {
 
 export const apiSecurityGeneralSettings: ApiSecurityToggleSetting[] = [
   {
-    id: "force-https",
-    label: "Enforce HTTPS Only",
-    description: "Reject any API request that does not use TLS encryption.",
+    id: 'force-https',
+    label: 'Enforce HTTPS Only',
+    description: 'Reject any API request that does not use TLS encryption.',
     enabled: true,
     critical: true,
   },
   {
-    id: "cors-restrict",
-    label: "Restrict CORS to Allowed Origins",
-    description: "Only allow cross-origin requests from explicitly whitelisted domains.",
+    id: 'cors-restrict',
+    label: 'Restrict CORS to Allowed Origins',
+    description:
+      'Only allow cross-origin requests from explicitly whitelisted domains.',
     enabled: true,
   },
   {
-    id: "hide-server-headers",
-    label: "Hide Server Identification Headers",
-    description: "Strip framework and server version headers from API responses.",
+    id: 'hide-server-headers',
+    label: 'Hide Server Identification Headers',
+    description:
+      'Strip framework and server version headers from API responses.',
     enabled: true,
   },
   {
-    id: "auto-block-suspicious",
-    label: "Auto-block Suspicious Traffic Patterns",
-    description: "Automatically block IPs that exhibit credential stuffing or scraping patterns.",
+    id: 'auto-block-suspicious',
+    label: 'Auto-block Suspicious Traffic Patterns',
+    description:
+      'Automatically block IPs that exhibit credential stuffing or scraping patterns.',
     enabled: false,
   },
 ];
 
 export const apiSecurityAllowedOrigins: string[] = [
-  "https://app.fintrack.io",
-  "https://admin.fintrack.io",
-  "https://partner.bankco.com",
+  'https://app.fintrack.io',
+  'https://admin.fintrack.io',
+  'https://partner.bankco.com',
 ];
 
 // ---------- Authentication settings ----------
@@ -25083,7 +25910,7 @@ export interface ApiSecurityAuthSettings {
   refreshTokenExpiryDays: number;
   rotateRefreshTokens: boolean;
   requireRequestSigning: boolean;
-  signatureAlgorithm: "HMAC-SHA256" | "HMAC-SHA512" | "RSA-SHA256";
+  signatureAlgorithm: 'HMAC-SHA256' | 'HMAC-SHA512' | 'RSA-SHA256';
   require2faForKeyGeneration: boolean;
   maxFailedAuthAttempts: number;
 }
@@ -25093,16 +25920,13 @@ export const apiSecurityAuthDefaults: ApiSecurityAuthSettings = {
   refreshTokenExpiryDays: 30,
   rotateRefreshTokens: true,
   requireRequestSigning: false,
-  signatureAlgorithm: "HMAC-SHA256",
+  signatureAlgorithm: 'HMAC-SHA256',
   require2faForKeyGeneration: true,
   maxFailedAuthAttempts: 5,
 };
 
-export const apiSecuritySignatureAlgorithmOptions: ApiSecurityAuthSettings["signatureAlgorithm"][] = [
-  "HMAC-SHA256",
-  "HMAC-SHA512",
-  "RSA-SHA256",
-];
+export const apiSecuritySignatureAlgorithmOptions: ApiSecurityAuthSettings['signatureAlgorithm'][] =
+  ['HMAC-SHA256', 'HMAC-SHA512', 'RSA-SHA256'];
 
 // ---------- IP access control ----------
 
@@ -25125,9 +25949,27 @@ export const apiSecurityIpSettingsDefaults: ApiSecurityIpSettings = {
 };
 
 export const apiSecurityIpAllowlist: ApiSecurityIpRule[] = [
-  { id: "ip-1", label: "HQ Office Network", ipRange: "203.0.113.0/24", appliesTo: "All Keys", addedAt: "Jan 15, 2025" },
-  { id: "ip-2", label: "Banking Partner VPN", ipRange: "198.51.100.14/32", appliesTo: "Banking Integration", addedAt: "Mar 2, 2025" },
-  { id: "ip-3", label: "DevOps Bastion Host", ipRange: "10.0.4.0/28", appliesTo: "All Keys", addedAt: "Apr 9, 2025" },
+  {
+    id: 'ip-1',
+    label: 'HQ Office Network',
+    ipRange: '203.0.113.0/24',
+    appliesTo: 'All Keys',
+    addedAt: 'Jan 15, 2025',
+  },
+  {
+    id: 'ip-2',
+    label: 'Banking Partner VPN',
+    ipRange: '198.51.100.14/32',
+    appliesTo: 'Banking Integration',
+    addedAt: 'Mar 2, 2025',
+  },
+  {
+    id: 'ip-3',
+    label: 'DevOps Bastion Host',
+    ipRange: '10.0.4.0/28',
+    appliesTo: 'All Keys',
+    addedAt: 'Apr 9, 2025',
+  },
 ];
 
 // ---------- Webhook security ----------
@@ -25164,11 +26006,13 @@ export const apiSecurityAuditDefaults: ApiSecurityAuditSettings = {
   notifyOnKeyRevocation: true,
 };
 
-export const apiSecurityRetentionDaysOptions: number[] = [30, 90, 180, 365, 730];
+export const apiSecurityRetentionDaysOptions: number[] = [
+  30, 90, 180, 365, 730,
+];
 
 // ---------- Recent security events (read-only feed) ----------
 
-export type ApiSecurityEventSeverity = "Info" | "Warning" | "Critical";
+export type ApiSecurityEventSeverity = 'Info' | 'Warning' | 'Critical';
 
 export interface ApiSecurityEvent {
   id: string;
@@ -25178,37 +26022,47 @@ export interface ApiSecurityEvent {
 }
 
 export const apiSecurityEventBadge: Record<ApiSecurityEventSeverity, string> = {
-  Info: "bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400",
-  Warning: "bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400",
-  Critical: "bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400",
+  Info: 'bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400',
+  Warning:
+    'bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400',
+  Critical: 'bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400',
 };
 
 export const apiSecurityRecentEvents: ApiSecurityEvent[] = [
-  { id: "sec-ev-1", message: "Request signing requirement disabled by Admin Rahman", severity: "Warning", timestamp: "2 hours ago" },
-  { id: "sec-ev-2", message: "Webhook signing secret auto-rotated for 4 endpoints", severity: "Info", timestamp: "6 hours ago" },
-  { id: "sec-ev-3", message: "5 consecutive failed auth attempts from 203.0.113.91 — temporarily blocked", severity: "Critical", timestamp: "Yesterday" },
-  { id: "sec-ev-4", message: "New IP range added to allowlist: 10.0.4.0/28", severity: "Info", timestamp: "2 days ago" },
+  {
+    id: 'sec-ev-1',
+    message: 'Request signing requirement disabled by Admin Rahman',
+    severity: 'Warning',
+    timestamp: '2 hours ago',
+  },
+  {
+    id: 'sec-ev-2',
+    message: 'Webhook signing secret auto-rotated for 4 endpoints',
+    severity: 'Info',
+    timestamp: '6 hours ago',
+  },
+  {
+    id: 'sec-ev-3',
+    message:
+      '5 consecutive failed auth attempts from 203.0.113.91 — temporarily blocked',
+    severity: 'Critical',
+    timestamp: 'Yesterday',
+  },
+  {
+    id: 'sec-ev-4',
+    message: 'New IP range added to allowlist: 10.0.4.0/28',
+    severity: 'Info',
+    timestamp: '2 days ago',
+  },
 ];
-
-
-
-
-
-
-
-
-
-
-
-
 
 // ============================================================
 // SANDBOX / PRODUCTION — DATA, TYPES & CONSTANTS
 // Append this block into lib/data.ts
 // ============================================================
 
-export type EnvManagerEnvironment = "Production" | "Sandbox";
-export type EnvManagerHealthStatus = "Operational" | "Degraded" | "Maintenance";
+export type EnvManagerEnvironment = 'Production' | 'Sandbox';
+export type EnvManagerHealthStatus = 'Operational' | 'Degraded' | 'Maintenance';
 
 export interface EnvManagerSnapshot {
   id: string;
@@ -25228,58 +26082,63 @@ export interface EnvManagerSnapshot {
 // ---------- Badge style maps ----------
 
 export const envManagerHealthBadge: Record<EnvManagerHealthStatus, string> = {
-  Operational: "bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400",
-  Degraded: "bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400",
-  Maintenance: "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300",
+  Operational:
+    'bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400',
+  Degraded:
+    'bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400',
+  Maintenance:
+    'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300',
 };
 
 export const envManagerHealthDot: Record<EnvManagerHealthStatus, string> = {
-  Operational: "bg-green-500",
-  Degraded: "bg-amber-500",
-  Maintenance: "bg-slate-400",
+  Operational: 'bg-green-500',
+  Degraded: 'bg-amber-500',
+  Maintenance: 'bg-slate-400',
 };
 
 export const envManagerEnvBadge: Record<EnvManagerEnvironment, string> = {
-  Production: "bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400",
-  Sandbox: "bg-purple-100 text-purple-700 dark:bg-purple-500/10 dark:text-purple-400",
+  Production:
+    'bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400',
+  Sandbox:
+    'bg-purple-100 text-purple-700 dark:bg-purple-500/10 dark:text-purple-400',
 };
 
 // ---------- Environment snapshots ----------
 
 export const envManagerSnapshots: EnvManagerSnapshot[] = [
   {
-    id: "env-snap-prod",
-    environment: "Production",
-    baseUrl: "https://api.fintrack.io/v1",
-    health: "Operational",
-    uptime: "99.98%",
+    id: 'env-snap-prod',
+    environment: 'Production',
+    baseUrl: 'https://api.fintrack.io/v1',
+    health: 'Operational',
+    uptime: '99.98%',
     activeKeys: 52,
     activeWebhooks: 12,
     requestsToday: 128568,
     avgResponseMs: 245,
-    lastDeployedAt: "May 10, 2025 — 2:14 PM",
-    versionTag: "v1.8.2",
+    lastDeployedAt: 'May 10, 2025 — 2:14 PM',
+    versionTag: 'v1.8.2',
     maintenanceMode: false,
   },
   {
-    id: "env-snap-sandbox",
-    environment: "Sandbox",
-    baseUrl: "https://sandbox-api.fintrack.io/v1",
-    health: "Operational",
-    uptime: "99.12%",
+    id: 'env-snap-sandbox',
+    environment: 'Sandbox',
+    baseUrl: 'https://sandbox-api.fintrack.io/v1',
+    health: 'Operational',
+    uptime: '99.12%',
     activeKeys: 34,
     activeWebhooks: 4,
     requestsToday: 3820,
     avgResponseMs: 310,
-    lastDeployedAt: "May 12, 2025 — 9:02 AM",
-    versionTag: "v1.9.0-rc.3",
+    lastDeployedAt: 'May 12, 2025 — 9:02 AM',
+    versionTag: 'v1.9.0-rc.3',
     maintenanceMode: false,
   },
 ];
 
 // ---------- Config / feature flag differences between environments ----------
 
-export type EnvManagerFlagState = "On" | "Off" | "Partial";
+export type EnvManagerFlagState = 'On' | 'Off' | 'Partial';
 
 export interface EnvManagerConfigDiff {
   id: string;
@@ -25292,58 +26151,61 @@ export interface EnvManagerConfigDiff {
 
 export const envManagerConfigDiffs: EnvManagerConfigDiff[] = [
   {
-    id: "cfg-1",
-    key: "rate_limit_default",
-    description: "Default per-key rate limit applied when no custom rule exists.",
-    productionValue: "100/min",
-    sandboxValue: "300/min",
+    id: 'cfg-1',
+    key: 'rate_limit_default',
+    description:
+      'Default per-key rate limit applied when no custom rule exists.',
+    productionValue: '100/min',
+    sandboxValue: '300/min',
     isDifferent: true,
   },
   {
-    id: "cfg-2",
-    key: "webhook_retry_attempts",
-    description: "Number of automatic retry attempts for failed webhook deliveries.",
-    productionValue: "5",
-    sandboxValue: "5",
+    id: 'cfg-2',
+    key: 'webhook_retry_attempts',
+    description:
+      'Number of automatic retry attempts for failed webhook deliveries.',
+    productionValue: '5',
+    sandboxValue: '5',
     isDifferent: false,
   },
   {
-    id: "cfg-3",
-    key: "require_request_signing",
-    description: "Whether incoming requests must include a valid HMAC signature.",
-    productionValue: "Enabled",
-    sandboxValue: "Disabled",
+    id: 'cfg-3',
+    key: 'require_request_signing',
+    description:
+      'Whether incoming requests must include a valid HMAC signature.',
+    productionValue: 'Enabled',
+    sandboxValue: 'Disabled',
     isDifferent: true,
   },
   {
-    id: "cfg-4",
-    key: "transaction_amount_cap",
-    description: "Maximum transaction amount allowed per request.",
-    productionValue: "$50,000",
-    sandboxValue: "Unlimited",
+    id: 'cfg-4',
+    key: 'transaction_amount_cap',
+    description: 'Maximum transaction amount allowed per request.',
+    productionValue: '$50,000',
+    sandboxValue: 'Unlimited',
     isDifferent: true,
   },
   {
-    id: "cfg-5",
-    key: "log_retention_days",
-    description: "Number of days request logs are retained.",
-    productionValue: "180 days",
-    sandboxValue: "30 days",
+    id: 'cfg-5',
+    key: 'log_retention_days',
+    description: 'Number of days request logs are retained.',
+    productionValue: '180 days',
+    sandboxValue: '30 days',
     isDifferent: true,
   },
   {
-    id: "cfg-6",
-    key: "card_payment_provider",
-    description: "Payment processor used for card transactions.",
-    productionValue: "Stripe (live)",
-    sandboxValue: "Stripe (test)",
+    id: 'cfg-6',
+    key: 'card_payment_provider',
+    description: 'Payment processor used for card transactions.',
+    productionValue: 'Stripe (live)',
+    sandboxValue: 'Stripe (test)',
     isDifferent: true,
   },
 ];
 
 // ---------- Pending changes ready to promote from Sandbox → Production ----------
 
-export type EnvManagerChangeType = "Endpoint" | "Scope" | "Webhook" | "Config";
+export type EnvManagerChangeType = 'Endpoint' | 'Scope' | 'Webhook' | 'Config';
 
 export interface EnvManagerPendingChange {
   id: string;
@@ -25355,57 +26217,58 @@ export interface EnvManagerPendingChange {
 
 export const envManagerPendingChanges: EnvManagerPendingChange[] = [
   {
-    id: "chg-1",
-    type: "Endpoint",
-    label: "POST /api/v2/transactions/bulk-create",
-    detail: "New bulk transaction creation endpoint, currently Beta in sandbox.",
+    id: 'chg-1',
+    type: 'Endpoint',
+    label: 'POST /api/v2/transactions/bulk-create',
+    detail:
+      'New bulk transaction creation endpoint, currently Beta in sandbox.',
     testedInSandbox: true,
   },
   {
-    id: "chg-2",
-    type: "Webhook",
-    label: "Instant Settlement Notifier",
-    detail: "New webhook for the v2 instant settlement flow.",
+    id: 'chg-2',
+    type: 'Webhook',
+    label: 'Instant Settlement Notifier',
+    detail: 'New webhook for the v2 instant settlement flow.',
     testedInSandbox: true,
   },
   {
-    id: "chg-3",
-    type: "Scope",
-    label: "payments:instant-settle",
-    detail: "New scope required for the instant settlement endpoint.",
+    id: 'chg-3',
+    type: 'Scope',
+    label: 'payments:instant-settle',
+    detail: 'New scope required for the instant settlement endpoint.',
     testedInSandbox: false,
   },
   {
-    id: "chg-4",
-    type: "Config",
-    label: "webhook_retry_attempts → 7",
-    detail: "Proposed increase to webhook retry attempts after sandbox testing.",
+    id: 'chg-4',
+    type: 'Config',
+    label: 'webhook_retry_attempts → 7',
+    detail:
+      'Proposed increase to webhook retry attempts after sandbox testing.',
     testedInSandbox: true,
   },
 ];
 
 export const envManagerChangeTypeBadge: Record<EnvManagerChangeType, string> = {
-  Endpoint: "bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400",
-  Scope: "bg-purple-50 text-purple-600 dark:bg-purple-500/10 dark:text-purple-400",
-  Webhook: "bg-sky-50 text-sky-600 dark:bg-sky-500/10 dark:text-sky-400",
-  Config: "bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400",
+  Endpoint: 'bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400',
+  Scope:
+    'bg-purple-50 text-purple-600 dark:bg-purple-500/10 dark:text-purple-400',
+  Webhook: 'bg-sky-50 text-sky-600 dark:bg-sky-500/10 dark:text-sky-400',
+  Config: 'bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400',
 };
-
-
-
-
-
-
-
-
 
 // ============================================================
 // THIRD PARTY SERVICES — DATA, TYPES & CONSTANTS
 // Append this block into lib/data.ts
 // ============================================================
 
-export type ThirdPartyCategory = "Payments" | "Messaging" | "Identity Verification" | "Storage" | "Analytics" | "Banking";
-export type ThirdPartyStatus = "Connected" | "Disconnected" | "Error";
+export type ThirdPartyCategory =
+  | 'Payments'
+  | 'Messaging'
+  | 'Identity Verification'
+  | 'Storage'
+  | 'Analytics'
+  | 'Banking';
+export type ThirdPartyStatus = 'Connected' | 'Disconnected' | 'Error';
 
 export interface ThirdPartyCredentialField {
   key: string;
@@ -25433,33 +26296,39 @@ export interface ThirdPartyService {
 // ---------- Badge style maps ----------
 
 export const thirdPartyStatusBadge: Record<ThirdPartyStatus, string> = {
-  Connected: "bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400",
-  Disconnected: "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300",
-  Error: "bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400",
+  Connected:
+    'bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400',
+  Disconnected:
+    'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300',
+  Error: 'bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400',
 };
 
 export const thirdPartyStatusDot: Record<ThirdPartyStatus, string> = {
-  Connected: "bg-green-500",
-  Disconnected: "bg-slate-400",
-  Error: "bg-red-500",
+  Connected: 'bg-green-500',
+  Disconnected: 'bg-slate-400',
+  Error: 'bg-red-500',
 };
 
 export const thirdPartyCategoryColor: Record<ThirdPartyCategory, string> = {
-  Payments: "bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400",
-  Messaging: "bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400",
-  "Identity Verification": "bg-purple-50 text-purple-600 dark:bg-purple-500/10 dark:text-purple-400",
-  Storage: "bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400",
-  Analytics: "bg-cyan-50 text-cyan-600 dark:bg-cyan-500/10 dark:text-cyan-400",
-  Banking: "bg-indigo-50 text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-400",
+  Payments: 'bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400',
+  Messaging:
+    'bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400',
+  'Identity Verification':
+    'bg-purple-50 text-purple-600 dark:bg-purple-500/10 dark:text-purple-400',
+  Storage:
+    'bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400',
+  Analytics: 'bg-cyan-50 text-cyan-600 dark:bg-cyan-500/10 dark:text-cyan-400',
+  Banking:
+    'bg-indigo-50 text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-400',
 };
 
 export const thirdPartyCategoryOptions: ThirdPartyCategory[] = [
-  "Payments",
-  "Messaging",
-  "Identity Verification",
-  "Storage",
-  "Analytics",
-  "Banking",
+  'Payments',
+  'Messaging',
+  'Identity Verification',
+  'Storage',
+  'Analytics',
+  'Banking',
 ];
 
 // ---------- Stat summary ----------
@@ -25468,198 +26337,285 @@ export interface ThirdPartyStat {
   id: string;
   label: string;
   value: string;
-  icon: "total" | "connected" | "error" | "categories";
+  icon: 'total' | 'connected' | 'error' | 'categories';
 }
 
 export const thirdPartyStats: ThirdPartyStat[] = [
-  { id: "tp-stat-total", label: "Total Integrations", value: "9", icon: "total" },
-  { id: "tp-stat-connected", label: "Connected", value: "7", icon: "connected" },
-  { id: "tp-stat-error", label: "Errors", value: "1", icon: "error" },
-  { id: "tp-stat-categories", label: "Categories", value: "6", icon: "categories" },
+  {
+    id: 'tp-stat-total',
+    label: 'Total Integrations',
+    value: '9',
+    icon: 'total',
+  },
+  {
+    id: 'tp-stat-connected',
+    label: 'Connected',
+    value: '7',
+    icon: 'connected',
+  },
+  { id: 'tp-stat-error', label: 'Errors', value: '1', icon: 'error' },
+  {
+    id: 'tp-stat-categories',
+    label: 'Categories',
+    value: '6',
+    icon: 'categories',
+  },
 ];
 
 // ---------- Main data ----------
 
 export const thirdPartyServicesData: ThirdPartyService[] = [
   {
-    id: "tp-1",
-    name: "Stripe",
-    provider: "Stripe Inc.",
-    category: "Payments",
-    description: "Card payment processing and instant settlement.",
-    status: "Connected",
-    lastSynced: "2 minutes ago",
+    id: 'tp-1',
+    name: 'Stripe',
+    provider: 'Stripe Inc.',
+    category: 'Payments',
+    description: 'Card payment processing and instant settlement.',
+    status: 'Connected',
+    lastSynced: '2 minutes ago',
     monthlyUsage: 82,
-    monthlyUsageLabel: "31,290 calls",
-    iconLetter: "S",
-    iconColor: "bg-indigo-100 text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-400",
+    monthlyUsageLabel: '31,290 calls',
+    iconLetter: 'S',
+    iconColor:
+      'bg-indigo-100 text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-400',
     credentials: [
-      { key: "publishable_key", label: "Publishable Key", valuePreview: "pk_live_••••••••a1c2", valueFull: "pk_live_51H8f3a9b2d1c4e7f6a9b0c1d2e3f4a5a1c2" },
-      { key: "secret_key", label: "Secret Key", valuePreview: "sk_live_••••••••9f3a", valueFull: "sk_live_51H7c2b4e9a3f6d8e1a2b3c4d5e6f7a8b9f3a" },
+      {
+        key: 'publishable_key',
+        label: 'Publishable Key',
+        valuePreview: 'pk_live_••••••••a1c2',
+        valueFull: 'pk_live_51H8f3a9b2d1c4e7f6a9b0c1d2e3f4a5a1c2',
+      },
+      {
+        key: 'secret_key',
+        label: 'Secret Key',
+        valuePreview: 'sk_live_••••••••9f3a',
+        valueFull: 'sk_live_51H7c2b4e9a3f6d8e1a2b3c4d5e6f7a8b9f3a',
+      },
     ],
-    docsUrl: "https://stripe.com/docs/api",
+    docsUrl: 'https://stripe.com/docs/api',
   },
   {
-    id: "tp-2",
-    name: "Twilio",
-    provider: "Twilio Inc.",
-    category: "Messaging",
-    description: "SMS and voice notifications for OTPs and transaction alerts.",
-    status: "Connected",
-    lastSynced: "10 minutes ago",
+    id: 'tp-2',
+    name: 'Twilio',
+    provider: 'Twilio Inc.',
+    category: 'Messaging',
+    description: 'SMS and voice notifications for OTPs and transaction alerts.',
+    status: 'Connected',
+    lastSynced: '10 minutes ago',
     monthlyUsage: 64,
-    monthlyUsageLabel: "48,210 messages",
-    iconLetter: "T",
-    iconColor: "bg-red-100 text-red-600 dark:bg-red-500/10 dark:text-red-400",
+    monthlyUsageLabel: '48,210 messages',
+    iconLetter: 'T',
+    iconColor: 'bg-red-100 text-red-600 dark:bg-red-500/10 dark:text-red-400',
     credentials: [
-      { key: "account_sid", label: "Account SID", valuePreview: "AC••••••••••••7b21", valueFull: "AC5d6e7f1a9b3c4d5e6f7a8b9c0d1e2f3a4b7b21" },
-      { key: "auth_token", label: "Auth Token", valuePreview: "••••••••••••4d8e", valueFull: "2a4b6c8d3e5f6a7b8c9d0e1f2a3b4c5d6e7f4d8e" },
+      {
+        key: 'account_sid',
+        label: 'Account SID',
+        valuePreview: 'AC••••••••••••7b21',
+        valueFull: 'AC5d6e7f1a9b3c4d5e6f7a8b9c0d1e2f3a4b7b21',
+      },
+      {
+        key: 'auth_token',
+        label: 'Auth Token',
+        valuePreview: '••••••••••••4d8e',
+        valueFull: '2a4b6c8d3e5f6a7b8c9d0e1f2a3b4c5d6e7f4d8e',
+      },
     ],
-    docsUrl: "https://www.twilio.com/docs",
+    docsUrl: 'https://www.twilio.com/docs',
   },
   {
-    id: "tp-3",
-    name: "Plaid",
-    provider: "Plaid Inc.",
-    category: "Banking",
-    description: "Bank account linking and balance verification for payouts.",
-    status: "Connected",
-    lastSynced: "5 minutes ago",
+    id: 'tp-3',
+    name: 'Plaid',
+    provider: 'Plaid Inc.',
+    category: 'Banking',
+    description: 'Bank account linking and balance verification for payouts.',
+    status: 'Connected',
+    lastSynced: '5 minutes ago',
     monthlyUsage: 45,
-    monthlyUsageLabel: "9,650 link calls",
-    iconLetter: "P",
-    iconColor: "bg-emerald-100 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400",
+    monthlyUsageLabel: '9,650 link calls',
+    iconLetter: 'P',
+    iconColor:
+      'bg-emerald-100 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400',
     credentials: [
-      { key: "client_id", label: "Client ID", valuePreview: "plaid_••••••••c3f1", valueFull: "plaid_1e3f5a7b9c2d4e6f8a0b1c2d3e4f5a6b7c8dc3f1" },
-      { key: "secret", label: "Secret", valuePreview: "••••••••••••b5e9", valueFull: "9b1c3d5e7f1a2b3c4d5e6f7a8b9c0d1e2f3ab5e9" },
+      {
+        key: 'client_id',
+        label: 'Client ID',
+        valuePreview: 'plaid_••••••••c3f1',
+        valueFull: 'plaid_1e3f5a7b9c2d4e6f8a0b1c2d3e4f5a6b7c8dc3f1',
+      },
+      {
+        key: 'secret',
+        label: 'Secret',
+        valuePreview: '••••••••••••b5e9',
+        valueFull: '9b1c3d5e7f1a2b3c4d5e6f7a8b9c0d1e2f3ab5e9',
+      },
     ],
-    docsUrl: "https://plaid.com/docs",
+    docsUrl: 'https://plaid.com/docs',
   },
   {
-    id: "tp-4",
-    name: "Onfido",
-    provider: "Onfido Ltd.",
-    category: "Identity Verification",
-    description: "KYC document verification and facial biometric matching.",
-    status: "Connected",
-    lastSynced: "1 hour ago",
+    id: 'tp-4',
+    name: 'Onfido',
+    provider: 'Onfido Ltd.',
+    category: 'Identity Verification',
+    description: 'KYC document verification and facial biometric matching.',
+    status: 'Connected',
+    lastSynced: '1 hour ago',
     monthlyUsage: 38,
-    monthlyUsageLabel: "2,140 verifications",
-    iconLetter: "O",
-    iconColor: "bg-blue-100 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400",
+    monthlyUsageLabel: '2,140 verifications',
+    iconLetter: 'O',
+    iconColor:
+      'bg-blue-100 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400',
     credentials: [
-      { key: "api_token", label: "API Token", valuePreview: "onf_••••••••e0a4", valueFull: "onf_4f6a8b0c2d3e4f5a6b7c8d9e0f1a2b3c4d5ee0a4" },
+      {
+        key: 'api_token',
+        label: 'API Token',
+        valuePreview: 'onf_••••••••e0a4',
+        valueFull: 'onf_4f6a8b0c2d3e4f5a6b7c8d9e0f1a2b3c4d5ee0a4',
+      },
     ],
-    docsUrl: "https://documentation.onfido.com",
+    docsUrl: 'https://documentation.onfido.com',
   },
   {
-    id: "tp-5",
-    name: "Amazon S3",
-    provider: "Amazon Web Services",
-    category: "Storage",
-    description: "Object storage for KYC documents, receipts, and report exports.",
-    status: "Connected",
-    lastSynced: "20 minutes ago",
+    id: 'tp-5',
+    name: 'Amazon S3',
+    provider: 'Amazon Web Services',
+    category: 'Storage',
+    description:
+      'Object storage for KYC documents, receipts, and report exports.',
+    status: 'Connected',
+    lastSynced: '20 minutes ago',
     monthlyUsage: 56,
-    monthlyUsageLabel: "1.2 TB stored",
-    iconLetter: "A",
-    iconColor: "bg-orange-100 text-orange-600 dark:bg-orange-500/10 dark:text-orange-400",
+    monthlyUsageLabel: '1.2 TB stored',
+    iconLetter: 'A',
+    iconColor:
+      'bg-orange-100 text-orange-600 dark:bg-orange-500/10 dark:text-orange-400',
     credentials: [
-      { key: "access_key_id", label: "Access Key ID", valuePreview: "AKIA••••••••d7c6", valueFull: "AKIA3C5E7A9B1D2E3F4A5B6C7D8E9F0A1B2Cd7c6" },
-      { key: "secret_access_key", label: "Secret Access Key", valuePreview: "••••••••••••f2a8", valueFull: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEf2a8" },
+      {
+        key: 'access_key_id',
+        label: 'Access Key ID',
+        valuePreview: 'AKIA••••••••d7c6',
+        valueFull: 'AKIA3C5E7A9B1D2E3F4A5B6C7D8E9F0A1B2Cd7c6',
+      },
+      {
+        key: 'secret_access_key',
+        label: 'Secret Access Key',
+        valuePreview: '••••••••••••f2a8',
+        valueFull: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEf2a8',
+      },
     ],
-    docsUrl: "https://docs.aws.amazon.com/s3",
+    docsUrl: 'https://docs.aws.amazon.com/s3',
   },
   {
-    id: "tp-6",
-    name: "Segment",
-    provider: "Twilio Segment",
-    category: "Analytics",
-    description: "Event tracking pipeline forwarding usage data to the analytics warehouse.",
-    status: "Connected",
-    lastSynced: "30 minutes ago",
+    id: 'tp-6',
+    name: 'Segment',
+    provider: 'Twilio Segment',
+    category: 'Analytics',
+    description:
+      'Event tracking pipeline forwarding usage data to the analytics warehouse.',
+    status: 'Connected',
+    lastSynced: '30 minutes ago',
     monthlyUsage: 71,
-    monthlyUsageLabel: "892,400 events",
-    iconLetter: "Sg",
-    iconColor: "bg-green-100 text-green-600 dark:bg-green-500/10 dark:text-green-400",
+    monthlyUsageLabel: '892,400 events',
+    iconLetter: 'Sg',
+    iconColor:
+      'bg-green-100 text-green-600 dark:bg-green-500/10 dark:text-green-400',
     credentials: [
-      { key: "write_key", label: "Write Key", valuePreview: "seg_••••••••9c3a", valueFull: "seg_7c2b4e9a3f6d8e1a2b3c4d5e6f7a8b9c0d1e9c3a" },
+      {
+        key: 'write_key',
+        label: 'Write Key',
+        valuePreview: 'seg_••••••••9c3a',
+        valueFull: 'seg_7c2b4e9a3f6d8e1a2b3c4d5e6f7a8b9c0d1e9c3a',
+      },
     ],
-    docsUrl: "https://segment.com/docs",
+    docsUrl: 'https://segment.com/docs',
   },
   {
-    id: "tp-7",
-    name: "SendGrid",
-    provider: "Twilio SendGrid",
-    category: "Messaging",
-    description: "Transactional email delivery for receipts and account notifications.",
-    status: "Connected",
-    lastSynced: "8 minutes ago",
+    id: 'tp-7',
+    name: 'SendGrid',
+    provider: 'Twilio SendGrid',
+    category: 'Messaging',
+    description:
+      'Transactional email delivery for receipts and account notifications.',
+    status: 'Connected',
+    lastSynced: '8 minutes ago',
     monthlyUsage: 33,
-    monthlyUsageLabel: "62,180 emails",
-    iconLetter: "Sg",
-    iconColor: "bg-sky-100 text-sky-600 dark:bg-sky-500/10 dark:text-sky-400",
+    monthlyUsageLabel: '62,180 emails',
+    iconLetter: 'Sg',
+    iconColor: 'bg-sky-100 text-sky-600 dark:bg-sky-500/10 dark:text-sky-400',
     credentials: [
-      { key: "api_key", label: "API Key", valuePreview: "SG.••••••••b9a1", valueFull: "SG.8f3a9b2d1c4e7f6a9b0c1d2e3f4a5b6c7d8eb9a1" },
+      {
+        key: 'api_key',
+        label: 'API Key',
+        valuePreview: 'SG.••••••••b9a1',
+        valueFull: 'SG.8f3a9b2d1c4e7f6a9b0c1d2e3f4a5b6c7d8eb9a1',
+      },
     ],
-    docsUrl: "https://docs.sendgrid.com",
+    docsUrl: 'https://docs.sendgrid.com',
   },
   {
-    id: "tp-8",
-    name: "ComplyAdvantage",
-    provider: "ComplyAdvantage Ltd.",
-    category: "Identity Verification",
-    description: "Real-time AML and sanctions list screening for customer onboarding.",
-    status: "Error",
-    lastSynced: "27 minutes ago",
+    id: 'tp-8',
+    name: 'ComplyAdvantage',
+    provider: 'ComplyAdvantage Ltd.',
+    category: 'Identity Verification',
+    description:
+      'Real-time AML and sanctions list screening for customer onboarding.',
+    status: 'Error',
+    lastSynced: '27 minutes ago',
     monthlyUsage: 18,
-    monthlyUsageLabel: "980 screenings",
-    iconLetter: "C",
-    iconColor: "bg-red-100 text-red-600 dark:bg-red-500/10 dark:text-red-400",
+    monthlyUsageLabel: '980 screenings',
+    iconLetter: 'C',
+    iconColor: 'bg-red-100 text-red-600 dark:bg-red-500/10 dark:text-red-400',
     credentials: [
-      { key: "api_key", label: "API Key", valuePreview: "ca_••••••••e0a4", valueFull: "ca_4f6a8b0c2d3e4f5a6b7c8d9e0f1a2b3c4d5ee0a4" },
+      {
+        key: 'api_key',
+        label: 'API Key',
+        valuePreview: 'ca_••••••••e0a4',
+        valueFull: 'ca_4f6a8b0c2d3e4f5a6b7c8d9e0f1a2b3c4d5ee0a4',
+      },
     ],
-    docsUrl: "https://docs.complyadvantage.com",
+    docsUrl: 'https://docs.complyadvantage.com',
   },
   {
-    id: "tp-9",
-    name: "Datadog",
-    provider: "Datadog Inc.",
-    category: "Analytics",
-    description: "Infrastructure and application performance monitoring.",
-    status: "Disconnected",
-    lastSynced: "Never",
+    id: 'tp-9',
+    name: 'Datadog',
+    provider: 'Datadog Inc.',
+    category: 'Analytics',
+    description: 'Infrastructure and application performance monitoring.',
+    status: 'Disconnected',
+    lastSynced: 'Never',
     monthlyUsage: 0,
-    monthlyUsageLabel: "Not connected",
-    iconLetter: "D",
-    iconColor: "bg-violet-100 text-violet-600 dark:bg-violet-500/10 dark:text-violet-400",
+    monthlyUsageLabel: 'Not connected',
+    iconLetter: 'D',
+    iconColor:
+      'bg-violet-100 text-violet-600 dark:bg-violet-500/10 dark:text-violet-400',
     credentials: [
-      { key: "api_key", label: "API Key", valuePreview: "Not configured", valueFull: "" },
+      {
+        key: 'api_key',
+        label: 'API Key',
+        valuePreview: 'Not configured',
+        valueFull: '',
+      },
     ],
-    docsUrl: "https://docs.datadoghq.com",
+    docsUrl: 'https://docs.datadoghq.com',
   },
 ];
 
 export const thirdPartyServicesTotalCount = thirdPartyServicesData.length;
-
-
-
-
-
-
-
-
-
-
 
 // ============================================================
 // CALLBACK URLS — DATA, TYPES & CONSTANTS
 // Append this block into lib/data.ts
 // ============================================================
 
-export type CallbackUrlType = "OAuth Redirect" | "Success Redirect" | "Failure Redirect" | "Cancel Redirect";
-export type CallbackUrlEnvironment = "Production" | "Sandbox";
-export type CallbackUrlVerificationStatus = "Verified" | "Unverified" | "Failed";
+export type CallbackUrlType =
+  | 'OAuth Redirect'
+  | 'Success Redirect'
+  | 'Failure Redirect'
+  | 'Cancel Redirect';
+export type CallbackUrlEnvironment = 'Production' | 'Sandbox';
+export type CallbackUrlVerificationStatus =
+  | 'Verified'
+  | 'Unverified'
+  | 'Failed';
 
 export interface CallbackUrlRecord {
   id: string;
@@ -25678,40 +26634,62 @@ export interface CallbackUrlRecord {
 // ---------- Badge style maps ----------
 
 export const callbackUrlTypeBadge: Record<CallbackUrlType, string> = {
-  "OAuth Redirect": "bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400",
-  "Success Redirect": "bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400",
-  "Failure Redirect": "bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400",
-  "Cancel Redirect": "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300",
+  'OAuth Redirect':
+    'bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400',
+  'Success Redirect':
+    'bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400',
+  'Failure Redirect':
+    'bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400',
+  'Cancel Redirect':
+    'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300',
 };
 
-export const callbackUrlVerificationBadge: Record<CallbackUrlVerificationStatus, string> = {
-  Verified: "bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400",
-  Unverified: "bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400",
-  Failed: "bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400",
+export const callbackUrlVerificationBadge: Record<
+  CallbackUrlVerificationStatus,
+  string
+> = {
+  Verified:
+    'bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400',
+  Unverified:
+    'bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400',
+  Failed: 'bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400',
 };
 
-export const callbackUrlVerificationDot: Record<CallbackUrlVerificationStatus, string> = {
-  Verified: "bg-green-500",
-  Unverified: "bg-amber-500",
-  Failed: "bg-red-500",
+export const callbackUrlVerificationDot: Record<
+  CallbackUrlVerificationStatus,
+  string
+> = {
+  Verified: 'bg-green-500',
+  Unverified: 'bg-amber-500',
+  Failed: 'bg-red-500',
 };
 
 export const callbackUrlEnvBadge: Record<CallbackUrlEnvironment, string> = {
-  Production: "bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400",
-  Sandbox: "bg-purple-100 text-purple-700 dark:bg-purple-500/10 dark:text-purple-400",
+  Production:
+    'bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400',
+  Sandbox:
+    'bg-purple-100 text-purple-700 dark:bg-purple-500/10 dark:text-purple-400',
 };
 
-export const callbackUrlTypeOptions: CallbackUrlType[] = ["OAuth Redirect", "Success Redirect", "Failure Redirect", "Cancel Redirect"];
-export const callbackUrlEnvOptions: CallbackUrlEnvironment[] = ["Production", "Sandbox"];
+export const callbackUrlTypeOptions: CallbackUrlType[] = [
+  'OAuth Redirect',
+  'Success Redirect',
+  'Failure Redirect',
+  'Cancel Redirect',
+];
+export const callbackUrlEnvOptions: CallbackUrlEnvironment[] = [
+  'Production',
+  'Sandbox',
+];
 
 // ---------- Available keys (for create/edit form dropdown) ----------
 
 export const callbackUrlAvailableKeys: { id: string; name: string }[] = [
-  { id: "KEY_8f3a9b2d1c", name: "Transaction Service" },
-  { id: "KEY_7c2b4e9a3f", name: "Banking Integration" },
-  { id: "KEY_5d6e7f1a9b", name: "Card Payment Gateway" },
-  { id: "KEY_2a4b6c8d3e", name: "Reports Service" },
-  { id: "KEY_9b1c3d5e7f", name: "Agent Mobile App" },
+  { id: 'KEY_8f3a9b2d1c', name: 'Transaction Service' },
+  { id: 'KEY_7c2b4e9a3f', name: 'Banking Integration' },
+  { id: 'KEY_5d6e7f1a9b', name: 'Card Payment Gateway' },
+  { id: 'KEY_2a4b6c8d3e', name: 'Reports Service' },
+  { id: 'KEY_9b1c3d5e7f', name: 'Agent Mobile App' },
 ];
 
 // ---------- Stat summary ----------
@@ -25720,182 +26698,195 @@ export interface CallbackUrlStat {
   id: string;
   label: string;
   value: string;
-  icon: "total" | "verified" | "unverified" | "apps";
+  icon: 'total' | 'verified' | 'unverified' | 'apps';
 }
 
 export const callbackUrlStats: CallbackUrlStat[] = [
-  { id: "cb-stat-total", label: "Total Callback URLs", value: "11", icon: "total" },
-  { id: "cb-stat-verified", label: "Verified", value: "8", icon: "verified" },
-  { id: "cb-stat-unverified", label: "Unverified", value: "2", icon: "unverified" },
-  { id: "cb-stat-apps", label: "Apps Using Callbacks", value: "5", icon: "apps" },
+  {
+    id: 'cb-stat-total',
+    label: 'Total Callback URLs',
+    value: '11',
+    icon: 'total',
+  },
+  { id: 'cb-stat-verified', label: 'Verified', value: '8', icon: 'verified' },
+  {
+    id: 'cb-stat-unverified',
+    label: 'Unverified',
+    value: '2',
+    icon: 'unverified',
+  },
+  {
+    id: 'cb-stat-apps',
+    label: 'Apps Using Callbacks',
+    value: '5',
+    icon: 'apps',
+  },
 ];
 
 // ---------- Main data ----------
 
 export const callbackUrlsData: CallbackUrlRecord[] = [
   {
-    id: "cb-1",
-    url: "https://app.fintrack.io/oauth/callback",
-    label: "Main App OAuth Callback",
-    type: "OAuth Redirect",
-    associatedKeyId: "KEY_8f3a9b2d1c",
-    associatedKeyName: "Transaction Service",
-    environment: "Production",
-    verificationStatus: "Verified",
+    id: 'cb-1',
+    url: 'https://app.fintrack.io/oauth/callback',
+    label: 'Main App OAuth Callback',
+    type: 'OAuth Redirect',
+    associatedKeyId: 'KEY_8f3a9b2d1c',
+    associatedKeyName: 'Transaction Service',
+    environment: 'Production',
+    verificationStatus: 'Verified',
     isDefault: true,
-    lastVerifiedAt: "2 days ago",
-    createdAt: "Mar 1, 2025",
+    lastVerifiedAt: '2 days ago',
+    createdAt: 'Mar 1, 2025',
   },
   {
-    id: "cb-2",
-    url: "https://app.fintrack.io/payment/success",
-    label: "Payment Success Redirect",
-    type: "Success Redirect",
-    associatedKeyId: "KEY_5d6e7f1a9b",
-    associatedKeyName: "Card Payment Gateway",
-    environment: "Production",
-    verificationStatus: "Verified",
+    id: 'cb-2',
+    url: 'https://app.fintrack.io/payment/success',
+    label: 'Payment Success Redirect',
+    type: 'Success Redirect',
+    associatedKeyId: 'KEY_5d6e7f1a9b',
+    associatedKeyName: 'Card Payment Gateway',
+    environment: 'Production',
+    verificationStatus: 'Verified',
     isDefault: true,
-    lastVerifiedAt: "5 days ago",
-    createdAt: "Mar 1, 2025",
+    lastVerifiedAt: '5 days ago',
+    createdAt: 'Mar 1, 2025',
   },
   {
-    id: "cb-3",
-    url: "https://app.fintrack.io/payment/failure",
-    label: "Payment Failure Redirect",
-    type: "Failure Redirect",
-    associatedKeyId: "KEY_5d6e7f1a9b",
-    associatedKeyName: "Card Payment Gateway",
-    environment: "Production",
-    verificationStatus: "Verified",
+    id: 'cb-3',
+    url: 'https://app.fintrack.io/payment/failure',
+    label: 'Payment Failure Redirect',
+    type: 'Failure Redirect',
+    associatedKeyId: 'KEY_5d6e7f1a9b',
+    associatedKeyName: 'Card Payment Gateway',
+    environment: 'Production',
+    verificationStatus: 'Verified',
     isDefault: true,
-    lastVerifiedAt: "5 days ago",
-    createdAt: "Mar 1, 2025",
+    lastVerifiedAt: '5 days ago',
+    createdAt: 'Mar 1, 2025',
   },
   {
-    id: "cb-4",
-    url: "https://app.fintrack.io/payment/cancel",
-    label: "Payment Cancel Redirect",
-    type: "Cancel Redirect",
-    associatedKeyId: "KEY_5d6e7f1a9b",
-    associatedKeyName: "Card Payment Gateway",
-    environment: "Production",
-    verificationStatus: "Verified",
+    id: 'cb-4',
+    url: 'https://app.fintrack.io/payment/cancel',
+    label: 'Payment Cancel Redirect',
+    type: 'Cancel Redirect',
+    associatedKeyId: 'KEY_5d6e7f1a9b',
+    associatedKeyName: 'Card Payment Gateway',
+    environment: 'Production',
+    verificationStatus: 'Verified',
     isDefault: false,
-    lastVerifiedAt: "5 days ago",
-    createdAt: "Mar 1, 2025",
+    lastVerifiedAt: '5 days ago',
+    createdAt: 'Mar 1, 2025',
   },
   {
-    id: "cb-5",
-    url: "https://partner.bankco.com/oauth/redirect",
-    label: "Banking Partner OAuth",
-    type: "OAuth Redirect",
-    associatedKeyId: "KEY_7c2b4e9a3f",
-    associatedKeyName: "Banking Integration",
-    environment: "Production",
-    verificationStatus: "Verified",
+    id: 'cb-5',
+    url: 'https://partner.bankco.com/oauth/redirect',
+    label: 'Banking Partner OAuth',
+    type: 'OAuth Redirect',
+    associatedKeyId: 'KEY_7c2b4e9a3f',
+    associatedKeyName: 'Banking Integration',
+    environment: 'Production',
+    verificationStatus: 'Verified',
     isDefault: false,
-    lastVerifiedAt: "1 week ago",
-    createdAt: "Feb 20, 2025",
+    lastVerifiedAt: '1 week ago',
+    createdAt: 'Feb 20, 2025',
   },
   {
-    id: "cb-6",
-    url: "https://app.fintrack.io/reports/export-complete",
-    label: "Report Export Complete",
-    type: "Success Redirect",
-    associatedKeyId: "KEY_2a4b6c8d3e",
-    associatedKeyName: "Reports Service",
-    environment: "Sandbox",
-    verificationStatus: "Verified",
+    id: 'cb-6',
+    url: 'https://app.fintrack.io/reports/export-complete',
+    label: 'Report Export Complete',
+    type: 'Success Redirect',
+    associatedKeyId: 'KEY_2a4b6c8d3e',
+    associatedKeyName: 'Reports Service',
+    environment: 'Sandbox',
+    verificationStatus: 'Verified',
     isDefault: false,
-    lastVerifiedAt: "3 days ago",
-    createdAt: "Apr 5, 2025",
+    lastVerifiedAt: '3 days ago',
+    createdAt: 'Apr 5, 2025',
   },
   {
-    id: "cb-7",
-    url: "https://agents.fintrack.io/pickup/confirmed",
-    label: "Agent Pickup Confirmation",
-    type: "Success Redirect",
-    associatedKeyId: "KEY_9b1c3d5e7f",
-    associatedKeyName: "Agent Mobile App",
-    environment: "Production",
-    verificationStatus: "Verified",
+    id: 'cb-7',
+    url: 'https://agents.fintrack.io/pickup/confirmed',
+    label: 'Agent Pickup Confirmation',
+    type: 'Success Redirect',
+    associatedKeyId: 'KEY_9b1c3d5e7f',
+    associatedKeyName: 'Agent Mobile App',
+    environment: 'Production',
+    verificationStatus: 'Verified',
     isDefault: true,
-    lastVerifiedAt: "1 day ago",
-    createdAt: "May 3, 2025",
+    lastVerifiedAt: '1 day ago',
+    createdAt: 'May 3, 2025',
   },
   {
-    id: "cb-8",
-    url: "https://staging.fintrack.io/oauth/callback",
-    label: "Staging OAuth Callback",
-    type: "OAuth Redirect",
-    associatedKeyId: "KEY_8f3a9b2d1c",
-    associatedKeyName: "Transaction Service",
-    environment: "Sandbox",
-    verificationStatus: "Unverified",
+    id: 'cb-8',
+    url: 'https://staging.fintrack.io/oauth/callback',
+    label: 'Staging OAuth Callback',
+    type: 'OAuth Redirect',
+    associatedKeyId: 'KEY_8f3a9b2d1c',
+    associatedKeyName: 'Transaction Service',
+    environment: 'Sandbox',
+    verificationStatus: 'Unverified',
     isDefault: false,
-    lastVerifiedAt: "Never",
-    createdAt: "May 14, 2025",
+    lastVerifiedAt: 'Never',
+    createdAt: 'May 14, 2025',
   },
   {
-    id: "cb-9",
-    url: "https://new-partner-app.example.com/callback",
-    label: "New Partner Integration",
-    type: "OAuth Redirect",
-    associatedKeyId: "KEY_7c2b4e9a3f",
-    associatedKeyName: "Banking Integration",
-    environment: "Sandbox",
-    verificationStatus: "Failed",
+    id: 'cb-9',
+    url: 'https://new-partner-app.example.com/callback',
+    label: 'New Partner Integration',
+    type: 'OAuth Redirect',
+    associatedKeyId: 'KEY_7c2b4e9a3f',
+    associatedKeyName: 'Banking Integration',
+    environment: 'Sandbox',
+    verificationStatus: 'Failed',
     isDefault: false,
-    lastVerifiedAt: "6 hours ago",
-    createdAt: "May 18, 2025",
+    lastVerifiedAt: '6 hours ago',
+    createdAt: 'May 18, 2025',
   },
   {
-    id: "cb-10",
-    url: "https://app.fintrack.io/agents/pickup/cancel",
-    label: "Agent Pickup Cancel Redirect",
-    type: "Cancel Redirect",
-    associatedKeyId: "KEY_9b1c3d5e7f",
-    associatedKeyName: "Agent Mobile App",
-    environment: "Production",
-    verificationStatus: "Verified",
+    id: 'cb-10',
+    url: 'https://app.fintrack.io/agents/pickup/cancel',
+    label: 'Agent Pickup Cancel Redirect',
+    type: 'Cancel Redirect',
+    associatedKeyId: 'KEY_9b1c3d5e7f',
+    associatedKeyName: 'Agent Mobile App',
+    environment: 'Production',
+    verificationStatus: 'Verified',
     isDefault: false,
-    lastVerifiedAt: "1 day ago",
-    createdAt: "May 3, 2025",
+    lastVerifiedAt: '1 day ago',
+    createdAt: 'May 3, 2025',
   },
   {
-    id: "cb-11",
-    url: "https://staging.fintrack.io/reports/export-failed",
-    label: "Report Export Failed (Staging)",
-    type: "Failure Redirect",
-    associatedKeyId: "KEY_2a4b6c8d3e",
-    associatedKeyName: "Reports Service",
-    environment: "Sandbox",
-    verificationStatus: "Unverified",
+    id: 'cb-11',
+    url: 'https://staging.fintrack.io/reports/export-failed',
+    label: 'Report Export Failed (Staging)',
+    type: 'Failure Redirect',
+    associatedKeyId: 'KEY_2a4b6c8d3e',
+    associatedKeyName: 'Reports Service',
+    environment: 'Sandbox',
+    verificationStatus: 'Unverified',
     isDefault: false,
-    lastVerifiedAt: "Never",
-    createdAt: "May 20, 2025",
+    lastVerifiedAt: 'Never',
+    createdAt: 'May 20, 2025',
   },
 ];
 
 export const callbackUrlsTotalCount = callbackUrlsData.length;
-
-
-
-
-
-
-
-
 
 // ============================================================
 // EVENT SUBSCRIPTIONS — DATA, TYPES & CONSTANTS
 // Append this block into lib/data.ts
 // ============================================================
 
-export type SubsEventCategory = "Transactions" | "Payouts" | "Cards" | "Customers" | "Compliance" | "Agents";
-export type SubsChannel = "Webhook" | "Email" | "In-App";
-export type SubsStatus = "Active" | "Paused";
+export type SubsEventCategory =
+  | 'Transactions'
+  | 'Payouts'
+  | 'Cards'
+  | 'Customers'
+  | 'Compliance'
+  | 'Agents';
+export type SubsChannel = 'Webhook' | 'Email' | 'In-App';
+export type SubsStatus = 'Active' | 'Paused';
 
 export interface SubsEventDefinition {
   id: string;
@@ -25922,42 +26913,55 @@ export interface EventSubscriptionRecord {
 // ---------- Badge style maps ----------
 
 export const subsCategoryColor: Record<SubsEventCategory, string> = {
-  Transactions: "bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400",
-  Payouts: "bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400",
-  Cards: "bg-pink-50 text-pink-600 dark:bg-pink-500/10 dark:text-pink-400",
-  Customers: "bg-orange-50 text-orange-600 dark:bg-orange-500/10 dark:text-orange-400",
-  Compliance: "bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400",
-  Agents: "bg-violet-50 text-violet-600 dark:bg-violet-500/10 dark:text-violet-400",
+  Transactions:
+    'bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400',
+  Payouts:
+    'bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400',
+  Cards: 'bg-pink-50 text-pink-600 dark:bg-pink-500/10 dark:text-pink-400',
+  Customers:
+    'bg-orange-50 text-orange-600 dark:bg-orange-500/10 dark:text-orange-400',
+  Compliance: 'bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400',
+  Agents:
+    'bg-violet-50 text-violet-600 dark:bg-violet-500/10 dark:text-violet-400',
 };
 
 export const subsChannelBadge: Record<SubsChannel, string> = {
-  Webhook: "bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400",
-  Email: "bg-purple-100 text-purple-700 dark:bg-purple-500/10 dark:text-purple-400",
-  "In-App": "bg-cyan-100 text-cyan-700 dark:bg-cyan-500/10 dark:text-cyan-400",
+  Webhook: 'bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400',
+  Email:
+    'bg-purple-100 text-purple-700 dark:bg-purple-500/10 dark:text-purple-400',
+  'In-App': 'bg-cyan-100 text-cyan-700 dark:bg-cyan-500/10 dark:text-cyan-400',
 };
 
 export const subsStatusBadge: Record<SubsStatus, string> = {
-  Active: "bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400",
-  Paused: "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300",
+  Active:
+    'bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400',
+  Paused: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300',
 };
 
 export const subsStatusDot: Record<SubsStatus, string> = {
-  Active: "bg-green-500",
-  Paused: "bg-slate-400",
+  Active: 'bg-green-500',
+  Paused: 'bg-slate-400',
 };
 
-export const subsCategoryOptions: SubsEventCategory[] = ["Transactions", "Payouts", "Cards", "Customers", "Compliance", "Agents"];
-export const subsChannelOptions: SubsChannel[] = ["Webhook", "Email", "In-App"];
+export const subsCategoryOptions: SubsEventCategory[] = [
+  'Transactions',
+  'Payouts',
+  'Cards',
+  'Customers',
+  'Compliance',
+  'Agents',
+];
+export const subsChannelOptions: SubsChannel[] = ['Webhook', 'Email', 'In-App'];
 
 // ---------- Available subscribers (for create form) ----------
 
 export const subsAvailableSubscribers: { id: string; name: string }[] = [
-  { id: "KEY_8f3a9b2d1c", name: "Transaction Service" },
-  { id: "KEY_7c2b4e9a3f", name: "Banking Integration" },
-  { id: "KEY_5d6e7f1a9b", name: "Card Payment Gateway" },
-  { id: "KEY_2a4b6c8d3e", name: "Reports Service" },
-  { id: "admin-team", name: "Admin Team (Dashboard)" },
-  { id: "compliance-team", name: "Compliance Team" },
+  { id: 'KEY_8f3a9b2d1c', name: 'Transaction Service' },
+  { id: 'KEY_7c2b4e9a3f', name: 'Banking Integration' },
+  { id: 'KEY_5d6e7f1a9b', name: 'Card Payment Gateway' },
+  { id: 'KEY_2a4b6c8d3e', name: 'Reports Service' },
+  { id: 'admin-team', name: 'Admin Team (Dashboard)' },
+  { id: 'compliance-team', name: 'Compliance Team' },
 ];
 
 // ---------- Stat summary ----------
@@ -25966,177 +26970,290 @@ export interface SubsStat {
   id: string;
   label: string;
   value: string;
-  icon: "events" | "active" | "subscribers" | "top";
+  icon: 'events' | 'active' | 'subscribers' | 'top';
 }
 
 export const subsStats: SubsStat[] = [
-  { id: "subs-stat-events", label: "Available Events", value: "13", icon: "events" },
-  { id: "subs-stat-active", label: "Active Subscriptions", value: "9", icon: "active" },
-  { id: "subs-stat-subscribers", label: "Unique Subscribers", value: "6", icon: "subscribers" },
-  { id: "subs-stat-top", label: "Most Subscribed Event", value: "transaction.completed", icon: "top" },
+  {
+    id: 'subs-stat-events',
+    label: 'Available Events',
+    value: '13',
+    icon: 'events',
+  },
+  {
+    id: 'subs-stat-active',
+    label: 'Active Subscriptions',
+    value: '9',
+    icon: 'active',
+  },
+  {
+    id: 'subs-stat-subscribers',
+    label: 'Unique Subscribers',
+    value: '6',
+    icon: 'subscribers',
+  },
+  {
+    id: 'subs-stat-top',
+    label: 'Most Subscribed Event',
+    value: 'transaction.completed',
+    icon: 'top',
+  },
 ];
 
 // ---------- Event catalog ----------
 
 export const subsEventCatalog: SubsEventDefinition[] = [
-  { id: "ev-1", eventKey: "transaction.created", name: "Transaction Created", description: "Fires when a new transaction is initiated.", category: "Transactions", subscriberCount: 3 },
-  { id: "ev-2", eventKey: "transaction.completed", name: "Transaction Completed", description: "Fires when a transaction settles successfully.", category: "Transactions", subscriberCount: 4 },
-  { id: "ev-3", eventKey: "transaction.failed", name: "Transaction Failed", description: "Fires when a transaction fails or is reversed.", category: "Transactions", subscriberCount: 2 },
-  { id: "ev-4", eventKey: "payout.initiated", name: "Payout Initiated", description: "Fires when a payout batch begins processing.", category: "Payouts", subscriberCount: 2 },
-  { id: "ev-5", eventKey: "payout.completed", name: "Payout Completed", description: "Fires when a payout batch finishes successfully.", category: "Payouts", subscriberCount: 2 },
-  { id: "ev-6", eventKey: "card.payment.success", name: "Card Payment Success", description: "Fires when a card payment is authorized and captured.", category: "Cards", subscriberCount: 1 },
-  { id: "ev-7", eventKey: "card.payment.failed", name: "Card Payment Failed", description: "Fires when a card payment is declined.", category: "Cards", subscriberCount: 1 },
-  { id: "ev-8", eventKey: "customer.created", name: "Customer Created", description: "Fires when a new customer profile is created.", category: "Customers", subscriberCount: 1 },
-  { id: "ev-9", eventKey: "customer.updated", name: "Customer Updated", description: "Fires when a customer profile is modified.", category: "Customers", subscriberCount: 1 },
-  { id: "ev-10", eventKey: "aml.alert.created", name: "AML Alert Created", description: "Fires when a transaction is flagged for AML review.", category: "Compliance", subscriberCount: 2 },
-  { id: "ev-11", eventKey: "kyc.verification.failed", name: "KYC Verification Failed", description: "Fires when an identity verification attempt fails.", category: "Compliance", subscriberCount: 1 },
-  { id: "ev-12", eventKey: "pickup.assigned", name: "Pickup Assigned", description: "Fires when a cash-pickup transaction is assigned to an agent.", category: "Agents", subscriberCount: 1 },
-  { id: "ev-13", eventKey: "pickup.approved", name: "Pickup Approved", description: "Fires when an agent confirms a cash pickup.", category: "Agents", subscriberCount: 1 },
+  {
+    id: 'ev-1',
+    eventKey: 'transaction.created',
+    name: 'Transaction Created',
+    description: 'Fires when a new transaction is initiated.',
+    category: 'Transactions',
+    subscriberCount: 3,
+  },
+  {
+    id: 'ev-2',
+    eventKey: 'transaction.completed',
+    name: 'Transaction Completed',
+    description: 'Fires when a transaction settles successfully.',
+    category: 'Transactions',
+    subscriberCount: 4,
+  },
+  {
+    id: 'ev-3',
+    eventKey: 'transaction.failed',
+    name: 'Transaction Failed',
+    description: 'Fires when a transaction fails or is reversed.',
+    category: 'Transactions',
+    subscriberCount: 2,
+  },
+  {
+    id: 'ev-4',
+    eventKey: 'payout.initiated',
+    name: 'Payout Initiated',
+    description: 'Fires when a payout batch begins processing.',
+    category: 'Payouts',
+    subscriberCount: 2,
+  },
+  {
+    id: 'ev-5',
+    eventKey: 'payout.completed',
+    name: 'Payout Completed',
+    description: 'Fires when a payout batch finishes successfully.',
+    category: 'Payouts',
+    subscriberCount: 2,
+  },
+  {
+    id: 'ev-6',
+    eventKey: 'card.payment.success',
+    name: 'Card Payment Success',
+    description: 'Fires when a card payment is authorized and captured.',
+    category: 'Cards',
+    subscriberCount: 1,
+  },
+  {
+    id: 'ev-7',
+    eventKey: 'card.payment.failed',
+    name: 'Card Payment Failed',
+    description: 'Fires when a card payment is declined.',
+    category: 'Cards',
+    subscriberCount: 1,
+  },
+  {
+    id: 'ev-8',
+    eventKey: 'customer.created',
+    name: 'Customer Created',
+    description: 'Fires when a new customer profile is created.',
+    category: 'Customers',
+    subscriberCount: 1,
+  },
+  {
+    id: 'ev-9',
+    eventKey: 'customer.updated',
+    name: 'Customer Updated',
+    description: 'Fires when a customer profile is modified.',
+    category: 'Customers',
+    subscriberCount: 1,
+  },
+  {
+    id: 'ev-10',
+    eventKey: 'aml.alert.created',
+    name: 'AML Alert Created',
+    description: 'Fires when a transaction is flagged for AML review.',
+    category: 'Compliance',
+    subscriberCount: 2,
+  },
+  {
+    id: 'ev-11',
+    eventKey: 'kyc.verification.failed',
+    name: 'KYC Verification Failed',
+    description: 'Fires when an identity verification attempt fails.',
+    category: 'Compliance',
+    subscriberCount: 1,
+  },
+  {
+    id: 'ev-12',
+    eventKey: 'pickup.assigned',
+    name: 'Pickup Assigned',
+    description:
+      'Fires when a cash-pickup transaction is assigned to an agent.',
+    category: 'Agents',
+    subscriberCount: 1,
+  },
+  {
+    id: 'ev-13',
+    eventKey: 'pickup.approved',
+    name: 'Pickup Approved',
+    description: 'Fires when an agent confirms a cash pickup.',
+    category: 'Agents',
+    subscriberCount: 1,
+  },
 ];
 
 // ---------- Active subscriptions ----------
 
 export const eventSubscriptionsData: EventSubscriptionRecord[] = [
   {
-    id: "sub-1",
-    eventKey: "transaction.completed",
-    eventName: "Transaction Completed",
-    subscriberId: "KEY_8f3a9b2d1c",
-    subscriberName: "Transaction Service",
-    channel: "Webhook",
-    destination: "https://hooks.fintrack.io/v1/transactions",
-    status: "Active",
-    lastTriggered: "2 minutes ago",
-    createdAt: "Mar 2, 2025",
+    id: 'sub-1',
+    eventKey: 'transaction.completed',
+    eventName: 'Transaction Completed',
+    subscriberId: 'KEY_8f3a9b2d1c',
+    subscriberName: 'Transaction Service',
+    channel: 'Webhook',
+    destination: 'https://hooks.fintrack.io/v1/transactions',
+    status: 'Active',
+    lastTriggered: '2 minutes ago',
+    createdAt: 'Mar 2, 2025',
   },
   {
-    id: "sub-2",
-    eventKey: "transaction.created",
-    eventName: "Transaction Created",
-    subscriberId: "KEY_8f3a9b2d1c",
-    subscriberName: "Transaction Service",
-    channel: "Webhook",
-    destination: "https://hooks.fintrack.io/v1/transactions",
-    status: "Active",
-    lastTriggered: "3 minutes ago",
-    createdAt: "Mar 2, 2025",
+    id: 'sub-2',
+    eventKey: 'transaction.created',
+    eventName: 'Transaction Created',
+    subscriberId: 'KEY_8f3a9b2d1c',
+    subscriberName: 'Transaction Service',
+    channel: 'Webhook',
+    destination: 'https://hooks.fintrack.io/v1/transactions',
+    status: 'Active',
+    lastTriggered: '3 minutes ago',
+    createdAt: 'Mar 2, 2025',
   },
   {
-    id: "sub-3",
-    eventKey: "transaction.failed",
-    eventName: "Transaction Failed",
-    subscriberId: "admin-team",
-    subscriberName: "Admin Team (Dashboard)",
-    channel: "In-App",
-    destination: "Dashboard Notifications",
-    status: "Active",
-    lastTriggered: "1 hour ago",
-    createdAt: "Mar 4, 2025",
+    id: 'sub-3',
+    eventKey: 'transaction.failed',
+    eventName: 'Transaction Failed',
+    subscriberId: 'admin-team',
+    subscriberName: 'Admin Team (Dashboard)',
+    channel: 'In-App',
+    destination: 'Dashboard Notifications',
+    status: 'Active',
+    lastTriggered: '1 hour ago',
+    createdAt: 'Mar 4, 2025',
   },
   {
-    id: "sub-4",
-    eventKey: "payout.completed",
-    eventName: "Payout Completed",
-    subscriberId: "KEY_7c2b4e9a3f",
-    subscriberName: "Banking Integration",
-    channel: "Webhook",
-    destination: "https://api.partnerbank.com/webhooks/payouts",
-    status: "Active",
-    lastTriggered: "8 minutes ago",
-    createdAt: "Mar 5, 2025",
+    id: 'sub-4',
+    eventKey: 'payout.completed',
+    eventName: 'Payout Completed',
+    subscriberId: 'KEY_7c2b4e9a3f',
+    subscriberName: 'Banking Integration',
+    channel: 'Webhook',
+    destination: 'https://api.partnerbank.com/webhooks/payouts',
+    status: 'Active',
+    lastTriggered: '8 minutes ago',
+    createdAt: 'Mar 5, 2025',
   },
   {
-    id: "sub-5",
-    eventKey: "payout.initiated",
-    eventName: "Payout Initiated",
-    subscriberId: "admin-team",
-    subscriberName: "Admin Team (Dashboard)",
-    channel: "Email",
-    destination: "finance-ops@fintrack.io",
-    status: "Active",
-    lastTriggered: "8 minutes ago",
-    createdAt: "Mar 5, 2025",
+    id: 'sub-5',
+    eventKey: 'payout.initiated',
+    eventName: 'Payout Initiated',
+    subscriberId: 'admin-team',
+    subscriberName: 'Admin Team (Dashboard)',
+    channel: 'Email',
+    destination: 'finance-ops@fintrack.io',
+    status: 'Active',
+    lastTriggered: '8 minutes ago',
+    createdAt: 'Mar 5, 2025',
   },
   {
-    id: "sub-6",
-    eventKey: "card.payment.success",
-    eventName: "Card Payment Success",
-    subscriberId: "KEY_5d6e7f1a9b",
-    subscriberName: "Card Payment Gateway",
-    channel: "Webhook",
-    destination: "https://receipts.fintrack.io/webhooks/cards",
-    status: "Active",
-    lastTriggered: "1 minute ago",
-    createdAt: "Feb 27, 2025",
+    id: 'sub-6',
+    eventKey: 'card.payment.success',
+    eventName: 'Card Payment Success',
+    subscriberId: 'KEY_5d6e7f1a9b',
+    subscriberName: 'Card Payment Gateway',
+    channel: 'Webhook',
+    destination: 'https://receipts.fintrack.io/webhooks/cards',
+    status: 'Active',
+    lastTriggered: '1 minute ago',
+    createdAt: 'Feb 27, 2025',
   },
   {
-    id: "sub-7",
-    eventKey: "aml.alert.created",
-    eventName: "AML Alert Created",
-    subscriberId: "compliance-team",
-    subscriberName: "Compliance Team",
-    channel: "Email",
-    destination: "aml-alerts@fintrack.io",
-    status: "Active",
-    lastTriggered: "27 minutes ago",
-    createdAt: "Apr 18, 2025",
+    id: 'sub-7',
+    eventKey: 'aml.alert.created',
+    eventName: 'AML Alert Created',
+    subscriberId: 'compliance-team',
+    subscriberName: 'Compliance Team',
+    channel: 'Email',
+    destination: 'aml-alerts@fintrack.io',
+    status: 'Active',
+    lastTriggered: '27 minutes ago',
+    createdAt: 'Apr 18, 2025',
   },
   {
-    id: "sub-8",
-    eventKey: "aml.alert.created",
-    eventName: "AML Alert Created",
-    subscriberId: "compliance-team",
-    subscriberName: "Compliance Team",
-    channel: "Webhook",
-    destination: "https://compliance.fintrack.io/hooks/aml",
-    status: "Active",
-    lastTriggered: "27 minutes ago",
-    createdAt: "Apr 18, 2025",
+    id: 'sub-8',
+    eventKey: 'aml.alert.created',
+    eventName: 'AML Alert Created',
+    subscriberId: 'compliance-team',
+    subscriberName: 'Compliance Team',
+    channel: 'Webhook',
+    destination: 'https://compliance.fintrack.io/hooks/aml',
+    status: 'Active',
+    lastTriggered: '27 minutes ago',
+    createdAt: 'Apr 18, 2025',
   },
   {
-    id: "sub-9",
-    eventKey: "pickup.assigned",
-    eventName: "Pickup Assigned",
-    subscriberId: "KEY_2a4b6c8d3e",
-    subscriberName: "Reports Service",
-    channel: "Webhook",
-    destination: "https://dispatch.fintrack.io/hooks/pickup",
-    status: "Active",
-    lastTriggered: "4 minutes ago",
-    createdAt: "Apr 5, 2025",
+    id: 'sub-9',
+    eventKey: 'pickup.assigned',
+    eventName: 'Pickup Assigned',
+    subscriberId: 'KEY_2a4b6c8d3e',
+    subscriberName: 'Reports Service',
+    channel: 'Webhook',
+    destination: 'https://dispatch.fintrack.io/hooks/pickup',
+    status: 'Active',
+    lastTriggered: '4 minutes ago',
+    createdAt: 'Apr 5, 2025',
   },
   {
-    id: "sub-10",
-    eventKey: "kyc.verification.failed",
-    eventName: "KYC Verification Failed",
-    subscriberId: "compliance-team",
-    subscriberName: "Compliance Team",
-    channel: "In-App",
-    destination: "Dashboard Notifications",
-    status: "Paused",
-    lastTriggered: "3 days ago",
-    createdAt: "Apr 22, 2025",
+    id: 'sub-10',
+    eventKey: 'kyc.verification.failed',
+    eventName: 'KYC Verification Failed',
+    subscriberId: 'compliance-team',
+    subscriberName: 'Compliance Team',
+    channel: 'In-App',
+    destination: 'Dashboard Notifications',
+    status: 'Paused',
+    lastTriggered: '3 days ago',
+    createdAt: 'Apr 22, 2025',
   },
 ];
 
 export const eventSubscriptionsTotalCount = eventSubscriptionsData.length;
-
-
-
-
-
-
-
-
 
 // ============================================================
 // API SETTINGS — DATA, TYPES & CONSTANTS
 // Append this block into lib/data.ts
 // ============================================================
 
-export type ApiSettingsTabId = "General" | "Versioning" | "Response Defaults" | "Documentation";
+export type ApiSettingsTabId =
+  | 'General'
+  | 'Versioning'
+  | 'Response Defaults'
+  | 'Documentation';
 
-export const apiSettingsTabs: ApiSettingsTabId[] = ["General", "Versioning", "Response Defaults", "Documentation"];
+export const apiSettingsTabs: ApiSettingsTabId[] = [
+  'General',
+  'Versioning',
+  'Response Defaults',
+  'Documentation',
+];
 
 // ---------- General settings ----------
 
@@ -26151,21 +27268,37 @@ export interface ApiSettingsGeneral {
 }
 
 export const apiSettingsGeneralDefaults: ApiSettingsGeneral = {
-  platformName: "FinTrack API Platform",
-  supportEmail: "api-support@fintrack.io",
-  defaultTimezone: "UTC",
-  defaultDateFormat: "YYYY-MM-DD",
+  platformName: 'FinTrack API Platform',
+  supportEmail: 'api-support@fintrack.io',
+  defaultTimezone: 'UTC',
+  defaultDateFormat: 'YYYY-MM-DD',
   maintenanceBannerEnabled: false,
-  maintenanceBannerMessage: "Scheduled maintenance on May 20, 2025 from 2:00–4:00 AM UTC.",
+  maintenanceBannerMessage:
+    'Scheduled maintenance on May 20, 2025 from 2:00–4:00 AM UTC.',
   publicStatusPageEnabled: true,
 };
 
-export const apiSettingsTimezoneOptions: string[] = ["UTC", "Asia/Dhaka", "America/New_York", "Europe/London", "Asia/Singapore"];
-export const apiSettingsDateFormatOptions: string[] = ["YYYY-MM-DD", "DD/MM/YYYY", "MM/DD/YYYY", "DD MMM YYYY"];
+export const apiSettingsTimezoneOptions: string[] = [
+  'UTC',
+  'Asia/Dhaka',
+  'America/New_York',
+  'Europe/London',
+  'Asia/Singapore',
+];
+export const apiSettingsDateFormatOptions: string[] = [
+  'YYYY-MM-DD',
+  'DD/MM/YYYY',
+  'MM/DD/YYYY',
+  'DD MMM YYYY',
+];
 
 // ---------- Versioning ----------
 
-export type ApiVersionStatus = "Current" | "Supported" | "Deprecated" | "Sunset";
+export type ApiVersionStatus =
+  | 'Current'
+  | 'Supported'
+  | 'Deprecated'
+  | 'Sunset';
 
 export interface ApiVersionRecord {
   id: string;
@@ -26177,16 +27310,39 @@ export interface ApiVersionRecord {
 }
 
 export const apiSettingsVersionBadge: Record<ApiVersionStatus, string> = {
-  Current: "bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400",
-  Supported: "bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400",
-  Deprecated: "bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400",
-  Sunset: "bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400",
+  Current:
+    'bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400',
+  Supported: 'bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400',
+  Deprecated:
+    'bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400',
+  Sunset: 'bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400',
 };
 
 export const apiSettingsVersions: ApiVersionRecord[] = [
-  { id: "ver-2", version: "v2", status: "Current", releasedAt: "Apr 15, 2025", sunsetDate: null, adoptionPercent: 18 },
-  { id: "ver-1", version: "v1", status: "Supported", releasedAt: "Jan 1, 2024", sunsetDate: null, adoptionPercent: 79 },
-  { id: "ver-0", version: "v0", status: "Deprecated", releasedAt: "Jun 1, 2023", sunsetDate: "Aug 1, 2025", adoptionPercent: 3 },
+  {
+    id: 'ver-2',
+    version: 'v2',
+    status: 'Current',
+    releasedAt: 'Apr 15, 2025',
+    sunsetDate: null,
+    adoptionPercent: 18,
+  },
+  {
+    id: 'ver-1',
+    version: 'v1',
+    status: 'Supported',
+    releasedAt: 'Jan 1, 2024',
+    sunsetDate: null,
+    adoptionPercent: 79,
+  },
+  {
+    id: 'ver-0',
+    version: 'v0',
+    status: 'Deprecated',
+    releasedAt: 'Jun 1, 2023',
+    sunsetDate: 'Aug 1, 2025',
+    adoptionPercent: 3,
+  },
 ];
 
 export interface ApiSettingsVersioningConfig {
@@ -26196,15 +27352,15 @@ export interface ApiSettingsVersioningConfig {
 }
 
 export const apiSettingsVersioningDefaults: ApiSettingsVersioningConfig = {
-  defaultVersion: "v2",
+  defaultVersion: 'v2',
   enforceVersionHeader: true,
   deprecationNoticeDays: 90,
 };
 
 // ---------- Response defaults ----------
 
-export type ApiSettingsResponseFormat = "JSON" | "XML";
-export type ApiSettingsCasingStyle = "camelCase" | "snake_case";
+export type ApiSettingsResponseFormat = 'JSON' | 'XML';
+export type ApiSettingsCasingStyle = 'camelCase' | 'snake_case';
 
 export interface ApiSettingsResponseConfig {
   defaultFormat: ApiSettingsResponseFormat;
@@ -26216,8 +27372,8 @@ export interface ApiSettingsResponseConfig {
 }
 
 export const apiSettingsResponseDefaults: ApiSettingsResponseConfig = {
-  defaultFormat: "JSON",
-  casingStyle: "snake_case",
+  defaultFormat: 'JSON',
+  casingStyle: 'snake_case',
   defaultPageSize: 25,
   maxPageSize: 250,
   includeRequestIdHeader: true,
@@ -26240,42 +27396,47 @@ export interface ApiSettingsDocumentation {
 }
 
 export const apiSettingsDocumentationDefaults: ApiSettingsDocumentation = {
-  docsUrl: "https://docs.fintrack.io",
-  changelogUrl: "https://docs.fintrack.io/changelog",
-  statusPageUrl: "https://status.fintrack.io",
-  termsOfServiceUrl: "https://fintrack.io/terms",
-  supportPortalUrl: "https://support.fintrack.io",
+  docsUrl: 'https://docs.fintrack.io',
+  changelogUrl: 'https://docs.fintrack.io/changelog',
+  statusPageUrl: 'https://status.fintrack.io',
+  termsOfServiceUrl: 'https://fintrack.io/terms',
+  supportPortalUrl: 'https://support.fintrack.io',
   showCodeSamples: true,
-  defaultCodeLanguage: "cURL",
+  defaultCodeLanguage: 'cURL',
 };
 
-export const apiSettingsCodeLanguageOptions: string[] = ["cURL", "Node.js", "Python", "PHP", "Java", "Go"];
-
-
-
-
-
-
-
-
-
-
-
+export const apiSettingsCodeLanguageOptions: string[] = [
+  'cURL',
+  'Node.js',
+  'Python',
+  'PHP',
+  'Java',
+  'Go',
+];
 
 // ============================================================
 // GATEWAY SETTINGS — DATA, TYPES & CONSTANTS
 // Append this block into lib/data.ts
 // ============================================================
 
-export type GatewaySettingsTabId = "General" | "Caching" | "Timeouts & Retries" | "Load Balancing";
+export type GatewaySettingsTabId =
+  | 'General'
+  | 'Caching'
+  | 'Timeouts & Retries'
+  | 'Load Balancing';
 
-export const gatewaySettingsTabs: GatewaySettingsTabId[] = ["General", "Caching", "Timeouts & Retries", "Load Balancing"];
+export const gatewaySettingsTabs: GatewaySettingsTabId[] = [
+  'General',
+  'Caching',
+  'Timeouts & Retries',
+  'Load Balancing',
+];
 
 // ---------- General ----------
 
 export interface GatewayGeneralConfig {
   gatewayName: string;
-  listenProtocol: "HTTPS" | "HTTP";
+  listenProtocol: 'HTTPS' | 'HTTP';
   maxRequestBodyMb: number;
   enableGzipCompression: boolean;
   enableRequestLogging: boolean;
@@ -26283,8 +27444,8 @@ export interface GatewayGeneralConfig {
 }
 
 export const gatewayGeneralDefaults: GatewayGeneralConfig = {
-  gatewayName: "fintrack-api-gateway-primary",
-  listenProtocol: "HTTPS",
+  gatewayName: 'fintrack-api-gateway-primary',
+  listenProtocol: 'HTTPS',
   maxRequestBodyMb: 10,
   enableGzipCompression: true,
   enableRequestLogging: true,
@@ -26308,7 +27469,7 @@ export const gatewayCachingDefaults: GatewayCachingConfig = {
   defaultTtlSeconds: 60,
   cacheByQueryParams: true,
   cacheableMethodsOnlyGet: true,
-  bypassCacheHeader: "X-Bypass-Cache",
+  bypassCacheHeader: 'X-Bypass-Cache',
 };
 
 export const gatewayTtlOptions: number[] = [10, 30, 60, 300, 900, 3600];
@@ -26320,9 +27481,9 @@ export interface GatewayCacheStat {
 }
 
 export const gatewayCacheStats: GatewayCacheStat[] = [
-  { id: "cache-hit-rate", label: "Cache Hit Rate", value: "76.4%" },
-  { id: "cache-size", label: "Current Cache Size", value: "1.4 GB" },
-  { id: "cache-entries", label: "Cached Entries", value: "48,210" },
+  { id: 'cache-hit-rate', label: 'Cache Hit Rate', value: '76.4%' },
+  { id: 'cache-size', label: 'Current Cache Size', value: '1.4 GB' },
+  { id: 'cache-entries', label: 'Cached Entries', value: '48,210' },
 ];
 
 // ---------- Timeouts & Retries ----------
@@ -26341,7 +27502,7 @@ export const gatewayTimeoutsDefaults: GatewayTimeoutsConfig = {
   connectTimeoutMs: 3000,
   readTimeoutMs: 15000,
   maxRetries: 2,
-  retryOnStatusCodes: "502, 503, 504",
+  retryOnStatusCodes: '502, 503, 504',
   circuitBreakerEnabled: true,
   circuitBreakerErrorThresholdPercent: 50,
   circuitBreakerCooldownSeconds: 30,
@@ -26349,8 +27510,12 @@ export const gatewayTimeoutsDefaults: GatewayTimeoutsConfig = {
 
 // ---------- Load Balancing ----------
 
-export type GatewayLbStrategy = "Round Robin" | "Least Connections" | "Weighted" | "IP Hash";
-export type GatewayUpstreamHealth = "Healthy" | "Degraded" | "Down";
+export type GatewayLbStrategy =
+  | 'Round Robin'
+  | 'Least Connections'
+  | 'Weighted'
+  | 'IP Hash';
+export type GatewayUpstreamHealth = 'Healthy' | 'Degraded' | 'Down';
 
 export interface GatewayUpstreamServer {
   id: string;
@@ -26360,24 +27525,50 @@ export interface GatewayUpstreamServer {
   activeConnections: number;
 }
 
-export const gatewayLbStrategyOptions: GatewayLbStrategy[] = ["Round Robin", "Least Connections", "Weighted", "IP Hash"];
+export const gatewayLbStrategyOptions: GatewayLbStrategy[] = [
+  'Round Robin',
+  'Least Connections',
+  'Weighted',
+  'IP Hash',
+];
 
-export const gatewayUpstreamHealthBadge: Record<GatewayUpstreamHealth, string> = {
-  Healthy: "bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400",
-  Degraded: "bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400",
-  Down: "bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400",
-};
+export const gatewayUpstreamHealthBadge: Record<GatewayUpstreamHealth, string> =
+  {
+    Healthy:
+      'bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400',
+    Degraded:
+      'bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400',
+    Down: 'bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400',
+  };
 
 export const gatewayUpstreamHealthDot: Record<GatewayUpstreamHealth, string> = {
-  Healthy: "bg-green-500",
-  Degraded: "bg-amber-500",
-  Down: "bg-red-500",
+  Healthy: 'bg-green-500',
+  Degraded: 'bg-amber-500',
+  Down: 'bg-red-500',
 };
 
 export const gatewayUpstreamServers: GatewayUpstreamServer[] = [
-  { id: "up-1", host: "10.0.2.11:8080", weight: 50, health: "Healthy", activeConnections: 142 },
-  { id: "up-2", host: "10.0.2.12:8080", weight: 30, health: "Healthy", activeConnections: 98 },
-  { id: "up-3", host: "10.0.2.13:8080", weight: 20, health: "Degraded", activeConnections: 64 },
+  {
+    id: 'up-1',
+    host: '10.0.2.11:8080',
+    weight: 50,
+    health: 'Healthy',
+    activeConnections: 142,
+  },
+  {
+    id: 'up-2',
+    host: '10.0.2.12:8080',
+    weight: 30,
+    health: 'Healthy',
+    activeConnections: 98,
+  },
+  {
+    id: 'up-3',
+    host: '10.0.2.13:8080',
+    weight: 20,
+    health: 'Degraded',
+    activeConnections: 64,
+  },
 ];
 
 export interface GatewayLbConfig {
@@ -26387,30 +27578,19 @@ export interface GatewayLbConfig {
 }
 
 export const gatewayLbDefaults: GatewayLbConfig = {
-  strategy: "Weighted",
+  strategy: 'Weighted',
   healthCheckIntervalSeconds: 15,
-  healthCheckPath: "/health",
+  healthCheckPath: '/health',
 };
-
-
-
-
-
-
-
-
-
-
-
 
 // ============================================================
 // IP WHITELIST — DATA, TYPES & CONSTANTS
 // Append this block into lib/data.ts
 // ============================================================
 
-export type IpRuleAction = "Allow" | "Block";
-export type IpRuleScope = "Global" | "API Key";
-export type IpRuleStatus = "Active" | "Disabled";
+export type IpRuleAction = 'Allow' | 'Block';
+export type IpRuleScope = 'Global' | 'API Key';
+export type IpRuleStatus = 'Active' | 'Disabled';
 
 export interface IpWhitelistRule {
   id: string;
@@ -26429,28 +27609,28 @@ export interface IpWhitelistRule {
 // ---------- Badge style maps ----------
 
 export const ipRuleActionBadge: Record<IpRuleAction, string> = {
-  Allow: "bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400",
-  Block: "bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400",
+  Allow: 'bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400',
+  Block: 'bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400',
 };
 
 export const ipRuleStatusBadge: Record<IpRuleStatus, string> = {
-  Active: "bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400",
-  Disabled: "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300",
+  Active: 'bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400',
+  Disabled: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300',
 };
 
 export const ipRuleStatusDot: Record<IpRuleStatus, string> = {
-  Active: "bg-blue-500",
-  Disabled: "bg-slate-400",
+  Active: 'bg-blue-500',
+  Disabled: 'bg-slate-400',
 };
 
-export const ipRuleScopeOptions: IpRuleScope[] = ["Global", "API Key"];
-export const ipRuleActionOptions: IpRuleAction[] = ["Allow", "Block"];
+export const ipRuleScopeOptions: IpRuleScope[] = ['Global', 'API Key'];
+export const ipRuleActionOptions: IpRuleAction[] = ['Allow', 'Block'];
 
 export const ipRuleAvailableKeys: { id: string; name: string }[] = [
-  { id: "KEY_8f3a9b2d1c", name: "Transaction Service" },
-  { id: "KEY_7c2b4e9a3f", name: "Banking Integration" },
-  { id: "KEY_5d6e7f1a9b", name: "Card Payment Gateway" },
-  { id: "KEY_9b1c3d5e7f", name: "Agent Mobile App" },
+  { id: 'KEY_8f3a9b2d1c', name: 'Transaction Service' },
+  { id: 'KEY_7c2b4e9a3f', name: 'Banking Integration' },
+  { id: 'KEY_5d6e7f1a9b', name: 'Card Payment Gateway' },
+  { id: 'KEY_9b1c3d5e7f', name: 'Agent Mobile App' },
 ];
 
 // ---------- Stat summary ----------
@@ -26459,173 +27639,172 @@ export interface IpWhitelistStat {
   id: string;
   label: string;
   value: string;
-  icon: "total" | "allow" | "block" | "blockedToday";
+  icon: 'total' | 'allow' | 'block' | 'blockedToday';
 }
 
 export const ipWhitelistStats: IpWhitelistStat[] = [
-  { id: "ip-stat-total", label: "Total Rules", value: "12", icon: "total" },
-  { id: "ip-stat-allow", label: "Allow Rules", value: "7", icon: "allow" },
-  { id: "ip-stat-block", label: "Block Rules", value: "5", icon: "block" },
-  { id: "ip-stat-blocked-today", label: "Requests Blocked Today", value: "284", icon: "blockedToday" },
+  { id: 'ip-stat-total', label: 'Total Rules', value: '12', icon: 'total' },
+  { id: 'ip-stat-allow', label: 'Allow Rules', value: '7', icon: 'allow' },
+  { id: 'ip-stat-block', label: 'Block Rules', value: '5', icon: 'block' },
+  {
+    id: 'ip-stat-blocked-today',
+    label: 'Requests Blocked Today',
+    value: '284',
+    icon: 'blockedToday',
+  },
 ];
 
 // ---------- Main data ----------
 
 export const ipWhitelistRulesData: IpWhitelistRule[] = [
   {
-    id: "ipr-1",
-    label: "HQ Office Network",
-    cidr: "203.0.113.0/24",
-    action: "Allow",
-    scope: "Global",
+    id: 'ipr-1',
+    label: 'HQ Office Network',
+    cidr: '203.0.113.0/24',
+    action: 'Allow',
+    scope: 'Global',
     scopedKeyName: null,
-    status: "Active",
+    status: 'Active',
     hitsToday: 4820,
-    lastMatched: "1 minute ago",
+    lastMatched: '1 minute ago',
     expiresAt: null,
-    createdAt: "Jan 15, 2025",
+    createdAt: 'Jan 15, 2025',
   },
   {
-    id: "ipr-2",
-    label: "Banking Partner VPN",
-    cidr: "198.51.100.14/32",
-    action: "Allow",
-    scope: "API Key",
-    scopedKeyName: "Banking Integration",
-    status: "Active",
+    id: 'ipr-2',
+    label: 'Banking Partner VPN',
+    cidr: '198.51.100.14/32',
+    action: 'Allow',
+    scope: 'API Key',
+    scopedKeyName: 'Banking Integration',
+    status: 'Active',
     hitsToday: 1240,
-    lastMatched: "8 minutes ago",
+    lastMatched: '8 minutes ago',
     expiresAt: null,
-    createdAt: "Mar 2, 2025",
+    createdAt: 'Mar 2, 2025',
   },
   {
-    id: "ipr-3",
-    label: "DevOps Bastion Host",
-    cidr: "10.0.4.0/28",
-    action: "Allow",
-    scope: "Global",
+    id: 'ipr-3',
+    label: 'DevOps Bastion Host',
+    cidr: '10.0.4.0/28',
+    action: 'Allow',
+    scope: 'Global',
     scopedKeyName: null,
-    status: "Active",
+    status: 'Active',
     hitsToday: 312,
-    lastMatched: "4 minutes ago",
+    lastMatched: '4 minutes ago',
     expiresAt: null,
-    createdAt: "Apr 9, 2025",
+    createdAt: 'Apr 9, 2025',
   },
   {
-    id: "ipr-4",
-    label: "Card Gateway Test Lab",
-    cidr: "192.168.50.0/24",
-    action: "Allow",
-    scope: "API Key",
-    scopedKeyName: "Card Payment Gateway",
-    status: "Active",
+    id: 'ipr-4',
+    label: 'Card Gateway Test Lab',
+    cidr: '192.168.50.0/24',
+    action: 'Allow',
+    scope: 'API Key',
+    scopedKeyName: 'Card Payment Gateway',
+    status: 'Active',
     hitsToday: 96,
-    lastMatched: "1 hour ago",
-    expiresAt: "Aug 1, 2025",
-    createdAt: "May 1, 2025",
+    lastMatched: '1 hour ago',
+    expiresAt: 'Aug 1, 2025',
+    createdAt: 'May 1, 2025',
   },
   {
-    id: "ipr-5",
-    label: "Agent Field Devices (BD)",
-    cidr: "103.94.0.0/16",
-    action: "Allow",
-    scope: "API Key",
-    scopedKeyName: "Agent Mobile App",
-    status: "Active",
+    id: 'ipr-5',
+    label: 'Agent Field Devices (BD)',
+    cidr: '103.94.0.0/16',
+    action: 'Allow',
+    scope: 'API Key',
+    scopedKeyName: 'Agent Mobile App',
+    status: 'Active',
     hitsToday: 5620,
-    lastMatched: "Just now",
+    lastMatched: 'Just now',
     expiresAt: null,
-    createdAt: "Mar 20, 2025",
+    createdAt: 'Mar 20, 2025',
   },
   {
-    id: "ipr-6",
-    label: "Known Credential Stuffing Range",
-    cidr: "45.155.205.0/24",
-    action: "Block",
-    scope: "Global",
+    id: 'ipr-6',
+    label: 'Known Credential Stuffing Range',
+    cidr: '45.155.205.0/24',
+    action: 'Block',
+    scope: 'Global',
     scopedKeyName: null,
-    status: "Active",
+    status: 'Active',
     hitsToday: 178,
-    lastMatched: "12 minutes ago",
+    lastMatched: '12 minutes ago',
     expiresAt: null,
-    createdAt: "Feb 11, 2025",
+    createdAt: 'Feb 11, 2025',
   },
   {
-    id: "ipr-7",
-    label: "Flagged Scraper Bot Network",
-    cidr: "185.220.101.0/24",
-    action: "Block",
-    scope: "Global",
+    id: 'ipr-7',
+    label: 'Flagged Scraper Bot Network',
+    cidr: '185.220.101.0/24',
+    action: 'Block',
+    scope: 'Global',
     scopedKeyName: null,
-    status: "Active",
+    status: 'Active',
     hitsToday: 64,
-    lastMatched: "2 hours ago",
+    lastMatched: '2 hours ago',
     expiresAt: null,
-    createdAt: "Apr 30, 2025",
+    createdAt: 'Apr 30, 2025',
   },
   {
-    id: "ipr-8",
-    label: "Suspicious Login Attempts (TOR exit)",
-    cidr: "199.87.154.255/32",
-    action: "Block",
-    scope: "Global",
+    id: 'ipr-8',
+    label: 'Suspicious Login Attempts (TOR exit)',
+    cidr: '199.87.154.255/32',
+    action: 'Block',
+    scope: 'Global',
     scopedKeyName: null,
-    status: "Active",
+    status: 'Active',
     hitsToday: 32,
-    lastMatched: "Yesterday",
-    expiresAt: "Jun 1, 2025",
-    createdAt: "May 18, 2025",
+    lastMatched: 'Yesterday',
+    expiresAt: 'Jun 1, 2025',
+    createdAt: 'May 18, 2025',
   },
   {
-    id: "ipr-9",
-    label: "Former Contractor Range",
-    cidr: "203.0.114.0/24",
-    action: "Block",
-    scope: "API Key",
-    scopedKeyName: "Transaction Service",
-    status: "Disabled",
+    id: 'ipr-9',
+    label: 'Former Contractor Range',
+    cidr: '203.0.114.0/24',
+    action: 'Block',
+    scope: 'API Key',
+    scopedKeyName: 'Transaction Service',
+    status: 'Disabled',
     hitsToday: 0,
-    lastMatched: "3 weeks ago",
+    lastMatched: '3 weeks ago',
     expiresAt: null,
-    createdAt: "Jan 5, 2025",
+    createdAt: 'Jan 5, 2025',
   },
   {
-    id: "ipr-10",
-    label: "QA Load Test Range",
-    cidr: "172.16.0.0/20",
-    action: "Allow",
-    scope: "API Key",
-    scopedKeyName: "Transaction Service",
-    status: "Disabled",
+    id: 'ipr-10',
+    label: 'QA Load Test Range',
+    cidr: '172.16.0.0/20',
+    action: 'Allow',
+    scope: 'API Key',
+    scopedKeyName: 'Transaction Service',
+    status: 'Disabled',
     hitsToday: 0,
-    lastMatched: "2 months ago",
+    lastMatched: '2 months ago',
     expiresAt: null,
-    createdAt: "Dec 1, 2024",
+    createdAt: 'Dec 1, 2024',
   },
 ];
 
 export const ipWhitelistTotalCount = ipWhitelistRulesData.length;
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // ============================================================
 // ERROR CODES — DATA, TYPES & CONSTANTS
 // Append this block into lib/data.ts
 // ============================================================
 
-export type ErrCodeCategory = "Authentication" | "Validation" | "Rate Limiting" | "Permissions" | "Server" | "Payment" | "Compliance";
-export type ErrCodeStatusRange = "4xx" | "5xx";
+export type ErrCodeCategory =
+  | 'Authentication'
+  | 'Validation'
+  | 'Rate Limiting'
+  | 'Permissions'
+  | 'Server'
+  | 'Payment'
+  | 'Compliance';
+export type ErrCodeStatusRange = '4xx' | '5xx';
 
 export interface ApiErrorCodeRecord {
   id: string;
@@ -26642,38 +27821,46 @@ export interface ApiErrorCodeRecord {
 // ---------- Badge style maps ----------
 
 export const errCodeCategoryColor: Record<ErrCodeCategory, string> = {
-  Authentication: "bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400",
-  Validation: "bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400",
-  "Rate Limiting": "bg-purple-50 text-purple-600 dark:bg-purple-500/10 dark:text-purple-400",
-  Permissions: "bg-pink-50 text-pink-600 dark:bg-pink-500/10 dark:text-pink-400",
-  Server: "bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400",
-  Payment: "bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400",
-  Compliance: "bg-orange-50 text-orange-600 dark:bg-orange-500/10 dark:text-orange-400",
+  Authentication:
+    'bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400',
+  Validation:
+    'bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400',
+  'Rate Limiting':
+    'bg-purple-50 text-purple-600 dark:bg-purple-500/10 dark:text-purple-400',
+  Permissions:
+    'bg-pink-50 text-pink-600 dark:bg-pink-500/10 dark:text-pink-400',
+  Server: 'bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400',
+  Payment:
+    'bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400',
+  Compliance:
+    'bg-orange-50 text-orange-600 dark:bg-orange-500/10 dark:text-orange-400',
 };
 
 export const errCodeStatusColor = (status: number): string => {
-  if (status >= 500) return "text-red-600 dark:text-red-400";
-  if (status >= 400) return "text-amber-600 dark:text-amber-400";
-  return "text-slate-600 dark:text-slate-300";
+  if (status >= 500) return 'text-red-600 dark:text-red-400';
+  if (status >= 400) return 'text-amber-600 dark:text-amber-400';
+  return 'text-slate-600 dark:text-slate-300';
 };
 
 export const errCodeStatusBadgeBg = (status: number): string => {
-  if (status >= 500) return "bg-red-100 dark:bg-red-500/10";
-  if (status >= 400) return "bg-amber-100 dark:bg-amber-500/10";
-  return "bg-slate-100 dark:bg-slate-800";
+  if (status >= 500) return 'bg-red-100 dark:bg-red-500/10';
+  if (status >= 400) return 'bg-amber-100 dark:bg-amber-500/10';
+  return 'bg-slate-100 dark:bg-slate-800';
 };
 
 export const errCodeCategoryOptions: ErrCodeCategory[] = [
-  "Authentication",
-  "Validation",
-  "Rate Limiting",
-  "Permissions",
-  "Server",
-  "Payment",
-  "Compliance",
+  'Authentication',
+  'Validation',
+  'Rate Limiting',
+  'Permissions',
+  'Server',
+  'Payment',
+  'Compliance',
 ];
 
-export const errCodeStatusOptions: number[] = [400, 401, 403, 404, 409, 422, 429, 500, 502, 503, 504];
+export const errCodeStatusOptions: number[] = [
+  400, 401, 403, 404, 409, 422, 429, 500, 502, 503, 504,
+];
 
 // ---------- Stat summary ----------
 
@@ -26681,252 +27868,343 @@ export interface ErrCodeStat {
   id: string;
   label: string;
   value: string;
-  icon: "total" | "client" | "server" | "custom";
+  icon: 'total' | 'client' | 'server' | 'custom';
 }
 
 export const errCodeStats: ErrCodeStat[] = [
-  { id: "err-stat-total", label: "Total Error Codes", value: "18", icon: "total" },
-  { id: "err-stat-client", label: "4xx Client Errors", value: "14", icon: "client" },
-  { id: "err-stat-server", label: "5xx Server Errors", value: "4", icon: "server" },
-  { id: "err-stat-custom", label: "Custom Codes", value: "2", icon: "custom" },
+  {
+    id: 'err-stat-total',
+    label: 'Total Error Codes',
+    value: '18',
+    icon: 'total',
+  },
+  {
+    id: 'err-stat-client',
+    label: '4xx Client Errors',
+    value: '14',
+    icon: 'client',
+  },
+  {
+    id: 'err-stat-server',
+    label: '5xx Server Errors',
+    value: '4',
+    icon: 'server',
+  },
+  { id: 'err-stat-custom', label: 'Custom Codes', value: '2', icon: 'custom' },
 ];
 
 // ---------- Main data ----------
 
 export const apiErrorCodesData: ApiErrorCodeRecord[] = [
   {
-    id: "err-1",
-    errorCode: "invalid_api_key",
+    id: 'err-1',
+    errorCode: 'invalid_api_key',
     httpStatus: 401,
-    message: "Invalid or missing API key.",
-    description: "The request did not include a valid API key in the Authorization header.",
-    category: "Authentication",
-    commonCauses: ["API key was revoked or expired", "Wrong environment key used (sandbox key on production)", "Authorization header malformed"],
-    resolution: "Verify the API key is active and matches the target environment. Regenerate the key if necessary.",
+    message: 'Invalid or missing API key.',
+    description:
+      'The request did not include a valid API key in the Authorization header.',
+    category: 'Authentication',
+    commonCauses: [
+      'API key was revoked or expired',
+      'Wrong environment key used (sandbox key on production)',
+      'Authorization header malformed',
+    ],
+    resolution:
+      'Verify the API key is active and matches the target environment. Regenerate the key if necessary.',
     isCustom: false,
   },
   {
-    id: "err-2",
-    errorCode: "invalid_credentials",
+    id: 'err-2',
+    errorCode: 'invalid_credentials',
     httpStatus: 401,
-    message: "Authentication failed: invalid credentials.",
-    description: "The username/password or client credentials provided could not be verified.",
-    category: "Authentication",
-    commonCauses: ["Incorrect client secret", "Account locked after failed attempts"],
-    resolution: "Confirm credentials are correct. Use the password reset flow if the account is locked.",
+    message: 'Authentication failed: invalid credentials.',
+    description:
+      'The username/password or client credentials provided could not be verified.',
+    category: 'Authentication',
+    commonCauses: [
+      'Incorrect client secret',
+      'Account locked after failed attempts',
+    ],
+    resolution:
+      'Confirm credentials are correct. Use the password reset flow if the account is locked.',
     isCustom: false,
   },
   {
-    id: "err-3",
-    errorCode: "token_expired",
+    id: 'err-3',
+    errorCode: 'token_expired',
     httpStatus: 401,
-    message: "Access token has expired.",
-    description: "The bearer token used for this request is no longer valid.",
-    category: "Authentication",
-    commonCauses: ["Token lifetime exceeded", "Clock drift between client and server"],
-    resolution: "Use the refresh token to obtain a new access token.",
+    message: 'Access token has expired.',
+    description: 'The bearer token used for this request is no longer valid.',
+    category: 'Authentication',
+    commonCauses: [
+      'Token lifetime exceeded',
+      'Clock drift between client and server',
+    ],
+    resolution: 'Use the refresh token to obtain a new access token.',
     isCustom: false,
   },
   {
-    id: "err-4",
-    errorCode: "validation_error",
+    id: 'err-4',
+    errorCode: 'validation_error',
     httpStatus: 422,
-    message: "One or more fields failed validation.",
-    description: "The request body contains fields that do not meet the required format or constraints.",
-    category: "Validation",
-    commonCauses: ["Missing required field", "Field value out of allowed range", "Incorrect data type"],
-    resolution: "Check the `errors` array in the response for the specific field and constraint that failed.",
+    message: 'One or more fields failed validation.',
+    description:
+      'The request body contains fields that do not meet the required format or constraints.',
+    category: 'Validation',
+    commonCauses: [
+      'Missing required field',
+      'Field value out of allowed range',
+      'Incorrect data type',
+    ],
+    resolution:
+      'Check the `errors` array in the response for the specific field and constraint that failed.',
     isCustom: false,
   },
   {
-    id: "err-5",
-    errorCode: "missing_required_field",
+    id: 'err-5',
+    errorCode: 'missing_required_field',
     httpStatus: 400,
-    message: "A required field is missing from the request.",
-    description: "The request body is missing one or more fields marked as required in the endpoint schema.",
-    category: "Validation",
-    commonCauses: ["Field omitted from JSON body", "Field name misspelled"],
-    resolution: "Compare the request payload against the endpoint's documented schema.",
+    message: 'A required field is missing from the request.',
+    description:
+      'The request body is missing one or more fields marked as required in the endpoint schema.',
+    category: 'Validation',
+    commonCauses: ['Field omitted from JSON body', 'Field name misspelled'],
+    resolution:
+      "Compare the request payload against the endpoint's documented schema.",
     isCustom: false,
   },
   {
-    id: "err-6",
-    errorCode: "malformed_request",
+    id: 'err-6',
+    errorCode: 'malformed_request',
     httpStatus: 400,
-    message: "The request body could not be parsed.",
-    description: "The request body is not valid JSON or does not match the expected content type.",
-    category: "Validation",
-    commonCauses: ["Invalid JSON syntax", "Wrong Content-Type header"],
-    resolution: "Ensure the body is valid JSON and the Content-Type header is set to application/json.",
+    message: 'The request body could not be parsed.',
+    description:
+      'The request body is not valid JSON or does not match the expected content type.',
+    category: 'Validation',
+    commonCauses: ['Invalid JSON syntax', 'Wrong Content-Type header'],
+    resolution:
+      'Ensure the body is valid JSON and the Content-Type header is set to application/json.',
     isCustom: false,
   },
   {
-    id: "err-7",
-    errorCode: "rate_limit_exceeded",
+    id: 'err-7',
+    errorCode: 'rate_limit_exceeded',
     httpStatus: 429,
-    message: "Rate limit exceeded for this API key.",
-    description: "The number of requests from this API key has exceeded the configured rate limit window.",
-    category: "Rate Limiting",
-    commonCauses: ["Too many requests in a short period", "Missing client-side request throttling"],
-    resolution: "Implement exponential backoff. Check the `Retry-After` header for the wait duration.",
+    message: 'Rate limit exceeded for this API key.',
+    description:
+      'The number of requests from this API key has exceeded the configured rate limit window.',
+    category: 'Rate Limiting',
+    commonCauses: [
+      'Too many requests in a short period',
+      'Missing client-side request throttling',
+    ],
+    resolution:
+      'Implement exponential backoff. Check the `Retry-After` header for the wait duration.',
     isCustom: false,
   },
   {
-    id: "err-8",
-    errorCode: "concurrent_request_limit",
+    id: 'err-8',
+    errorCode: 'concurrent_request_limit',
     httpStatus: 429,
-    message: "Too many concurrent requests.",
-    description: "This API key has too many in-flight requests at once.",
-    category: "Rate Limiting",
-    commonCauses: ["Parallel batch processing without concurrency control"],
-    resolution: "Limit concurrent requests per key, or request a higher concurrency allowance.",
+    message: 'Too many concurrent requests.',
+    description: 'This API key has too many in-flight requests at once.',
+    category: 'Rate Limiting',
+    commonCauses: ['Parallel batch processing without concurrency control'],
+    resolution:
+      'Limit concurrent requests per key, or request a higher concurrency allowance.',
     isCustom: false,
   },
   {
-    id: "err-9",
-    errorCode: "insufficient_scope",
+    id: 'err-9',
+    errorCode: 'insufficient_scope',
     httpStatus: 403,
-    message: "This API key does not have the required scope.",
-    description: "The API key used does not include the scope needed to perform this action.",
-    category: "Permissions",
-    commonCauses: ["Key was issued with read-only access", "Scope was revoked after key creation"],
-    resolution: "Request the required scope be added to the API key, or use a key with broader access.",
+    message: 'This API key does not have the required scope.',
+    description:
+      'The API key used does not include the scope needed to perform this action.',
+    category: 'Permissions',
+    commonCauses: [
+      'Key was issued with read-only access',
+      'Scope was revoked after key creation',
+    ],
+    resolution:
+      'Request the required scope be added to the API key, or use a key with broader access.',
     isCustom: false,
   },
   {
-    id: "err-10",
-    errorCode: "resource_forbidden",
+    id: 'err-10',
+    errorCode: 'resource_forbidden',
     httpStatus: 403,
-    message: "Access to this resource is forbidden.",
-    description: "The authenticated key does not own or have access to the requested resource.",
-    category: "Permissions",
-    commonCauses: ["Attempting to access another merchant's transaction", "Resource belongs to a different environment"],
-    resolution: "Verify the resource ID belongs to your account and environment.",
+    message: 'Access to this resource is forbidden.',
+    description:
+      'The authenticated key does not own or have access to the requested resource.',
+    category: 'Permissions',
+    commonCauses: [
+      "Attempting to access another merchant's transaction",
+      'Resource belongs to a different environment',
+    ],
+    resolution:
+      'Verify the resource ID belongs to your account and environment.',
     isCustom: false,
   },
   {
-    id: "err-11",
-    errorCode: "resource_not_found",
+    id: 'err-11',
+    errorCode: 'resource_not_found',
     httpStatus: 404,
-    message: "The requested resource could not be found.",
-    description: "No resource exists with the given identifier.",
-    category: "Validation",
-    commonCauses: ["Typo in resource ID", "Resource was deleted", "Wrong environment"],
-    resolution: "Double check the ID and confirm you're querying the correct environment.",
+    message: 'The requested resource could not be found.',
+    description: 'No resource exists with the given identifier.',
+    category: 'Validation',
+    commonCauses: [
+      'Typo in resource ID',
+      'Resource was deleted',
+      'Wrong environment',
+    ],
+    resolution:
+      "Double check the ID and confirm you're querying the correct environment.",
     isCustom: false,
   },
   {
-    id: "err-12",
-    errorCode: "duplicate_request",
+    id: 'err-12',
+    errorCode: 'duplicate_request',
     httpStatus: 409,
-    message: "A request with this idempotency key was already processed.",
-    description: "The idempotency key provided matches a previous request that already completed.",
-    category: "Validation",
-    commonCauses: ["Client retried a request without changing the idempotency key", "Duplicate submission from UI double-click"],
-    resolution: "Use a new idempotency key for genuinely new requests, or fetch the original result.",
+    message: 'A request with this idempotency key was already processed.',
+    description:
+      'The idempotency key provided matches a previous request that already completed.',
+    category: 'Validation',
+    commonCauses: [
+      'Client retried a request without changing the idempotency key',
+      'Duplicate submission from UI double-click',
+    ],
+    resolution:
+      'Use a new idempotency key for genuinely new requests, or fetch the original result.',
     isCustom: false,
   },
   {
-    id: "err-13",
-    errorCode: "card_declined",
+    id: 'err-13',
+    errorCode: 'card_declined',
     httpStatus: 402,
-    message: "The card was declined by the issuing bank.",
-    description: "The card payment processor rejected the transaction.",
-    category: "Payment",
-    commonCauses: ["Insufficient funds", "Card flagged for fraud", "Incorrect CVV or expiry"],
-    resolution: "Ask the customer to verify card details or use an alternative payment method.",
+    message: 'The card was declined by the issuing bank.',
+    description: 'The card payment processor rejected the transaction.',
+    category: 'Payment',
+    commonCauses: [
+      'Insufficient funds',
+      'Card flagged for fraud',
+      'Incorrect CVV or expiry',
+    ],
+    resolution:
+      'Ask the customer to verify card details or use an alternative payment method.',
     isCustom: false,
   },
   {
-    id: "err-14",
-    errorCode: "transaction_amount_exceeds_limit",
+    id: 'err-14',
+    errorCode: 'transaction_amount_exceeds_limit',
     httpStatus: 422,
-    message: "Transaction amount exceeds the configured limit.",
-    description: "The requested transaction amount is above the maximum allowed for this account tier.",
-    category: "Payment",
-    commonCauses: ["Account not yet verified for higher limits", "Amount cap configured too low for this use case"],
-    resolution: "Complete additional verification or request a limit increase from support.",
+    message: 'Transaction amount exceeds the configured limit.',
+    description:
+      'The requested transaction amount is above the maximum allowed for this account tier.',
+    category: 'Payment',
+    commonCauses: [
+      'Account not yet verified for higher limits',
+      'Amount cap configured too low for this use case',
+    ],
+    resolution:
+      'Complete additional verification or request a limit increase from support.',
     isCustom: false,
   },
   {
-    id: "err-15",
-    errorCode: "aml_review_required",
+    id: 'err-15',
+    errorCode: 'aml_review_required',
     httpStatus: 423,
-    message: "Transaction held for AML compliance review.",
-    description: "The transaction was flagged by automated screening and requires manual review before completing.",
-    category: "Compliance",
-    commonCauses: ["Recipient matched a watchlist pattern", "Unusual transaction velocity"],
-    resolution: "Wait for compliance review to complete, or contact the compliance team for status.",
+    message: 'Transaction held for AML compliance review.',
+    description:
+      'The transaction was flagged by automated screening and requires manual review before completing.',
+    category: 'Compliance',
+    commonCauses: [
+      'Recipient matched a watchlist pattern',
+      'Unusual transaction velocity',
+    ],
+    resolution:
+      'Wait for compliance review to complete, or contact the compliance team for status.',
     isCustom: false,
   },
   {
-    id: "err-16",
-    errorCode: "kyc_incomplete",
+    id: 'err-16',
+    errorCode: 'kyc_incomplete',
     httpStatus: 403,
-    message: "Customer KYC verification is incomplete.",
-    description: "The customer associated with this request has not completed required identity verification.",
-    category: "Compliance",
-    commonCauses: ["Customer onboarding flow was abandoned", "Document verification still pending"],
-    resolution: "Direct the customer to complete the KYC flow before retrying the transaction.",
+    message: 'Customer KYC verification is incomplete.',
+    description:
+      'The customer associated with this request has not completed required identity verification.',
+    category: 'Compliance',
+    commonCauses: [
+      'Customer onboarding flow was abandoned',
+      'Document verification still pending',
+    ],
+    resolution:
+      'Direct the customer to complete the KYC flow before retrying the transaction.',
     isCustom: false,
   },
   {
-    id: "err-17",
-    errorCode: "internal_server_error",
+    id: 'err-17',
+    errorCode: 'internal_server_error',
     httpStatus: 500,
-    message: "An unexpected error occurred.",
-    description: "Something went wrong on our end while processing the request.",
-    category: "Server",
-    commonCauses: ["Unhandled exception in application logic", "Database connectivity issue"],
-    resolution: "Retry the request. If the issue persists, contact support with the request ID.",
+    message: 'An unexpected error occurred.',
+    description:
+      'Something went wrong on our end while processing the request.',
+    category: 'Server',
+    commonCauses: [
+      'Unhandled exception in application logic',
+      'Database connectivity issue',
+    ],
+    resolution:
+      'Retry the request. If the issue persists, contact support with the request ID.',
     isCustom: false,
   },
   {
-    id: "err-18",
-    errorCode: "upstream_timeout",
+    id: 'err-18',
+    errorCode: 'upstream_timeout',
     httpStatus: 504,
-    message: "A required upstream service timed out.",
-    description: "A third-party or internal dependency did not respond within the allotted time.",
-    category: "Server",
-    commonCauses: ["Banking partner API slowness", "Network partition between services"],
-    resolution: "Retry with exponential backoff. Check the relevant service's status page.",
+    message: 'A required upstream service timed out.',
+    description:
+      'A third-party or internal dependency did not respond within the allotted time.',
+    category: 'Server',
+    commonCauses: [
+      'Banking partner API slowness',
+      'Network partition between services',
+    ],
+    resolution:
+      "Retry with exponential backoff. Check the relevant service's status page.",
     isCustom: false,
   },
   {
-    id: "err-19",
-    errorCode: "custom_settlement_window_closed",
+    id: 'err-19',
+    errorCode: 'custom_settlement_window_closed',
     httpStatus: 422,
-    message: "Settlement window is closed for this payout batch.",
-    description: "Custom error: this payout was submitted after the daily settlement cutoff.",
-    category: "Payment",
-    commonCauses: ["Payout submitted after the configured cutoff time"],
-    resolution: "Resubmit the payout in the next settlement window, or request an off-cycle settlement.",
+    message: 'Settlement window is closed for this payout batch.',
+    description:
+      'Custom error: this payout was submitted after the daily settlement cutoff.',
+    category: 'Payment',
+    commonCauses: ['Payout submitted after the configured cutoff time'],
+    resolution:
+      'Resubmit the payout in the next settlement window, or request an off-cycle settlement.',
     isCustom: true,
   },
   {
-    id: "err-20",
-    errorCode: "custom_agent_offline",
+    id: 'err-20',
+    errorCode: 'custom_agent_offline',
     httpStatus: 409,
-    message: "Assigned agent is currently offline.",
-    description: "Custom error: the field agent assigned to this pickup is not currently available.",
-    category: "Validation",
-    commonCauses: ["Agent app lost connectivity", "Agent ended shift before pickup was completed"],
-    resolution: "Reassign the pickup to another available agent.",
+    message: 'Assigned agent is currently offline.',
+    description:
+      'Custom error: the field agent assigned to this pickup is not currently available.',
+    category: 'Validation',
+    commonCauses: [
+      'Agent app lost connectivity',
+      'Agent ended shift before pickup was completed',
+    ],
+    resolution: 'Reassign the pickup to another available agent.',
     isCustom: true,
   },
 ];
 
 export const apiErrorCodesTotalCount = apiErrorCodesData.length;
-
-
-
-
-
-
-
-
-
-
 
 // ============================================================
 // PLATFORM SETTINGS (final sidebar "Settings" item — platform-wide config)
@@ -26935,20 +28213,20 @@ export const apiErrorCodesTotalCount = apiErrorCodesData.length;
 // ============================================================
 
 export type PlatformSettingsTabId =
-  | "General"
-  | "Branding & Theme"
-  | "Verification & KYC"
-  | "Two-Factor Authentication"
-  | "Localization"
-  | "Email & SMS";
+  | 'General'
+  | 'Branding & Theme'
+  | 'Verification & KYC'
+  | 'Two-Factor Authentication'
+  | 'Localization'
+  | 'Email & SMS';
 
 export const platformSettingsTabs: PlatformSettingsTabId[] = [
-  "General",
-  "Branding & Theme",
-  "Verification & KYC",
-  "Two-Factor Authentication",
-  "Localization",
-  "Email & SMS",
+  'General',
+  'Branding & Theme',
+  'Verification & KYC',
+  'Two-Factor Authentication',
+  'Localization',
+  'Email & SMS',
 ];
 
 // ---------- General ----------
@@ -26964,18 +28242,19 @@ export interface PlatformGeneralConfig {
 }
 
 export const platformGeneralDefaults: PlatformGeneralConfig = {
-  platformName: "FinTrack",
-  legalEntityName: "FinTrack Financial Services Ltd.",
-  supportEmail: "support@fintrack.io",
-  supportPhone: "+880 9610-001122",
+  platformName: 'FinTrack',
+  legalEntityName: 'FinTrack Financial Services Ltd.',
+  supportEmail: 'support@fintrack.io',
+  supportPhone: '+880 9610-001122',
   maintenanceModeEnabled: false,
-  maintenanceMessage: "FinTrack is currently undergoing scheduled maintenance. We'll be back shortly.",
+  maintenanceMessage:
+    "FinTrack is currently undergoing scheduled maintenance. We'll be back shortly.",
   newRegistrationsEnabled: true,
 };
 
 // ---------- Branding & Theme ----------
 
-export type PlatformThemeMode = "Light" | "Dark" | "System";
+export type PlatformThemeMode = 'Light' | 'Dark' | 'System';
 
 export interface PlatformBrandingConfig {
   logoUrl: string;
@@ -26987,20 +28266,33 @@ export interface PlatformBrandingConfig {
 }
 
 export const platformBrandingDefaults: PlatformBrandingConfig = {
-  logoUrl: "https://api.dicebear.com/7.x/initials/svg?seed=FinTrack&backgroundColor=2563eb",
-  faviconUrl: "https://api.dicebear.com/7.x/initials/svg?seed=FT&backgroundColor=2563eb",
-  primaryColor: "#2563eb",
-  defaultThemeMode: "System",
+  logoUrl:
+    'https://api.dicebear.com/7.x/initials/svg?seed=FinTrack&backgroundColor=2563eb',
+  faviconUrl:
+    'https://api.dicebear.com/7.x/initials/svg?seed=FT&backgroundColor=2563eb',
+  primaryColor: '#2563eb',
+  defaultThemeMode: 'System',
   allowUserThemeOverride: true,
-  loginPageTagline: "Move money. Manage trust.",
+  loginPageTagline: 'Move money. Manage trust.',
 };
 
-export const platformThemeModeOptions: PlatformThemeMode[] = ["Light", "Dark", "System"];
-export const platformBrandColorOptions: string[] = ["#2563eb", "#7c3aed", "#16a34a", "#d97706", "#dc2626", "#0891b2"];
+export const platformThemeModeOptions: PlatformThemeMode[] = [
+  'Light',
+  'Dark',
+  'System',
+];
+export const platformBrandColorOptions: string[] = [
+  '#2563eb',
+  '#7c3aed',
+  '#16a34a',
+  '#d97706',
+  '#dc2626',
+  '#0891b2',
+];
 
 // ---------- Verification & KYC ----------
 
-export type PlatformKycLevel = "Basic" | "Standard" | "Enhanced";
+export type PlatformKycLevel = 'Basic' | 'Standard' | 'Enhanced';
 
 export interface PlatformKycTier {
   id: string;
@@ -27012,24 +28304,29 @@ export interface PlatformKycTier {
 
 export const platformKycTiers: PlatformKycTier[] = [
   {
-    id: "kyc-basic",
-    level: "Basic",
-    transactionLimit: "$500 / month",
-    requiredDocuments: ["Phone Number Verification"],
+    id: 'kyc-basic',
+    level: 'Basic',
+    transactionLimit: '$500 / month',
+    requiredDocuments: ['Phone Number Verification'],
     autoApprovalEnabled: true,
   },
   {
-    id: "kyc-standard",
-    level: "Standard",
-    transactionLimit: "$10,000 / month",
-    requiredDocuments: ["Government ID", "Selfie Match"],
+    id: 'kyc-standard',
+    level: 'Standard',
+    transactionLimit: '$10,000 / month',
+    requiredDocuments: ['Government ID', 'Selfie Match'],
     autoApprovalEnabled: true,
   },
   {
-    id: "kyc-enhanced",
-    level: "Enhanced",
-    transactionLimit: "Unlimited",
-    requiredDocuments: ["Government ID", "Selfie Match", "Proof of Address", "Source of Funds Declaration"],
+    id: 'kyc-enhanced',
+    level: 'Enhanced',
+    transactionLimit: 'Unlimited',
+    requiredDocuments: [
+      'Government ID',
+      'Selfie Match',
+      'Proof of Address',
+      'Source of Funds Declaration',
+    ],
     autoApprovalEnabled: false,
   },
 ];
@@ -27045,16 +28342,20 @@ export interface PlatformVerificationConfig {
 export const platformVerificationDefaults: PlatformVerificationConfig = {
   kycRequiredForSignup: true,
   amlScreeningEnabled: true,
-  sanctionsListProvider: "ComplyAdvantage",
-  manualReviewThresholdAmount: "$5,000",
+  sanctionsListProvider: 'ComplyAdvantage',
+  manualReviewThresholdAmount: '$5,000',
   documentExpiryReminderDays: 30,
 };
 
-export const platformSanctionsProviderOptions: string[] = ["ComplyAdvantage", "Refinitiv World-Check", "Dow Jones Risk & Compliance"];
+export const platformSanctionsProviderOptions: string[] = [
+  'ComplyAdvantage',
+  'Refinitiv World-Check',
+  'Dow Jones Risk & Compliance',
+];
 
 // ---------- Two-Factor Authentication (platform-wide policy) ----------
 
-export type Platform2faMethod = "Authenticator App" | "SMS" | "Email";
+export type Platform2faMethod = 'Authenticator App' | 'SMS' | 'Email';
 
 export interface PlatformTwoFactorPolicy {
   enforceForAllAdmins: boolean;
@@ -27067,12 +28368,16 @@ export interface PlatformTwoFactorPolicy {
 export const platform2faDefaults: PlatformTwoFactorPolicy = {
   enforceForAllAdmins: true,
   enforceForAllCustomers: false,
-  allowedMethods: { "Authenticator App": true, SMS: true, Email: false },
+  allowedMethods: { 'Authenticator App': true, SMS: true, Email: false },
   gracePeriodDays: 7,
   rememberDeviceDays: 30,
 };
 
-export const platform2faMethodOptions: Platform2faMethod[] = ["Authenticator App", "SMS", "Email"];
+export const platform2faMethodOptions: Platform2faMethod[] = [
+  'Authenticator App',
+  'SMS',
+  'Email',
+];
 
 // ---------- Localization ----------
 
@@ -27085,24 +28390,42 @@ export interface PlatformLocalizationConfig {
 }
 
 export const platformLocalizationDefaults: PlatformLocalizationConfig = {
-  defaultLanguage: "English (US)",
-  supportedLanguages: ["English (US)", "Bengali (বাংলা)", "Hindi (हिन्दी)"],
-  defaultCurrency: "BDT",
-  defaultTimezone: "Asia/Dhaka",
-  defaultDateFormat: "DD MMM YYYY",
+  defaultLanguage: 'English (US)',
+  supportedLanguages: ['English (US)', 'Bengali (বাংলা)', 'Hindi (हिन्दी)'],
+  defaultCurrency: 'BDT',
+  defaultTimezone: 'Asia/Dhaka',
+  defaultDateFormat: 'DD MMM YYYY',
 };
 
 export const platformLanguageOptions: string[] = [
-  "English (US)",
-  "English (UK)",
-  "Bengali (বাংলা)",
-  "Hindi (हिन्दी)",
-  "Arabic (العربية)",
-  "Urdu (اردو)",
+  'English (US)',
+  'English (UK)',
+  'Bengali (বাংলা)',
+  'Hindi (हिन्दी)',
+  'Arabic (العربية)',
+  'Urdu (اردو)',
 ];
-export const platformCurrencyOptions: string[] = ["BDT", "USD", "EUR", "GBP", "INR", "AED"];
-export const platformTimezoneOptions: string[] = ["Asia/Dhaka", "UTC", "America/New_York", "Europe/London", "Asia/Singapore"];
-export const platformDateFormatOptions: string[] = ["DD MMM YYYY", "YYYY-MM-DD", "MM/DD/YYYY", "DD/MM/YYYY"];
+export const platformCurrencyOptions: string[] = [
+  'BDT',
+  'USD',
+  'EUR',
+  'GBP',
+  'INR',
+  'AED',
+];
+export const platformTimezoneOptions: string[] = [
+  'Asia/Dhaka',
+  'UTC',
+  'America/New_York',
+  'Europe/London',
+  'Asia/Singapore',
+];
+export const platformDateFormatOptions: string[] = [
+  'DD MMM YYYY',
+  'YYYY-MM-DD',
+  'MM/DD/YYYY',
+  'DD/MM/YYYY',
+];
 
 // ---------- Email & SMS ----------
 
@@ -27118,38 +28441,36 @@ export interface PlatformEmailSmsConfig {
 }
 
 export const platformEmailSmsDefaults: PlatformEmailSmsConfig = {
-  smtpHost: "smtp.fintrack.io",
+  smtpHost: 'smtp.fintrack.io',
   smtpPort: 587,
-  senderName: "FinTrack",
-  senderEmail: "no-reply@fintrack.io",
-  smsProvider: "Twilio",
-  smsSenderId: "FINTRACK",
+  senderName: 'FinTrack',
+  senderEmail: 'no-reply@fintrack.io',
+  smsProvider: 'Twilio',
+  smsSenderId: 'FINTRACK',
   transactionalEmailsEnabled: true,
   marketingEmailsEnabled: false,
 };
 
-export const platformSmsProviderOptions: string[] = ["Twilio", "Vonage", "Local Gateway (SSL Wireless)"];
+export const platformSmsProviderOptions: string[] = [
+  'Twilio',
+  'Vonage',
+  'Local Gateway (SSL Wireless)',
+];
 
 export const platformKycBadge: Record<PlatformKycLevel, string> = {
-  Basic: "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300",
-  Standard: "bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400",
-  Enhanced: "bg-purple-100 text-purple-700 dark:bg-purple-500/10 dark:text-purple-400",
+  Basic: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300',
+  Standard: 'bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400',
+  Enhanced:
+    'bg-purple-100 text-purple-700 dark:bg-purple-500/10 dark:text-purple-400',
 };
-
-
-
-
-
-
-
 
 // ============================================================
 // REVENUE — DATA, TYPES & CONSTANTS
 // Append this block into lib/data.ts
 // ============================================================
 
-export type RevenueViewMode = "Monthly" | "Yearly";
-export type RevenueTrendDirection = "up" | "down";
+export type RevenueViewMode = 'Monthly' | 'Yearly';
+export type RevenueTrendDirection = 'up' | 'down';
 
 export interface RevenueStatCard {
   id: string;
@@ -27157,15 +28478,47 @@ export interface RevenueStatCard {
   value: string;
   change: string;
   changeDirection: RevenueTrendDirection;
-  changeTone: "good" | "bad";
-  icon: "total" | "net" | "expense" | "growth";
+  changeTone: 'good' | 'bad';
+  icon: 'total' | 'net' | 'expense' | 'growth';
 }
 
 export const revenueStatCards: RevenueStatCard[] = [
-  { id: "rev-stat-total", label: "Total Revenue", value: "$842,650", change: "14.2%", changeDirection: "up", changeTone: "good", icon: "total" },
-  { id: "rev-stat-net", label: "Net Income", value: "$612,940", change: "11.8%", changeDirection: "up", changeTone: "good", icon: "net" },
-  { id: "rev-stat-expense", label: "Total Expenses & Refunds", value: "$229,710", change: "6.4%", changeDirection: "up", changeTone: "bad", icon: "expense" },
-  { id: "rev-stat-growth", label: "YoY Growth Rate", value: "18.6%", change: "3.1%", changeDirection: "up", changeTone: "good", icon: "growth" },
+  {
+    id: 'rev-stat-total',
+    label: 'Total Revenue',
+    value: '$842,650',
+    change: '14.2%',
+    changeDirection: 'up',
+    changeTone: 'good',
+    icon: 'total',
+  },
+  {
+    id: 'rev-stat-net',
+    label: 'Net Income',
+    value: '$612,940',
+    change: '11.8%',
+    changeDirection: 'up',
+    changeTone: 'good',
+    icon: 'net',
+  },
+  {
+    id: 'rev-stat-expense',
+    label: 'Total Expenses & Refunds',
+    value: '$229,710',
+    change: '6.4%',
+    changeDirection: 'up',
+    changeTone: 'bad',
+    icon: 'expense',
+  },
+  {
+    id: 'rev-stat-growth',
+    label: 'YoY Growth Rate',
+    value: '18.6%',
+    change: '3.1%',
+    changeDirection: 'up',
+    changeTone: 'good',
+    icon: 'growth',
+  },
 ];
 
 // ---------- Monthly revenue trend (current year) ----------
@@ -27177,34 +28530,40 @@ export interface RevenueTrendPoint {
 }
 
 export const revenueMonthlyTrend: RevenueTrendPoint[] = [
-  { label: "Jan", income: 58200, expense: 16400 },
-  { label: "Feb", income: 61500, expense: 17200 },
-  { label: "Mar", income: 67800, expense: 18900 },
-  { label: "Apr", income: 64200, expense: 19800 },
-  { label: "May", income: 71300, expense: 20100 },
-  { label: "Jun", income: 75600, expense: 21400 },
-  { label: "Jul", income: 69900, expense: 19600 },
-  { label: "Aug", income: 78200, expense: 22300 },
-  { label: "Sep", income: 82400, expense: 23800 },
-  { label: "Oct", income: 79100, expense: 21900 },
-  { label: "Nov", income: 85700, expense: 24600 },
-  { label: "Dec", income: 91750, expense: 23710 },
+  { label: 'Jan', income: 58200, expense: 16400 },
+  { label: 'Feb', income: 61500, expense: 17200 },
+  { label: 'Mar', income: 67800, expense: 18900 },
+  { label: 'Apr', income: 64200, expense: 19800 },
+  { label: 'May', income: 71300, expense: 20100 },
+  { label: 'Jun', income: 75600, expense: 21400 },
+  { label: 'Jul', income: 69900, expense: 19600 },
+  { label: 'Aug', income: 78200, expense: 22300 },
+  { label: 'Sep', income: 82400, expense: 23800 },
+  { label: 'Oct', income: 79100, expense: 21900 },
+  { label: 'Nov', income: 85700, expense: 24600 },
+  { label: 'Dec', income: 91750, expense: 23710 },
 ];
 
 // ---------- Yearly revenue trend (last 6 years) ----------
 
 export const revenueYearlyTrend: RevenueTrendPoint[] = [
-  { label: "2020", income: 412000, expense: 138000 },
-  { label: "2021", income: 498000, expense: 152000 },
-  { label: "2022", income: 587000, expense: 171000 },
-  { label: "2023", income: 671000, expense: 196000 },
-  { label: "2024", income: 738000, expense: 214000 },
-  { label: "2025", income: 842650, expense: 229710 },
+  { label: '2020', income: 412000, expense: 138000 },
+  { label: '2021', income: 498000, expense: 152000 },
+  { label: '2022', income: 587000, expense: 171000 },
+  { label: '2023', income: 671000, expense: 196000 },
+  { label: '2024', income: 738000, expense: 214000 },
+  { label: '2025', income: 842650, expense: 229710 },
 ];
 
 // ---------- Revenue by source (donut chart) ----------
 
-export type RevenueSourceCategory = "Transaction Fees" | "Card Payments" | "Payout Fees" | "FX Margin" | "API Subscriptions" | "Other";
+export type RevenueSourceCategory =
+  | 'Transaction Fees'
+  | 'Card Payments'
+  | 'Payout Fees'
+  | 'FX Margin'
+  | 'API Subscriptions'
+  | 'Other';
 
 export interface RevenueSourceItem {
   id: string;
@@ -27215,12 +28574,48 @@ export interface RevenueSourceItem {
 }
 
 export const revenueBySource: RevenueSourceItem[] = [
-  { id: "src-1", category: "Transaction Fees", amount: 312400, percentage: 37.1, color: "#3b82f6" },
-  { id: "src-2", category: "Card Payments", amount: 198750, percentage: 23.6, color: "#22c55e" },
-  { id: "src-3", category: "Payout Fees", amount: 142880, percentage: 17.0, color: "#a855f7" },
-  { id: "src-4", category: "FX Margin", amount: 96420, percentage: 11.4, color: "#f59e0b" },
-  { id: "src-5", category: "API Subscriptions", amount: 64600, percentage: 7.7, color: "#0ea5e9" },
-  { id: "src-6", category: "Other", amount: 27600, percentage: 3.2, color: "#94a3b8" },
+  {
+    id: 'src-1',
+    category: 'Transaction Fees',
+    amount: 312400,
+    percentage: 37.1,
+    color: '#3b82f6',
+  },
+  {
+    id: 'src-2',
+    category: 'Card Payments',
+    amount: 198750,
+    percentage: 23.6,
+    color: '#22c55e',
+  },
+  {
+    id: 'src-3',
+    category: 'Payout Fees',
+    amount: 142880,
+    percentage: 17.0,
+    color: '#a855f7',
+  },
+  {
+    id: 'src-4',
+    category: 'FX Margin',
+    amount: 96420,
+    percentage: 11.4,
+    color: '#f59e0b',
+  },
+  {
+    id: 'src-5',
+    category: 'API Subscriptions',
+    amount: 64600,
+    percentage: 7.7,
+    color: '#0ea5e9',
+  },
+  {
+    id: 'src-6',
+    category: 'Other',
+    amount: 27600,
+    percentage: 3.2,
+    color: '#94a3b8',
+  },
 ];
 
 // ---------- Revenue by region ----------
@@ -27235,17 +28630,58 @@ export interface RevenueByRegion {
 }
 
 export const revenueByRegion: RevenueByRegion[] = [
-  { id: "reg-1", region: "Bangladesh", amount: 486200, percentage: 57.7, trendDirection: "up", trendPercent: "12.4%" },
-  { id: "reg-2", region: "Middle East (UAE, KSA)", amount: 156800, percentage: 18.6, trendDirection: "up", trendPercent: "21.3%" },
-  { id: "reg-3", region: "Southeast Asia", amount: 98400, percentage: 11.7, trendDirection: "up", trendPercent: "8.9%" },
-  { id: "reg-4", region: "Europe", amount: 64250, percentage: 7.6, trendDirection: "down", trendPercent: "2.1%" },
-  { id: "reg-5", region: "North America", amount: 37000, percentage: 4.4, trendDirection: "up", trendPercent: "15.6%" },
+  {
+    id: 'reg-1',
+    region: 'Bangladesh',
+    amount: 486200,
+    percentage: 57.7,
+    trendDirection: 'up',
+    trendPercent: '12.4%',
+  },
+  {
+    id: 'reg-2',
+    region: 'Middle East (UAE, KSA)',
+    amount: 156800,
+    percentage: 18.6,
+    trendDirection: 'up',
+    trendPercent: '21.3%',
+  },
+  {
+    id: 'reg-3',
+    region: 'Southeast Asia',
+    amount: 98400,
+    percentage: 11.7,
+    trendDirection: 'up',
+    trendPercent: '8.9%',
+  },
+  {
+    id: 'reg-4',
+    region: 'Europe',
+    amount: 64250,
+    percentage: 7.6,
+    trendDirection: 'down',
+    trendPercent: '2.1%',
+  },
+  {
+    id: 'reg-5',
+    region: 'North America',
+    amount: 37000,
+    percentage: 4.4,
+    trendDirection: 'up',
+    trendPercent: '15.6%',
+  },
 ];
 
 // ---------- Recent revenue transactions ----------
 
-export type RevenueTxnType = "Transaction Fee" | "Card Payment" | "Payout Fee" | "FX Margin" | "Subscription" | "Refund";
-export type RevenueTxnStatus = "Completed" | "Pending" | "Refunded";
+export type RevenueTxnType =
+  | 'Transaction Fee'
+  | 'Card Payment'
+  | 'Payout Fee'
+  | 'FX Margin'
+  | 'Subscription'
+  | 'Refund';
+export type RevenueTxnStatus = 'Completed' | 'Pending' | 'Refunded';
 
 export interface RevenueTransaction {
   id: string;
@@ -27258,28 +28694,90 @@ export interface RevenueTransaction {
 }
 
 export const revenueTxnTypeBadge: Record<RevenueTxnType, string> = {
-  "Transaction Fee": "bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400",
-  "Card Payment": "bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400",
-  "Payout Fee": "bg-purple-100 text-purple-700 dark:bg-purple-500/10 dark:text-purple-400",
-  "FX Margin": "bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400",
-  Subscription: "bg-sky-100 text-sky-700 dark:bg-sky-500/10 dark:text-sky-400",
-  Refund: "bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400",
+  'Transaction Fee':
+    'bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400',
+  'Card Payment':
+    'bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400',
+  'Payout Fee':
+    'bg-purple-100 text-purple-700 dark:bg-purple-500/10 dark:text-purple-400',
+  'FX Margin':
+    'bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400',
+  Subscription: 'bg-sky-100 text-sky-700 dark:bg-sky-500/10 dark:text-sky-400',
+  Refund: 'bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400',
 };
 
 export const revenueTxnStatusBadge: Record<RevenueTxnStatus, string> = {
-  Completed: "bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400",
-  Pending: "bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400",
-  Refunded: "bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400",
+  Completed:
+    'bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400',
+  Pending:
+    'bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400',
+  Refunded: 'bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400',
 };
 
 export const revenueRecentTransactions: RevenueTransaction[] = [
-  { id: "rt-1", txnId: "TXN_5f8a3b2d1c", type: "Transaction Fee", customer: "Kamal Hossain", amount: 4.5, status: "Completed", date: "May 12, 2025 10:30 AM" },
-  { id: "rt-2", txnId: "TXN_7c2b4e9a3f", type: "Card Payment", customer: "Nusrat Jahan", amount: 12.8, status: "Completed", date: "May 12, 2025 10:24 AM" },
-  { id: "rt-3", txnId: "TXN_5d6e7f1a9b", type: "Payout Fee", customer: "Rahim Auto Parts Ltd.", amount: 28.0, status: "Completed", date: "May 12, 2025 10:18 AM" },
-  { id: "rt-4", txnId: "TXN_2a4b6c8d3e", type: "FX Margin", customer: "Sultana Begum", amount: 9.4, status: "Pending", date: "May 12, 2025 10:11 AM" },
-  { id: "rt-5", txnId: "TXN_1e3f5a7b9c", type: "Subscription", customer: "Bashundhara Traders", amount: 199.0, status: "Completed", date: "May 12, 2025 9:54 AM" },
-  { id: "rt-6", txnId: "TXN_9b1c3d5e7f", type: "Refund", customer: "Tanvir Ahmed", amount: -15.5, status: "Refunded", date: "May 12, 2025 9:42 AM" },
-  { id: "rt-7", txnId: "TXN_4f6a8b0c2d", type: "Card Payment", customer: "Farzana Akter", amount: 6.2, status: "Completed", date: "May 12, 2025 9:30 AM" },
+  {
+    id: 'rt-1',
+    txnId: 'TXN_5f8a3b2d1c',
+    type: 'Transaction Fee',
+    customer: 'Kamal Hossain',
+    amount: 4.5,
+    status: 'Completed',
+    date: 'May 12, 2025 10:30 AM',
+  },
+  {
+    id: 'rt-2',
+    txnId: 'TXN_7c2b4e9a3f',
+    type: 'Card Payment',
+    customer: 'Nusrat Jahan',
+    amount: 12.8,
+    status: 'Completed',
+    date: 'May 12, 2025 10:24 AM',
+  },
+  {
+    id: 'rt-3',
+    txnId: 'TXN_5d6e7f1a9b',
+    type: 'Payout Fee',
+    customer: 'Rahim Auto Parts Ltd.',
+    amount: 28.0,
+    status: 'Completed',
+    date: 'May 12, 2025 10:18 AM',
+  },
+  {
+    id: 'rt-4',
+    txnId: 'TXN_2a4b6c8d3e',
+    type: 'FX Margin',
+    customer: 'Sultana Begum',
+    amount: 9.4,
+    status: 'Pending',
+    date: 'May 12, 2025 10:11 AM',
+  },
+  {
+    id: 'rt-5',
+    txnId: 'TXN_1e3f5a7b9c',
+    type: 'Subscription',
+    customer: 'Bashundhara Traders',
+    amount: 199.0,
+    status: 'Completed',
+    date: 'May 12, 2025 9:54 AM',
+  },
+  {
+    id: 'rt-6',
+    txnId: 'TXN_9b1c3d5e7f',
+    type: 'Refund',
+    customer: 'Tanvir Ahmed',
+    amount: -15.5,
+    status: 'Refunded',
+    date: 'May 12, 2025 9:42 AM',
+  },
+  {
+    id: 'rt-7',
+    txnId: 'TXN_4f6a8b0c2d',
+    type: 'Card Payment',
+    customer: 'Farzana Akter',
+    amount: 6.2,
+    status: 'Completed',
+    date: 'May 12, 2025 9:30 AM',
+  },
 ];
 
 export const revenueTxnTotalCount = 18420;

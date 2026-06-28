@@ -18,7 +18,24 @@ import {
   RiskRuleStatus,
 } from '@/lib/data';
 
+import { flagForCountryName } from '@/lib/countries_data';
+
+
+
 // ── helpers ───────────────────────────────────────────────────
+
+function CountryFlag({ country, size = 'w-4 h-4' }: { country: string; size?: string }) {
+  return (
+    <img
+      src={flagForCountryName(country)}
+      alt={country}
+      className={`${size} rounded-full object-cover inline-block shrink-0`}
+    />
+  );
+}
+
+
+
 const riskLevelClasses: Record<AlertRiskLevel, string> = {
   Low: 'bg-emerald-50 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400',
   Medium: 'bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-400',
@@ -173,7 +190,7 @@ function CustomerRiskTable({
                   <p className="text-[10px] text-gray-400 dark:text-gray-500">{c.customerId}</p>
                 </td>
                 <td className="px-2 py-2.5 whitespace-nowrap">
-                  <span className="inline-flex items-center gap-1.5 text-[12px] text-gray-600 dark:text-gray-300">{c.flag} {c.country}</span>
+                  <span className="inline-flex items-center gap-1.5 text-[12px] text-gray-600 dark:text-gray-300"><CountryFlag country={c.country}  /> {c.country}</span>
                 </td>
                 <td className="px-2 py-2.5 whitespace-nowrap">
                   <span className="text-[13px] font-bold text-gray-900 dark:text-white">{c.riskScore}</span>

@@ -34,9 +34,26 @@ import {
     type BankVerificationRecord,
 } from '@/lib/data';
 
+import { flagForCountryName } from '@/lib/countries_data';
+
+
+
+
 Chart.register(ArcElement, Tooltip, Legend, DoughnutController);
 
 const PAGE_SIZE_OPTIONS = [10, 25, 50];
+
+function CountryFlag({ country, size = 'w-4 h-4' }: { country: string; size?: string }) {
+    return (
+        <img
+            src={flagForCountryName(country)}
+            alt={country}
+            className={`${size} rounded-full object-cover inline-block shrink-0`}
+        />
+    );
+}
+
+
 
 function StatusBadge({ status }: { status: string }) {
     const classes =
@@ -92,7 +109,7 @@ function VerificationDonut() {
     }, []);
 
     return (
-        <div className="relative mx-auto h-[150px] w-[150px]">
+        <div className="relative mx-auto h-37.5 w-37.5">
             <canvas ref={canvasRef} />
             <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
                 <p className="text-xl font-semibold text-gray-900 dark:text-white">{bankVerificationTotal}</p>
@@ -218,7 +235,7 @@ export default function BankVerificationPage() {
 
                     {/* Table */}
                     <div className="mt-4 overflow-x-auto">
-                        <table className="min-w-[760px] w-full text-left text-sm">
+                        <table className="min-w-190 w-full text-left text-sm">
                             <thead>
                                 <tr className="border-b border-gray-200 text-xs uppercase text-gray-500 dark:border-gray-700 dark:text-gray-400">
                                     <th className="py-2 pr-4 font-medium">Bank Name</th>
@@ -236,7 +253,7 @@ export default function BankVerificationPage() {
                                         <td className="py-2.5 pr-4 font-medium text-gray-900 dark:text-white">{r.bankName}</td>
                                         <td className="py-2.5 pr-4">
                                             <span className="flex items-center gap-1.5 whitespace-nowrap">
-                                                <span>{r.countryFlag}</span> {r.country}
+                                                <CountryFlag country={r.country} /> {r.country}
                                             </span>
                                         </td>
                                         <td className="py-2.5 pr-4">{r.swiftBic}</td>
@@ -309,8 +326,8 @@ export default function BankVerificationPage() {
                                     key={p}
                                     onClick={() => setPage(p)}
                                     className={`flex h-7 w-7 items-center justify-center rounded-md text-xs font-medium ${currentPage === p
-                                            ? 'bg-blue-600 text-white'
-                                            : 'border border-gray-300 text-gray-600 dark:border-gray-600 dark:text-gray-300'
+                                        ? 'bg-blue-600 text-white'
+                                        : 'border border-gray-300 text-gray-600 dark:border-gray-600 dark:text-gray-300'
                                         }`}
                                 >
                                     {p}
@@ -392,7 +409,7 @@ export default function BankVerificationPage() {
                             <div className="flex justify-between">
                                 <span className="text-gray-500 dark:text-gray-400">Country</span>
                                 <span className="flex items-center gap-1.5 text-gray-700 dark:text-gray-200">
-                                    <span>{activeRecord.countryFlag}</span> {activeRecord.country}
+                                    <CountryFlag country={activeRecord.country} /> {activeRecord.country}
                                 </span>
                             </div>
                             <div className="flex justify-between">

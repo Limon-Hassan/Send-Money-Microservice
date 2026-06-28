@@ -16,7 +16,25 @@ import {
     CorridorStatusMgmt,
 } from '@/lib/data';
 
+
+import { flagForCountryName } from '@/lib/countries_data';
+
+
+
+
 // ── helpers ───────────────────────────────────────────────────
+function CountryFlag({ country, size = 'w-4 h-4' }: { country: string; size?: string }) {
+    return (
+        <img
+            src={flagForCountryName(country)}
+            alt={country}
+            className={`${size} rounded-full object-cover inline-block shrink-0`}
+        />
+    );
+}
+
+
+
 const countryStatusClasses: Record<CountryStatus, string> = {
     Active: 'bg-emerald-50 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400',
     Inactive: 'bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-400',
@@ -59,8 +77,8 @@ function PageTabs({ active, setActive }: { active: string; setActive: (v: string
                     key={tab}
                     onClick={() => setActive(tab)}
                     className={`pb-2.5 text-[13px] font-medium border-b-2 -mb-px transition-colors cursor-pointer ${active === tab
-                            ? 'border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400'
-                            : 'border-transparent text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300'
+                        ? 'border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400'
+                        : 'border-transparent text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300'
                         }`}
                 >
                     {tab}
@@ -80,7 +98,7 @@ function FilterBar({
 }) {
     return (
         <div className="flex flex-wrap items-center gap-2 px-4 py-3 border-b border-gray-100 dark:border-gray-700/60">
-            <div className="flex items-center gap-2 flex-1 min-w-[160px] border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-1.5">
+            <div className="flex items-center gap-2 flex-1 min-w-40 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-1.5">
                 <Search size={14} className="text-gray-400 dark:text-gray-500" />
                 <input
                     value={search}
@@ -119,7 +137,7 @@ function CountriesTable({
     return (
         <>
             <div className="overflow-x-auto">
-                <table className="w-full text-left min-w-[760px]">
+                <table className="w-full text-left min-w-190">
                     <thead>
                         <tr className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500 border-b border-gray-100 dark:border-gray-700/60">
                             <th className="px-4 py-2.5 font-medium">Country</th>
@@ -136,7 +154,7 @@ function CountriesTable({
                             <tr key={c.id} className="border-b border-gray-50 dark:border-gray-700/40 last:border-0 hover:bg-gray-50/60 dark:hover:bg-gray-700/30">
                                 <td className="px-4 py-2.5 whitespace-nowrap">
                                     <span className="inline-flex items-center gap-2 text-[13px] font-medium text-gray-800 dark:text-gray-100">
-                                        <span className="text-base">{c.flag}</span> {c.name}
+                                        <CountryFlag country={c.name} size="w-5 h-5" /> {c.name}
                                     </span>
                                 </td>
                                 <td className="px-2 py-2.5 text-[12px] text-gray-600 dark:text-gray-300 whitespace-nowrap">{c.region}</td>
@@ -216,7 +234,7 @@ function CorridorsTable({
     return (
         <>
             <div className="overflow-x-auto">
-                <table className="w-full text-left min-w-[920px]">
+                <table className="w-full text-left min-w-230">
                     <thead>
                         <tr className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500 border-b border-gray-100 dark:border-gray-700/60">
                             <th className="px-4 py-2.5 font-medium">Sending Country</th>
@@ -233,10 +251,14 @@ function CorridorsTable({
                         {pageRows.map(c => (
                             <tr key={c.id} className="border-b border-gray-50 dark:border-gray-700/40 last:border-0 hover:bg-gray-50/60 dark:hover:bg-gray-700/30">
                                 <td className="px-4 py-2.5 whitespace-nowrap">
-                                    <span className="inline-flex items-center gap-1.5 text-[12px] text-gray-700 dark:text-gray-300">{c.sendingFlag} {c.sendingCountry}</span>
+                                    <span className="inline-flex items-center gap-1.5 text-[12px] text-gray-700 dark:text-gray-300">
+                                        <CountryFlag country={c.sendingCountry} /> {c.sendingCountry}
+                                    </span>
                                 </td>
                                 <td className="px-2 py-2.5 whitespace-nowrap">
-                                    <span className="inline-flex items-center gap-1.5 text-[12px] text-gray-700 dark:text-gray-300">{c.receivingFlag} {c.receivingCountry}</span>
+                                    <span className="inline-flex items-center gap-1.5 text-[12px] text-gray-700 dark:text-gray-300">
+                                        <CountryFlag country={c.receivingCountry} /> {c.receivingCountry}
+                                    </span>
                                 </td>
                                 <td className="px-2 py-2.5 text-[12px] text-gray-600 dark:text-gray-300 whitespace-nowrap">{c.currencyPair}</td>
                                 <td className="px-2 py-2.5 text-[12px] font-medium text-gray-900 dark:text-white whitespace-nowrap">{c.transactions.toLocaleString()}</td>
@@ -376,7 +398,7 @@ function AddCorridorModal({
                         <select value={from} onChange={e => setFrom(e.target.value)}
                             className="w-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 rounded-lg px-3 py-2 text-[13px] text-gray-700 dark:text-gray-200 cursor-pointer">
                             <option value="">Select country</option>
-                            {countries.map(c => <option key={c.id} value={c.name}>{c.flag} {c.name}</option>)}
+                            {countries.map(c => <option key={c.id} value={c.name}>{c.name}</option>)}
                         </select>
                     </div>
                     <div>
