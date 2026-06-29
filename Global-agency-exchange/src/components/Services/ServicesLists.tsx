@@ -47,7 +47,7 @@ const ServicesLists = () => {
         'Buy-back guarantee for unused currency',
         'Pre-paid multi-currency travel cards',
       ],
-      link: '/services/details',
+      link: '/services/travel-money',
     },
     {
       id: 4,
@@ -61,7 +61,7 @@ const ServicesLists = () => {
         'Historical rate charts and analysis',
         '24/7 access to your account',
       ],
-      link: '/services/details',
+      link: '/services/online-foreign',
     },
     {
       id: 5,
@@ -75,7 +75,7 @@ const ServicesLists = () => {
         'Expert advisory services',
         'Competitive pricing',
       ],
-      link: '/services/details',
+      link: '/services/currency-hedging',
     },
     {
       id: 6,
@@ -89,7 +89,7 @@ const ServicesLists = () => {
         'Multi-currency capabilities',
         'Payment tracking and reporting',
       ],
-      link: '/services/details',
+      link: '/services/international',
     },
   ];
 

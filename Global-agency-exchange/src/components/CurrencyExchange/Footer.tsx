@@ -59,20 +59,14 @@ const Footer = () => {
             <div className="col-lg-3 col-sm-6">
               <div className="footer-single-widget">
                 <div className="logo-wrap">
-                  <Image
-                    src="/images/logo-black.svg"
-                    className="d-block"
-                    alt="logo-black"
-                    width={127}
-                    height={50}
-                  />
-                  <Image
-                    src="/images/logo.svg"
-                    className="d-none"
-                    alt="logo"
-                    width={127}
-                    height={50}
-                  />
+                  <Link href="/" className="footer-logo">
+                    <Image
+                      src="/images/Logo.png"
+                      width={180}
+                      height={60}
+                      alt="logo"
+                    />
+                  </Link>
                 </div>
 
                 <p>
