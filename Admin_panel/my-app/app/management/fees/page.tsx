@@ -132,7 +132,7 @@ function FilterBar({
 }) {
     return (
         <div className="flex flex-wrap items-center gap-2 px-4 py-3 border-b border-gray-100 dark:border-gray-700/60">
-            <div className="flex items-center gap-2 flex-1 min-w-[160px] border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-1.5">
+            <div className="flex items-center gap-2 flex-1 min-w-40 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-1.5">
                 <Search size={14} className="text-gray-400 dark:text-gray-500" />
                 <input
                     value={search}

@@ -4,7 +4,7 @@ import { flagForCountryName } from "@/lib/countries_data";
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import { GrStatusGood } from "react-icons/gr";
 import { FaPassport, FaWallet } from "react-icons/fa";
-import { RiBillLine, RiHistoryFill } from "react-icons/ri";
+import { RiBillLine, RiHistoryFill, RiContactsBook2Line, RiBankLine } from "react-icons/ri";
 import { IoDocumentOutline } from "react-icons/io5";
 import { LuNotebookPen } from "react-icons/lu";
 import { HiDeviceTablet } from "react-icons/hi";
@@ -40,6 +40,11 @@ const customersData = [
       { id: "dev-2", type: "Desktop", name: "Chrome on Windows", os: "Windows 11", ip: "82.45.120.9", location: "London, United Kingdom", lastActive: "2 hours ago", isCurrent: false, trusted: true },
       { id: "dev-3", type: "Mobile", name: "Samsung Galaxy S23 · Chrome", os: "Android 14", ip: "31.50.88.214", location: "Manchester, United Kingdom", lastActive: "5 days ago", isCurrent: false, trusted: false },
     ],
+    beneficiaries: [
+      { id: "BEN-1001", name: "Abdul Rahman", relationship: "Father", country: "Bangladesh", flag: "🇧🇩", bankName: "Dutch-Bangla Bank", accountNumber: "•••• 4821", swift: "DBBLBDDH", status: "Verified", addedOn: "May 19, 2025", totalSent: "£4,200.00" },
+      { id: "BEN-1002", name: "Sara Rahman", relationship: "Sister", country: "Bangladesh", flag: "🇧🇩", bankName: "BRAC Bank", accountNumber: "•••• 9013", swift: "BRAKBDDH", status: "Verified", addedOn: "Apr 02, 2025", totalSent: "£1,850.00" },
+      { id: "BEN-1003", name: "Vikram Patel", relationship: "Business Partner", country: "India", flag: "🇮🇳", bankName: "HDFC Bank", accountNumber: "•••• 2207", swift: "HDFCINBB", status: "Pending", addedOn: "May 10, 2025", totalSent: "£0.00" },
+    ],
   },
   {
     id: "2", name: "Priya Sharma", email: "priya.sharma@example.com", phone: "+44 7700 900124",
@@ -58,6 +63,9 @@ const customersData = [
     ],
     devices: [
       { id: "dev-4", type: "Mobile", name: "iPhone 14 · Safari", os: "iOS 17.5", ip: "90.198.44.12", location: "London, United Kingdom", lastActive: "Active now", isCurrent: true, trusted: true },
+    ],
+    beneficiaries: [
+      { id: "BEN-2001", name: "Raj Sharma", relationship: "Brother", country: "India", flag: "🇮🇳", bankName: "ICICI Bank", accountNumber: "•••• 5510", swift: "ICICINBB", status: "Verified", addedOn: "May 18, 2025", totalSent: "£900.00" },
     ],
   },
   {
@@ -81,6 +89,11 @@ const customersData = [
       { id: "dev-5", type: "Desktop", name: "Edge on Windows", os: "Windows 10", ip: "78.144.20.5", location: "Birmingham, United Kingdom", lastActive: "Active now", isCurrent: true, trusted: true },
       { id: "dev-6", type: "Tablet", name: "iPad Air · Safari", os: "iPadOS 17", ip: "78.144.20.11", location: "Birmingham, United Kingdom", lastActive: "1 day ago", isCurrent: false, trusted: true },
     ],
+    beneficiaries: [
+      { id: "BEN-3001", name: "Imran Khan", relationship: "Father", country: "Pakistan", flag: "🇵🇰", bankName: "Habib Bank Limited", accountNumber: "•••• 7712", swift: "HABBPKKA", status: "Verified", addedOn: "May 15, 2025", totalSent: "£6,400.00" },
+      { id: "BEN-3002", name: "Farah Khan", relationship: "Wife", country: "Pakistan", flag: "🇵🇰", bankName: "United Bank Limited", accountNumber: "•••• 3390", swift: "UNILPKKA", status: "Verified", addedOn: "May 16, 2025", totalSent: "£3,150.00" },
+      { id: "BEN-3003", name: "Rashid Trading Co.", relationship: "Supplier", country: "Bangladesh", flag: "🇧🇩", bankName: "Eastern Bank", accountNumber: "•••• 1188", swift: "EBLDBDDH", status: "Verified", addedOn: "May 10, 2025", totalSent: "£980.00" },
+    ],
   },
   {
     id: "4", name: "Maria Santos", email: "maria.santos@example.com", phone: "+44 7700 900126",
@@ -102,6 +115,10 @@ const customersData = [
     devices: [
       { id: "dev-7", type: "Mobile", name: "Pixel 8 · Chrome", os: "Android 14", ip: "94.10.55.2", location: "Leeds, United Kingdom", lastActive: "Active now", isCurrent: true, trusted: true },
     ],
+    beneficiaries: [
+      { id: "BEN-4001", name: "Elena Santos", relationship: "Mother", country: "Philippines", flag: "🇵🇭", bankName: "BDO Unibank", accountNumber: "•••• 6620", swift: "BNORPHMM", status: "Verified", addedOn: "May 10, 2025", totalSent: "£5,100.00" },
+      { id: "BEN-4002", name: "Carlos Santos", relationship: "Brother", country: "Philippines", flag: "🇵🇭", bankName: "Bank of the Philippine Islands", accountNumber: "•••• 4471", swift: "BOPIPHMM", status: "Rejected", addedOn: "May 14, 2025", totalSent: "£0.00" },
+    ],
   },
   {
     id: "5", name: "James Okafor", email: "james.okafor@example.com", phone: "+44 7700 900127",
@@ -114,6 +131,9 @@ const customersData = [
     documents: [{ title: "Passport", type: "ID Proof", status: "Rejected", uploadedOn: "May 8, 2025", icon: "passport" }],
     devices: [
       { id: "dev-8", type: "Mobile", name: "Unknown Device · Chrome", os: "Android 12", ip: "185.220.101.45", location: "Unknown", lastActive: "7 days ago", isCurrent: false, trusted: false },
+    ],
+    beneficiaries: [
+      { id: "BEN-5001", name: "Chinedu Okafor", relationship: "Cousin", country: "Nigeria", flag: "🇳🇬", bankName: "GTBank", accountNumber: "•••• 9982", swift: "GTBINGLA", status: "Pending", addedOn: "May 8, 2025", totalSent: "£0.00" },
     ],
   },
   {
@@ -131,6 +151,9 @@ const customersData = [
     devices: [
       { id: "dev-9", type: "Mobile", name: "iPhone 13 · Safari", os: "iOS 17.2", ip: "62.30.18.77", location: "Bristol, United Kingdom", lastActive: "Active now", isCurrent: true, trusted: true },
       { id: "dev-10", type: "Desktop", name: "Firefox on macOS", os: "macOS Sonoma", ip: "62.30.18.80", location: "Bristol, United Kingdom", lastActive: "3 hours ago", isCurrent: false, trusted: true },
+    ],
+    beneficiaries: [
+      { id: "BEN-6001", name: "Yusuf Ali", relationship: "Husband", country: "Bangladesh", flag: "🇧🇩", bankName: "Islami Bank Bangladesh", accountNumber: "•••• 2284", swift: "IBBLBDDH", status: "Verified", addedOn: "May 17, 2025", totalSent: "£1,300.00" },
     ],
   },
   {
@@ -155,6 +178,11 @@ const customersData = [
       { id: "dev-12", type: "Mobile", name: "iPhone 15 · Safari", os: "iOS 18.0", ip: "51.6.88.204", location: "Edinburgh, United Kingdom", lastActive: "30 minutes ago", isCurrent: false, trusted: true },
       { id: "dev-13", type: "Desktop", name: "Chrome on Linux", os: "Ubuntu 22.04", ip: "203.45.66.18", location: "Lagos, Nigeria", lastActive: "12 days ago", isCurrent: false, trusted: false },
     ],
+    beneficiaries: [
+      { id: "BEN-7001", name: "Acme Imports Ltd.", relationship: "Business Supplier", country: "India", flag: "🇮🇳", bankName: "State Bank of India", accountNumber: "•••• 0091", swift: "SBININBB", status: "Verified", addedOn: "Apr 30, 2025", totalSent: "£18,400.00" },
+      { id: "BEN-7002", name: "Ngozi Eze", relationship: "Friend", country: "Nigeria", flag: "🇳🇬", bankName: "Access Bank", accountNumber: "•••• 5563", swift: "ABNGNGLA", status: "Verified", addedOn: "May 02, 2025", totalSent: "£3,900.00" },
+      { id: "BEN-7003", name: "Hans Mueller", relationship: "Business Partner", country: "France", flag: "🇫🇷", bankName: "BNP Paribas", accountNumber: "•••• 7740", swift: "BNPAFRPP", status: "Verified", addedOn: "May 05, 2025", totalSent: "£6,750.00" },
+    ],
   },
   {
     id: "8", name: "Sophie Martin", email: "sophie.martin@example.com", phone: "+44 7700 900130",
@@ -174,6 +202,10 @@ const customersData = [
     ],
     devices: [
       { id: "dev-14", type: "Mobile", name: "iPhone 14 Pro · Safari", os: "iOS 17.6", ip: "88.96.12.40", location: "Cardiff, United Kingdom", lastActive: "Active now", isCurrent: true, trusted: true },
+    ],
+    beneficiaries: [
+      { id: "BEN-8001", name: "Claire Martin", relationship: "Sister", country: "France", flag: "🇫🇷", bankName: "Société Générale", accountNumber: "•••• 3361", swift: "SOGEFRPP", status: "Verified", addedOn: "May 05, 2025", totalSent: "£4,950.00" },
+      { id: "BEN-8002", name: "Pierre Lambert", relationship: "Friend", country: "France", flag: "🇫🇷", bankName: "Crédit Agricole", accountNumber: "•••• 8847", swift: "AGRIFRPP", status: "Pending", addedOn: "May 16, 2025", totalSent: "£0.00" },
     ],
   },
 ];
@@ -241,15 +273,15 @@ const avatarColor = (initials: string) => {
 
 const docIcon = (icon: string) => {
   if (icon === "passport") return (
-    <FaPassport size={20}/>
+    <FaPassport size={20} />
 
   );
   if (icon === "bill") return (
-    <RiBillLine size={20}/>
+    <RiBillLine size={20} />
 
   );
   return (
-    <TbUserPentagon size={20}/>
+    <TbUserPentagon size={20} />
   );
 };
 
@@ -272,7 +304,7 @@ const deviceIcon = (type: string) => {
 };
 
 
-type TabKey = "Overview" | "KYC Status" | "Wallet Balance" | "Transaction History" | "Documents" | "Notes" | "Devices";
+type TabKey = "Overview" | "KYC Status" | "Wallet Balance" | "Transaction History" | "Linked Beneficiaries" | "Documents" | "Notes" | "Devices";
 
 export default function Page() {
   const [selectedId, setSelectedId] = useState(customersData[0].id);
@@ -290,7 +322,7 @@ export default function Page() {
 
   const customer = customersData.find(c => c.id === selectedId) || customersData[0];
 
-  const tabs: TabKey[] = ["Overview", "KYC Status", "Wallet Balance", "Transaction History", "Documents", "Notes", "Devices"];
+  const tabs: TabKey[] = ["Overview", "KYC Status", "Wallet Balance", "Transaction History", "Linked Beneficiaries", "Documents", "Notes", "Devices"];
 
   const handleSelectCustomer = (id: string) => {
     setSelectedId(id);
@@ -466,13 +498,14 @@ export default function Page() {
                     : "border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
                     }`}
                 >
-                  {tab === "Overview" && <span className="hidden sm:flex items-center mr-1"><MdOutlineAdminPanelSettings  size={20} /></span>}
-                  {tab === "KYC Status" && <span className="hidden sm:flex items-center mr-1"><GrStatusGood  size={20} /></span>}
-                  {tab === "Wallet Balance" && <span className="hidden sm:flex items-center mr-1"><FaWallet size={20}  /></span>}
-                  {tab === "Transaction History" && <span className="hidden sm:flex items-center mr-1"><RiHistoryFill  size={20} /></span>}
-                  {tab === "Documents" && <span className="hidden sm:flex items-center mr-1"><IoDocumentOutline size={20}  /></span>}
-                  {tab === "Notes" && <span className="hidden sm:flex items-center mr-1"><LuNotebookPen  size={20} /></span>}
-                  {tab === "Devices" && <span className="hidden sm:flex items-center mr-1"><HiDeviceTablet  size={20} /></span>}
+                  {tab === "Overview" && <span className="hidden sm:flex items-center mr-1"><MdOutlineAdminPanelSettings size={20} /></span>}
+                  {tab === "KYC Status" && <span className="hidden sm:flex items-center mr-1"><GrStatusGood size={20} /></span>}
+                  {tab === "Wallet Balance" && <span className="hidden sm:flex items-center mr-1"><FaWallet size={20} /></span>}
+                  {tab === "Transaction History" && <span className="hidden sm:flex items-center mr-1"><RiHistoryFill size={20} /></span>}
+                  {tab === "Linked Beneficiaries" && <span className="hidden sm:flex items-center mr-1"><RiContactsBook2Line size={20} /></span>}
+                  {tab === "Documents" && <span className="hidden sm:flex items-center mr-1"><IoDocumentOutline size={20} /></span>}
+                  {tab === "Notes" && <span className="hidden sm:flex items-center mr-1"><LuNotebookPen size={20} /></span>}
+                  {tab === "Devices" && <span className="hidden sm:flex items-center mr-1"><HiDeviceTablet size={20} /></span>}
                   {tab}
                 </button>
               ))}
@@ -852,6 +885,52 @@ export default function Page() {
                       ))}
                     </tbody>
                   </table>
+                </div>
+              </div>
+            )}
+
+            {activeTab === "Linked Beneficiaries" && (
+              <div className="border border-gray-100 dark:border-gray-800 rounded-xl p-4 sm:p-6">
+                <div className="flex items-center justify-between mb-1">
+                  <h3 className="text-base font-semibold text-gray-800 dark:text-white">Linked Beneficiaries</h3>
+                  <span className="text-xs text-gray-400">{customer.beneficiaries.length} saved recipient{customer.beneficiaries.length !== 1 ? "s" : ""}</span>
+                </div>
+                <p className="text-xs text-gray-400 mb-5">Recipients this customer has saved for sending money.</p>
+
+                {customer.beneficiaries.length === 0 && (
+                  <div className="flex flex-col items-center justify-center text-center min-h-32">
+                    <RiContactsBook2Line size={28} className="text-gray-300 mb-2" />
+                    <div className="text-sm font-semibold text-gray-700 dark:text-gray-300">No beneficiaries yet</div>
+                    <div className="text-xs text-gray-400 mt-1">This customer hasn&apos;t saved any recipients.</div>
+                  </div>
+                )}
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {customer.beneficiaries.map(b => (
+                    <div
+                      key={b.id}
+                      className="flex items-start gap-3 p-3.5 border border-gray-100 dark:border-gray-800 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800/50"
+                    >
+                      <div className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400">
+                        <RiBankLine size={20} />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="text-sm font-semibold text-gray-800 dark:text-white truncate">{b.name}</span>
+                          <span className={`px-1.5 py-0.5 text-[10px] font-medium rounded-full shrink-0 ${statusBadge(b.status)}`}>{b.status}</span>
+                        </div>
+                        <div className="text-xs text-gray-400 mt-0.5">{b.relationship}</div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400 mt-1.5 inline-flex items-center gap-1.5">
+                          <FlagIcon name={b.country} /> {b.bankName} · {b.accountNumber}
+                        </div>
+                        <div className="text-[11px] text-gray-400 mt-1">SWIFT/BIC: {b.swift}</div>
+                        <div className="flex items-center justify-between mt-2.5 pt-2 border-t border-gray-50 dark:border-gray-800/80">
+                          <span className="text-[11px] text-gray-400">Added {b.addedOn}</span>
+                          <span className="text-[11px] font-semibold text-gray-700 dark:text-gray-200">Sent {b.totalSent}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             )}
