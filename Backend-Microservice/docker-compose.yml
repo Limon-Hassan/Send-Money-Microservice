@@ -1,3 +1,82 @@
+# version: '3.8'
+
+# services:
+#   redis:
+#     image: redis:7-alpine
+#     container_name: redis
+#     ports:
+#       - "6379:6379"
+#     restart: always
+
+#   # api-gateway:
+#   #   build:
+#   #     context: ./api-getways
+#   #   container_name: api-gateway
+#   #   ports:
+#   #     - "3000:3000"
+#   #   environment:
+#   #     - NODE_ENV=production
+#   #     - AUTH_SERVICE_URL=http://auth-service:3002
+#   #     - USER_SERVICE_URL=http://user-service:3001
+#   #   depends_on:
+#   #     - auth-service
+#   #     - user-service
+#   #   restart: always
+
+#   auth-service:
+#     build:
+#       context: .
+#       dockerfile: auth-service/Dockerfile
+#     container_name: auth-service
+#     ports:
+#       - "3002:3002"
+#     environment:
+#       - NODE_ENV=production
+#       - DATABASE_URL=postgresql://USER:PASSWORD@RDS_ENDPOINT:5432/auth_db
+#       - REDIS_HOST=redis
+#       - REDIS_PORT=6379
+#       - JWT_SECRET=your_jwt_secret
+#       - REFRESH_SECRET=your_refresh_secret
+#       - USER_SERVICE_API_URL=http://user-service:3001
+#     depends_on:
+#       - redis
+#     restart: always
+
+#   user-service:
+#     build:
+#       context: .
+#       dockerfile: user-service/Dockerfile
+#     container_name: user-service
+#     ports:
+#       - "3001:3001"
+#     environment:
+#       - NODE_ENV=production
+#       - DATABASE_URL=postgresql://USER:PASSWORD@RDS_ENDPOINT:5432/user_db
+#       - REDIS_HOST=redis
+#       - REDIS_PORT=6379
+#     depends_on:
+#       - redis
+#     restart: always
+
+#   notification-service:
+#     build:
+#       context: .
+#       dockerfile: notification-service/Dockerfile
+#     container_name: notification-service
+#     ports:
+#       - "3003:3003"
+#     environment:
+#       - NODE_ENV=production
+#       - REDIS_HOST=redis
+#       - REDIS_PORT=6379
+#     depends_on:
+#       - redis
+#     restart: always
+
+
+
+
+
 version: '3.8'
 
 services:
@@ -8,20 +87,27 @@ services:
       - "6379:6379"
     restart: always
 
-  # api-gateway:
-  #   build:
-  #     context: ./api-getways
-  #   container_name: api-gateway
-  #   ports:
-  #     - "3000:3000"
-  #   environment:
-  #     - NODE_ENV=production
-  #     - AUTH_SERVICE_URL=http://auth-service:3002
-  #     - USER_SERVICE_URL=http://user-service:3001
-  #   depends_on:
-  #     - auth-service
-  #     - user-service
-  #   restart: always
+  kong:
+    image: kong:3.7
+    container_name: kong
+    environment:
+      KONG_DATABASE: "off"
+      KONG_DECLARATIVE_CONFIG: /kong/kong.yml
+      KONG_PROXY_LISTEN: "0.0.0.0:3000"
+      KONG_ADMIN_LISTEN: "127.0.0.1:8001"
+      KONG_PROXY_ACCESS_LOG: /dev/stdout
+      KONG_ADMIN_ACCESS_LOG: /dev/stdout
+      KONG_PROXY_ERROR_LOG: /dev/stderr
+      KONG_ADMIN_ERROR_LOG: /dev/stderr
+    volumes:
+      - ./kong/kong.yml:/kong/kong.yml:ro
+    ports:
+      - "3000:3000"
+      - "127.0.0.1:8001:8001"
+    depends_on:
+      - auth-service
+      - user-service
+    restart: always
 
   auth-service:
     build:
@@ -32,12 +118,20 @@ services:
       - "3002:3002"
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=postgresql://USER:PASSWORD@RDS_ENDPOINT:5432/auth_db
+      - DATABASE_URL=${AUTH_DATABASE_URL}
       - REDIS_HOST=redis
       - REDIS_PORT=6379
-      - JWT_SECRET=your_jwt_secret
-      - REFRESH_SECRET=your_refresh_secret
+      - JWT_SECRET=${JWT_SECRET}
+      - REFRESH_SECRET=${REFRESH_SECRET}
       - USER_SERVICE_API_URL=http://user-service:3001
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - GOOGLE_CALLBACK_URL=${GOOGLE_CALLBACK_URL}
+      - FRONTEND_URL=${FRONTEND_URL}
+      - SUMSUB_APP_TOKEN=${SUMSUB_APP_TOKEN}
+      - SUMSUB_SECRET_KEY=${SUMSUB_SECRET_KEY}
+      - SUMSUB_BASE_URL=${SUMSUB_BASE_URL}
+      - SUMSUB_WEBHOOK_SECRET=${SUMSUB_WEBHOOK_SECRET}
     depends_on:
       - redis
     restart: always
@@ -51,9 +145,10 @@ services:
       - "3001:3001"
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=postgresql://USER:PASSWORD@RDS_ENDPOINT:5432/user_db
+      - DATABASE_URL=${USER_DATABASE_URL}
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+      - OTP_TTL=300
     depends_on:
       - redis
     restart: always
@@ -69,6 +164,15 @@ services:
       - NODE_ENV=production
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+      - SMTP_HOST=${SMTP_HOST}
+      - SMTP_PORT=${SMTP_PORT}
+      - SMTP_USER=${SMTP_USER}
+      - SMTP_PASS=${SMTP_PASS}
+      - SMTP_FROM=${SMTP_FROM}
+      - TWILIO_ACCOUNT_SID=${TWILIO_ACCOUNT_SID}
+      - TWILIO_AUTH_TOKEN=${TWILIO_AUTH_TOKEN}
+      - TWILIO_FROM=${TWILIO_FROM}
+      - TWILIO_TO=${TWILIO_TO}
     depends_on:
       - redis
     restart: always
