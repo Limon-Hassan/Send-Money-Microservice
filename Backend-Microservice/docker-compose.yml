@@ -8,20 +8,20 @@ services:
       - "6379:6379"
     restart: always
 
-  api-gateway:
-    build:
-      context: ./api-getways
-    container_name: api-gateway
-    ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=production
-      - AUTH_SERVICE_URL=http://auth-service:3002
-      - USER_SERVICE_URL=http://user-service:3001
-    depends_on:
-      - auth-service
-      - user-service
-    restart: always
+  # api-gateway:
+  #   build:
+  #     context: ./api-getways
+  #   container_name: api-gateway
+  #   ports:
+  #     - "3000:3000"
+  #   environment:
+  #     - NODE_ENV=production
+  #     - AUTH_SERVICE_URL=http://auth-service:3002
+  #     - USER_SERVICE_URL=http://user-service:3001
+  #   depends_on:
+  #     - auth-service
+  #     - user-service
+  #   restart: always
 
   auth-service:
     build:

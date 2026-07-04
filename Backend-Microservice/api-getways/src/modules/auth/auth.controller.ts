@@ -68,38 +68,6 @@ export class AuthController {
     return { message: 'Login successful' };
   }
 
-  // @Post('login')
-  // async login(
-  //   @Body() dto: any,
-  //   @Req() req: Request,
-  //   @Res({ passthrough: true }) res: Response,
-  // ) {
-  //   const result = await this.authService.login(dto, {
-  //     ip: req.ip,
-  //     ua: req.headers['user-agent'] || '',
-  //   });
-
-  //   if (result.requiresOtp) return result;
-
-  //   this.setCookies(res, result.accessToken, result.refreshToken);
-  //   return { message: result.message, accessToken: result.accessToken };
-  // }
-
-  // @Post('verify-otp')
-  // async verifyOtp(
-  //   @Body() dto: any,
-  //   @Req() req: Request,
-  //   @Res({ passthrough: true }) res: Response,
-  // ) {
-  //   const result = await this.authService.verifyOtp(dto, {
-  //     ip: req.ip,
-  //     ua: req.headers['user-agent'] || '',
-  //   });
-
-  //   this.setCookies(res, result.accessToken, result.refreshToken);
-  //   return { message: result.message };
-  // }
-
   @Get('google')
   google(@Res() res: Response) {
     return res.redirect(`${process.env.AUTH_SERVICE_URL}/auth/google`);

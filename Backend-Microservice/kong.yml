@@ -1,0 +1,44 @@
+_format_version: "3.0"
+
+services:
+  - name: auth-service
+    url: http://auth-service:3002
+    routes:
+      - name: auth-route
+        paths:
+          - /auth
+        strip_path: false
+      - name: kyc-route
+        paths:
+          - /kyc
+        strip_path: false
+    plugins:
+      - name: cors
+        config:
+          origins:
+            - "https://thesendmoney.com"
+            - "https://www.thesendmoney.com"
+            - "https://secure.thesendmoney.com"
+            - "https://www.secure.thesendmoney.com"
+          methods: [GET, POST, PUT, PATCH, DELETE, OPTIONS]
+          credentials: true
+          headers: [Accept, Authorization, Content-Type, Cookie]
+
+  - name: user-service
+    url: http://user-service:3001
+    routes:
+      - name: user-route
+        paths:
+          - /user
+        strip_path: false
+    plugins:
+      - name: cors
+        config:
+          origins:
+            - "https://thesendmoney.com"
+            - "https://www.thesendmoney.com"
+            - "https://secure.thesendmoney.com"
+            - "https://www.secure.thesendmoney.com"
+          methods: [GET, POST, PUT, PATCH, DELETE, OPTIONS]
+          credentials: true
+          headers: [Accept, Authorization, Content-Type, Cookie]

@@ -4,47 +4,21 @@ import {
   Get,
   Req,
   Headers,
-  UnauthorizedException,
+  UseGuards,
+  RawBodyRequest,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { KycService } from './kyc.service';
-import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
-import { RawBodyRequest } from '@nestjs/common';
-
 
 @Controller('kyc')
 export class KycController {
-  constructor(
-    private readonly kycService: KycService,
-    private readonly jwt: JwtService,
-  ) {}
+  constructor(private readonly kycService: KycService) {}
 
-  private getUserId(req: Request): string {
-    const authHeader = req.headers['authorization'];
-    if (authHeader?.startsWith('Bearer ')) {
-      const token = authHeader.slice(7);
-      try {
-        const payload = this.jwt.decode(token) as { sub: string };
-        if (payload?.sub) return payload.sub;
-      } catch {}
-    }
-
-    const token = req.cookies['accessToken'] || req.cookies['refreshToken'];
-    if (!token) throw new UnauthorizedException('No access token');
-
-    try {
-      const payload = this.jwt.decode(token) as { sub: string };
-      if (!payload?.sub) throw new Error();
-      return payload.sub;
-    } catch {
-      throw new UnauthorizedException('Invalid token');
-    }
-  }
-
+  @UseGuards(AuthGuard('jwt'))
   @Post('init')
-  async init(@Req() req: Request) {
-    const userId = this.getUserId(req);
-    return this.kycService.initKyc(userId);
+  async init(@Req() req: any) {
+    return this.kycService.initKyc(req.user.userId);
   }
 
   @Post('webhook')
@@ -54,13 +28,12 @@ export class KycController {
   ) {
     const rawBody = req.rawBody?.toString('utf8') ?? '';
     const payload = JSON.parse(rawBody);
-
     return this.kycService.handleWebhook(payload, signature, rawBody);
-  }                                                                                     
+  }
 
+  @UseGuards(AuthGuard('jwt'))
   @Get('status')
-  async status(@Req() req: Request) {
-    const userId = this.getUserId(req);
-    return this.kycService.getStatus(userId);
+  async status(@Req() req: any) {
+    return this.kycService.getStatus(req.user.userId);
   }
 }
