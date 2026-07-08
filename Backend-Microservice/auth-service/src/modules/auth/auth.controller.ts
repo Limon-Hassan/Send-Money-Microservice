@@ -200,6 +200,17 @@ export class AuthController {
     return this.authService.getMe(req.user);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Get('verify')
+  async verify(@Req() req: any) {
+    const kyc = await this.KycService.getStatus(req.user.userId);
+    return {
+      valid: true,
+      userId: req.user.userId,
+      kycStatus: kyc.status, 
+    };
+  }
+
   @Post('forgot-password')
   async forgotPassword(@Body() body: { email: string }) {
     return this.authService.forgotPasswordRequest(body.email);

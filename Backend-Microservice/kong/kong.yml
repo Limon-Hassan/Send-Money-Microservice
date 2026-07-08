@@ -1,4 +1,4 @@
-_format_version: "3.0"
+_format_version: '3.0'
 
 services:
   - name: auth-service
@@ -16,10 +16,10 @@ services:
       - name: cors
         config:
           origins:
-            - "https://thesendmoney.com"
-            - "https://www.thesendmoney.com"
-            - "https://secure.thesendmoney.com"
-            - "https://www.secure.thesendmoney.com"
+            - 'https://thesendmoney.com'
+            - 'https://www.thesendmoney.com'
+            - 'https://secure.thesendmoney.com'
+            - 'https://www.secure.thesendmoney.com'
           methods: [GET, POST, PUT, PATCH, DELETE, OPTIONS]
           credentials: true
           headers: [Accept, Authorization, Content-Type, Cookie]
@@ -35,10 +35,11 @@ services:
       - name: cors
         config:
           origins:
-            - "https://thesendmoney.com"
-            - "https://www.thesendmoney.com"
-            - "https://secure.thesendmoney.com"
-            - "https://www.secure.thesendmoney.com"
+            - 'https://thesendmoney.com'
+            - 'https://www.thesendmoney.com'
+            - 'https://secure.thesendmoney.com'
+            - 'https://www.secure.thesendmoney.com'
+            - 'https://dashboard.thesendmoney.com'
           methods: [GET, POST, PUT, PATCH, DELETE, OPTIONS]
           credentials: true
           headers: [Accept, Authorization, Content-Type, Cookie]

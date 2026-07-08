@@ -17,6 +17,7 @@ async function bootstrap() {
       'https://www.secure.thesendmoney.com',
       'https://thesendmoney.com',
       'https://www.thesendmoney.com',
+      'https://dashboard.thesendmoney.com', 
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],

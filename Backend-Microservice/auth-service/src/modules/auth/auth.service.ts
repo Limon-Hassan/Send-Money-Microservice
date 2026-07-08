@@ -29,7 +29,7 @@ export class AuthService {
 
   async validateUser(emailOrPhone: string, password: string) {
     const response = await fetch(
-      `${process.env.USER_SERVICE_API_URL}/user/internal?emailOrPhone=${emailOrPhone}`,
+      `${process.env.USER_SERVICE_API_URL}/internal/user?emailOrPhone=${emailOrPhone}`,
     );
 
     if (!response.ok) {
@@ -246,14 +246,14 @@ export class AuthService {
     device: { ip: string; ua: string },
   ): Promise<LoginResult> {
     const response = await fetch(
-      `${process.env.USER_SERVICE_API_URL}/user/internal?emailOrPhone=${googleUser.email}`,
+      `${process.env.USER_SERVICE_API_URL}/internal/user?emailOrPhone=${googleUser.email}`,
     );
 
     let user: any;
 
     if (!response.ok) {
       const registerRes = await fetch(
-        `${process.env.USER_SERVICE_API_URL}/user/google-register`,
+        `${process.env.USER_SERVICE_API_URL}/internal/google-register`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -458,7 +458,7 @@ export class AuthService {
 
   async forgotPasswordRequest(email: string) {
     const res = await fetch(
-      `${process.env.USER_SERVICE_API_URL}/user/internal/find-by-email`,
+      `${process.env.USER_SERVICE_API_URL}/internal/find-by-email`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -524,7 +524,7 @@ export class AuthService {
     }
 
     const res = await fetch(
-      `${process.env.USER_SERVICE_API_URL}/user/internal/reset-password`,
+      `${process.env.USER_SERVICE_API_URL}/internal/reset-password`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
