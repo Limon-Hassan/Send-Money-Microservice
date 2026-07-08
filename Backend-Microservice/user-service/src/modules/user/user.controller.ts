@@ -1,4 +1,13 @@
-import { Controller, Post, Body, Get, Query, Req } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Query,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { UserService } from './user.services';
 import { RegisterDto } from './dto/register.dto';
 import { OtpValidationDto } from './dto/otp.dto';
@@ -29,38 +38,20 @@ export class UserController {
     return this.userService.resendOtp(dto);
   }
 
-  @Get('internal')
-  async getUser(@Query('emailOrPhone') emailOrPhone: string) {
-    return this.userService.getUserByEmailOrPhone(emailOrPhone);
-  }
-
-  @Post('google-register')
-  async googleRegister(@Body() body: any) {
-    return this.userService.googleRegister(body);
-  }
-
+  @UseGuards(AuthGuard('jwt'))
   @Get('profile')
-  async getProfile(@Query('userId') userId: string) {
-    return this.userService.getProfile(userId);
+  async getProfile(@Req() req: any) {
+    return this.userService.getProfile(req.user.userId);
   }
 
-  @Post('internal/find-by-email')
-  async findByEmail(@Body() body: { email: string }) {
-    return this.userService.findUserByEmail(body.email);
-  }
-
-  @Post('internal/reset-password')
-  async resetPassword(@Body() body: { userId: string; newPassword: string }) {
-    return this.userService.resetPassword(body.userId, body.newPassword);
-  }
-
+  @UseGuards(AuthGuard('jwt'))
   @Post('change-password')
   async changePassword(
     @Body() body: { currentPassword: string; newPassword: string },
-    @Req() req,
+    @Req() req: any,
   ) {
     return this.userService.changePassword(
-      req.user.id,
+      req.user.userId,
       body.currentPassword,
       body.newPassword,
     );
